@@ -1,4 +1,4 @@
-# 📚 L-ZERO RTL Track: Rocket-chip & Chisel 공식 학습 리소스
+# 📚 RTL Track: Rocket-chip & Chisel 공식 학습 리소스
 
 Rocket-chip과 Chisel은 상용 툴이 아닌 오픈소스 프로젝트이므로, 정규 인터넷 강의보다는 **공식 튜토리얼, 공식 문서, 그리고 대학의 오픈 코스웨어** 를 직접 따라 해보는 것이 가장 빠르고 확실한 학습 방법입니다. L-ZERO 학회원들은 아래의 Phase 순서대로 스터디를 진행하는 것을 권장합니다.
 
