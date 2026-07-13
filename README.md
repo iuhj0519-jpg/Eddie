@@ -47,7 +47,7 @@ Chisel에 익숙해졌다면, Rocket-chip 본체의 구조를 파악하고 커�
 ---
 ---
 
-# 🚀 L-ZERO RTL Track: 개발 환경 설정 가이드
+# 🚀 RTL Track: 개발 환경 설정 가이드
 
 본 저장소는 **Processing-In-Memory(PIM)** 및 **Custom HW Accelerator** 설계를 위한 Chisel/Rocket-chip 통합 개발 환경입니다. Docker를 통해 복잡한 의존성 설치 없이 즉시 설계를 시작할 수 있습니다.
 
@@ -93,7 +93,7 @@ git submodule update --init --recursive
 ---
 
 ## 🚢 3. 환경 빌드 및 초기 셋업 (Docker)
-L-ZERO 전용 Makefile을 통해 환경 구축을 자동화합니다.
+전용 Makefile을 통해 환경 구축을 자동화합니다.
 ① 컨테이너 실행
 ```bash
 make up
