@@ -45,9 +45,6 @@
         input                   nnOut_valid,
         output                  image_batch_start,
         output                  image_batch_result_ready,
-        input                   image_batch_start_ready,
-        input                   input_loader_busy,
-        input                   prefetch_batch_ready,
         /*
         output reg              axi_rd_en,
         input           [31:0]  axi_rd_data,
@@ -106,16 +103,6 @@
     assign softReset = controlReg[0];
     assign image_batch_start = controlReg[1];
     assign image_batch_result_ready = controlReg[2];
-
-    // statReg is one 32-bit status register. Bits [3:0] are independent
-    // status fields; unused upper bits remain zero (reserved values)
-    always @(*) begin
-        statReg = {C_S_AXI_DATA_WIDTH{1'b0}};
-        statReg[0] = nnOut_valid;
-        statReg[1] = image_batch_start_ready;
-        statReg[2] = input_loader_busy;
-        statReg[3] = prefetch_batch_ready;
-    end
 
 	always @( posedge S_AXI_ACLK )
 	begin
