@@ -28,7 +28,6 @@ Verilog의 `$readmemb` 경로가 파일명만 사용하므로, 재현 스크립�
 
 ## 검증된 baseline
 
-- 실행일: 2026-08-27
 - Simulator: ModelSim - Intel FPGA Edition 10.5b
 - Compile: error 0, warning 0
 - Elaboration/simulation: error 0, warning 65
