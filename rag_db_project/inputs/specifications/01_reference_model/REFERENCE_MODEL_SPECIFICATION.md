@@ -20,7 +20,7 @@ Reference model은 3개의 fully-connected computational layer로 구성된다.
 | Layer 2 | 30 | 20 | sigmoid LUT |
 | Layer 3 | 20 | 10 | sigmoid LUT |
 
-Layer 3의 10개 출력은 `maxFinder`에 전달되며 가장 큰 score의 index가 class 0~9 결과가 된다.
+Layer 3의 10개 출력은 `maxFinder`에 전달되며 가장 큰 score의 index가 class 0~9 결과가 된다. 비교는 strict `>`를 사용하므로 최대 score가 같은 경우 먼저 검사한 낮은 class index가 유지된다.
 
 구현 계층:
 
@@ -37,9 +37,11 @@ zyNet
 
 - `include.v`의 `dataWidth`는 8이다.
 - input, weight, bias 및 activation data path는 8-bit를 기준으로 한다.
-- 각 neuron은 weight memory와 bias를 사용해 multiply-accumulate를 수행한다.
-- sigmoid activation은 10-bit address의 `sigContent.mif` lookup table을 사용한다.
-- weight와 bias의 정확한 signed/fixed-point scaling은 후속 numeric-format 승인 문서에서 별도 확정해야 한다.
+- 각 neuron은 signed 8-bit input과 signed 8-bit weight를 곱하고, 16-bit `mul` 및 `sum` 경로에서 multiply-accumulate를 수행한다.
+- product 누산과 bias 가산은 signed 16-bit 상한·하한에서 saturation 처리한다.
+- 8-bit bias는 16-bit 합에 더하기 전에 상위 8-bit 위치로 이동한다. 코드상 표현은 bias를 8-bit left shift한 것과 같다.
+- sigmoid activation은 16-bit `sum`의 상위 10-bit를 address로 사용해 `sigContent.mif` lookup table을 조회한다.
+- 위 bit-level 동작은 기준 구현의 계약으로 기록한다. 다만 input, weight, bias의 정확한 Q-format 의미와 실수 scale은 후속 numeric-format 승인 문서에서 별도 확정해야 한다.
 
 ## 4. AXI-Stream input
 
@@ -99,12 +101,14 @@ Reference 구현의 AXI-Lite parameter는 다음과 같다.
 - REQ-REF-002: network topology는 784→30→20→10이어야 한다.
 - REQ-REF-003: Layer 1~3은 승인된 sigmoid LUT와 weight/bias를 사용해야 한다.
 - REQ-REF-004: 최종 결과는 Layer 3 score 10개의 최대 index여야 한다.
-- REQ-REF-005: 동일 score의 tie-breaking 규칙은 구현 분석 후 명시적으로 승인해야 한다.
+- REQ-REF-005: 동일한 최대 score가 둘 이상이면 가장 낮은 class index를 결과로 선택해야 한다.
 - REQ-REF-006: 100-sample baseline은 정확히 99 PASS / 1 FAIL과 99.000000%를 재현해야 한다.
 - REQ-REF-007: `test_data_0018.txt`의 baseline 결과는 detected 8, expected 3이어야 한다.
 - REQ-REF-008: AXI-Lite data width는 32-bit, address width는 5-bit, protection signal은 3-bit로 연결해야 한다.
 - REQ-REF-009: 후속 testbench는 address 및 protection port-width warning을 발생시키지 않아야 한다.
 - REQ-REF-010: 현재 코드에서 확정되지 않은 fixed-point scaling은 추측하지 않고 `unknown`으로 보고해야 한다.
+- REQ-REF-011: neuron 연산은 signed 8×8 multiplication과 signed 16-bit saturating accumulation 및 bias addition 동작을 보존해야 한다.
+- REQ-REF-012: sigmoid LUT address는 16-bit 누산 결과의 상위 10-bit를 사용해야 한다.
 
 ## 9. 알려진 제한
 
