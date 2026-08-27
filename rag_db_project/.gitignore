@@ -1,0 +1,36 @@
+# FPGA simulation output
+**/work/
+**/transcript
+**/vsim.wlf
+**/*.wlf
+**/*.vcd
+**/.sim/
+
+# Vivado / Quartus generated output
+**/.Xil/
+**/*.jou
+**/*.log
+**/db/
+**/incremental_db/
+**/output_files/
+
+# RAG runtime data
+rag_db_project/rag/data/
+rag_db_project/rag/cache/
+rag_db_project/rag/runs/
+**/qdrant_storage/
+**/embedding_cache/
+
+# Python
+**/__pycache__/
+**/*.pyc
+.venv/
+
+# Secrets
+.env
+.env.*
+!.env.example
+
+# Editor / OS
+.DS_Store
+Thumbs.db

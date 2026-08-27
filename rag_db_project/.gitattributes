@@ -1,0 +1,26 @@
+* text=auto
+
+# Preserve imported reference inputs byte-for-byte and do not rewrite/diff them.
+inputs/reference_model/model/**/*.v              binary
+inputs/reference_model/weights/*.mif              binary
+inputs/reference_model/biases/*.mif               binary
+inputs/reference_model/activation/*.mif           binary
+inputs/reference_model/testdata/*.txt              binary
+
+*.sv    text eol=lf
+*.svh   text eol=lf
+*.md    text eol=lf
+*.yaml  text eol=lf
+*.yml   text eol=lf
+*.json  text eol=lf
+*.py    text eol=lf
+*.sh    text eol=lf
+*.tcl   text eol=lf
+*.do    text eol=lf
+
+*.png   binary
+*.jpg   binary
+*.jpeg  binary
+*.pdf   binary
+*.wlf   binary
+*.vcd   binary
