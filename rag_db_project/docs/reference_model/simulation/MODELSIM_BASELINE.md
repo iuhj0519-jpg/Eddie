@@ -2,7 +2,6 @@
 
 - 문서 ID: REF-SIM-001
 - 상태: verified
-- 실행일: 2026-08-27
 - Simulator: ModelSim - Intel FPGA Edition 10.5b
 - 설치 기준: Intel FPGA 18.1
 - Testbench top: `top_sim`

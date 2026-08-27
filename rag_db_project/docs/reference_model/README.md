@@ -11,4 +11,4 @@
 | `simulation/MODELSIM_BASELINE.md` | 실행 환경, 명령, 99/1 결과와 알려진 경고 |
 | `provenance/SOURCE_PROVENANCE.md` | 원본 경로, 선택·제외한 파일과 출처 정책 |
 
-현재 문서는 원본 코드 및 실제 ModelSim 실행으로 확인한 As-Is 사실을 기록한다. Systolic array로의 이식 요구사항은 `inputs/specifications/02_systolic_migration`에서 별도로 정의해야 한다.
+현재 문서는 원본 코드 및 실제 ModelSim 실행으로 확인한 As-Is 사실을 기록한다. Systolic array로의 이식 요구사항은 `inputs/specifications/02_systolic_accelerator`에서 별도로 정의해야 한다.

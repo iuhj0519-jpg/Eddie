@@ -2,7 +2,6 @@
 
 - 문서 ID: REF-DATA-001
 - 상태: draft-for-review
-- 기준일: 2026-08-27
 
 ## Weight 및 bias
 

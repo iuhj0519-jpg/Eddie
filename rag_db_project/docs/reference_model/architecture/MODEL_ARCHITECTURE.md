@@ -2,7 +2,6 @@
 
 - 문서 ID: REF-ARCH-001
 - 상태: draft-for-review
-- 기준일: 2026-08-27
 - 구현 언어: Verilog
 - DUT top: `zyNet`
 
