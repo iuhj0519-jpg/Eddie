@@ -1,11 +1,11 @@
 * text=auto
 
-# Preserve imported reference inputs byte-for-byte and do not rewrite/diff them.
-inputs/reference_model/model/**/*.v              binary
-inputs/reference_model/weights/*.mif              binary
-inputs/reference_model/biases/*.mif               binary
-inputs/reference_model/activation/*.mif           binary
-inputs/reference_model/testdata/*.txt              binary
+# Preserve imported reference inputs byte-for-byte without EOL rewriting.
+inputs/reference_model/model/**/*.v              -text
+inputs/reference_model/weights/*.mif              -text
+inputs/reference_model/biases/*.mif               -text
+inputs/reference_model/activation/*.mif           -text
+inputs/reference_model/testdata/*.txt              -text
 
 *.sv    text eol=lf
 *.svh   text eol=lf
