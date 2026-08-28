@@ -10,7 +10,7 @@
 
 이 문서는 MNIST inference를 수행하는 legacy FC-MLP RTL의 기능 및 인터페이스 계약을 정의한다. 후속 5×5 systolic accelerator는 내부 연산 구조를 변경하더라도 이 문서의 승인된 기능 결과를 보존해야 한다.
 
-## 2. Network topology
+## 2. Network Topology
 
 Reference model은 3개의 fully-connected computational layer로 구성된다.
 
@@ -33,7 +33,7 @@ zyNet
 └─ maxFinder
 ```
 
-## 3. Data representation
+## 3. Data Representation
 
 - `include.v`의 `dataWidth`는 8이다.
 - input, weight, bias 및 activation data path는 8-bit를 기준으로 한다.
@@ -43,7 +43,7 @@ zyNet
 - sigmoid activation은 16-bit `sum`의 상위 10-bit를 address로 사용해 `sigContent.mif` lookup table을 조회한다.
 - 위 bit-level 동작은 기준 구현의 계약으로 기록한다. 다만 input, weight, bias의 정확한 Q-format 의미와 실수 scale은 후속 numeric-format 승인 문서에서 별도 확정해야 한다.
 
-## 4. AXI-Stream input
+## 4. AXI-Stream Input
 
 Reference DUT는 다음 입력을 제공한다.
 
@@ -55,7 +55,7 @@ Reference DUT는 다음 입력을 제공한다.
 
 한 image는 784개의 feature를 순서대로 전달한다. 현재 `zyNet` 구현은 `axis_in_data_ready`를 항상 1로 구동한다. `tlast`와 `tkeep`은 제공하지 않으며 내부 연산이 입력 개수를 기준으로 layer 진행을 결정한다.
 
-## 5. AXI-Lite control/result
+## 5. AXI-Lite Control/Result
 
 Reference 구현의 AXI-Lite parameter는 다음과 같다.
 
@@ -75,7 +75,7 @@ Reference 구현의 AXI-Lite parameter는 다음과 같다.
 
 이 동작을 유지해야 한다는 뜻은 아니다. 후속 testbench에서는 address를 5-bit로 선언하고 protection constant를 `3'b000`으로 명시해 warning을 제거해야 한다.
 
-## 6. Weight, bias 및 test data
+## 6. Weight, Bias 및 Test Data
 
 - Weight: `w_<layer>_<neuron>.mif`, 60개
 - Bias: `b_<layer>_<neuron>.mif`, 60개
@@ -84,7 +84,7 @@ Reference 구현의 AXI-Lite parameter는 다음과 같다.
 
 각 test vector는 784개 input entry와 마지막 expected label entry로 구성된다.
 
-## 7. Verified functional baseline
+## 7. Verified Functional Baseline
 
 - 대상 sample: 100개
 - PASS: 99

@@ -1,114 +1,85 @@
 # 5×5 Output-Stationary Systolic Accelerator Specification
 
 - 문서 ID: SYS-SPEC-001
-- 버전: 0.1
+- 버전: 0.2
 - 상태: draft-for-review
-- 목표 module: `systolic_controller`, `systolic_array_2d`, `pe_systolic_cell`, `mac_pe`
-- 참고 구현: `historical_baselines/systolic_prototype`
+- 기능 블록: Input Buffer, Global Buffer, DNN Scheduler, Systolic Controller, Systolic Array
+- 비교 대상: `historical_baselines/systolic_prototype`
 
 ## 1. 목적
 
-이 문서는 legacy FC-MLP의 fully-connected 연산을 5×5 systolic array에서 수행하기 위한 목표 아키텍처를 정의한다. 5개의 row는 한 batch의 MNIST image 5개를 동시에 처리하는 image lane이고, 5개의 column은 한 neuron group의 output lane이다. 한 batch는 5개 image로 구성하며 20개 batch를 반복해 총 100개 image를 추론한다.
+이 문서는 legacy FC-MLP의 fully-connected 연산을 5×5 systolic array에서 수행하기 위한 목표 아키텍처를 정의한다. 5개의 row는 한 batch의 MNIST image 5개를 동시에 처리하고, 5개의 column은 output neuron 5개를 병렬 계산한다. 한 batch는 5개 image이며 20개 batch를 반복해 총 100개 image를 추론한다.
 
-## 2. Array architecture
+이 문서는 Historical Baseline의 RTL 구조를 복제하기 위한 문서가 아니다. 승인된 기능, interface, memory 동작과 timing 계약만 제공하며 RAG Agent는 이를 만족하는 독립적인 RTL을 생성해야 한다.
 
-| Parameter | 기준값 | 의미 |
-|---|---:|---|
-| `ROWS` | 5 | array row/동시 input lane |
-| `COLS` | 5 | array column/output neuron lane |
-| `DATA_W` | 8 | signed input 및 weight width |
-| `ACC_W` | 26 | signed accumulated result width |
-| `SRAM_READ_LATENCY` | 1 | 현재 memory read latency 가정 |
+## 2. Design Provenance And Exclusions
 
-전체 array는 25개의 `pe_systolic_cell`로 구성한다.
-
-```text
-A input → PE(0,0) → PE(0,1) → ... → PE(0,4)
-          ↓         ↓                 ↓
-         PE(1,0) → PE(1,1) → ... → PE(1,4)
-          ↓         ↓                 ↓
-          ...       ...               ...
-          ↓         ↓                 ↓
-         PE(4,0) → PE(4,1) → ... → PE(4,4)
-                    ↑
-                 B input
-```
-
-- A/input feature는 각 row의 왼쪽에서 입력되어 오른쪽으로 전달된다.
-- B/weight는 각 column의 위쪽에서 입력되어 아래쪽으로 전달된다.
-- row/column index만큼 입력 주소를 지연해 두 operand가 목표 PE에서 같은 cycle에 만나도록 skew한다.
-
-## 3. Output-stationary dataflow
-
-각 PE의 partial sum은 해당 PE 내부 `acc_sum` register에 머무른다. A와 B operand만 인접 PE로 이동하며, 누산 결과는 연산이 끝날 때까지 이동하지 않는다. 따라서 dataflow는 output-stationary(OS)다.
-
-`mac_pe` 동작:
-
-```text
-mul = signed(a) × signed(b)
-acc_sum(next) = acc_sum + mul, when enable=1
-```
-
-- reset 또는 `clr`에서 accumulator를 0으로 만든다.
-- `en=1`일 때만 multiply-accumulate한다.
-- `en=0`이면 operand pipeline과 accumulator 상태를 유지한다.
-
-## 4. Controller interface
-
-| Signal | 방향 | 의미 |
+| 구분 | 설계 요소 | SPEC 처리 |
 |---|---|---|
-| `i_start` | input | 새 tile 연산 요청 |
-| `o_busy` | output | controller가 RUN 상태임 |
-| `o_done` | output | 결과가 완료되어 DONE_STATE에 있음 |
-| `current_common_dimension_length` | input | 현재 layer의 K dimension |
+| 사용자 설계 | Input Buffer | 필수 아키텍처로 포함 |
+| 사용자 설계 | Global Buffer와 ping-pong buffering | 필수 아키텍처로 포함 |
+| 사용자 설계 | DNN Scheduler FSM | 필수 제어 구조로 포함 |
+| 기능 요구 | 5×5 Output-Stationary Systolic Array | FC 연산 대체 구조로 포함 |
+| Reference Model 계승 | AXI-Stream, AXI-Lite, activation, MaxFinder 기능 | 외부 호환성과 기능 보존 대상으로 포함 |
+| 기존 AI 제안 | 별도 Capture Register | 생성 요구사항에서 제외 |
+| 기존 AI 제안 | 별도 MaxFinder Input Register | 생성 요구사항에서 제외 |
 
-Memory feed interface는 row별 input-feature read와 column별 weight read를 제공한다. 각 read channel은 enable, address, data, valid를 가진다.
+Systolic Array 출력은 별도 Capture Register를 거치도록 강제하지 않는다. 결과는 완료 timing에 맞춰 activation 또는 Global Buffer write 경로가 직접 소비해야 한다. MaxFinder 입력도 별도 전용 register를 필수 구조로 두지 않는다.
 
-## 5. FSM
-
-```text
-IDLE --i_start=1--> RUN --cycle complete--> DONE_STATE
-  ^                                       |
-  └--------------- i_start=0 -------------┘
-```
-
-### IDLE
-
-- `o_busy=0`, `o_done=0`
-- `i_start=1`이면 다음 상태를 `RUN`으로 설정한다.
-- `(state==IDLE) && i_start`에서 `array_clr=1`로 accumulator를 초기화한다.
-
-### RUN
-
-- `o_busy=1`, `o_done=0`
-- `array_en=1`
-- cycle counter를 증가시킨다.
-- skew된 input/weight read address를 생성하고 valid data를 array에 공급한다.
-- 완료 조건을 만족하면 `DONE_STATE`로 전이한다.
-
-### DONE_STATE
-
-- `o_busy=0`, `o_done=1`
-- `o_done`은 one-cycle pulse가 아니라 상태 level이다.
-- requester가 `i_start=0`으로 내리면 `IDLE`로 돌아간다.
-
-Controller 단독 interface에서는 start가 계속 1이면 DONE_STATE에 머물고, start가 0인 clock에서 IDLE 복귀를 예약한다.
-
-현재 `NPU_Top` 결합에서는 `array_controller_start = (dnn_state == TILE_START)`이므로 `i_start`는 `TILE_START` 동안 1 cycle만 1이고, `TILE_WAIT` 진입과 함께 0이 된다. Controller는 IDLE에서 이 start를 수락한 뒤 start level과 무관하게 RUN을 계속한다. 계산 완료 후 DONE_STATE에 진입하면 `o_done`이 1이 되며, 이 시점에는 `i_start`가 이미 0이므로 다음 clock에 IDLE로 돌아간다. 따라서 현재 결합에서 관찰되는 `o_done`은 1 cycle이지만, 별도의 one-cycle pulse 생성 로직이 아니라 상태와 handshake의 결과다. 목표 구현은 이 동작을 변경하지 않는다.
-
-## 6. Batch mapping
+## 3. Top-Level Architecture
 
 ```text
-1 batch = 5 images
-20 batches × 5 images = 100 images
+AXI-Stream Input
+       │
+       ▼
++------------------+
+| Input Buffer     |  5 banks, one bank per image
++------------------+
+       │ Layer 1 source
+       ▼
++------------------+       +------------------+
+| Systolic Array   | <---- | Weight Memory    |
+| 5 rows × 5 cols  |       +------------------+
++------------------+       +------------------+
+       │                    | Bias/Activation  |
+       └------------------> +------------------+
+                               │
+                               ▼
+                     +------------------+
+                     | Global Buffer    |
+                     | 5 banks, A/B     |
+                     | ping-pong        |
+                     +------------------+
+                         │          ▲
+                         └ next layer
+
+Final Layer Result ──> MaxFinder ──> AXI-Lite Result/Interrupt
+
+DNN Scheduler controls load, layer, tile, group, output and result phases.
 ```
 
-- 입력 matrix의 한 tile은 `[5×K]`이며 각 row가 서로 다른 image에 대응한다.
-- Layer 1에서 `K=784`이고 5개 image의 feature vector를 병렬 처리한다.
-- 각 row는 독립적인 image 결과를 유지하며, 최종적으로 5개의 maxFinder가 batch의 class 결과 5개를 생성한다.
-- 20-batch 반복은 array 내부 한 번의 tile 연산이 아니라 testbench 또는 상위 제어가 수행하는 전체 inference schedule이다.
+### 3.1 Input Buffer
 
-## 7. DNN Scheduler and top-level data path
+- AXI-Stream으로 전달되는 5개 image의 입력을 저장한다.
+- 5개 bank를 사용하며 각 bank는 image 한 개의 784개 feature에 대응한다.
+- 한 batch의 논리적 입력 matrix는 `[5×784]`다.
+- 입력 완료 전 Systolic Array 연산을 시작해서는 안 된다.
+- Layer 1의 row input은 Input Buffer의 대응 image bank에서 읽는다.
+- 입력 순서와 8-bit data 표현은 Reference Model의 AXI-Stream 계약을 유지한다.
+
+### 3.2 Global Buffer
+
+- Layer 사이의 intermediate result와 tile 결과를 저장한다.
+- 5개 image lane에 대응하는 5개 bank로 구성한다.
+- 두 개의 논리적 영역 A/B를 사용해 source read와 destination write를 분리한다.
+- 현재 layer가 A를 읽으면 결과를 B에 쓰고, 다음 layer에서는 B를 읽어 A에 쓴다.
+- read/write 영역 교대는 DNN Scheduler가 layer 경계에서 제어한다.
+- 한 bank에서 동시에 필요한 여러 neuron score를 읽을 수 있도록 address와 vector packing 규칙을 정의해야 한다.
+- 별도 Capture Register 없이 Systolic Array 완료 결과를 activation/write 경로가 직접 Global Buffer에 저장해야 한다.
+
+### 3.3 DNN Scheduler
+
+DNN Scheduler는 Input Buffer, Global Buffer, Systolic Array, activation과 output sequence를 제어한다.
 
 ```text
 IDLE → INPUT_LOAD → LAYER_SETUP → TILE_START → TILE_WAIT
@@ -120,104 +91,178 @@ IDLE → INPUT_LOAD → LAYER_SETUP → TILE_START → TILE_WAIT
 OUTPUT_LOAD → MAXFINDER_START → MAXFINDER_WAIT → RESULT_VALID → IDLE
 ```
 
-- 별도의 `PARTIAL_SUM_CAPTURE` 상태를 두지 않는다. `TILE_WAIT && array_controller_done`인 clock edge에서 array 결과를 capture register에 저장하고 `ACTIVATION_WRITE`로 진행한다.
-- Layer 1/2 intermediate activation은 5-bank global buffer의 A/B 영역을 ping-pong 방식으로 사용한다.
-- Weight는 global buffer에 저장하지 않고 5-bank Weight SRAM에서 skew 후 array로 직접 공급한다.
-- Bias SRAM, activation unit, SigROM과 maxFinder는 batch의 5개 image lane에 맞춰 병렬 구성한다.
-- `GROUP_CHECK`는 현재 layer의 다음 5-neuron group을 결정하고, `LAYER_CHECK`는 다음 layer 또는 최종 output 경로를 결정한다.
+- `INPUT_LOAD`: 한 batch의 5개 image가 Input Buffer에 저장될 때까지 대기한다.
+- `LAYER_SETUP`: 현재 layer의 K, output group 수, source/destination buffer 영역을 설정한다.
+- `TILE_START`: Systolic Controller의 start를 1 cycle assertion한다.
+- `TILE_WAIT`: 1-cycle done을 기다린다.
+- `ACTIVATION_WRITE`: 별도 Capture Register 없이 완료된 array 결과를 activation/write 경로에서 소비한다.
+- `GROUP_CHECK`: 다음 5-neuron group 또는 layer 종료를 결정한다.
+- `LAYER_CHECK`: 다음 layer로 이동하거나 최종 output sequence를 시작한다.
+- `OUTPUT_LOAD`: 최종 10개 score를 MaxFinder가 소비할 수 있는 순서로 제공한다.
+- `MAXFINDER_START`, `MAXFINDER_WAIT`: Reference Model과 동등한 class 선택 기능을 실행한다.
+- `RESULT_VALID`: batch의 5개 class 결과가 유효함을 표시한다.
 
-## 8. Input/weight skew
+별도 `PARTIAL_SUM_CAPTURE` state와 별도 MaxFinder Input Register는 생성 요구사항에 포함하지 않는다.
 
-RUN cycle counter를 `cnt`라고 할 때 row `r`과 column `c`의 기본 주소는 다음과 같다.
+## 4. Systolic Array Architecture
+
+| 항목 | 기준값 | 의미 |
+|---|---:|---|
+| Array Rows | 5 | 동시에 처리하는 image lane |
+| Array Columns | 5 | 동시에 처리하는 output neuron lane |
+| Operand Width | 8 | signed fixed-point input 및 weight |
+| Accumulator Width | 26 | signed partial sum |
+| SRAM Read Latency | 1 | memory read latency 가정 |
+
+전체 array는 25개의 Processing Element로 구성한다.
+
+- A/input feature는 각 row의 왼쪽에서 입력되어 오른쪽으로 전달된다.
+- B/weight는 각 column의 위쪽에서 입력되어 아래쪽으로 전달된다.
+- row와 column 위치에 맞춰 operand를 skew해 목표 Processing Element에서 같은 cycle에 만나게 한다.
+- 각 Processing Element의 partial sum은 연산 종료까지 해당 element에 유지한다.
+- operand만 인접 Processing Element로 이동하므로 dataflow는 output-stationary다.
 
 ```text
-input_feature_address[r] = cnt - r
-weight_address[c]        = cnt - c
+product = signed(input) × signed(weight)
+partial_sum(next) = partial_sum + product, when enabled
 ```
 
-주소는 `0 <= address < current_common_dimension_length` 범위에서만 enable해야 한다. memory valid가 0일 때 array operand는 0을 공급한다.
+## 5. Interface Preservation And Handshake
 
-## 9. Layer tiling
+### 5.1 External AXI Interface
 
-5개 column을 사용하므로 output neuron group은 다음과 같다.
+Reference Model의 다음 external interface 이름과 transfer 의미를 유지한다.
 
-| Layer | Output neuron | 5-column group |
-|---|---:|---:|
-| Layer 1 | 30 | 6 |
-| Layer 2 | 20 | 4 |
-| Layer 3 | 10 | 2 |
+| Interface | 유지 대상 |
+|---|---|
+| AXI-Stream input | `axis_in_data`, `axis_in_data_valid`, `axis_in_data_ready` |
+| AXI-Lite | address, data, response, valid/ready channel 계약 |
+| completion | `intr` 기반 결과 통지 |
 
-현재 30, 20, 10은 모두 5로 나누어 떨어진다. 이후 array 크기를 변경하면 ceiling division과 invalid-lane mask가 필요하다.
+AXI-Stream transfer는 `axis_in_data_valid && axis_in_data_ready`인 clock에서 성립한다. data, valid, ready의 세 signal을 사용하는 interface이지만 AXI handshake 조건 자체는 valid/ready의 동시 assertion이다.
 
-## 10. Numeric format status
+### 5.2 Systolic Controller Three-Signal Handshake
 
-현재 RTL은 IEEE-754 floating-point 연산기를 사용하지 않는다. `logic signed [DATA_W-1:0]` operand와 signed multiplier/accumulator로 구현되어 있으므로 bit-level 구현은 signed integer 또는 fixed-point encoding이다. 따라서 이를 floating point라고 확정해서는 안 된다.
+Systolic Controller는 다음 세 control signal의 계약을 제공한다.
 
-- operand width: signed 8-bit
-- accumulator width: signed 26-bit
+| Signal | 방향 | 계약 |
+|---|---|---|
+| `i_start` | input | 새 tile 요청, 1-cycle assertion |
+| `o_busy` | output | 계산 진행 중 1 |
+| `o_done` | output | 계산 완료 시 정확히 1 cycle 동안 1 |
+
+이 start/busy/done 관계는 내부 controller handshake이며 AXI protocol channel 자체는 아니다. 외부 AXI interface와 내부 controller handshake를 혼동해서는 안 된다.
+
+```text
+IDLE --i_start=1 for 1 cycle--> RUN --calculation complete--> DONE_STATE
+ ^                                                           |
+ └-------------------- next clock ----------------------------┘
+```
+
+- start 수락 전 `busy=0`, `done=0`이어야 한다.
+- RUN에서만 `busy=1`이어야 한다.
+- 완료 시 `busy=0`, `done=1`이어야 한다.
+- `done`은 정확히 1 cycle이어야 하며 다음 clock에는 0으로 복귀해야 한다.
+- DNN Scheduler는 `TILE_WAIT`에서 done을 검출하고 다음 처리로 이동해야 한다.
+
+## 6. Batch Mapping And Layer Tiling
+
+```text
+1 batch = 5 images
+20 batches × 5 images = 100 images
+```
+
+5개 column을 사용하므로 output neuron은 5개 단위 group으로 처리한다.
+
+| Layer | K | Output Neurons | Groups |
+|---|---:|---:|---:|
+| Layer 1 | 784 | 30 | 6 |
+| Layer 2 | 30 | 20 | 4 |
+| Layer 3 | 20 | 10 | 2 |
+
+- Layer 1 source는 Input Buffer다.
+- Layer 2와 Layer 3 source는 Global Buffer의 현재 read 영역이다.
+- Layer 결과는 Global Buffer의 반대 write 영역에 저장하고 layer 경계에서 A/B 역할을 교대한다.
+- 최종 10개 score는 Reference Model과 동등한 MaxFinder 기능으로 전달한다.
+
+## 7. Fixed-Point Format
+
+연산 형식은 floating point가 아니라 signed fixed point다.
+
+- input/weight operand: signed 8-bit fixed point
+- accumulator: signed 26-bit
 - 정확한 binary-point 위치와 Q-format: 미확정
-- `mac_pe`에는 saturation 로직이 없으므로 overflow 시 fixed-width two's-complement wrap 동작을 한다.
-- 다만 signed 8-bit operand와 최대 `K=784`에서 최악 크기 `16,384×784=12,845,056`은 signed 26-bit 범위 안이므로 정상 입력 범위에서는 accumulator overflow가 발생하지 않아야 한다.
+- IEEE-754 floating-point operator: 사용하지 않음
 
-RAG Agent는 Q-format이 승인되기 전까지 scale을 추측하거나 floating-point로 변환해서는 안 된다.
+Q-format이 승인되기 전까지 RAG Agent는 fractional bit 수나 scale을 추측해서는 안 된다. Historical Baseline의 구현값도 승인된 Q-format 근거 없이 정답으로 복사해서는 안 된다.
 
-## 11. Cycle model
+Signed 8-bit operand와 최대 `K=784`에서 최악 크기 `16,384×784=12,845,056`은 signed 26-bit 범위 안에 있다. 정상 입력 범위에서는 accumulator overflow가 발생하지 않아야 한다.
 
-Controller의 현재 완료-cycle 모델은 다음과 같다. 이는 실측값이나 수학적으로 최소인 systolic latency가 아니라, 현재 설계가 drain과 memory/pipeline 여유를 포함해 정한 이론적 controller threshold다.
+## 8. Theoretical Cycle Contract
+
+목표 controller의 tile 완료 cycle은 다음 식을 사용한다.
 
 ```text
-CALC_CYCLES = K + ROWS + COLS + SRAM_READ_LATENCY + 2
+TARGET_CYCLES = K + ROWS + COLS + SRAM_READ_LATENCY + 2
+              = K + 13
 ```
 
-각 항의 의미는 다음과 같다.
+- `K`: dot-product 공통 차원
+- `ROWS=5`: row skew와 drain 여유
+- `COLS=5`: column 전파와 drain 여유
+- `SRAM_READ_LATENCY=1`: SRAM read 지연
+- `+2`: controller/array pipeline 여유
 
-- `K`: 한 output을 만들기 위한 dot-product 공통 차원
-- `ROWS`: row skew 및 drain을 위한 설계 여유
-- `COLS`: column 전파 및 drain을 위한 설계 여유
-- `SRAM_READ_LATENCY`: synchronous SRAM read 지연
-- `2`: controller/array pipeline 여유
-
-기준값 `ROWS=5`, `COLS=5`, `SRAM_READ_LATENCY=1`이므로 `CALC_CYCLES = K + 13`이다.
-
-| Layer | K | 5-neuron group 수 | group당 `CALC_CYCLES` | layer group 합계 |
+| Layer | K | Group 수 | Target Cycles/Group | Group 합계 |
 |---|---:|---:|---:|---:|
 | Layer 1 | 784 | 6 | 797 | 4,782 |
 | Layer 2 | 30 | 4 | 43 | 172 |
 | Layer 3 | 20 | 2 | 33 | 66 |
 
-797/43/33은 layer 전체가 아니라 5개 output neuron을 계산하는 tile/group 하나의 threshold다. 세 layer의 group threshold 합계는 batch당 5,020이며, input load, activation, buffer write, maxFinder, scheduler 상태 전이 비용은 포함하지 않는다.
+797/43/33은 5개 output neuron group 하나의 목표 cycle이며 layer 전체 또는 end-to-end latency가 아니다. 세 layer의 group cycle 합계는 batch당 5,020 cycle이다. Input Buffer load, activation, Global Buffer write, DNN Scheduler overhead와 MaxFinder latency는 포함하지 않는다.
 
-현재 RTL은 RUN의 `cnt=0`부터 시작하고 `cnt >= CALC_CYCLES`일 때 다음 clock에 DONE_STATE로 전이한다. 따라서 start 수락 edge부터 `o_done` assertion까지의 RTL상 관찰 간격은 group당 `CALC_CYCLES + 1`, 즉 798/44/34 clock으로 해석된다. SPEC의 797/43/33은 승인된 controller threshold이며, 전체 latency와 혼동하지 않아야 한다.
+Historical Baseline은 counter/state transition 때문에 start 수락부터 done까지 798/44/34 clocks가 걸린다. 이 수치는 비교 기준이며 생성 목표가 아니다. RAG 생성 RTL은 1-cycle done을 포함해 797/43/33 target을 만족하도록 독립적으로 counter와 완료 조건을 설계해야 한다.
 
-## 12. 요구사항
+## 9. Generation Independence And Naming
 
-- REQ-SYS-001: 기본 array는 5 row × 5 column의 25개 PE로 구성해야 한다.
-- REQ-SYS-002: A operand는 row 방향, B operand는 column 방향으로 전달해야 한다.
-- REQ-SYS-003: partial sum은 각 PE에 유지되는 output-stationary 방식이어야 한다.
-- REQ-SYS-004: controller FSM은 `IDLE`, `RUN`, `DONE_STATE`로 구성해야 한다.
-- REQ-SYS-005: `i_start` 수락 시 새 연산 전에 모든 accumulator를 clear해야 한다.
-- REQ-SYS-006: `o_busy`는 RUN에서만 1이어야 한다.
-- REQ-SYS-007: `o_done`은 DONE_STATE에서 1이어야 한다. 현재 `NPU_Top`처럼 `i_start`가 TILE_START의 1-cycle level이고 DONE_STATE 진입 전에 이미 0이면 `o_done`은 결과적으로 1 cycle 동안 관찰되어야 하며, 별도 pulse 생성기로 변경하지 않아야 한다.
-- REQ-SYS-008: input과 weight address는 row/column index에 따라 skew되어야 한다.
-- REQ-SYS-009: memory valid가 없는 operand는 0으로 처리해야 한다.
-- REQ-SYS-010: signed 8-bit operand의 partial sum은 signed 26-bit accumulator에 저장해야 한다.
-- REQ-SYS-011: layer별 output group 수는 30/20/10 neuron을 모두 처리해야 한다.
-- REQ-SYS-012: 완료-cycle 모델은 K와 memory latency를 parameter로 사용해야 한다.
-- REQ-SYS-013: 모든 array read address는 current K dimension 범위를 벗어나면 안 된다.
-- REQ-SYS-014: reset 후 FSM은 IDLE, accumulator와 control counter는 0이어야 한다.
-- REQ-SYS-015: 한 batch는 5개 image로 구성하고 array의 5개 row에서 동시에 처리해야 한다.
-- REQ-SYS-016: 전체 baseline inference는 20개 batch를 반복해 총 100개 image를 처리해야 한다.
-- REQ-SYS-017: group별 `CALC_CYCLES` threshold는 Layer 1/2/3에 대해 각각 797/43/33이어야 한다.
-- REQ-SYS-018: 797/43/33을 layer 전체 latency 또는 end-to-end latency로 보고해서는 안 된다.
-- REQ-SYS-019: numeric Q-format이 승인되기 전까지 operand를 floating-point로 간주하거나 임의의 binary-point를 적용해서는 안 된다.
-- REQ-SYS-020: partial sum은 별도 scheduler state 없이 `TILE_WAIT && o_done` edge에서 capture해야 한다.
-- REQ-SYS-021: `mac_pe`에 임의의 saturation 연산을 추가해서는 안 되며, signed 26-bit 범위 내에서 reference와 bit-accurate하게 일치해야 한다.
+- Reference Model에서 계승한 external AXI signal과 parameter 이름은 그대로 유지한다.
+- 본 SPEC에서 이름을 명시한 controller handshake `i_start`, `o_busy`, `o_done`은 interface 계약으로 유지한다.
+- Input Buffer, Global Buffer, DNN Scheduler는 필수 기능 블록이지만 내부 RTL module identifier를 Historical Baseline과 같게 만들 필요는 없다.
+- Historical Baseline의 internal state, register, helper signal과 module hierarchy를 복사해서는 안 된다.
+- 별도 Capture Register 및 별도 MaxFinder Input Register를 추가해서는 안 된다.
+- 생성 결과는 동일한 기능과 timing 요구를 만족하면서도 Historical Baseline과 구조적으로 독립적이어야 한다.
 
-## 13. 검증 필요 항목
+## 10. Requirements
 
-- `TILE_START` 1-cycle start와 DONE_STATE level output의 결합 동작 assertion
-- group별 threshold 797/43/33과 관찰 간격 798/44/34의 cycle assertion
-- memory valid 지연 시 고정 cycle 모델의 안전성
-- signed 8-bit 최악 입력과 `K=784`에서 26-bit accumulator range assertion
-- array 크기 변경 시 partial group lane masking
-- OS 결과와 reference neuron arithmetic의 layer별 bit-accurate 비교
+- REQ-SYS-001: Systolic Array는 5 row × 5 column의 25개 Processing Element로 구성해야 한다.
+- REQ-SYS-002: A operand는 row 방향, B operand는 column 방향으로 이동해야 한다.
+- REQ-SYS-003: partial sum은 output-stationary 방식으로 각 Processing Element에 유지해야 한다.
+- REQ-SYS-004: Input Buffer는 5개 image의 `[5×784]` input을 5개 bank에 저장해야 한다.
+- REQ-SYS-005: Global Buffer는 5개 bank와 A/B 논리 영역을 사용해 layer 간 ping-pong buffering을 수행해야 한다.
+- REQ-SYS-006: DNN Scheduler는 문서에 정의된 load, layer, tile, group, output 및 result sequence를 제어해야 한다.
+- REQ-SYS-007: `i_start`는 tile마다 1 cycle assertion해야 한다.
+- REQ-SYS-008: `o_busy`는 계산 진행 중에만 1이어야 한다.
+- REQ-SYS-009: `o_done`은 계산 완료 시 정확히 1 cycle이어야 한다.
+- REQ-SYS-010: external AXI-Stream과 AXI-Lite interface는 Reference Model의 signal 이름과 transfer 계약을 유지해야 한다.
+- REQ-SYS-011: 한 batch는 image 5개를 병렬 처리하고 20개 batch로 100개 baseline image를 처리해야 한다.
+- REQ-SYS-012: Layer 1/2/3은 각각 6/4/2개의 5-neuron group을 처리해야 한다.
+- REQ-SYS-013: operand는 signed 8-bit fixed point, accumulator는 signed 26-bit여야 한다.
+- REQ-SYS-014: 승인 전 Q-format을 추측하거나 floating-point 연산으로 변경해서는 안 된다.
+- REQ-SYS-015: group별 target cycle은 Layer 1/2/3에 대해 797/43/33이어야 한다.
+- REQ-SYS-016: 798/44/34 clocks의 Historical Baseline 동작을 생성 목표로 복사해서는 안 된다.
+- REQ-SYS-017: 별도 Capture Register를 필수 data path로 추가해서는 안 된다.
+- REQ-SYS-018: 별도 MaxFinder Input Register를 필수 data path로 추가해서는 안 된다.
+- REQ-SYS-019: 생성 RTL은 Historical Baseline의 internal naming과 module hierarchy에 의존해서는 안 된다.
+
+## 11. Verification Items
+
+- AXI-Stream valid/ready transfer와 Input Buffer bank/address mapping
+- 5개 image의 동시 처리와 20-batch 반복
+- Global Buffer A/B ping-pong read/write 충돌 방지
+- DNN Scheduler state transition 및 group/layer 반복 횟수
+- `i_start`, `o_busy`, `o_done` three-signal handshake와 1-cycle done
+- group별 797/43/33 target cycle assertion
+- signed fixed-point bit-accurate comparison
+- 26-bit accumulator range assertion
+- 별도 Capture Register와 MaxFinder Input Register가 없는 data path
+- Historical Baseline과 생성 RTL의 module 구조 및 코드 유사도 비교

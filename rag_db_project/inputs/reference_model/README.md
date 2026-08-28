@@ -26,7 +26,7 @@
 
 Verilog의 `$readmemb` 경로가 파일명만 사용하므로, 재현 스크립트는 RTL·MIF·test data를 임시 실행 디렉터리에 평탄화한 뒤 시뮬레이션한다. 원본 디렉터리 구조는 변경하지 않는다.
 
-## 검증된 baseline
+## 검증된 Baseline
 
 - Simulator: ModelSim - Intel FPGA Edition 10.5b
 - Compile: error 0, warning 0
@@ -54,4 +54,27 @@ MODELSIM_BIN=/c/intelFPGA/18.1/modelsim_ase/win32aloem \
   bash rag_db_project/inputs/reference_model/scripts/run_modelsim.sh
 ```
 
-결과 로그는 Git에서 제외되는 `.sim/` 아래에 생성된다. 공식 baseline의 근거와 원천 출처는 `../../docs/reference_model/`에서 관리한다.
+결과 로그는 Git에서 제외되는 `.sim/` 아래에 생성된다. 승인된 기능·수치 계약은 `../specifications/01_reference_model/`에서 관리하고, 실행 결과 summary는 이 README와 향후 `artifacts/` manifest에 기록한다.
+
+## 원본과 포함 범위
+
+Reference Model은 다음 원본에서 복사했으며 원본 파일은 수정하지 않는다.
+
+```text
+C:\intelFPGA\RTL_Design\CNN-Handwritten-Digit-MNIST-main\
+CNN-Handwritten-Digit-MNIST-main\Network\Vivado\src\fpga
+```
+
+테스트 데이터는 원본 프로젝트의 Vivado simulation 디렉터리에서 `test_data_0000.txt`부터 `test_data_0099.txt`까지 포함했다.
+
+- 포함: RTL Verilog, `top_sim.v`, weight/bias MIF, sigmoid LUT, 100개 test vector
+- 제외: backup, Vivado GUI/IP packaging metadata, 생성 디렉터리 및 현재 baseline 범위 밖 test vector
+- 각 test vector는 784개 pixel entry와 마지막 expected class entry로 구성한다.
+- 향후 `source_manifest.yaml`에서 파일별 SHA-256과 Git commit을 기록한다.
+
+## RAG 인덱싱 원칙
+
+- Verilog는 module과 symbol 단위로 인덱싱한다.
+- MIF와 test vector의 모든 숫자를 embedding하지 않는다.
+- 수치 파일은 파일명, layer/neuron, entry 수, hash 및 원본 경로를 metadata로 관리한다.
+- 정확한 수치가 필요하면 Agent가 원본 파일을 직접 읽는다.

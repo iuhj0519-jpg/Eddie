@@ -1,4 +1,4 @@
-# Legacy FC-MLP to Systolic Accelerator RAG Project
+# Legacy FC-MLP To Systolic Accelerator RAG Project
 
 이 프로젝트는 MNIST handwritten digit inference를 수행하는 legacy FC-MLP RTL에 5×5 output-stationary systolic array 기반의 TPU-style 연산 구조를 적용하고, 그 과정을 RAG 기반 AI Agent로 재현·최적화·검증하는 것을 목표로 한다.
 
@@ -41,7 +41,6 @@ Compile, simulation, regression and comparison
 | `rag/` | 수집, chunking, hybrid retrieval, Agent 및 평가 구현 |
 | `manifests/` | source, 접근 정책, baseline 및 index 버전 |
 | `experiments/` | prototype 생성, 최적화, 검증 및 비교 실험 기록 |
-| `docs/` | 프로젝트별 소스 폴더와 분리된 설명·분석 문서 |
 | `artifacts/` | 실행 summary와 artifact 위치·hash 기록 |
 
 ## 현재 기준
@@ -61,6 +60,15 @@ Compile, simulation, regression and comparison
 - `historical_baselines/`는 평가용 결과이므로 prototype 및 optimization 생성 단계의 RAG 검색에서 제외한다.
 - 생성된 결과는 `workspace/`에만 저장한다.
 - compile 또는 simulation을 수행하지 않은 코드는 verified로 표시하지 않는다.
+
+## 생성 독립성과 명명 정책
+
+- Reference Model에 이미 선언된 external interface, 변수 및 parameter 이름은 호환성을 위해 그대로 유지한다.
+- 승인된 SPEC이 이름까지 요구한 signal만 생성 코드의 고정 interface로 사용한다.
+- 내부 module, state, register 및 helper signal 이름은 `historical_baselines/`에서 복사하거나 그 이름을 정답처럼 사용하지 않는다.
+- Historical Baseline에만 존재하는 구현 세부사항은 SPEC 요구사항으로 승격하지 않는다.
+- RAG 생성 결과는 승인된 기능과 interface를 만족하되, Historical Baseline과 독립적으로 설계되어야 한다.
+- 비교 실험에서는 기능 정확도와 cycle뿐 아니라 module 분해, RTL 구조 및 코드 유사도도 함께 평가한다.
 
 ## 진행 단계
 
