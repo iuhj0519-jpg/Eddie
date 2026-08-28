@@ -21,8 +21,6 @@
 | 사용자 설계 | DNN Scheduler FSM | 필수 제어 구조로 포함 |
 | 기능 요구 | 5×5 Output-Stationary Systolic Array | FC 연산 대체 구조로 포함 |
 | Reference Model 계승 | AXI-Stream, AXI-Lite, activation, MaxFinder 기능 | 외부 호환성과 기능 보존 대상으로 포함 |
-| 기존 AI 제안 | 별도 Capture Register | 생성 요구사항에서 제외 |
-| 기존 AI 제안 | 별도 MaxFinder Input Register | 생성 요구사항에서 제외 |
 
 결과는 완료 timing에 맞춰 activation 또는 Global Buffer write 경로가 직접 소비해야 한다.
 
@@ -75,7 +73,7 @@ DNN Scheduler controls load, layer, tile, group, output and result phases.
 - 현재 layer가 A를 읽으면 결과를 B에 쓰고, 다음 layer에서는 B를 읽어 A에 쓴다.
 - read/write 영역 교대는 DNN Scheduler가 layer 경계에서 제어한다.
 - 한 bank에서 동시에 필요한 여러 neuron score를 읽을 수 있도록 address와 vector packing 규칙을 정의해야 한다.
-- 별도 Capture Register 없이 Systolic Array 완료 결과를 activation/write 경로가 직접 Global Buffer에 저장해야 한다.
+- Systolic Array 완료 결과를 activation/write 경로가 직접 Global Buffer에 저장해야 한다.
 
 ### 3.3 DNN Scheduler
 
@@ -95,14 +93,12 @@ OUTPUT_LOAD → MAXFINDER_START → MAXFINDER_WAIT → RESULT_VALID → IDLE
 - `LAYER_SETUP`: 현재 layer의 K, output group 수, source/destination buffer 영역을 설정한다.
 - `TILE_START`: Systolic Controller의 start를 1 cycle assertion한다.
 - `TILE_WAIT`: 1-cycle done을 기다린다.
-- `ACTIVATION_WRITE`: 별도 Capture Register 없이 완료된 array 결과를 activation/write 경로에서 소비한다.
+- `ACTIVATION_WRITE`: 완료된 array 결과를 Activation Unit에 로드한다.
 - `GROUP_CHECK`: 다음 5-neuron group 또는 layer 종료를 결정한다.
 - `LAYER_CHECK`: 다음 layer로 이동하거나 최종 output sequence를 시작한다.
 - `OUTPUT_LOAD`: 최종 10개 score를 MaxFinder가 소비할 수 있는 순서로 제공한다.
 - `MAXFINDER_START`, `MAXFINDER_WAIT`: Reference Model과 동등한 class 선택 기능을 실행한다.
 - `RESULT_VALID`: batch의 5개 class 결과가 유효함을 표시한다.
-
-별도 `PARTIAL_SUM_CAPTURE` state와 별도 MaxFinder Input Register는 생성 요구사항에 포함하지 않는다.
 
 ## 4. Systolic Array Architecture
 
