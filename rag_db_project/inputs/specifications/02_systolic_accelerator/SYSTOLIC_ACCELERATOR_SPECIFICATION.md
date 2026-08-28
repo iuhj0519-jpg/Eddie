@@ -24,7 +24,7 @@
 | 기존 AI 제안 | 별도 Capture Register | 생성 요구사항에서 제외 |
 | 기존 AI 제안 | 별도 MaxFinder Input Register | 생성 요구사항에서 제외 |
 
-Systolic Array 출력은 별도 Capture Register를 거치도록 강제하지 않는다. 결과는 완료 timing에 맞춰 activation 또는 Global Buffer write 경로가 직접 소비해야 한다. MaxFinder 입력도 별도 전용 register를 필수 구조로 두지 않는다.
+결과는 완료 timing에 맞춰 activation 또는 Global Buffer write 경로가 직접 소비해야 한다.
 
 ## 3. Top-Level Architecture
 
