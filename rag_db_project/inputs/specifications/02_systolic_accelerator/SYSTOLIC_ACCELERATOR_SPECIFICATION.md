@@ -64,7 +64,8 @@ DNN Scheduler controls every load, layer, tile, group, activation and result pha
 - Reference Model의 `axis_in_data`, `axis_in_data_valid`, `axis_in_data_ready`로 입력을 수신한다.
 - 5개 bank를 사용하며 각 bank는 image 한 개의 784개 Q1.7 feature에 대응한다.
 - 한 batch의 논리적 입력 matrix는 `[5×784]`다.
-- 입력 순서는 image 0~4와 각 image의 feature 0~783 mapping을 명시적으로 보존해야 한다.
+- 입력은 Image-Major 순서다. Batch 1은 image 0의 feature `[0:783]`, image 1의 feature `[0:783]`, ... image 4의 feature `[0:783]` 순서로 수신한다.
+- 0-based batch index를 `b`라고 하면 batch `b`는 image `5b`부터 `5b+4`까지를 포함하고, 각 image의 784개 feature를 모두 받은 뒤 다음 image로 이동한다.
 - Input Buffer에 data가 load 된 다음 연산이 시작되며, 한 batch 입력 완료 전 Layer 1 연산을 시작해서는 안 된다.
 - Layer 1의 row operand는 Input Buffer의 대응 image bank에서 읽는다.
 - Reference Model과 동일하게 `axis_in_data_ready`는 정상 동작 중 항상 1이어야 한다.
@@ -166,7 +167,12 @@ Activation/Input Q1.7
 - Reference Model과 bit-accurate한 truncation, sign과 overflow 처리를 유지해야 한다.
 - IEEE-754 floating-point operator를 사용해서는 안 된다.
 
-Q15.11의 값이 Q5.5 표현 범위를 벗어날 때 saturation할지 상위 bit를 선택할지는 승인 전 미확정이다. Agent는 이를 추측하지 않고 `unknown`으로 보고해야 한다.
+Q15.11의 값이 signed Q5.5 표현 범위를 벗어나면 Sigmoid LUT address를 생성하기 전에 saturation해야 한다. Q5.5의 범위는 raw `-512`~`511`, 실수값 `-16.0`~`15.96875`다.
+
+- Q15.11 raw 값이 `32704`보다 크면 Q5.5 최댓값 `10'b0111111111`로 clamp한다.
+- Q15.11 raw 값이 `-32768`보다 작으면 Q5.5 최솟값 `10'b1000000000`로 clamp한다.
+- 범위 안이면 fractional 6-bit를 제거해 Q5.5 LUT address를 만든다.
+- 이 saturation은 integer MSB overflow와 wrap-around로 인해 큰 양수가 음수 LUT 영역으로, 또는 큰 음수가 양수 LUT 영역으로 잘못 mapping되는 것을 방지한다.
 
 ## 10. External AXI Interface
 
@@ -180,7 +186,19 @@ Reference Model의 external AXI signal 이름, width와 transfer 의미를 유�
 
 AXI-Stream transfer는 `axis_in_data_valid && axis_in_data_ready`인 clock에서 성립한다. Input Buffer 추가로 인해 입력 data의 순서, width 또는 valid/ready 의미가 바뀌어서는 안 된다.
 
-## 11. Systolic Controller Handshake
+## 11. AXI-Lite Batch Result And Interrupt
+
+- 한 batch의 class 결과 5개는 image row 순서인 image 0→4의 상대 순서로 제공한다.
+- Reference Model의 output register decode `3'h2`, byte address `0x08` 하나를 유지한다.
+- Software/testbench가 `0x08`을 반복 read하면 각 완료된 AXI read handshake마다 다음 class 결과를 반환한다.
+- batch result read index는 RESULT_VALID 진입 시 0으로 초기화하고 0부터 4까지 증가한다.
+- 다섯 결과가 모두 준비되면 `intr`를 batch당 정확히 한 번, 1 cycle assertion한다.
+- `intr`의 pulse 의미는 Reference Model의 `intr = out_valid` 동작과 동일하게 유지한다.
+- DNN Scheduler는 모든 image의 MaxFinder가 끝나면 RESULT_VALID에 진입하고, 다섯 번째 AXI-Lite result read handshake가 완료될 때까지 이 상태를 유지한다.
+- 다섯 번째 result read가 완료되면 RESULT_VALID를 종료하고 IDLE로 복귀한다.
+- 다음 batch의 Image-Major stream은 IDLE 복귀 후 INPUT_LOAD에서 시작한다.
+
+## 12. Systolic Controller Handshake
 
 | Signal | 방향 | 계약 |
 |---|---|---|
@@ -202,12 +220,23 @@ IDLE --i_start=1 for 1 cycle--> RUN --calculation complete--> DONE_STATE
 - `o_done`은 정확히 1 cycle이어야 하며 다음 clock에는 0으로 복귀해야 한다.
 - DNN Scheduler는 `TILE_WAIT`에서 `o_done`을 검출해야 한다.
 
-## 12. Batch Mapping And Layer Tiling
+## 13. Batch Mapping And Layer Tiling
 
 ```text
 1 batch = 5 images
 20 batches × 5 images = 100 images
 ```
+
+```text
+Batch 1: image  0 →  1 →  2 →  3 →  4
+Batch 2: image  5 →  6 →  7 →  8 →  9
+...
+Batch 20: image 95 → 96 → 97 → 98 → 99
+
+Each image stream: feature[0] → feature[1] → ... → feature[783]
+```
+
+현재 batch의 `RESULT_VALID` 종료와 IDLE 복귀가 완료되기 전에는 다음 batch stream을 시작하지 않는다.
 
 | Layer | K | Output Neurons | 5-Neuron Groups | Source | Destination |
 |---|---:|---:|---:|---|---|
@@ -215,7 +244,7 @@ IDLE --i_start=1 for 1 cycle--> RUN --calculation complete--> DONE_STATE
 | Layer 2 | 30 | 20 | 4 | Global Buffer | Opposite Global Buffer Region |
 | Layer 3 | 20 | 10 | 2 | Global Buffer | MaxFinder Path |
 
-## 13. Theoretical Cycle Contract
+## 14. Theoretical Cycle Contract
 
 tile 완료 목표 cycle은 다음 식을 사용한다.
 
@@ -234,7 +263,7 @@ TARGET_CYCLES = K + ROWS + COLS + SRAM_READ_LATENCY + 2
 
 Agent가 목표 cycle과 다른 완료 조건이 불가피하다고 판단하면 코드를 확정하기 전에 원인, 계산식과 예상 cycle을 보고해야 한다.
 
-## 14. Code Generation Boundary
+## 15. Code Generation Boundary
 
 - Reference Model에서 계승한 external AXI signal과 parameter 이름은 그대로 유지한다.
 - 본 SPEC에서 이름을 명시한 `i_start`, `o_busy`, `o_done`은 controller interface 계약으로 유지한다.
@@ -242,7 +271,7 @@ Agent가 목표 cycle과 다른 완료 조건이 불가피하다고 판단하면
 - 승인된 RAG DB 밖의 구현이나 코드 구조를 생성 근거로 사용해서는 안 된다.
 - 명시되지 않은 내부 구조가 필요하면 Agent가 기능적 근거와 trade-off를 설명하고 자체적으로 결정한다.
 
-## 15. Requirements
+## 16. Requirements
 
 - REQ-SYS-001: Systolic Array는 5 row × 5 column의 25개 Processing Element로 구성해야 한다.
 - REQ-SYS-002: partial sum은 Output-Stationary 방식으로 각 Processing Element에 유지해야 한다.
@@ -262,8 +291,13 @@ Agent가 목표 cycle과 다른 완료 조건이 불가피하다고 판단하면
 - REQ-SYS-016: group별 target cycle은 Layer 1/2/3에 대해 797/43/33이어야 한다.
 - REQ-SYS-017: 목표 cycle 변경이 필요하면 Agent는 구현 전 근거와 새 계산식을 보고해야 한다.
 - REQ-SYS-018: 생성 코드는 승인된 RAG DB 입력만 설계 근거로 사용해야 한다.
+- REQ-SYS-019: Q15.11에서 Q5.5로 변환할 때 signed Q5.5 범위를 벗어난 값은 LUT address 생성 전에 최댓값 또는 최솟값으로 saturation해야 한다.
+- REQ-SYS-020: AXI-Stream input은 batch 안에서 Image-Major 순서로 image별 feature `[0:783]`을 연속 수신해야 한다.
+- REQ-SYS-021: 다음 batch input은 현재 batch의 RESULT_VALID 종료와 IDLE 복귀 후 INPUT_LOAD에서 시작해야 한다.
+- REQ-SYS-022: class 결과 5개는 AXI-Lite byte address `0x08`의 반복 read로 image 순서대로 제공하고, 다섯 번째 read handshake 후 RESULT_VALID에서 IDLE로 복귀해야 한다.
+- REQ-SYS-023: `intr`는 batch 결과 5개가 모두 준비됐을 때 batch당 정확히 한 번, 1 cycle assertion해야 한다.
 
-## 16. Verification Items
+## 17. Verification Items
 
 - AXI-Stream always-ready transfer와 Input Buffer bank/address mapping
 - 5개 image 동시 처리와 20-batch 반복
@@ -274,6 +308,10 @@ Agent가 목표 cycle과 다른 완료 조건이 불가피하다고 판단하면
 - Weight/Bias MIF의 layer, neuron, bank mapping
 - Q1.7×Q4.4→Q15.11 fixed-point bit-accurate MAC
 - Bias Q5.3 alignment와 Q5.5 Sigmoid input 변환
+- Q5.5 saturation boundary와 MSB overflow 방지
 - `sigContent.mif` lookup과 Q1.7 activation output
+- Image-Major input ordering과 batch 간 RESULT_VALID/IDLE 경계
+- AXI-Lite `0x08` 반복 read의 image 0→4 결과 순서와 read index reset
+- batch당 1-cycle `intr`
 - group별 797/43/33 target cycle assertion
 - 100-image inference 결과와 Reference Model 기능 비교
