@@ -1,6 +1,6 @@
 schema_version: '1.0'
 generation_id: systolic_prototype_run_001
-status: evidence_frozen
+status: ready_for_code_generation
 source:
   git_tag: rag-input-baseline-v1.0
   inventory_sha256: 1470c763abed04a9fe60920e5ec09546f03b3c0897e7240d976d67f0a0b509ef
@@ -134,7 +134,11 @@ isolated_worktree:
   branch: rag/generate-systolic-prototype-v1
   path: C:/Users/iuhj0/Eddie_rag_generation
   historical_baselines_visible: false
-  status: pending_creation
+  verified_source_head: e680d96
+  manifest_validation_checks: 41
+  rebuilt_index_sha256: 4a796b2dac9f5474eb1b75522a6a7cda61cc34365dcaa6b095229ca9f784bf42
+  retrieval_smoke_test: PASS
+  status: PASS
   restore_after_experiment: remove isolated worktree only; the primary repository retains historical_baselines throughout
 output:
   root: rag_db_project/workspace/systolic_prototype
@@ -145,5 +149,5 @@ generation_gate:
   retrieval_smoke_test: PASS
   requirement_coverage: PASS
   historical_baseline_index_leakage: PASS
-  isolated_worktree: PENDING
-  ready_for_code_generation: false
+  isolated_worktree: PASS
+  ready_for_code_generation: true

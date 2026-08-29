@@ -1,11 +1,14 @@
 # Systolic Prototype Evidence Freeze
 
 - Generation ID: `systolic_prototype_run_001`
-- 상태: Evidence Frozen
+- 상태: Ready For Code Generation
 - Source Tag: `rag-input-baseline-v1.0`
 - Index ID: `prototype_generation_v1`
 - Requirement Coverage: 39/39 PASS
 - Historical Baseline Index Chunk: 0
+- Isolated Worktree: PASS
+- Generation Branch: `rag/generate-systolic-prototype-v1`
+- Generation Root: `C:/Users/iuhj0/Eddie_rag_generation`
 
 ## Query의 의미
 
@@ -105,11 +108,18 @@ Primary Repository의 `historical_baselines/`는 삭제하거나 변경하지 �
 
 ## Generation Plan
 
+완료된 준비 작업:
+
 1. 격리 Worktree 생성 및 Historical Baseline 비가시성 검사
-2. 동일 Source Tag와 Manifest로 RAG Index 재생성
-3. `generation_manifest.yaml`의 Isolated Worktree Gate를 PASS로 변경
-4. Query Evidence를 먼저 읽고 Requirement-to-Module 구현 계획 작성
-5. `workspace/systolic_prototype/`에만 RTL, memory wiring, script와 보고서 생성
-6. 모든 설계 결정에 Evidence Chunk 또는 Direct Source Hash 기록
-7. 근거 부족 시 `unknown`, 보존 계약 변경 필요 시 구현 전 보고
-8. Lint, Compile, Simulation 이후에만 Verified 상태 부여
+2. 동일 Source와 Manifest로 RAG Index 재생성
+3. 241개 Source checksum과 41개 Manifest 검사 통과
+4. 143개 Dense/FTS row와 금지 경로 0개 Smoke Test 통과
+5. `generation_manifest.yaml`의 Isolated Worktree Gate를 PASS로 변경
+
+다음 코드 생성 명령에서 수행할 작업:
+
+1. Query Evidence를 먼저 읽고 Requirement-to-Module 구현 계획 작성
+2. `workspace/systolic_prototype/`에만 RTL, memory wiring, script와 보고서 생성
+3. 모든 설계 결정에 Evidence Chunk 또는 Direct Source Hash 기록
+4. 근거 부족 시 `unknown`, 보존 계약 변경 필요 시 구현 전 보고
+5. Lint, Compile, Simulation 이후에만 Verified 상태 부여
