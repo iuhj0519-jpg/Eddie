@@ -1,5 +1,16 @@
 # RAG Chunking and Ingestion
 
+## Evidence Sufficiency와 외부 지식 처리
+
+검색 반복의 종료 조건은 모델이 선언하는 임의의 신뢰도 점수가 아니다. 다음 조건을 모두 만족할 때 근거가 충분한 것으로 판정한다.
+
+- 대상 Requirement가 승인된 Chunk 또는 Direct Source Hash에 연결됨
+- 서로 충돌하는 승인 문서가 없음
+- 금지 경로와 Historical Baseline의 검색 결과가 0개임
+- 구현 결정이 인용된 근거의 범위를 벗어나지 않음
+
+조건을 만족하지 못하면 검색어를 보완하여 다시 검색한다. 그래도 근거가 없으면 `unknown`으로 중단한다. 일반 Run에서는 사용자 승인 후 외부 LLM/API를 최후의 수단으로 사용할 수 있지만, 결과는 SPEC에 편입하고 재인덱싱하기 전까지 설계 근거가 아니다. Run Manifest가 외부 접근을 금지한 경우에는 승인 요청 단계도 수행하지 않고 해당 결정을 중단한다.
+
 이 디렉터리는 승인된 `prototype_generation` 입력을 chunking하고 로컬 Hybrid Index에 ingestion하는 재현 가능한 Python Pipeline을 제공한다.
 
 ## Runtime

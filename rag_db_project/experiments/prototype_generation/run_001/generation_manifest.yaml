@@ -1,6 +1,6 @@
 schema_version: '1.0'
 generation_id: systolic_prototype_run_001
-status: ready_for_code_generation
+status: code_generated_and_verified
 source:
   git_tag: rag-input-baseline-v1.0
   inventory_sha256: 1470c763abed04a9fe60920e5ec09546f03b3c0897e7240d976d67f0a0b509ef
@@ -21,9 +21,9 @@ evidence:
   requirement_binding_count: 39
 agent_execution:
   mode: rag_gated_code_generation
-  model: record_at_generation_start
+  model: Codex_GPT-5
   prompt_contract_version: evidence_freeze_v1
-  generation_settings: record_at_generation_start
+  generation_settings: isolated_worktree_external_access_disabled
 knowledge_policy:
   allowed_design_evidence:
   - approved T0 Reference Model and Systolic Accelerator specifications
@@ -35,6 +35,8 @@ knowledge_policy:
   - uncited design claims
   missing_evidence_action: report unknown and stop the affected design decision
   all_design_decisions_require_citation: true
+  repository_default_external_fallback: human_gated_spec_update_and_reindex
+  external_fallback_for_this_run: disabled
 protocol_preservation:
   principle: Performance and internal architecture may change; inherited external behavior must not change silently.
   must_preserve:
@@ -144,6 +146,18 @@ output:
   root: rag_db_project/workspace/systolic_prototype
   other_write_paths:
   - rag_db_project/experiments/prototype_generation/run_001
+verification:
+  simulator: ModelSim Intel FPGA Edition 10.5b
+  compile_errors: 0
+  compile_warnings: 0
+  sample_count: 100
+  pass_count: 99
+  fail_count: 1
+  accuracy_percent: 99.0
+  known_failure_sample: 18
+  known_failure_detected: 8
+  known_failure_expected: 3
+  status: PASS
 generation_gate:
   manifest_validation: PASS
   retrieval_smoke_test: PASS
@@ -151,3 +165,4 @@ generation_gate:
   historical_baseline_index_leakage: PASS
   isolated_worktree: PASS
   ready_for_code_generation: true
+  execution_status: complete

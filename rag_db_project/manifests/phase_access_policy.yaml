@@ -10,10 +10,26 @@ principles:
   - do_not_embed_bulk_mif_or_test_vectors
   - report_unknown_when_evidence_is_missing
   - never_use_denied_paths_as_generation_evidence
+  - use_external_knowledge_only_after_unknown_and_human_approval
+  - incorporate_approved_external_findings_into_spec_before_generation
+
+external_knowledge_fallback:
+  default: human_gated_last_resort
+  trigger: approved_rag_evidence_is_insufficient_after_query_refinement
+  sequence:
+    - report_unknown_and_affected_requirements
+    - request_human_approval
+    - consult_external_llm_or_source
+    - review_and_add_finding_to_specification
+    - rebuild_manifest_index_and_evidence_freeze
+    - resume_generation
+  direct_use_as_code_evidence: false
 
 phases:
   prototype_generation:
     enabled: true
+    external_knowledge_access: false
+    external_knowledge_reason: systolic_prototype_run_001_is_a_rag_only_comparison_run
     retrieval_allow:
       - inputs/README.md
       - inputs/reference_model/README.md

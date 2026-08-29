@@ -1,6 +1,7 @@
 # FPGA simulation output
 **/work/
 **/transcript
+**/modelsim.ini
 **/vsim.wlf
 **/*.wlf
 **/*.vcd

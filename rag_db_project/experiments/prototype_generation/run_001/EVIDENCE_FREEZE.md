@@ -1,5 +1,18 @@
 # Systolic Prototype Evidence Freeze
 
+## External Knowledge Rule For This Run
+
+Repository 운영 정책은 RAG 근거가 끝내 부족할 때 `unknown → 사용자 승인 → 외부 조사 → SPEC 반영 → 재인덱싱`을 허용한다. 그러나 `systolic_prototype_run_001`은 RAG-only 비교 실험이므로 외부 Web과 외부 LLM/API 최후 수단도 비활성화했다. 이 Run의 구현 결정은 고정된 T0/T1/Direct Source 근거만 사용했다.
+
+## Implementation Outcome
+
+- Output: `workspace/systolic_prototype/`
+- ModelSim Compile: 0 Errors, 0 Warnings
+- Functional Regression: 99 PASS / 1 FAIL / 99.000000%
+- Known Failure: Sample 18, Detected 8, Expected 3
+- Controller Cycle Assertions: Layer 1/2/3 = 797/43/33 PASS
+- Interrupt Assertions: 1-Cycle Pulse, 20 Batches PASS
+
 - Generation ID: `systolic_prototype_run_001`
 - 상태: Ready For Code Generation
 - Source Tag: `rag-input-baseline-v1.0`
