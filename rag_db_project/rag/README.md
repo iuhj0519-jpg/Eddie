@@ -34,8 +34,8 @@ Dense Index는 외부 API key나 model download 없이 같은 입력에서 같�
 | `ingest/build_index.py` | manifest 검증, chunking, checksum 검사와 SQLite ingestion |
 | `retrieve/search.py` | BM25+dense Hybrid Retrieval CLI |
 | `tests/smoke_test.py` | retrieval 품질의 기본 조건과 금지 경로 누출 검사 |
-| `data/prototype_generation_v1/` | 생성된 chunk와 SQLite index; Git에서 제외 |
-| `runs/prototype_generation_v1/` | smoke test 결과; Git에서 제외 |
+| `data/prototype_generation_v2/` | Systolic Controller Reference를 포함해 생성된 Chunk와 SQLite Index; Git에서 제외 |
+| `runs/prototype_generation_v2/` | Controller FSM/Skew 검색을 포함한 Smoke Test 결과; Git에서 제외 |
 
 ## What Is Indexed
 
@@ -43,6 +43,7 @@ Dense Index는 외부 API key나 model download 없이 같은 입력에서 같�
 
 - Markdown: heading 단위, `REQ-*`는 requirement별 독립 chunk
 - Verilog: module signature context를 포함한 procedural block 또는 최대 100-line segment
+- SystemVerilog: Systolic Controller Reference의 Module, FSM, Skew와 PE 계층을 Symbol 단위로 Chunking
 - MIF/test vector/TB/script: embedding하지 않고 승인 source catalog와 checksum으로만 등록
 - Historical Baseline, workspace, verification, experiments, artifacts: 검색 index에서 제외
 

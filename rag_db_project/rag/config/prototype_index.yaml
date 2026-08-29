@@ -1,10 +1,10 @@
 schema_version: "1.0"
-index_id: prototype_generation_v1
+index_id: prototype_generation_v2
 source_manifest: manifests/source_manifest.yaml
 access_policy: manifests/phase_access_policy.yaml
 checksum_inventory: manifests/checksums/source_files.sha256
 phase: prototype_generation
-source_git_tag: rag-input-baseline-v1.0
+source_git_tag: rag-input-baseline-v1.1
 
 chunking:
   markdown_max_chars: 6000

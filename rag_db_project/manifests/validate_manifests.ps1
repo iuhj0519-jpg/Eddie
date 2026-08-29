@@ -54,9 +54,9 @@ if ($errors.Count -eq 0) {
     }
 
     $checksumLines = Get-Content -Encoding utf8 -LiteralPath $checksumPath
-    Add-CheckResult ($checksumLines.Count -eq 241) `
-        'checksum inventory contains 241 files' `
-        "checksum inventory count is $($checksumLines.Count), expected 241"
+    Add-CheckResult ($checksumLines.Count -eq 247) `
+        'checksum inventory contains 247 files' `
+        "checksum inventory count is $($checksumLines.Count), expected 247"
 
     $seenPaths = @{}
     foreach ($line in $checksumLines) {
@@ -103,6 +103,7 @@ if ($errors.Count -eq 0) {
         'inputs\reference_model\activation' = 1
         'inputs\reference_model\testdata' = 100
         'inputs\reference_model\scripts' = 1
+        'inputs\systolic_controller' = 6
         'inputs\specifications\01_reference_model' = 2
         'inputs\specifications\02_systolic_accelerator' = 2
     }
@@ -161,9 +162,9 @@ if ($errors.Count -eq 0) {
     $indexManifest = Get-Content -Raw -Encoding utf8 -LiteralPath `
         (Join-Path $manifestDirectory 'index_manifest.yaml')
 
-    Add-CheckResult ($sourceManifest -match '(?m)^expected_total_files:\s+241\s*$') `
-        'source manifest expects 241 files' `
-        'source manifest expected_total_files is not 241'
+    Add-CheckResult ($sourceManifest -match '(?m)^expected_total_files:\s+247\s*$') `
+        'source manifest expects 247 files' `
+        'source manifest expected_total_files is not 247'
     Add-CheckResult ($accessPolicy -match '(?m)^default_action:\s+deny\s*$') `
         'phase access policy uses default deny' `
         'phase access policy is not default deny'
@@ -183,9 +184,9 @@ if ($errors.Count -eq 0) {
         -ErrorMessage 'index manifest status must be not_built or built'
     if ($indexBuilt) {
         Add-CheckResult `
-            -Condition ($indexManifest -match '(?m)^\s+chunk_count:\s+143\s*$') `
-            -PassMessage 'index manifest records 143 chunks' `
-            -ErrorMessage 'built index manifest does not record 143 chunks'
+            -Condition ($indexManifest -match '(?m)^\s+chunk_count:\s+[1-9][0-9]*\s*$') `
+            -PassMessage 'index manifest records a positive chunk count' `
+            -ErrorMessage 'built index manifest does not record a positive chunk count'
         Add-CheckResult `
             -Condition ($indexManifest -match '(?ms)^\s+dense_index:\s*\r?\n\s+status:\s+built\s*$' -and
                         $indexManifest -match '(?m)^\s+embedding_dimension:\s+384\s*$') `

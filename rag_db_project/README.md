@@ -45,6 +45,7 @@ Compile, simulation, regression and comparison
 | 경로 | 역할 |
 |---|---|
 | `inputs/reference_model/` | legacy FC-MLP RTL, weight/bias, sigmoid LUT, test vector와 재현 스크립트 |
+| `inputs/systolic_controller/` | `zyNet`에 이식할 Controller, 2D Array, Systolic Cell과 MAC PE Reference RTL |
 | `inputs/specifications/` | 단계별 승인 요구사항과 목표 아키텍처 SPEC |
 | `workspace/systolic_prototype/` | reference model과 systolic SPEC으로 새로 생성할 prototype |
 | `workspace/optimized_accelerator/` | prototype과 optimization SPEC으로 생성할 최적화 RTL |
@@ -84,6 +85,6 @@ Compile, simulation, regression and comparison
 
 ## 진행 단계
 
-Reference Model과 Systolic Accelerator SPEC은 version 1.0으로 승인됐으며, 241개 입력 파일은 `rag-input-baseline-v1.0` tag와 SHA-256 inventory로 동결됐다.
+Reference Model, Systolic Controller Reference와 Systolic Accelerator SPEC version 1.1을 포함한 247개 입력 파일은 `rag-input-baseline-v1.1`과 SHA-256 Inventory로 동결한다.
 
-`prototype_generation` 접근 정책에 따라 Markdown과 Reference RTL 18개 원천을 143개 chunk로 나눠 로컬 Hybrid Index에 ingestion했다. SQLite FTS5 BM25와 384차원 deterministic feature-hash dense index를 사용하며, Historical Baseline과 workspace를 포함한 금지 경로 chunk는 0개다. Retrieval smoke test까지 통과했으므로 다음 단계는 `workspace/systolic_prototype/`에 독립적인 RTL 초안을 생성하는 것이다.
+`prototype_generation` 접근 정책에 따라 Markdown과 두 Reference RTL 계층의 24개 원천을 173개 Chunk로 나눠 `prototype_generation_v2` Hybrid Index에 Ingestion했다. SQLite FTS5 BM25와 384차원 deterministic feature-hash Dense Index를 사용하며, Historical Baseline과 Workspace를 포함한 금지 경로 Chunk는 0개다. 다음 생성은 독립적인 Controller 발명이 아니라 Reference Controller Core와 `zyNet` Interface의 이식·동기화여야 한다.

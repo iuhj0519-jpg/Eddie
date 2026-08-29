@@ -1,15 +1,15 @@
 schema_version: "1.0"
-manifest_id: prototype_generation_inputs_v1
+manifest_id: prototype_generation_inputs_v1_1
 status: approved
 project_root: rag_db_project
 purpose: >-
-  Reference Model과 승인된 Systolic Accelerator SPEC만으로 새 prototype을
-  생성하기 위한 원천 범위와 무결성 계약이다.
+  Reference Model, Systolic Controller Reference와 승인된 Systolic Accelerator
+  SPEC으로 새 prototype을 생성하기 위한 원천 범위와 무결성 계약이다.
 
-baseline_tag: rag-input-baseline-v1.0
+baseline_tag: rag-input-baseline-v1.1
 checksum_algorithm: sha256
 checksum_inventory: manifests/checksums/source_files.sha256
-expected_total_files: 241
+expected_total_files: 247
 
 source_groups:
   - id: reference_rtl
@@ -27,6 +27,15 @@ source_groups:
     expected_files: 1
     access_mode: direct
     chunking: none
+
+  - id: systolic_controller_reference
+    root: inputs/systolic_controller
+    include:
+      - README.md
+      - "rtl/*.sv"
+    expected_files: 6
+    access_mode: retrieval_and_direct
+    chunking: verilog_symbol_and_markdown_heading
 
   - id: reference_weights
     root: inputs/reference_model/weights

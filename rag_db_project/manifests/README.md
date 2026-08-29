@@ -10,15 +10,15 @@
 | `phase_access_policy.yaml` | 각 Agent 단계에서 retrieval과 direct file access가 허용·차단되는 경로 | 단계별 정보 공개 범위가 바뀔 때 |
 | `baseline_manifest.yaml` | Reference Model의 simulator, test 수, 99/1 결과와 승인 SPEC 버전 | 기능 Baseline 또는 도구 조건이 바뀔 때 |
 | `index_manifest.yaml` | chunker, embedding, vector/sparse index와 source checksum 상태 | ingestion을 실행하거나 index를 재생성할 때 |
-| `checksums/source_files.sha256` | 승인된 입력 파일 241개의 SHA-256과 상대 경로 | 승인 입력이 바뀔 때 |
+| `checksums/source_files.sha256` | 승인된 입력 파일 247개의 SHA-256과 상대 경로 | 승인 입력이 바뀔 때 |
 | `validate_manifests.ps1` | 파일 존재, count, hash, 승인 상태와 금지 경로를 재검증하는 PowerShell script | manifest 또는 입력이 바뀔 때 |
 | `MANIFEST_VALIDATION.md` | manifest, checksum, 접근 정책 검증 결과 | 입력 동결 검증을 다시 수행할 때 |
 
 ## Source Of Truth
 
-1. 승인 SPEC과 Reference Model 원본 파일
+1. 승인 SPEC, Reference Model과 Systolic Controller Reference 원본 파일
 2. `source_manifest.yaml`과 checksum inventory
-3. Git tag `rag-input-baseline-v1.0`
+3. Git tag `rag-input-baseline-v1.1`
 4. 위 원천으로 생성한 RAG index
 
 Index에만 존재하고 원천 파일이나 manifest에서 확인할 수 없는 내용은 설계 근거로 사용할 수 없다.

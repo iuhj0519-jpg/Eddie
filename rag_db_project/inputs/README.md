@@ -5,6 +5,7 @@
 ## 구성
 
 - `reference_model/`: legacy FC-MLP 구현, model parameter와 baseline test data
+- `systolic_controller/`: 이식 대상 Systolic Controller, 2D Array, Systolic Cell과 MAC PE 원본 RTL
 - `specifications/`: reference, systolic accelerator, optimization 및 verification 요구사항
 
 ## 관리 규칙

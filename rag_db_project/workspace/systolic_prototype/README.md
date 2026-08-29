@@ -1,5 +1,22 @@
 # Systolic Prototype
 
+> 상태: 이 결과는 `rag-input-baseline-v1.0`으로 생성·검증된 기능 Prototype이다. 이후 제공된 Systolic Controller Reference 계층은 생성 근거에 포함되지 않았으므로, 이 결과를 최종 Controller 이식본으로 간주해서는 안 된다. v1.1 Evidence Freeze 후 Controller Core를 다시 통합해야 한다.
+
+## Controller Reference Gap
+
+현재 기능 Prototype과 이후 제공된 Reference Core 사이에는 다음 구조 차이가 있다.
+
+| 항목 | 현재 기능 Prototype | v1.1 이식 요구 |
+|---|---|---|
+| 계층 | Controller와 Array가 Top에서 분리 | Controller → 2D Array → Cell → MAC PE Reference 역할 보존 |
+| DONE_STATE | 다음 Clock에 무조건 IDLE | `i_start=0` 확인 후 IDLE |
+| Operand 제어 | Lane별 Valid 전파 | RUN 공통 `array_en`과 Stall 의미 보존 |
+| Clear | Operand 전달 Register와 Accumulator Clear | Reference처럼 Accumulator Clear를 중심으로 동작 |
+| Input 공급 | SRAM Read Data를 Cycle별 직접 공급 | Reference Matrix Latch 의미와 SRAM Interface를 Adapter로 동기화 |
+| Arithmetic | signed 26-bit로 이미 Adapt | signed Q1.7×Q4.4, Q15.11 계약 유지 |
+
+따라서 99% 기능 결과는 유효하지만 Reference Controller 구조 적합성은 새 Evidence Freeze와 재통합 후 다시 검증해야 한다.
+
 이 디렉터리는 승인된 Reference Model과 Systolic Accelerator SPEC만을 근거로 생성한 1차 RTL 결과다. Historical Baseline, 외부 Web 검색, 외부 LLM/API는 생성 근거로 사용하지 않았다.
 
 ## Architecture

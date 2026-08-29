@@ -6,25 +6,26 @@
 
 ## Validation Result
 
-총 41개 검증 항목이 모두 통과했다.
+총 42개 검증 항목이 모두 통과했다.
 
 | 검증 대상 | 결과 |
 |---|---|
 | 필수 manifest와 checksum inventory 존재 | PASS |
 | YAML tab 미사용, schema version 및 status 존재 | PASS |
-| 승인 원천 파일 수 | 241개 |
+| 승인 원천 파일 수 | 247개 |
 | 승인 원천 파일 존재 및 SHA-256 일치 | PASS |
 | 금지 경로의 checksum inventory 혼입 | 없음 |
 | 폴더별 기대 파일 수 | 모두 일치 |
 | Reference Model SPEC 상태 | `approved`, version `1.0` |
-| Systolic Accelerator SPEC 상태 | `approved`, version `1.0` |
+| Systolic Accelerator SPEC 상태 | `approved`, version `1.1` |
+| Systolic Controller Reference | 5개 SystemVerilog + README |
 | 단계별 접근 정책 | default deny |
 | Historical Baseline의 prototype 생성 단계 접근 | 차단 |
 | Reference Model 기능 Baseline | 99 PASS / 1 FAIL / 99.0% |
 | RAG index 상태 | `built` |
-| Retrieval 원천 | 18개 |
-| 생성·ingestion된 chunk | 143개 |
-| Dense vector / FTS5 row | 143개 / 143개 |
+| Retrieval 원천 | 24개 |
+| 생성·ingestion된 chunk | 173개 |
+| Dense vector / FTS5 row | 173개 / 173개 |
 | 금지 경로 chunk | 0개 |
 | Retrieval smoke test | PASS |
 
@@ -39,21 +40,22 @@
 | Activation LUT | 1 |
 | Test vector | 100 |
 | Baseline 재현 script | 1 |
+| Systolic Controller Reference RTL/README | 6 |
 | Reference Model SPEC 문서 | 2 |
 | Systolic Accelerator SPEC 문서 | 2 |
 | Input navigation 문서 | 3 |
-| 합계 | 241 |
+| 합계 | 247 |
 
 ## Integrity Identifier
 
 `checksums/source_files.sha256` 파일 자체의 SHA-256은 다음과 같다.
 
 ```text
-1470c763abed04a9fe60920e5ec09546f03b3c0897e7240d976d67f0a0b509ef
+685f4a2d64e04061d91e8f7e8f8bcc1eda230214be8461d921b83dc100b75af0
 ```
 
-이 값은 승인된 241개 원천의 경로와 개별 checksum 목록을 식별한다. 원천 파일이나 승인 SPEC이 바뀌면 checksum inventory와 이 보고서를 다시 생성하고 검증해야 한다.
+이 값은 승인된 247개 원천의 경로와 개별 Checksum 목록을 식별한다. 원천 파일이나 승인 SPEC이 바뀌면 Checksum Inventory와 이 보고서를 다시 생성하고 검증해야 한다.
 
 ## Gate Decision
 
-입력 동결, chunking, ingestion과 기본 Retrieval smoke test를 통과했다. 다음 단계에서는 `phase_access_policy.yaml`의 `prototype_generation` 범위만 활성화한 Agent가 검색 근거와 source citation을 남기면서 `workspace/systolic_prototype/`에 새 RTL을 생성한다.
+입력 동결, Chunking, Ingestion과 Systolic Controller 검색을 포함한 Retrieval Smoke Test를 통과했다. 기존 `run_001` 결과는 v1.0 근거로 생성된 기능 Baseline으로 보존하며, Reference Controller 이식본은 v1.1 근거와 새로운 Evidence Freeze로 다시 생성해야 한다.

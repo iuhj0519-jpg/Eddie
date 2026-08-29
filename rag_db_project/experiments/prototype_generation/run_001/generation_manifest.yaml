@@ -1,6 +1,11 @@
 schema_version: '1.0'
 generation_id: systolic_prototype_run_001
 status: code_generated_and_verified
+supersession:
+  functional_result_preserved: true
+  future_generation_baseline: rag-input-baseline-v1.1
+  reason: Systolic Controller Reference RTL was supplied after run_001.
+  action: create a new evidence freeze before controller-reference integration
 source:
   git_tag: rag-input-baseline-v1.0
   inventory_sha256: 1470c763abed04a9fe60920e5ec09546f03b3c0897e7240d976d67f0a0b509ef

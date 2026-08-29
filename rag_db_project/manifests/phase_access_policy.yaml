@@ -34,11 +34,14 @@ phases:
       - inputs/README.md
       - inputs/reference_model/README.md
       - inputs/reference_model/model/rtl/*.v
+      - inputs/systolic_controller/README.md
+      - inputs/systolic_controller/rtl/*.sv
       - inputs/specifications/README.md
       - inputs/specifications/01_reference_model/*.md
       - inputs/specifications/02_systolic_accelerator/*.md
     direct_file_allow:
       - inputs/reference_model/model/rtl/*.v
+      - inputs/systolic_controller/rtl/*.sv
       - inputs/reference_model/model/tb/top_sim.v
       - inputs/reference_model/weights/*.mif
       - inputs/reference_model/biases/*.mif

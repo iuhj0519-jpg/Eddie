@@ -47,8 +47,14 @@ def main() -> int:
         {
             "id": "controller_states",
             "query": "Systolic Controller IDLE RUN DONE_STATE i_start o_busy o_done",
-            "expected_path": "inputs/specifications/02_systolic_accelerator/",
+            "expected_path": "inputs/systolic_controller/",
             "expected_token": "DONE_STATE",
+        },
+        {
+            "id": "controller_skew",
+            "query": "Systolic Controller cnt row column skew latched_mat_a latched_mat_b",
+            "expected_path": "inputs/systolic_controller/",
+            "expected_token": "latched_mat_a",
         },
         {
             "id": "fixed_point_saturation",
@@ -108,8 +114,8 @@ def main() -> int:
     finally:
         connection.close()
 
-    require(approved_count == 241, f"approved source catalog mismatch: {approved_count}")
-    require(indexed_source_count == 18, f"retrieval source count mismatch: {indexed_source_count}")
+    require(approved_count == 247, f"approved source catalog mismatch: {approved_count}")
+    require(indexed_source_count == 24, f"retrieval source count mismatch: {indexed_source_count}")
     require(chunk_count > 0, "no chunks were ingested")
     require(fts_count == chunk_count, "FTS row count mismatch")
     require(dense_count == chunk_count, "dense vector count mismatch")
@@ -126,7 +132,7 @@ def main() -> int:
         "denied_chunk_count": denied_count,
         "cases": report_cases,
     }
-    report_path = RAG_DIR / "runs" / "prototype_generation_v1" / "smoke_test.json"
+    report_path = RAG_DIR / "runs" / str(config["index_id"]) / "smoke_test.json"
     report_path.parent.mkdir(parents=True, exist_ok=True)
     report_path.write_text(
         json.dumps(report, ensure_ascii=False, indent=2, sort_keys=True) + "\n",

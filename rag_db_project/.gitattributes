@@ -19,6 +19,9 @@ inputs/reference_model/testdata/*.txt              -text
 *.tcl   text eol=lf
 *.do    text eol=lf
 
+# Preserve the supplied Systolic Controller RTL after the generic SV rule.
+inputs/systolic_controller/rtl/*.sv                -text
+
 *.png   binary
 *.jpg   binary
 *.jpeg  binary

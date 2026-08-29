@@ -1,5 +1,7 @@
 # Systolic Prototype Evidence Freeze
 
+> `run_001`은 `rag-input-baseline-v1.0`의 재현 가능한 기록으로 유지한다. 이후 Systolic Controller Reference RTL이 승인 입력에 추가되었으므로, 이 Freeze는 새로운 Controller 이식 코드의 근거로 재사용하지 않는다.
+
 ## External Knowledge Rule For This Run
 
 Repository 운영 정책은 RAG 근거가 끝내 부족할 때 `unknown → 사용자 승인 → 외부 조사 → SPEC 반영 → 재인덱싱`을 허용한다. 그러나 `systolic_prototype_run_001`은 RAG-only 비교 실험이므로 외부 Web과 외부 LLM/API 최후 수단도 비활성화했다. 이 Run의 구현 결정은 고정된 T0/T1/Direct Source 근거만 사용했다.

@@ -1,17 +1,34 @@
 # 5×5 Output-Stationary Systolic Accelerator Specification
 
 - 문서 ID: SYS-SPEC-001
-- 버전: 1.0
+- 버전: 1.1
 - 상태: approved
 - 기능 블록: Input Buffer, Global Buffer, DNN Scheduler, Systolic Controller, Systolic Array, Activation Unit, Weight SRAM, Bias SRAM, SigROM
 
 ## 1. 목적
 
-이 문서는 MNIST FC-MLP Reference Model의 fully-connected 연산부에 5×5 systolic controller와 Systolic Array를 이식하기 위한 목표 아키텍처를 정의한다. 기존 external AXI interface와 784→30→20→10 inference 기능을 유지하면서, 연산에 필요한 buffer, SRAM, activation과 scheduling 구조를 추가한다.
+이 문서는 MNIST FC-MLP Reference Model의 fully-connected 연산부에 `inputs/systolic_controller/rtl/`의 Systolic Controller Reference 계층을 5×5로 확장·이식하기 위한 목표 아키텍처를 정의한다. 기존 external AXI interface와 784→30→20→10 inference 기능을 유지하면서, 연산에 필요한 Buffer, SRAM, Activation과 Scheduling 구조를 추가한다.
+
+프로젝트의 핵심은 독립적인 Systolic Array를 새로 발명하는 것이 아니라, 제공된 `systolic_controller_ref`의 FSM, Skewing, Clear/Enable, 2D Array와 PE 계층을 `zyNet`의 AXI·Batch·Memory Interface에 동기화하는 것이다.
 
 5개의 row는 한 batch의 MNIST image 5개를 동시에 처리하고, 5개의 column은 output neuron 5개를 병렬 계산한다. 한 batch는 5개 image이며 20개 batch를 반복해 총 100개 image를 추론한다.
 
 Agent는 이 문서와 승인된 RAG DB 입력만 근거로 코드를 생성해야 한다. 이 문서에 규정되지 않은 내부 구현은 기능·timing·interface 요구사항을 만족하는 범위에서 독립적으로 결정한다.
+
+## 1.1 Approved Systolic Controller Reference
+
+다음 RTL은 Systolic Accelerator 구현의 승인된 Core Reference다.
+
+```text
+systolic_controller_ref
+└─ systolic_array_2d_ref
+   └─ pe_systolic_cell_ref
+      └─ mac_pe_ref
+
+pe_chain_1d_ref: PE 전달 구조를 설명하는 Supporting Reference
+```
+
+Reference Model RTL은 이식 대상 시스템의 외부 Protocol과 MLP 기능을 정의하고, Systolic Controller Reference RTL은 이식할 연산 Core의 구조와 제어 의미를 정의한다. 두 Reference 사이의 차이는 Interface Adapter에서 해결하며 어느 한쪽의 계약을 근거 없이 삭제하거나 대체해서는 안 된다.
 
 ## 2. Functional Scope
 
@@ -128,6 +145,30 @@ OUTPUT_LOAD → MAXFINDER_START → MAXFINDER_WAIT → RESULT_VALID → IDLE
 - 각 Processing Element의 partial sum은 연산 종료까지 해당 element에 유지한다.
 - operand만 인접 Processing Element로 이동하므로 dataflow는 output-stationary다.
 
+### 7.1 Reference Core Preservation
+
+생성 RTL은 다음 Reference 동작을 보존해야 한다.
+
+- Controller가 `systolic_array_2d` 계층을 제어하는 구조
+- Systolic Cell의 A Register는 오른쪽 Cell로, B Register는 아래쪽 Cell로 Operand를 전달
+- `en=0`이면 A/B 전달 Register와 Accumulator가 유지되는 Stall 의미
+- `clr=1`이면 MAC Accumulator만 초기화하고 Operand 전달 Register는 불필요하게 초기화하지 않는 의미
+- `array_en = (state == RUN)`
+- `array_clr = (state == IDLE) && i_start`
+- Row Skew는 `k = cnt - row_index`, Column Skew는 `k = cnt - column_index`
+
+Reference RTL의 `mac_pe_ref` Port는 unsigned로 선언되어 있지만 목표 Fixed-Point 계약은 signed다. 따라서 이식본은 Reference의 MAC/Clear/Enable 구조를 유지하면서 Operand와 Product를 signed로 명시해야 한다. `ACC_W`는 원본 Default 식 대신 목표값 26으로 Override해야 한다.
+
+### 7.2 Interface Adapter Boundary
+
+Reference Controller의 전체 `i_mat_a`, `i_mat_b` Latch Interface와 목표 시스템의 Input Buffer, Global Buffer, Weight SRAM Interface 사이에는 명시적인 Adapter가 필요하다.
+
+- Adapter는 Layer별 K=784/30/20과 1-Cycle SRAM Read Latency를 처리한다.
+- Controller가 `i_start`를 수락한 뒤 현재 Tile의 Source와 Weight가 계산 도중 다른 Layer/Group Data로 바뀌어서는 안 된다.
+- 전체 Matrix를 Register로 복제할지, Address/Data Feeder로 공급할지는 구현 선택이지만 Reference의 Atomic Tile Input, Skewing과 Cycle 의미를 유지해야 한다.
+- Active-Low `rst_n`은 `zyNet`의 Reset 체계와 명시적으로 동기화해야 한다.
+- Adapter로 추가된 Latency는 797/43/33 계약에 포함되어야 하며, 계약을 바꿔야 하면 구현 전에 보고해야 한다.
+
 ## 8. Weight SRAM, Bias SRAM And SigROM
 
 - Weight SRAM은 5개 column에 대응하는 5개 bank로 구성하고 현재 layer/group의 Q4.4 weight를 공급한다.
@@ -214,13 +255,15 @@ start/busy/done은 내부 controller의 three-signal handshake이며 AXI protoco
 ```text
 IDLE --i_start=1 for 1 cycle--> RUN --calculation complete--> DONE_STATE
  ^                                                           |
- └-------------------- next clock ----------------------------┘
+ └--------------------------- i_start=0 ----------------------┘
 ```
 
 - start 수락 전 `o_busy=0`, `o_done=0`이어야 한다.
 - RUN에서만 `o_busy=1`이어야 한다.
 - 완료 시 `o_busy=0`, `o_done=1`이어야 한다.
-- `o_done`은 정확히 1 cycle이어야 하며 다음 clock에는 0으로 복귀해야 한다.
+- Reference Controller는 DONE_STATE에서 `i_start=0`을 확인한 뒤 IDLE로 복귀한다.
+- DNN Scheduler가 `i_start`를 정확히 1 cycle만 assertion하므로 정상 계약에서 `o_done`은 정확히 1 cycle이고 다음 clock에는 0으로 복귀한다.
+- `i_start`가 비정상적으로 DONE_STATE까지 High로 유지되면 Reference 의미에 따라 `o_done`도 High로 유지되어야 하며, 이를 무조건 1 cycle로 잘라서는 안 된다.
 - DNN Scheduler는 `TILE_WAIT`에서 `o_done`을 검출해야 한다.
 
 ## 13. Batch Mapping And Layer Tiling
@@ -256,6 +299,8 @@ TARGET_CYCLES = K + ROWS + COLS + SRAM_READ_LATENCY + 2
               = K + 13
 ```
 
+Reference Controller의 `CALC_CYCLES = ROWS + COLS + K_DIM + 2`는 K+12로 표현되지만 RUN Counter가 종료값을 포함해 검사되므로 `i_start` 수락부터 DONE_STATE 관측까지의 목표 구간은 K+13 Clock이다. 목표 Layer 값 797/43/33은 이 Inclusive Counter 의미와 1-Cycle Memory Interface를 함께 보존한다.
+
 | Layer | K | Group 수 | Target Cycles/Group | Group 합계 |
 |---|---:|---:|---:|---:|
 | Layer 1 | 784 | 6 | 797 | 4,782 |
@@ -275,6 +320,8 @@ Agent가 목표 cycle과 다른 완료 조건이 불가피하다고 판단하면
 - 관용적인 protocol 이름이나 본 SPEC이 고정한 이름 외에는 의미를 축약한 identifier를 사용하지 않는다.
 - 내부 module과 state 이름은 기능을 명확히 표현하되 SPEC이 특정 identifier를 강제하지 않는다.
 - 승인된 RAG DB 밖의 구현이나 코드 구조를 생성 근거로 사용해서는 안 된다.
+- `inputs/systolic_controller/rtl/`의 계층, FSM, Skew와 Clear/Enable 의미는 승인된 이식 원형으로 사용해야 한다.
+- Reference Core와 목표 Interface의 차이는 별도 Adapter 또는 추적 가능한 Port Adaptation으로 구현하고, 독립적으로 재설계한 Controller로 대체해서는 안 된다.
 - 명시되지 않은 내부 구조가 필요하면 Agent가 기능적 근거와 trade-off를 설명하고 자체적으로 결정한다.
 
 Q15.11→Q5.5 saturation은 comparator와 three-way MUX로 구성한 combinational clamp를 우선 사용해 추가 cycle을 만들지 않는다. Timing closure 때문에 pipeline register가 불가피하면 Agent는 구현 전에 변경 이유와 cycle 영향을 보고해야 한다.
@@ -291,7 +338,7 @@ Q15.11→Q5.5 saturation은 comparator와 three-way MUX로 구성한 combination
 - REQ-SYS-008: DNN Scheduler는 정의된 input, layer, tile, group, activation, output과 result sequence를 제어해야 한다.
 - REQ-SYS-009: Weight SRAM과 Bias SRAM은 5-bank 구조로 현재 group의 weight와 bias를 공급해야 한다.
 - REQ-SYS-010: SigROM은 Reference Model의 `sigContent.mif`와 Q5.5 address 계약을 유지해야 한다.
-- REQ-SYS-011: `i_start`와 `o_done`은 각각 정확히 1 cycle이어야 하고 `o_busy`는 계산 중에만 1이어야 한다.
+- REQ-SYS-011: DNN Scheduler의 `i_start`는 정확히 1 cycle이어야 하고 `o_busy`는 RUN에서만 1이어야 한다. `o_done`은 DONE_STATE에서 1이며 `i_start=0`일 때 다음 Clock에 IDLE로 복귀하므로 정상 1-Cycle Start 계약에서는 정확히 1 cycle이어야 한다.
 - REQ-SYS-012: 한 batch는 image 5개를 병렬 처리하고 20개 batch로 100개 image를 처리해야 한다.
 - REQ-SYS-013: Layer 1/2/3은 각각 6/4/2개의 5-neuron group을 처리해야 한다.
 - REQ-SYS-014: fixed-point chain은 Q1.7×Q4.4→Q15.11, Bias Q5.3, Sigmoid Input Q5.5, Activation Output Q1.7을 유지해야 한다.
@@ -307,6 +354,13 @@ Q15.11→Q5.5 saturation은 comparator와 three-way MUX로 구성한 combination
 - REQ-SYS-024: 다섯 번째 result read 후부터 다음 batch 입력 전까지 5-entry class result storage와 read index를 clear해야 한다.
 - REQ-SYS-025: 새 parameter는 `UPPER_SNAKE_CASE`, 새 internal signal/register/counter는 full-name lowercase `snake_case` 규칙을 따라야 한다.
 - REQ-SYS-026: Q5.5 saturation은 기본적으로 추가 pipeline cycle 없는 combinational comparator/MUX 구조로 구현해야 한다.
+- REQ-SYS-027: 생성 RTL은 `systolic_controller_ref → systolic_array_2d_ref → pe_systolic_cell_ref → mac_pe_ref`의 Core 계층과 역할을 이식해야 한다.
+- REQ-SYS-028: Controller는 Reference의 `IDLE → RUN → DONE_STATE → IDLE` 전이와 DONE_STATE의 `i_start=0` 복귀 조건을 유지해야 한다.
+- REQ-SYS-029: Controller는 Reference의 RUN Array Enable, IDLE Start Accumulator Clear와 PE Stall 의미를 유지해야 한다.
+- REQ-SYS-030: Operand 공급은 Reference의 `cnt-row_index` 및 `cnt-column_index` Skewing 의미를 유지해야 한다.
+- REQ-SYS-031: Reference MAC의 구조를 유지하되 목표 구현은 signed Q1.7×Q4.4와 26-bit Q15.11 Accumulator로 명시적으로 Adapt해야 한다.
+- REQ-SYS-032: Reference의 Matrix Input과 목표 Buffer/SRAM 사이의 Adapter는 Tile Input의 Atomicity, 1-Cycle SRAM Latency와 Layer별 K를 보존해야 한다.
+- REQ-SYS-033: Reference Core의 Port, State, Counter, Clear/Enable 또는 Skew 동작을 변경하면 변경 이유, 대응 Requirement와 Cycle 영향을 구현 보고서에 기록해야 한다.
 
 ## 17. Verification Items
 
@@ -328,4 +382,9 @@ Q15.11→Q5.5 saturation은 comparator와 three-way MUX로 구성한 combination
 - parameter 및 internal signal naming lint
 - saturation combinational path가 target cycle을 증가시키지 않는지 확인
 - group별 797/43/33 target cycle assertion
+- Reference Controller 계층과 생성 Controller 계층의 Module/Port Mapping
+- DONE_STATE에서 `i_start` High 유지 및 Low 복귀 Handshake Test
+- `array_clr`, `array_en`, PE Stall과 Accumulator Clear 동작 비교
+- Reference Skew 식과 생성 Memory Address/Valid Timing의 Cycle별 비교
+- unsigned Reference Port에서 signed Fixed-Point Port로의 Adaptation 확인
 - 100-image inference 결과와 Reference Model 기능 비교
