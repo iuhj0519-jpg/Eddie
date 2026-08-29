@@ -1,6 +1,6 @@
-# RAG Chunking And Ingestion
+# RAG Chunking and Ingestion
 
-이 디렉터리는 승인된 `prototype_generation` 입력을 chunking하고 로컬 Hybrid Index에 ingestion하는 재현 가능한 Python pipeline을 제공한다.
+이 디렉터리는 승인된 `prototype_generation` 입력을 chunking하고 로컬 Hybrid Index에 ingestion하는 재현 가능한 Python Pipeline을 제공한다.
 
 ## Runtime
 
@@ -11,7 +11,7 @@
 - Sparse retrieval: SQLite FTS5 BM25
 - Dense retrieval: 384차원 deterministic feature hashing
 
-Dense index는 외부 API key나 model download 없이 같은 입력에서 같은 vector를 재생성하기 위한 초기 구현이다. Learned embedding model은 아니므로 자연어 의미 유사성 평가가 필요해지는 단계에서 교체할 수 있다. Git의 승인 SPEC과 source manifest가 정본이며 index는 언제든 다시 만들 수 있는 파생 데이터다.
+Dense Index는 외부 API key나 model download 없이 같은 입력에서 같은 vector를 재생성하기 위한 초기 구현이다. Learned Embedding Model은 아니므로 자연어 의미 유사성 평가가 필요해지는 단계에서 교체할 수 있다. Git의 승인 SPEC과 source manifest가 정본이며 index는 언제든 다시 만들 수 있는 파생 데이터다.
 
 ## Files
 
@@ -39,7 +39,7 @@ Dense index는 외부 API key나 model download 없이 같은 입력에서 같�
 
 ## Build
 
-Git Bash 또는 PowerShell에서 Repository root를 기준으로 실행한다.
+Git Bash 또는 PowerShell에서 Repository Root를 기준으로 실행한다.
 
 ```bash
 wsl.exe -d Ubuntu -- bash -lc "cd /mnt/c/Users/iuhj0/Eddie && python3 rag_db_project/rag/ingest/build_index.py"
