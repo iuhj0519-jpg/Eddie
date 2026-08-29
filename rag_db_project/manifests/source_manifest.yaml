@@ -1,0 +1,117 @@
+schema_version: "1.0"
+manifest_id: prototype_generation_inputs_v1
+status: approved
+project_root: rag_db_project
+purpose: >-
+  Reference Model과 승인된 Systolic Accelerator SPEC만으로 새 prototype을
+  생성하기 위한 원천 범위와 무결성 계약이다.
+
+baseline_tag: rag-input-baseline-v1.0
+checksum_algorithm: sha256
+checksum_inventory: manifests/checksums/source_files.sha256
+expected_total_files: 241
+
+source_groups:
+  - id: reference_rtl
+    root: inputs/reference_model/model/rtl
+    include:
+      - "*.v"
+    expected_files: 11
+    access_mode: retrieval_and_direct
+    chunking: verilog_symbol
+
+  - id: reference_testbench
+    root: inputs/reference_model/model/tb
+    include:
+      - top_sim.v
+    expected_files: 1
+    access_mode: direct
+    chunking: none
+
+  - id: reference_weights
+    root: inputs/reference_model/weights
+    include:
+      - "w_*.mif"
+    expected_files: 60
+    access_mode: direct
+    chunking: metadata_only
+
+  - id: reference_biases
+    root: inputs/reference_model/biases
+    include:
+      - "b_*.mif"
+    expected_files: 60
+    access_mode: direct
+    chunking: metadata_only
+
+  - id: reference_activation_lut
+    root: inputs/reference_model/activation
+    include:
+      - sigContent.mif
+    expected_files: 1
+    access_mode: direct
+    chunking: metadata_only
+
+  - id: reference_testdata
+    root: inputs/reference_model/testdata
+    include:
+      - "test_data_*.txt"
+    expected_files: 100
+    access_mode: direct
+    chunking: metadata_only
+
+  - id: baseline_reproduction_script
+    root: inputs/reference_model/scripts
+    include:
+      - run_modelsim.sh
+    expected_files: 1
+    access_mode: execution_only
+    chunking: none
+
+  - id: normative_reference_spec
+    root: inputs/specifications/01_reference_model
+    include:
+      - README.md
+      - REFERENCE_MODEL_SPECIFICATION.md
+    expected_files: 2
+    required_document_status: approved
+    access_mode: retrieval_and_direct
+    chunking: markdown_heading
+
+  - id: normative_systolic_spec
+    root: inputs/specifications/02_systolic_accelerator
+    include:
+      - README.md
+      - SYSTOLIC_ACCELERATOR_SPECIFICATION.md
+    expected_files: 2
+    required_document_status: approved
+    access_mode: retrieval_and_direct
+    chunking: markdown_heading
+
+  - id: input_navigation_docs
+    root: inputs
+    include:
+      - README.md
+      - reference_model/README.md
+      - specifications/README.md
+    expected_files: 3
+    access_mode: retrieval_and_direct
+    chunking: markdown_heading
+
+excluded_roots:
+  - historical_baselines
+  - workspace
+  - verification
+  - experiments
+  - artifacts
+  - rag/data
+  - rag/cache
+  - rag/runs
+
+invariants:
+  - all_paths_are_relative_to_project_root
+  - all_manifested_files_exist
+  - all_sha256_values_match
+  - expected_group_counts_match
+  - normative_specs_are_approved
+  - excluded_roots_are_not_in_checksum_inventory

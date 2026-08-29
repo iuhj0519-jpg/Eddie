@@ -1,0 +1,41 @@
+schema_version: "1.0"
+manifest_id: prototype_rag_index_v1
+status: not_built
+project_root: rag_db_project
+source_manifest: manifests/source_manifest.yaml
+source_checksum_inventory: manifests/checksums/source_files.sha256
+phase_access_policy: manifests/phase_access_policy.yaml
+
+chunking:
+  status: not_run
+  markdown_strategy: heading_aware
+  verilog_strategy: symbol_aware
+  numeric_file_strategy: metadata_only
+  chunker_name: null
+  chunker_version: null
+  chunk_count: null
+
+retrieval:
+  dense_index:
+    status: not_built
+    embedding_model: null
+    embedding_dimension: null
+    collection_name: null
+  sparse_index:
+    status: not_built
+    tokenizer: null
+    index_name: null
+  reranker:
+    status: not_configured
+    model: null
+
+build_provenance:
+  source_git_tag: rag-input-baseline-v1.0
+  source_tree_sha256: null
+  build_command: null
+
+activation_gate:
+  - source_manifest_validation_passed
+  - phase_access_policy_validation_passed
+  - chunking_completed
+  - retrieval_smoke_test_passed

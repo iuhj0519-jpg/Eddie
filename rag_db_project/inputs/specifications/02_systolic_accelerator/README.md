@@ -5,3 +5,5 @@
 - `SYSTOLIC_ACCELERATOR_SPECIFICATION.md`: array, PE, OS dataflow, controller FSM, memory feed 및 cycle 요구사항
 
 Agent는 이 폴더의 승인된 SPEC과 단계별로 허용된 RAG DB 입력만 사용해 새 prototype을 생성해야 한다.
+
+현재 상태는 `approved`다. 이 폴더의 SPEC은 Systolic Accelerator 생성 단계의 규범적 RAG 입력이다.

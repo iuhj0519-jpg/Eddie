@@ -1,8 +1,8 @@
 # Legacy FC-MLP Reference Model Specification
 
 - 문서 ID: REF-SPEC-001
-- 버전: 0.1
-- 상태: draft-for-review
+- 버전: 1.0
+- 상태: approved
 - DUT top: `zyNet`
 - 기준 구현: `inputs/reference_model/model/rtl`
 

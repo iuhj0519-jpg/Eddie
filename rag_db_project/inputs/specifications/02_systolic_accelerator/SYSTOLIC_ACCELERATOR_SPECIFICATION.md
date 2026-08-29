@@ -1,8 +1,8 @@
 # 5×5 Output-Stationary Systolic Accelerator Specification
 
 - 문서 ID: SYS-SPEC-001
-- 버전: 0.3
-- 상태: draft-for-review
+- 버전: 1.0
+- 상태: approved
 - 기능 블록: Input Buffer, Global Buffer, DNN Scheduler, Systolic Controller, Systolic Array, Activation Unit, Weight SRAM, Bias SRAM, SigROM
 
 ## 1. 목적
@@ -192,6 +192,9 @@ AXI-Stream transfer는 `axis_in_data_valid && axis_in_data_ready`인 clock에서
 - Reference Model의 output register decode `3'h2`, byte address `0x08` 하나를 유지한다.
 - Software/testbench가 `0x08`을 반복 read하면 각 완료된 AXI read handshake마다 다음 class 결과를 반환한다.
 - batch result read index는 RESULT_VALID 진입 시 0으로 초기화하고 0부터 4까지 증가한다.
+- AXI-Lite byte address `0x08`은 내부의 5-entry class result storage를 순차 조회하는 단일 address window로 동작한다.
+- 다섯 번째 read handshake가 끝나면 현재 batch의 class result 5개와 read index를 clear한다.
+- 다음 batch의 AXI-Stream 입력을 받기 전에 class result storage와 read index가 모두 0으로 초기화되어 있어야 한다.
 - 다섯 결과가 모두 준비되면 `intr`를 batch당 정확히 한 번, 1 cycle assertion한다.
 - `intr`의 pulse 의미는 Reference Model의 `intr = out_valid` 동작과 동일하게 유지한다.
 - DNN Scheduler는 모든 image의 MaxFinder가 끝나면 RESULT_VALID에 진입하고, 다섯 번째 AXI-Lite result read handshake가 완료될 때까지 이 상태를 유지한다.
@@ -267,9 +270,14 @@ Agent가 목표 cycle과 다른 완료 조건이 불가피하다고 판단하면
 
 - Reference Model에서 계승한 external AXI signal과 parameter 이름은 그대로 유지한다.
 - 본 SPEC에서 이름을 명시한 `i_start`, `o_busy`, `o_done`은 controller interface 계약으로 유지한다.
-- 내부 module, state, register와 helper signal 이름은 SPEC이 강제하지 않는다.
+- 새 parameter 이름은 의미를 나타내는 full name의 `UPPER_SNAKE_CASE`를 사용한다.
+- 새 signal, register, counter와 내부 control 이름은 의미를 나타내는 full name의 lowercase `snake_case`를 사용한다.
+- 관용적인 protocol 이름이나 본 SPEC이 고정한 이름 외에는 의미를 축약한 identifier를 사용하지 않는다.
+- 내부 module과 state 이름은 기능을 명확히 표현하되 SPEC이 특정 identifier를 강제하지 않는다.
 - 승인된 RAG DB 밖의 구현이나 코드 구조를 생성 근거로 사용해서는 안 된다.
 - 명시되지 않은 내부 구조가 필요하면 Agent가 기능적 근거와 trade-off를 설명하고 자체적으로 결정한다.
+
+Q15.11→Q5.5 saturation은 comparator와 three-way MUX로 구성한 combinational clamp를 우선 사용해 추가 cycle을 만들지 않는다. Timing closure 때문에 pipeline register가 불가피하면 Agent는 구현 전에 변경 이유와 cycle 영향을 보고해야 한다.
 
 ## 16. Requirements
 
@@ -296,6 +304,9 @@ Agent가 목표 cycle과 다른 완료 조건이 불가피하다고 판단하면
 - REQ-SYS-021: 다음 batch input은 현재 batch의 RESULT_VALID 종료와 IDLE 복귀 후 INPUT_LOAD에서 시작해야 한다.
 - REQ-SYS-022: class 결과 5개는 AXI-Lite byte address `0x08`의 반복 read로 image 순서대로 제공하고, 다섯 번째 read handshake 후 RESULT_VALID에서 IDLE로 복귀해야 한다.
 - REQ-SYS-023: `intr`는 batch 결과 5개가 모두 준비됐을 때 batch당 정확히 한 번, 1 cycle assertion해야 한다.
+- REQ-SYS-024: 다섯 번째 result read 후부터 다음 batch 입력 전까지 5-entry class result storage와 read index를 clear해야 한다.
+- REQ-SYS-025: 새 parameter는 `UPPER_SNAKE_CASE`, 새 internal signal/register/counter는 full-name lowercase `snake_case` 규칙을 따라야 한다.
+- REQ-SYS-026: Q5.5 saturation은 기본적으로 추가 pipeline cycle 없는 combinational comparator/MUX 구조로 구현해야 한다.
 
 ## 17. Verification Items
 
@@ -312,6 +323,9 @@ Agent가 목표 cycle과 다른 완료 조건이 불가피하다고 판단하면
 - `sigContent.mif` lookup과 Q1.7 activation output
 - Image-Major input ordering과 batch 간 RESULT_VALID/IDLE 경계
 - AXI-Lite `0x08` 반복 read의 image 0→4 결과 순서와 read index reset
+- 다섯 번째 read 후 class result storage clear와 다음 batch 시작 전 reset 상태
 - batch당 1-cycle `intr`
+- parameter 및 internal signal naming lint
+- saturation combinational path가 target cycle을 증가시키지 않는지 확인
 - group별 797/43/33 target cycle assertion
 - 100-image inference 결과와 Reference Model 기능 비교

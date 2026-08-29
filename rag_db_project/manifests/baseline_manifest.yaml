@@ -1,0 +1,57 @@
+schema_version: "1.0"
+manifest_id: reference_functional_baseline_v1
+status: approved
+project_root: rag_db_project
+baseline_tag: rag-input-baseline-v1.0
+
+reference_model:
+  dut_top: zyNet
+  network: "784->30->20->10"
+  testbench_top: top_sim
+  input_order: image_major
+  samples: 100
+
+approved_specifications:
+  reference_model:
+    document_id: REF-SPEC-001
+    version: "1.0"
+    path: inputs/specifications/01_reference_model/REFERENCE_MODEL_SPECIFICATION.md
+  systolic_accelerator:
+    document_id: SYS-SPEC-001
+    version: "1.0"
+    path: inputs/specifications/02_systolic_accelerator/SYSTOLIC_ACCELERATOR_SPECIFICATION.md
+
+simulation:
+  simulator: ModelSim Intel FPGA Edition
+  simulator_version: 10.5b
+  toolchain: Intel FPGA 18.1
+  command: bash rag_db_project/inputs/reference_model/scripts/run_modelsim.sh
+  compile_errors: 0
+  compile_warnings: 0
+  simulation_errors: 0
+  elaboration_simulation_warnings: 65
+  final_simulation_time_ns: 873235
+
+expected_result:
+  pass: 99
+  fail: 1
+  accuracy_percent: 99.0
+  only_failure:
+    test_vector: test_data_0018.txt
+    detected_class: 8
+    expected_class: 3
+
+expected_source_counts:
+  rtl_verilog: 11
+  testbench: 1
+  weight_mif: 60
+  bias_mif: 60
+  activation_lut: 1
+  test_vectors: 100
+
+acceptance_rules:
+  - compile_and_simulation_errors_are_zero
+  - pass_fail_and_accuracy_match_exactly
+  - only_failure_matches_exactly
+  - source_manifest_validation_passes
+  - phase_access_policy_validation_passes
