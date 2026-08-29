@@ -65,7 +65,7 @@ DNN Scheduler controls every load, layer, tile, group, activation and result pha
 - 5개 bank를 사용하며 각 bank는 image 한 개의 784개 Q1.7 feature에 대응한다.
 - 한 batch의 논리적 입력 matrix는 `[5×784]`다.
 - 입력 순서는 image 0~4와 각 image의 feature 0~783 mapping을 명시적으로 보존해야 한다.
-- Input Buffer에 data가 모드 load 된 다음 연산이 시작되며, 한 batch 입력 완료 전 Layer 1 연산을 시작해서는 안 된다.
+- Input Buffer에 data가 load 된 다음 연산이 시작되며, 한 batch 입력 완료 전 Layer 1 연산을 시작해서는 안 된다.
 - Layer 1의 row operand는 Input Buffer의 대응 image bank에서 읽는다.
 - Reference Model과 동일하게 `axis_in_data_ready`는 정상 동작 중 항상 1이어야 한다.
 - 연속 valid 입력을 손실 없이 저장할 수 있어야 하며, 내부 buffer 상태 때문에 AXI 입력 순서나 transfer 의미를 변경해서는 안 된다.
