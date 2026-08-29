@@ -37,11 +37,13 @@ zyNet
 
 - `include.v`의 `dataWidth`는 8이다.
 - input, weight, bias 및 activation data path는 8-bit를 기준으로 한다.
-- 각 neuron은 signed 8-bit input과 signed 8-bit weight를 곱하고, 16-bit `mul` 및 `sum` 경로에서 multiply-accumulate를 수행한다.
+- input과 activation은 signed Q1.7, weight는 signed Q4.4다.
+- 각 neuron은 Q1.7 input과 Q4.4 weight를 곱해 Q5.11 product를 만들고, 16-bit `mul` 및 `sum` 경로에서 multiply-accumulate를 수행한다.
 - product 누산과 bias 가산은 signed 16-bit 상한·하한에서 saturation 처리한다.
-- 8-bit bias는 16-bit 합에 더하기 전에 상위 8-bit 위치로 이동한다. 코드상 표현은 bias를 8-bit left shift한 것과 같다.
-- sigmoid activation은 16-bit `sum`의 상위 10-bit를 address로 사용해 `sigContent.mif` lookup table을 조회한다.
-- 위 bit-level 동작은 기준 구현의 계약으로 기록한다. 다만 input, weight, bias의 정확한 Q-format 의미와 실수 scale은 후속 numeric-format 승인 문서에서 별도 확정해야 한다.
+- accumulator는 Q5.11이며, Systolic Accelerator의 확장 accumulator는 같은 fractional 11-bit를 유지한 Q15.11이다.
+- bias는 signed Q5.3이며 Q5.11 합에 더하기 전에 sign extension하고 8-bit left shift해 fractional bit를 정렬한다.
+- sigmoid input은 Q5.5다. Reference RTL은 16-bit Q5.11 `sum`의 상위 10-bit인 `sum[15:6]`을 address로 사용해 `sigContent.mif` lookup table을 조회한다.
+- sigmoid activation output은 signed Q1.7이다.
 
 ## 4. AXI-Stream Input
 
@@ -106,9 +108,10 @@ Reference 구현의 AXI-Lite parameter는 다음과 같다.
 - REQ-REF-007: `test_data_0018.txt`의 baseline 결과는 detected 8, expected 3이어야 한다.
 - REQ-REF-008: AXI-Lite data width는 32-bit, address width는 5-bit, protection signal은 3-bit로 연결해야 한다.
 - REQ-REF-009: 후속 testbench는 address 및 protection port-width warning을 발생시키지 않아야 한다.
-- REQ-REF-010: 현재 코드에서 확정되지 않은 fixed-point scaling은 추측하지 않고 `unknown`으로 보고해야 한다.
+- REQ-REF-010: numeric chain은 Input/Activation Q1.7 × Weight Q4.4 → Product/Accumulator Q5.11 + Bias Q5.3 → Sigmoid Input Q5.5 → Activation Output Q1.7이어야 한다.
 - REQ-REF-011: neuron 연산은 signed 8×8 multiplication과 signed 16-bit saturating accumulation 및 bias addition 동작을 보존해야 한다.
-- REQ-REF-012: sigmoid LUT address는 16-bit 누산 결과의 상위 10-bit를 사용해야 한다.
+- REQ-REF-012: Q5.3 bias는 accumulator 가산 전 8-bit left shift해 Q5.11로 정렬해야 한다.
+- REQ-REF-013: sigmoid LUT address는 Q5.11 누산 결과의 `sum[15:6]`을 사용한 Q5.5여야 한다.
 
 ## 9. 알려진 제한
 
@@ -116,4 +119,4 @@ Reference 구현의 AXI-Lite parameter는 다음과 같다.
 - testbench는 단일 `top_sim.v` 구조이며 driver/monitor/scoreboard가 분리되어 있지 않다.
 - AXI 연결 및 memory address width warning이 존재한다.
 - MIF 기반 initialization은 ASIC 이식성을 보장하지 않는다.
-- numeric-format contract가 코드에 분산되어 있어 별도 승인 문서가 필요하다.
+- Q-format은 확정했지만 Systolic Accelerator의 26-bit Q15.11을 Q5.5로 축소할 때 범위 초과 처리 규칙은 별도 승인이 필요하다.

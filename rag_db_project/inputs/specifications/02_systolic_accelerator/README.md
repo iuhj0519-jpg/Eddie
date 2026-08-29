@@ -4,4 +4,4 @@
 
 - `SYSTOLIC_ACCELERATOR_SPECIFICATION.md`: array, PE, OS dataflow, controller FSM, memory feed 및 cycle 요구사항
 
-기존 `systolic_project`의 완성 코드는 생성 입력이 아니라 `historical_baselines`의 비교 근거다. 이 SPEC은 historical 코드를 복사하라는 지시가 아니라, 새 prototype이 만족해야 할 요구사항이다.
+Agent는 이 폴더의 승인된 SPEC과 단계별로 허용된 RAG DB 입력만 사용해 새 prototype을 생성해야 한다.

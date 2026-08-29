@@ -1,28 +1,34 @@
 # 5×5 Output-Stationary Systolic Accelerator Specification
 
 - 문서 ID: SYS-SPEC-001
-- 버전: 0.2
+- 버전: 0.3
 - 상태: draft-for-review
-- 기능 블록: Input Buffer, Global Buffer, DNN Scheduler, Systolic Controller, Systolic Array
-- 비교 대상: `historical_baselines/systolic_prototype`
+- 기능 블록: Input Buffer, Global Buffer, DNN Scheduler, Systolic Controller, Systolic Array, Activation Unit, Weight SRAM, Bias SRAM, SigROM
 
 ## 1. 목적
 
-이 문서는 legacy FC-MLP의 fully-connected 연산을 5×5 systolic array에서 수행하기 위한 목표 아키텍처를 정의한다. 5개의 row는 한 batch의 MNIST image 5개를 동시에 처리하고, 5개의 column은 output neuron 5개를 병렬 계산한다. 한 batch는 5개 image이며 20개 batch를 반복해 총 100개 image를 추론한다.
+이 문서는 MNIST FC-MLP Reference Model의 fully-connected 연산부에 5×5 systolic controller와 Systolic Array를 이식하기 위한 목표 아키텍처를 정의한다. 기존 external AXI interface와 784→30→20→10 inference 기능을 유지하면서, 연산에 필요한 buffer, SRAM, activation과 scheduling 구조를 추가한다.
 
-이 문서는 Historical Baseline의 RTL 구조를 복제하기 위한 문서가 아니다. 승인된 기능, interface, memory 동작과 timing 계약만 제공하며 RAG Agent는 이를 만족하는 독립적인 RTL을 생성해야 한다.
+5개의 row는 한 batch의 MNIST image 5개를 동시에 처리하고, 5개의 column은 output neuron 5개를 병렬 계산한다. 한 batch는 5개 image이며 20개 batch를 반복해 총 100개 image를 추론한다.
 
-## 2. Design Provenance And Exclusions
+Agent는 이 문서와 승인된 RAG DB 입력만 근거로 코드를 생성해야 한다. 이 문서에 규정되지 않은 내부 구현은 기능·timing·interface 요구사항을 만족하는 범위에서 독립적으로 결정한다.
 
-| 구분 | 설계 요소 | SPEC 처리 |
-|---|---|---|
-| 사용자 설계 | Input Buffer | 필수 아키텍처로 포함 |
-| 사용자 설계 | Global Buffer와 ping-pong buffering | 필수 아키텍처로 포함 |
-| 사용자 설계 | DNN Scheduler FSM | 필수 제어 구조로 포함 |
-| 기능 요구 | 5×5 Output-Stationary Systolic Array | FC 연산 대체 구조로 포함 |
-| Reference Model 계승 | AXI-Stream, AXI-Lite, activation, MaxFinder 기능 | 외부 호환성과 기능 보존 대상으로 포함 |
+## 2. Functional Scope
 
-결과는 완료 timing에 맞춰 activation 또는 Global Buffer write 경로가 직접 소비해야 한다.
+| 기능 블록 | 역할 |
+|---|---|
+| Input Buffer | AXI-Stream으로 수신한 5개 image 저장 |
+| Global Buffer | Layer 1/2의 8-bit Activation Unit 출력 저장과 ping-pong buffering |
+| DNN Scheduler | input, layer, tile, group, activation, output sequence 제어 |
+| Systolic Controller | start/busy/done과 operand 공급 timing 제어 |
+| 5×5 Systolic Array | 5개 image × 5개 output neuron의 Output-Stationary MAC |
+| Weight SRAM | 현재 layer/group의 weight를 5개 column에 공급 |
+| Bias SRAM | 현재 output neuron group의 bias 공급 |
+| SigROM | Sigmoid lookup table 제공 |
+| Activation Unit | bias addition, Sigmoid input 변환과 Q1.7 출력 생성 |
+| MaxFinder | Layer 3의 10개 activated score에서 class 선택 |
+
+SPEC에 명시되지 않은 중간 register나 별도 저장 구조는 필수 블록이 아니다. Agent가 기능상 필요하다고 판단하면 근거, interface 영향과 cycle 영향을 설명한 뒤 구현할 수 있다.
 
 ## 3. Top-Level Architecture
 
@@ -31,53 +37,55 @@ AXI-Stream Input
        │
        ▼
 +------------------+
-| Input Buffer     |  5 banks, one bank per image
+| Input Buffer     |  5 banks, one image per bank
 +------------------+
        │ Layer 1 source
        ▼
 +------------------+       +------------------+
-| Systolic Array   | <---- | Weight Memory    |
-| 5 rows × 5 cols  |       +------------------+
+| 5×5 Systolic     | <---- | Weight SRAM      |  5 banks
+| Array/Controller |       +------------------+
 +------------------+       +------------------+
-       │                    | Bias/Activation  |
-       └------------------> +------------------+
-                               │
-                               ▼
-                     +------------------+
-                     | Global Buffer    |
-                     | 5 banks, A/B     |
-                     | ping-pong        |
-                     +------------------+
-                         │          ▲
-                         └ next layer
+       │                    | Bias SRAM        |  5 banks
+       ▼                    +------------------+
++------------------+       +------------------+
+| Activation Unit | <---- | SigROM           |  5 lanes
++------------------+       +------------------+
+       │
+       ├─ Layer 1/2 ──> Global Buffer A/B ──> next layer
+       │                  5-bank ping-pong
+       │
+       └─ Layer 3 ─────> MaxFinder ────────> AXI-Lite Result/Interrupt
 
-Final Layer Result ──> MaxFinder ──> AXI-Lite Result/Interrupt
-
-DNN Scheduler controls load, layer, tile, group, output and result phases.
+DNN Scheduler controls every load, layer, tile, group, activation and result phase.
 ```
 
-### 3.1 Input Buffer
+## 4. Input Buffer
 
-- AXI-Stream으로 전달되는 5개 image의 입력을 저장한다.
-- 5개 bank를 사용하며 각 bank는 image 한 개의 784개 feature에 대응한다.
+- Reference Model의 `axis_in_data`, `axis_in_data_valid`, `axis_in_data_ready`로 입력을 수신한다.
+- 5개 bank를 사용하며 각 bank는 image 한 개의 784개 Q1.7 feature에 대응한다.
 - 한 batch의 논리적 입력 matrix는 `[5×784]`다.
-- 입력 완료 전 Systolic Array 연산을 시작해서는 안 된다.
-- Layer 1의 row input은 Input Buffer의 대응 image bank에서 읽는다.
-- 입력 순서와 8-bit data 표현은 Reference Model의 AXI-Stream 계약을 유지한다.
+- 입력 순서는 image 0~4와 각 image의 feature 0~783 mapping을 명시적으로 보존해야 한다.
+- 한 batch 입력 완료 전 Layer 1 연산을 시작해서는 안 된다.
+- Layer 1의 row operand는 Input Buffer의 대응 image bank에서 읽는다.
+- Reference Model과 동일하게 `axis_in_data_ready`는 정상 동작 중 항상 1이어야 한다.
+- 연속 valid 입력을 손실 없이 저장할 수 있어야 하며, 내부 buffer 상태 때문에 AXI 입력 순서나 transfer 의미를 변경해서는 안 된다.
 
-### 3.2 Global Buffer
+## 5. Global Buffer And Layer Dataflow
 
-- Layer 사이의 intermediate result와 tile 결과를 저장한다.
+Global Buffer는 Layer 1과 Layer 2의 Activation Unit 출력만 저장한다.
+
 - 5개 image lane에 대응하는 5개 bank로 구성한다.
-- 두 개의 논리적 영역 A/B를 사용해 source read와 destination write를 분리한다.
-- 현재 layer가 A를 읽으면 결과를 B에 쓰고, 다음 layer에서는 B를 읽어 A에 쓴다.
-- read/write 영역 교대는 DNN Scheduler가 layer 경계에서 제어한다.
-- 한 bank에서 동시에 필요한 여러 neuron score를 읽을 수 있도록 address와 vector packing 규칙을 정의해야 한다.
-- Systolic Array 완료 결과를 activation/write 경로가 직접 Global Buffer에 저장해야 한다.
+- 저장 data width는 Activation Unit 출력과 동일한 signed 8-bit Q1.7이다.
+- A/B 두 논리 영역으로 source read와 destination write를 분리한다.
+- Layer 1의 Q1.7 activation output을 첫 write 영역에 저장한다.
+- Layer 2는 Layer 1 결과 영역을 읽고, 자신의 Q1.7 activation output을 반대 영역에 저장한다.
+- layer 경계에서 DNN Scheduler가 A/B read/write 역할을 교대한다.
+- 동일 cycle의 source read와 destination write가 같은 physical location에서 충돌해서는 안 된다.
+- Layer 3는 Global Buffer에서 Layer 2 결과를 읽지만, Layer 3의 activation output은 Global Buffer에 저장하지 않고 MaxFinder 경로로 전달한다.
 
-### 3.3 DNN Scheduler
+Layer 3 결과의 직접 전달이 구현상 불가능하다고 판단되면 Agent는 저장 구조를 임의로 추가하기 전에 원인, 필요한 저장량, cycle 변화와 interface 영향을 보고해야 한다. 승인 없이 Layer 3 저장을 기본 dataflow로 변경해서는 안 된다.
 
-DNN Scheduler는 Input Buffer, Global Buffer, Systolic Array, activation과 output sequence를 제어한다.
+## 6. DNN Scheduler
 
 ```text
 IDLE → INPUT_LOAD → LAYER_SETUP → TILE_START → TILE_WAIT
@@ -89,26 +97,27 @@ IDLE → INPUT_LOAD → LAYER_SETUP → TILE_START → TILE_WAIT
 OUTPUT_LOAD → MAXFINDER_START → MAXFINDER_WAIT → RESULT_VALID → IDLE
 ```
 
-- `INPUT_LOAD`: 한 batch의 5개 image가 Input Buffer에 저장될 때까지 대기한다.
-- `LAYER_SETUP`: 현재 layer의 K, output group 수, source/destination buffer 영역을 설정한다.
-- `TILE_START`: Systolic Controller의 start를 1 cycle assertion한다.
-- `TILE_WAIT`: 1-cycle done을 기다린다.
-- `ACTIVATION_WRITE`: 완료된 array 결과를 Activation Unit에 로드한다.
-- `GROUP_CHECK`: 다음 5-neuron group 또는 layer 종료를 결정한다.
+- `INPUT_LOAD`: Input Buffer에 한 batch의 5개 image가 저장될 때까지 대기한다.
+- `LAYER_SETUP`: 현재 layer의 K, output group 수와 source/destination 경로를 설정한다.
+- `TILE_START`: Systolic Controller의 `i_start`를 1 cycle assertion한다.
+- `TILE_WAIT`: `o_done`의 1-cycle assertion을 기다린다.
+- `ACTIVATION_WRITE`: bias와 Sigmoid 변환을 적용한다. Layer 1/2는 Global Buffer에 쓰고 Layer 3는 output 경로로 전달한다.
+- `GROUP_CHECK`: 다음 5-neuron group 또는 현재 layer 종료를 결정한다.
 - `LAYER_CHECK`: 다음 layer로 이동하거나 최종 output sequence를 시작한다.
-- `OUTPUT_LOAD`: 최종 10개 score를 MaxFinder가 소비할 수 있는 순서로 제공한다.
-- `MAXFINDER_START`, `MAXFINDER_WAIT`: Reference Model과 동등한 class 선택 기능을 실행한다.
-- `RESULT_VALID`: batch의 5개 class 결과가 유효함을 표시한다.
+- `OUTPUT_LOAD`: Layer 3의 activated score 10개를 Reference Model의 MaxFinder가 소비할 수 있는 형식과 순서로 제공한다.
+- `MAXFINDER_START`, `MAXFINDER_WAIT`: image별 class 선택 완료를 관리한다.
+- `RESULT_VALID`: batch의 class 결과 5개가 유효함을 표시한다.
 
-## 4. Systolic Array Architecture
+## 7. Systolic Array Architecture
 
 | 항목 | 기준값 | 의미 |
 |---|---:|---|
 | Array Rows | 5 | 동시에 처리하는 image lane |
 | Array Columns | 5 | 동시에 처리하는 output neuron lane |
-| Operand Width | 8 | signed fixed-point input 및 weight |
-| Accumulator Width | 26 | signed partial sum |
-| SRAM Read Latency | 1 | memory read latency 가정 |
+| Input/Activation Width | 8 | signed Q1.7 |
+| Weight Width | 8 | signed Q4.4 |
+| Accumulator Width | 26 | signed Q15.11 |
+| SRAM Read Latency | 1 | Weight/Bias SRAM read latency |
 
 전체 array는 25개의 Processing Element로 구성한다.
 
@@ -118,28 +127,60 @@ OUTPUT_LOAD → MAXFINDER_START → MAXFINDER_WAIT → RESULT_VALID → IDLE
 - 각 Processing Element의 partial sum은 연산 종료까지 해당 element에 유지한다.
 - operand만 인접 Processing Element로 이동하므로 dataflow는 output-stationary다.
 
+## 8. Weight SRAM, Bias SRAM And SigROM
+
+- Weight SRAM은 5개 column에 대응하는 5개 bank로 구성하고 현재 layer/group의 Q4.4 weight를 공급한다.
+- Weight address는 row/column skew와 K 범위를 반영해야 한다.
+- Bias SRAM은 output neuron 5개 단위 group에 대응하는 Q5.3 bias를 공급한다.
+- Weight와 Bias MIF의 layer/neuron 순서는 Reference Model과 동일해야 한다.
+- SigROM은 Reference Model의 `sigContent.mif`를 사용한다.
+- 5개 image lane이 독립적인 Sigmoid address를 동시에 조회할 수 있어야 한다.
+- SRAM/ROM latency는 Systolic Controller와 DNN Scheduler timing에 반영해야 한다.
+
+## 9. Fixed-Point Contract
+
+Reference Model과 생성 모델은 다음 fixed-point chain을 동일하게 유지한다.
+
 ```text
-product = signed(input) × signed(weight)
-partial_sum(next) = partial_sum + product, when enabled
+Activation/Input Q1.7
+    × Weight Q4.4
+    → Product Q5.11
+    → Accumulator Q15.11
+    + Bias Q5.3 aligned to Q15.11
+    → Sigmoid Input Q5.5
+    → Activation Output Q1.7
 ```
 
-## 5. Interface Preservation And Handshake
+| 단계 | Format | Width | 변환 계약 |
+|---|---|---:|---|
+| Input/Previous Activation | Q1.7 | 8 | signed |
+| Weight | Q4.4 | 8 | signed |
+| Product | Q5.11 | 16 | signed multiplication |
+| Accumulator | Q15.11 | 26 | product의 fractional 11-bit 유지 |
+| Bias | Q5.3 | 8 | accumulator 가산 전 fractional alignment 필요 |
+| Sigmoid Input | Q5.5 | 10 | accumulator+bias에서 fractional 6-bit 축소 |
+| Activation Output | Q1.7 | 8 | `sigContent.mif` lookup result |
 
-### 5.1 External AXI Interface
+- Bias Q5.3은 Q15.11에 더하기 전에 sign extension하고 fractional 차이 8-bit만큼 left shift한다.
+- Q15.11에서 Q5.5로 변환할 때 fractional bit 6개를 제거한다.
+- Reference Model과 bit-accurate한 truncation, sign과 overflow 처리를 유지해야 한다.
+- IEEE-754 floating-point operator를 사용해서는 안 된다.
 
-Reference Model의 다음 external interface 이름과 transfer 의미를 유지한다.
+Q15.11의 값이 Q5.5 표현 범위를 벗어날 때 saturation할지 상위 bit를 선택할지는 승인 전 미확정이다. Agent는 이를 추측하지 않고 `unknown`으로 보고해야 한다.
+
+## 10. External AXI Interface
+
+Reference Model의 external AXI signal 이름, width와 transfer 의미를 유지한다.
 
 | Interface | 유지 대상 |
 |---|---|
-| AXI-Stream input | `axis_in_data`, `axis_in_data_valid`, `axis_in_data_ready` |
-| AXI-Lite | address, data, response, valid/ready channel 계약 |
-| completion | `intr` 기반 결과 통지 |
+| AXI-Stream Input | `axis_in_data`, `axis_in_data_valid`, `axis_in_data_ready` |
+| AXI-Lite | address, data, response와 valid/ready channel 계약 |
+| Completion | `intr` 기반 결과 통지 |
 
-AXI-Stream transfer는 `axis_in_data_valid && axis_in_data_ready`인 clock에서 성립한다. data, valid, ready의 세 signal을 사용하는 interface이지만 AXI handshake 조건 자체는 valid/ready의 동시 assertion이다.
+AXI-Stream transfer는 `axis_in_data_valid && axis_in_data_ready`인 clock에서 성립한다. Input Buffer 추가로 인해 입력 data의 순서, width 또는 valid/ready 의미가 바뀌어서는 안 된다.
 
-### 5.2 Systolic Controller Three-Signal Handshake
-
-Systolic Controller는 다음 세 control signal의 계약을 제공한다.
+## 11. Systolic Controller Handshake
 
 | Signal | 방향 | 계약 |
 |---|---|---|
@@ -147,7 +188,7 @@ Systolic Controller는 다음 세 control signal의 계약을 제공한다.
 | `o_busy` | output | 계산 진행 중 1 |
 | `o_done` | output | 계산 완료 시 정확히 1 cycle 동안 1 |
 
-이 start/busy/done 관계는 내부 controller handshake이며 AXI protocol channel 자체는 아니다. 외부 AXI interface와 내부 controller handshake를 혼동해서는 안 된다.
+start/busy/done은 내부 controller의 three-signal handshake이며 AXI protocol channel 자체는 아니다.
 
 ```text
 IDLE --i_start=1 for 1 cycle--> RUN --calculation complete--> DONE_STATE
@@ -155,59 +196,33 @@ IDLE --i_start=1 for 1 cycle--> RUN --calculation complete--> DONE_STATE
  └-------------------- next clock ----------------------------┘
 ```
 
-- start 수락 전 `busy=0`, `done=0`이어야 한다.
-- RUN에서만 `busy=1`이어야 한다.
-- 완료 시 `busy=0`, `done=1`이어야 한다.
-- `done`은 정확히 1 cycle이어야 하며 다음 clock에는 0으로 복귀해야 한다.
-- DNN Scheduler는 `TILE_WAIT`에서 done을 검출하고 다음 처리로 이동해야 한다.
+- start 수락 전 `o_busy=0`, `o_done=0`이어야 한다.
+- RUN에서만 `o_busy=1`이어야 한다.
+- 완료 시 `o_busy=0`, `o_done=1`이어야 한다.
+- `o_done`은 정확히 1 cycle이어야 하며 다음 clock에는 0으로 복귀해야 한다.
+- DNN Scheduler는 `TILE_WAIT`에서 `o_done`을 검출해야 한다.
 
-## 6. Batch Mapping And Layer Tiling
+## 12. Batch Mapping And Layer Tiling
 
 ```text
 1 batch = 5 images
 20 batches × 5 images = 100 images
 ```
 
-5개 column을 사용하므로 output neuron은 5개 단위 group으로 처리한다.
+| Layer | K | Output Neurons | 5-Neuron Groups | Source | Destination |
+|---|---:|---:|---:|---|---|
+| Layer 1 | 784 | 30 | 6 | Input Buffer | Global Buffer |
+| Layer 2 | 30 | 20 | 4 | Global Buffer | Opposite Global Buffer Region |
+| Layer 3 | 20 | 10 | 2 | Global Buffer | MaxFinder Path |
 
-| Layer | K | Output Neurons | Groups |
-|---|---:|---:|---:|
-| Layer 1 | 784 | 30 | 6 |
-| Layer 2 | 30 | 20 | 4 |
-| Layer 3 | 20 | 10 | 2 |
+## 13. Theoretical Cycle Contract
 
-- Layer 1 source는 Input Buffer다.
-- Layer 2와 Layer 3 source는 Global Buffer의 현재 read 영역이다.
-- Layer 결과는 Global Buffer의 반대 write 영역에 저장하고 layer 경계에서 A/B 역할을 교대한다.
-- 최종 10개 score는 Reference Model과 동등한 MaxFinder 기능으로 전달한다.
-
-## 7. Fixed-Point Format
-
-연산 형식은 floating point가 아니라 signed fixed point다.
-
-- input/weight operand: signed 8-bit fixed point
-- accumulator: signed 26-bit
-- 정확한 binary-point 위치와 Q-format: 미확정
-- IEEE-754 floating-point operator: 사용하지 않음
-
-Q-format이 승인되기 전까지 RAG Agent는 fractional bit 수나 scale을 추측해서는 안 된다. Historical Baseline의 구현값도 승인된 Q-format 근거 없이 정답으로 복사해서는 안 된다.
-
-Signed 8-bit operand와 최대 `K=784`에서 최악 크기 `16,384×784=12,845,056`은 signed 26-bit 범위 안에 있다. 정상 입력 범위에서는 accumulator overflow가 발생하지 않아야 한다.
-
-## 8. Theoretical Cycle Contract
-
-목표 controller의 tile 완료 cycle은 다음 식을 사용한다.
+tile 완료 목표 cycle은 다음 식을 사용한다.
 
 ```text
 TARGET_CYCLES = K + ROWS + COLS + SRAM_READ_LATENCY + 2
               = K + 13
 ```
-
-- `K`: dot-product 공통 차원
-- `ROWS=5`: row skew와 drain 여유
-- `COLS=5`: column 전파와 drain 여유
-- `SRAM_READ_LATENCY=1`: SRAM read 지연
-- `+2`: controller/array pipeline 여유
 
 | Layer | K | Group 수 | Target Cycles/Group | Group 합계 |
 |---|---:|---:|---:|---:|
@@ -217,48 +232,48 @@ TARGET_CYCLES = K + ROWS + COLS + SRAM_READ_LATENCY + 2
 
 797/43/33은 5개 output neuron group 하나의 목표 cycle이며 layer 전체 또는 end-to-end latency가 아니다. 세 layer의 group cycle 합계는 batch당 5,020 cycle이다. Input Buffer load, activation, Global Buffer write, DNN Scheduler overhead와 MaxFinder latency는 포함하지 않는다.
 
-Historical Baseline은 counter/state transition 때문에 start 수락부터 done까지 798/44/34 clocks가 걸린다. 이 수치는 비교 기준이며 생성 목표가 아니다. RAG 생성 RTL은 1-cycle done을 포함해 797/43/33 target을 만족하도록 독립적으로 counter와 완료 조건을 설계해야 한다.
+Agent가 목표 cycle과 다른 완료 조건이 불가피하다고 판단하면 코드를 확정하기 전에 원인, 계산식과 예상 cycle을 보고해야 한다.
 
-## 9. Generation Independence And Naming
+## 14. Code Generation Boundary
 
 - Reference Model에서 계승한 external AXI signal과 parameter 이름은 그대로 유지한다.
-- 본 SPEC에서 이름을 명시한 controller handshake `i_start`, `o_busy`, `o_done`은 interface 계약으로 유지한다.
-- Input Buffer, Global Buffer, DNN Scheduler는 필수 기능 블록이지만 내부 RTL module identifier를 Historical Baseline과 같게 만들 필요는 없다.
-- Historical Baseline의 internal state, register, helper signal과 module hierarchy를 복사해서는 안 된다.
-- 별도 Capture Register 및 별도 MaxFinder Input Register를 추가해서는 안 된다.
-- 생성 결과는 동일한 기능과 timing 요구를 만족하면서도 Historical Baseline과 구조적으로 독립적이어야 한다.
+- 본 SPEC에서 이름을 명시한 `i_start`, `o_busy`, `o_done`은 controller interface 계약으로 유지한다.
+- 내부 module, state, register와 helper signal 이름은 SPEC이 강제하지 않는다.
+- 승인된 RAG DB 밖의 구현이나 코드 구조를 생성 근거로 사용해서는 안 된다.
+- 명시되지 않은 내부 구조가 필요하면 Agent가 기능적 근거와 trade-off를 설명하고 자체적으로 결정한다.
 
-## 10. Requirements
+## 15. Requirements
 
 - REQ-SYS-001: Systolic Array는 5 row × 5 column의 25개 Processing Element로 구성해야 한다.
-- REQ-SYS-002: A operand는 row 방향, B operand는 column 방향으로 이동해야 한다.
-- REQ-SYS-003: partial sum은 output-stationary 방식으로 각 Processing Element에 유지해야 한다.
-- REQ-SYS-004: Input Buffer는 5개 image의 `[5×784]` input을 5개 bank에 저장해야 한다.
-- REQ-SYS-005: Global Buffer는 5개 bank와 A/B 논리 영역을 사용해 layer 간 ping-pong buffering을 수행해야 한다.
-- REQ-SYS-006: DNN Scheduler는 문서에 정의된 load, layer, tile, group, output 및 result sequence를 제어해야 한다.
-- REQ-SYS-007: `i_start`는 tile마다 1 cycle assertion해야 한다.
-- REQ-SYS-008: `o_busy`는 계산 진행 중에만 1이어야 한다.
-- REQ-SYS-009: `o_done`은 계산 완료 시 정확히 1 cycle이어야 한다.
-- REQ-SYS-010: external AXI-Stream과 AXI-Lite interface는 Reference Model의 signal 이름과 transfer 계약을 유지해야 한다.
-- REQ-SYS-011: 한 batch는 image 5개를 병렬 처리하고 20개 batch로 100개 baseline image를 처리해야 한다.
-- REQ-SYS-012: Layer 1/2/3은 각각 6/4/2개의 5-neuron group을 처리해야 한다.
-- REQ-SYS-013: operand는 signed 8-bit fixed point, accumulator는 signed 26-bit여야 한다.
-- REQ-SYS-014: 승인 전 Q-format을 추측하거나 floating-point 연산으로 변경해서는 안 된다.
-- REQ-SYS-015: group별 target cycle은 Layer 1/2/3에 대해 797/43/33이어야 한다.
-- REQ-SYS-016: 798/44/34 clocks의 Historical Baseline 동작을 생성 목표로 복사해서는 안 된다.
-- REQ-SYS-017: 별도 Capture Register를 필수 data path로 추가해서는 안 된다.
-- REQ-SYS-018: 별도 MaxFinder Input Register를 필수 data path로 추가해서는 안 된다.
-- REQ-SYS-019: 생성 RTL은 Historical Baseline의 internal naming과 module hierarchy에 의존해서는 안 된다.
+- REQ-SYS-002: partial sum은 Output-Stationary 방식으로 각 Processing Element에 유지해야 한다.
+- REQ-SYS-003: Input Buffer는 5개 image의 `[5×784]` Q1.7 input을 5개 bank에 저장해야 한다.
+- REQ-SYS-004: `axis_in_data`의 width, order, valid/ready transfer와 always-ready 동작을 Reference Model과 동일하게 유지해야 한다.
+- REQ-SYS-005: Global Buffer는 Layer 1/2의 Q1.7 Activation Unit 출력만 저장해야 한다.
+- REQ-SYS-006: Global Buffer는 5개 bank와 A/B 논리 영역으로 ping-pong buffering을 수행해야 한다.
+- REQ-SYS-007: Layer 3의 Q1.7 activation output은 기본 dataflow에서 Global Buffer에 저장하지 않고 MaxFinder 경로로 전달해야 한다.
+- REQ-SYS-008: DNN Scheduler는 정의된 input, layer, tile, group, activation, output과 result sequence를 제어해야 한다.
+- REQ-SYS-009: Weight SRAM과 Bias SRAM은 5-bank 구조로 현재 group의 weight와 bias를 공급해야 한다.
+- REQ-SYS-010: SigROM은 Reference Model의 `sigContent.mif`와 Q5.5 address 계약을 유지해야 한다.
+- REQ-SYS-011: `i_start`와 `o_done`은 각각 정확히 1 cycle이어야 하고 `o_busy`는 계산 중에만 1이어야 한다.
+- REQ-SYS-012: 한 batch는 image 5개를 병렬 처리하고 20개 batch로 100개 image를 처리해야 한다.
+- REQ-SYS-013: Layer 1/2/3은 각각 6/4/2개의 5-neuron group을 처리해야 한다.
+- REQ-SYS-014: fixed-point chain은 Q1.7×Q4.4→Q15.11, Bias Q5.3, Sigmoid Input Q5.5, Activation Output Q1.7을 유지해야 한다.
+- REQ-SYS-015: IEEE-754 floating-point 연산을 사용해서는 안 된다.
+- REQ-SYS-016: group별 target cycle은 Layer 1/2/3에 대해 797/43/33이어야 한다.
+- REQ-SYS-017: 목표 cycle 변경이 필요하면 Agent는 구현 전 근거와 새 계산식을 보고해야 한다.
+- REQ-SYS-018: 생성 코드는 승인된 RAG DB 입력만 설계 근거로 사용해야 한다.
 
-## 11. Verification Items
+## 16. Verification Items
 
-- AXI-Stream valid/ready transfer와 Input Buffer bank/address mapping
-- 5개 image의 동시 처리와 20-batch 반복
-- Global Buffer A/B ping-pong read/write 충돌 방지
-- DNN Scheduler state transition 및 group/layer 반복 횟수
-- `i_start`, `o_busy`, `o_done` three-signal handshake와 1-cycle done
+- AXI-Stream always-ready transfer와 Input Buffer bank/address mapping
+- 5개 image 동시 처리와 20-batch 반복
+- Layer 1/2 Q1.7 activation write와 Global Buffer A/B ping-pong 충돌 방지
+- Layer 3 activation의 MaxFinder 직접 전달
+- DNN Scheduler state transition과 6/4/2 group 반복
+- `i_start`, `o_busy`, `o_done` handshake와 1-cycle done
+- Weight/Bias MIF의 layer, neuron, bank mapping
+- Q1.7×Q4.4→Q15.11 fixed-point bit-accurate MAC
+- Bias Q5.3 alignment와 Q5.5 Sigmoid input 변환
+- `sigContent.mif` lookup과 Q1.7 activation output
 - group별 797/43/33 target cycle assertion
-- signed fixed-point bit-accurate comparison
-- 26-bit accumulator range assertion
-- 별도 Capture Register와 MaxFinder Input Register가 없는 data path
-- Historical Baseline과 생성 RTL의 module 구조 및 코드 유사도 비교
+- 100-image inference 결과와 Reference Model 기능 비교
