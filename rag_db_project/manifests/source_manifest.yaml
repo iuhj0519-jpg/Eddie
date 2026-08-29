@@ -9,7 +9,7 @@ purpose: >-
 baseline_tag: rag-input-baseline-v1.1
 checksum_algorithm: sha256
 checksum_inventory: manifests/checksums/source_files.sha256
-expected_total_files: 247
+expected_total_files: 246
 
 source_groups:
   - id: reference_rtl
@@ -33,7 +33,7 @@ source_groups:
     include:
       - README.md
       - "rtl/*.sv"
-    expected_files: 6
+    expected_files: 5
     access_mode: retrieval_and_direct
     chunking: verilog_symbol_and_markdown_heading
 

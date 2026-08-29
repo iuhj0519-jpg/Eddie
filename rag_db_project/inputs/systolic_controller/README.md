@@ -25,17 +25,5 @@
 | `rtl/systolic_array_2d_ref.sv` | Parameterized 2D Array 연결 | Normative Core Reference |
 | `rtl/pe_systolic_cell_ref.sv` | A/B Register 전달과 MAC PE 연결 | Normative Core Reference |
 | `rtl/mac_pe_ref.sv` | Multiply/Accumulate와 Clear/Enable | Normative Core Reference |
-| `rtl/pe_chain_1d_ref.sv` | 1D PE 전달 구조의 선행 단계 | Supporting Reference; Controller 직접 계층에는 미사용 |
 
-## Required Target Adaptations
-
-Reference RTL의 구조적 동작과 목표 시스템의 Interface가 다른 부분은 Adapter 또는 명시적 Parameter 변경으로 처리한다.
-
-- 원본 unsigned 연산은 목표 Fixed-Point 계약에 맞춰 signed Q1.7×Q4.4로 변경
-- `ACC_W`는 Layer별 기본 계산식 대신 26-bit Q15.11로 고정
-- Active-Low `rst_n`과 `zyNet` 내부 Reset 극성 동기화
-- Compile-Time `K_DIM`을 Layer별 K=784/30/20 동작에 맞게 연결
-- 전체 Matrix Latch Interface와 Input Buffer/Global Buffer/Weight SRAM의 1-Cycle Read Interface 동기화
-- 원본 `CALC_CYCLES` Counter의 Inclusive 종료 의미를 보존하여 최종 797/43/33 Clock 계약 유지
-
-Adapter는 외부 AXI Protocol이나 Reference Controller의 FSM/Skew 의미를 바꾸기 위한 것이 아니다. 변경된 Port, Latency와 Cycle 계산은 SPEC과 구현 보고서에 추적되어야 한다.
+4개 RTL은 사용자가 제공한 원본을 변형 없이 보존한다. 생성 Agent는 이 원본과 승인 SPEC을 함께 검색하여 `zyNet` 이식에 필요한 Interface와 Fixed-Point 구현을 판단해야 한다. 이 디렉터리의 원본 파일을 직접 수정하거나 생성 결과로 덮어써서는 안 된다.

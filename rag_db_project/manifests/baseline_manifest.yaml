@@ -48,7 +48,7 @@ expected_source_counts:
   bias_mif: 60
   activation_lut: 1
   test_vectors: 100
-  systolic_controller_reference_systemverilog: 5
+  systolic_controller_reference_systemverilog: 4
   systolic_controller_reference_readme: 1
 
 acceptance_rules:

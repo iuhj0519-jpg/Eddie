@@ -114,8 +114,8 @@ def main() -> int:
     finally:
         connection.close()
 
-    require(approved_count == 247, f"approved source catalog mismatch: {approved_count}")
-    require(indexed_source_count == 24, f"retrieval source count mismatch: {indexed_source_count}")
+    require(approved_count == 246, f"approved source catalog mismatch: {approved_count}")
+    require(indexed_source_count == 23, f"retrieval source count mismatch: {indexed_source_count}")
     require(chunk_count > 0, "no chunks were ingested")
     require(fts_count == chunk_count, "FTS row count mismatch")
     require(dense_count == chunk_count, "dense vector count mismatch")

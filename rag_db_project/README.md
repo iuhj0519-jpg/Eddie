@@ -85,6 +85,6 @@ Compile, simulation, regression and comparison
 
 ## 진행 단계
 
-Reference Model, Systolic Controller Reference와 Systolic Accelerator SPEC version 1.1을 포함한 247개 입력 파일은 `rag-input-baseline-v1.1`과 SHA-256 Inventory로 동결한다.
+Reference Model, 변경되지 않은 Systolic Controller Reference RTL 4개와 Systolic Accelerator SPEC version 1.1을 포함한 246개 입력 파일은 `rag-input-baseline-v1.1`과 SHA-256 Inventory로 동결한다.
 
-`prototype_generation` 접근 정책에 따라 Markdown과 두 Reference RTL 계층의 24개 원천을 173개 Chunk로 나눠 `prototype_generation_v2` Hybrid Index에 Ingestion했다. SQLite FTS5 BM25와 384차원 deterministic feature-hash Dense Index를 사용하며, Historical Baseline과 Workspace를 포함한 금지 경로 Chunk는 0개다. 다음 생성은 독립적인 Controller 발명이 아니라 Reference Controller Core와 `zyNet` Interface의 이식·동기화여야 한다.
+`prototype_generation` 접근 정책에 따라 Markdown과 두 Reference RTL 계층의 23개 원천을 161개 Chunk로 나눠 `prototype_generation_v2` Hybrid Index에 Ingestion했다. SQLite FTS5 BM25와 384차원 deterministic feature-hash Dense Index를 사용하며, Historical Baseline과 Workspace를 포함한 금지 경로 Chunk는 0개다. 다음 생성은 변경되지 않은 4개 Controller Reference와 SPEC을 함께 근거로 삼아 Reference Model에 Systolic Controller를 이식·동기화해야 한다.

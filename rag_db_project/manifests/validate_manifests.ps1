@@ -54,9 +54,9 @@ if ($errors.Count -eq 0) {
     }
 
     $checksumLines = Get-Content -Encoding utf8 -LiteralPath $checksumPath
-    Add-CheckResult ($checksumLines.Count -eq 247) `
-        'checksum inventory contains 247 files' `
-        "checksum inventory count is $($checksumLines.Count), expected 247"
+    Add-CheckResult ($checksumLines.Count -eq 246) `
+        'checksum inventory contains 246 files' `
+        "checksum inventory count is $($checksumLines.Count), expected 246"
 
     $seenPaths = @{}
     foreach ($line in $checksumLines) {
@@ -103,7 +103,7 @@ if ($errors.Count -eq 0) {
         'inputs\reference_model\activation' = 1
         'inputs\reference_model\testdata' = 100
         'inputs\reference_model\scripts' = 1
-        'inputs\systolic_controller' = 6
+        'inputs\systolic_controller' = 5
         'inputs\specifications\01_reference_model' = 2
         'inputs\specifications\02_systolic_accelerator' = 2
     }
@@ -162,9 +162,9 @@ if ($errors.Count -eq 0) {
     $indexManifest = Get-Content -Raw -Encoding utf8 -LiteralPath `
         (Join-Path $manifestDirectory 'index_manifest.yaml')
 
-    Add-CheckResult ($sourceManifest -match '(?m)^expected_total_files:\s+247\s*$') `
-        'source manifest expects 247 files' `
-        'source manifest expected_total_files is not 247'
+    Add-CheckResult ($sourceManifest -match '(?m)^expected_total_files:\s+246\s*$') `
+        'source manifest expects 246 files' `
+        'source manifest expected_total_files is not 246'
     Add-CheckResult ($accessPolicy -match '(?m)^default_action:\s+deny\s*$') `
         'phase access policy uses default deny' `
         'phase access policy is not default deny'

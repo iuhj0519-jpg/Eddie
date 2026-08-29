@@ -10,7 +10,7 @@
 | `phase_access_policy.yaml` | 각 Agent 단계에서 retrieval과 direct file access가 허용·차단되는 경로 | 단계별 정보 공개 범위가 바뀔 때 |
 | `baseline_manifest.yaml` | Reference Model의 simulator, test 수, 99/1 결과와 승인 SPEC 버전 | 기능 Baseline 또는 도구 조건이 바뀔 때 |
 | `index_manifest.yaml` | chunker, embedding, vector/sparse index와 source checksum 상태 | ingestion을 실행하거나 index를 재생성할 때 |
-| `checksums/source_files.sha256` | 승인된 입력 파일 247개의 SHA-256과 상대 경로 | 승인 입력이 바뀔 때 |
+| `checksums/source_files.sha256` | 승인된 입력 파일 246개의 SHA-256과 상대 경로 | 승인 입력이 바뀔 때 |
 | `validate_manifests.ps1` | 파일 존재, count, hash, 승인 상태와 금지 경로를 재검증하는 PowerShell script | manifest 또는 입력이 바뀔 때 |
 | `MANIFEST_VALIDATION.md` | manifest, checksum, 접근 정책 검증 결과 | 입력 동결 검증을 다시 수행할 때 |
 
