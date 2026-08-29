@@ -1,0 +1,149 @@
+schema_version: '1.0'
+generation_id: systolic_prototype_run_001
+status: evidence_frozen
+source:
+  git_tag: rag-input-baseline-v1.0
+  inventory_sha256: 1470c763abed04a9fe60920e5ec09546f03b3c0897e7240d976d67f0a0b509ef
+  approved_file_count: 241
+index:
+  index_id: prototype_generation_v1
+  database_sha256: 4a796b2dac9f5474eb1b75522a6a7cda61cc34365dcaa6b095229ca9f784bf42
+  chunks_sha256: f49b6b73d74435acf690e76f798774abaddc3dd380fd12f057a0bbaea1258256
+  chunk_count: 143
+  retrieval_source_count: 18
+  dense_weight: 0.55
+  sparse_weight: 0.45
+  top_k: 8
+evidence:
+  path: rag_db_project/experiments/prototype_generation/run_001/retrieval_evidence.jsonl
+  sha256: 210ee8fc31217467bcce70a43dca36ea5f059bfdf167b9fcd1bedcd8d08034a9
+  query_count: 8
+  requirement_binding_count: 39
+agent_execution:
+  mode: rag_gated_code_generation
+  model: record_at_generation_start
+  prompt_contract_version: evidence_freeze_v1
+  generation_settings: record_at_generation_start
+knowledge_policy:
+  allowed_design_evidence:
+  - approved T0 Reference Model and Systolic Accelerator specifications
+  - T1 Reference Model RTL from the retrieval allowlist
+  - direct-access numeric and test files allowed by phase_access_policy.yaml
+  forbidden:
+  - historical_baselines/**
+  - external web search
+  - uncited design claims
+  missing_evidence_action: report unknown and stop the affected design decision
+  all_design_decisions_require_citation: true
+protocol_preservation:
+  principle: Performance and internal architecture may change; inherited external behavior must not change silently.
+  must_preserve:
+  - external AXI signal names, widths, and valid/ready semantics
+  - Image-Major input order and batch boundary
+  - AXI-Lite byte address 0x08 sequential result read contract
+  - batch-level one-cycle intr meaning
+  - fixed-point and LUT data contract
+  - classification semantics and tie rule
+  expected_target_changes:
+  - neuron compute replacement with a 5x5 Output-Stationary Systolic Array
+  - Input Buffer, Global Buffer, SRAM, SigROM, Activation Unit, and DNN Scheduler addition
+  - latency and throughput changes caused by the target architecture
+  exception_action: report the reason, affected requirement, and revised protocol or cycle calculation before implementation
+query_set:
+- query_id: GEN-QRY-001
+  topic: External Interface And Batch Protocol
+  requirements:
+  - REQ-REF-001
+  - REQ-REF-008
+  - REQ-REF-009
+  - REQ-SYS-004
+  - REQ-SYS-020
+  - REQ-SYS-021
+  - REQ-SYS-022
+  - REQ-SYS-023
+  - REQ-SYS-024
+  decision_status: fixed_by_approved_sources
+- query_id: GEN-QRY-002
+  topic: Systolic Architecture And Parallelism
+  requirements:
+  - REQ-SYS-001
+  - REQ-SYS-002
+  - REQ-SYS-012
+  - REQ-SYS-013
+  decision_status: fixed_by_approved_sources
+- query_id: GEN-QRY-003
+  topic: Input And Global Buffer Dataflow
+  requirements:
+  - REQ-SYS-003
+  - REQ-SYS-005
+  - REQ-SYS-006
+  - REQ-SYS-007
+  decision_status: fixed_by_approved_sources
+- query_id: GEN-QRY-004
+  topic: Scheduler And Controller Handshake
+  requirements:
+  - REQ-SYS-008
+  - REQ-SYS-011
+  decision_status: fixed_by_approved_sources
+- query_id: GEN-QRY-005
+  topic: Memory Fixed-Point And Saturation
+  requirements:
+  - REQ-REF-003
+  - REQ-REF-010
+  - REQ-REF-011
+  - REQ-REF-012
+  - REQ-REF-013
+  - REQ-SYS-009
+  - REQ-SYS-010
+  - REQ-SYS-014
+  - REQ-SYS-015
+  - REQ-SYS-019
+  - REQ-SYS-026
+  decision_status: fixed_by_approved_sources
+- query_id: GEN-QRY-006
+  topic: Target Cycle Contract
+  requirements:
+  - REQ-SYS-016
+  - REQ-SYS-017
+  decision_status: fixed_by_approved_sources
+- query_id: GEN-QRY-007
+  topic: Classification And Functional Baseline
+  requirements:
+  - REQ-REF-002
+  - REQ-REF-004
+  - REQ-REF-005
+  - REQ-REF-006
+  - REQ-REF-007
+  decision_status: fixed_by_approved_sources
+- query_id: GEN-QRY-008
+  topic: Evidence Boundary And Naming
+  requirements:
+  - REQ-SYS-018
+  - REQ-SYS-025
+  decision_status: fixed_by_approved_sources
+coverage:
+  expected_requirement_count: 39
+  covered_requirement_count: 39
+  status: PASS
+leakage_gate:
+  denied_index_chunk_count: 0
+  evidence_forbidden_path_count: 0
+  status: PASS
+isolated_worktree:
+  required: true
+  branch: rag/generate-systolic-prototype-v1
+  path: C:/Users/iuhj0/Eddie_rag_generation
+  historical_baselines_visible: false
+  status: pending_creation
+  restore_after_experiment: remove isolated worktree only; the primary repository retains historical_baselines throughout
+output:
+  root: rag_db_project/workspace/systolic_prototype
+  other_write_paths:
+  - rag_db_project/experiments/prototype_generation/run_001
+generation_gate:
+  manifest_validation: PASS
+  retrieval_smoke_test: PASS
+  requirement_coverage: PASS
+  historical_baseline_index_leakage: PASS
+  isolated_worktree: PENDING
+  ready_for_code_generation: false
