@@ -1,12 +1,12 @@
 # Manifest Validation Report
 
 - 상태: PASS
-- 검증 범위: chunking 및 ingestion 이전의 승인 입력과 접근 정책
+- 검증 범위: 승인 입력, 접근 정책과 prototype-generation RAG index
 - 검증 명령: `powershell.exe -NoProfile -ExecutionPolicy Bypass -File rag_db_project/manifests/validate_manifests.ps1`
 
 ## Validation Result
 
-총 37개 검증 항목이 모두 통과했다.
+총 41개 검증 항목이 모두 통과했다.
 
 | 검증 대상 | 결과 |
 |---|---|
@@ -21,7 +21,12 @@
 | 단계별 접근 정책 | default deny |
 | Historical Baseline의 prototype 생성 단계 접근 | 차단 |
 | Reference Model 기능 Baseline | 99 PASS / 1 FAIL / 99.0% |
-| RAG index 상태 | `not_built` |
+| RAG index 상태 | `built` |
+| Retrieval 원천 | 18개 |
+| 생성·ingestion된 chunk | 143개 |
+| Dense vector / FTS5 row | 143개 / 143개 |
+| 금지 경로 chunk | 0개 |
+| Retrieval smoke test | PASS |
 
 ## Approved Source Counts
 
@@ -51,4 +56,4 @@
 
 ## Gate Decision
 
-입력 동결과 manifest 준비 단계는 통과했다. 다음 단계에서는 이 Git tree를 `rag-input-baseline-v1.0` tag로 고정한 뒤, `phase_access_policy.yaml`의 `prototype_generation` allowlist만 사용해 chunking과 ingestion을 수행한다.
+입력 동결, chunking, ingestion과 기본 Retrieval smoke test를 통과했다. 다음 단계에서는 `phase_access_policy.yaml`의 `prototype_generation` 범위만 활성화한 Agent가 검색 근거와 source citation을 남기면서 `workspace/systolic_prototype/`에 새 RTL을 생성한다.

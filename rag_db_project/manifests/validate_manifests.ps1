@@ -175,9 +175,32 @@ if ($errors.Count -eq 0) {
                      $baselineManifest -match '(?m)^\s+accuracy_percent:\s+99\.0\s*$') `
         'functional baseline is 99 PASS / 1 FAIL / 99.0 percent' `
         'functional baseline values do not match'
-    Add-CheckResult ($indexManifest -match '(?m)^status:\s+not_built\s*$') `
-        'index manifest correctly reports not_built' `
-        'index manifest status must be not_built before ingestion'
+    $indexNotBuilt = $indexManifest -match '(?m)^status:\s+not_built\s*$'
+    $indexBuilt = $indexManifest -match '(?m)^status:\s+built\s*$'
+    Add-CheckResult `
+        -Condition ($indexNotBuilt -or $indexBuilt) `
+        -PassMessage 'index manifest has a recognized lifecycle status' `
+        -ErrorMessage 'index manifest status must be not_built or built'
+    if ($indexBuilt) {
+        Add-CheckResult `
+            -Condition ($indexManifest -match '(?m)^\s+chunk_count:\s+143\s*$') `
+            -PassMessage 'index manifest records 143 chunks' `
+            -ErrorMessage 'built index manifest does not record 143 chunks'
+        Add-CheckResult `
+            -Condition ($indexManifest -match '(?ms)^\s+dense_index:\s*\r?\n\s+status:\s+built\s*$' -and
+                        $indexManifest -match '(?m)^\s+embedding_dimension:\s+384\s*$') `
+            -PassMessage 'dense index is built with dimension 384' `
+            -ErrorMessage 'dense index build metadata is incomplete'
+        Add-CheckResult `
+            -Condition ($indexManifest -match '(?ms)^\s+sparse_index:\s*\r?\n\s+status:\s+built\s*$' -and
+                        $indexManifest -match '(?m)^\s+engine:\s+sqlite_fts5\s*$') `
+            -PassMessage 'SQLite FTS5 sparse index is built' `
+            -ErrorMessage 'sparse index build metadata is incomplete'
+        Add-CheckResult `
+            -Condition ($indexManifest -match 'retrieval_smoke_test_passed') `
+            -PassMessage 'retrieval smoke test gate is recorded' `
+            -ErrorMessage 'retrieval smoke test gate is missing'
+    }
 }
 
 foreach ($message in $passes) {

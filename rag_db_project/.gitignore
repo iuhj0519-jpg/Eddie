@@ -15,9 +15,9 @@
 **/output_files/
 
 # RAG runtime data
-rag_db_project/rag/data/
-rag_db_project/rag/cache/
-rag_db_project/rag/runs/
+rag/data/
+rag/cache/
+rag/runs/
 **/qdrant_storage/
 **/embedding_cache/
 

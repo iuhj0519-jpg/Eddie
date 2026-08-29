@@ -1,38 +1,66 @@
 schema_version: "1.0"
 manifest_id: prototype_rag_index_v1
-status: not_built
+status: built
 project_root: rag_db_project
 source_manifest: manifests/source_manifest.yaml
 source_checksum_inventory: manifests/checksums/source_files.sha256
 phase_access_policy: manifests/phase_access_policy.yaml
 
 chunking:
-  status: not_run
+  status: completed
   markdown_strategy: heading_aware
   verilog_strategy: symbol_aware
   numeric_file_strategy: metadata_only
-  chunker_name: null
-  chunker_version: null
-  chunk_count: null
+  chunker_name: rag/ingest/build_index.py
+  chunker_version: "1.0"
+  retrieval_source_count: 18
+  chunk_count: 143
+  counts_by_type:
+    markdown_heading: 41
+    requirement: 39
+    verilog_symbol: 63
+  counts_by_trust_tier:
+    T0: 80
+    T1: 63
 
 retrieval:
   dense_index:
-    status: not_built
-    embedding_model: null
-    embedding_dimension: null
-    collection_name: null
+    status: built
+    embedding_model: deterministic_feature_hash_v1
+    embedding_dimension: 384
+    collection_name: prototype_generation_v1
   sparse_index:
-    status: not_built
-    tokenizer: null
-    index_name: null
+    status: built
+    engine: sqlite_fts5
+    tokenizer: unicode61
+    ranking: bm25
+    index_name: chunks_fts
   reranker:
-    status: not_configured
-    model: null
+    status: configured
+    model: weighted_hybrid_score_v1
+    dense_weight: 0.55
+    sparse_weight: 0.45
 
 build_provenance:
   source_git_tag: rag-input-baseline-v1.0
-  source_tree_sha256: null
-  build_command: null
+  source_tree_sha256: 1470c763abed04a9fe60920e5ec09546f03b3c0897e7240d976d67f0a0b509ef
+  build_command: >-
+    wsl.exe -d Ubuntu -- python3
+    /mnt/c/Users/iuhj0/Eddie/rag_db_project/rag/ingest/build_index.py
+
+artifacts:
+  chunks:
+    path: rag/data/prototype_generation_v1/chunks.jsonl
+    sha256: f49b6b73d74435acf690e76f798774abaddc3dd380fd12f057a0bbaea1258256
+  database:
+    path: rag/data/prototype_generation_v1/rag_index.sqlite3
+    sha256: 4a796b2dac9f5474eb1b75522a6a7cda61cc34365dcaa6b095229ca9f784bf42
+  build_receipt:
+    path: rag/data/prototype_generation_v1/build_receipt.json
+    sha256: eba679fcbee50f643d0686175b9d36e7427356f023c3555a887c5c1729235f94
+  smoke_test:
+    path: rag/runs/prototype_generation_v1/smoke_test.json
+    sha256: 40ccb3b89b5ea67c9fc8d26eaaae29c939fcc9e607b2fc30be04c1e01a272749
 
 activation_gate:
   - source_manifest_validation_passed

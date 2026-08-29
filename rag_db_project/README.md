@@ -72,4 +72,6 @@ Compile, simulation, regression and comparison
 
 ## 진행 단계
 
-현재는 RAG DB 구축 전 입력 지식을 고정하는 단계다. Reference RTL과 100-sample baseline은 등록되었으며, reference model 및 systolic accelerator SPEC을 검토·승인한 뒤 source manifest와 phase access policy를 확정한다.
+Reference Model과 Systolic Accelerator SPEC은 version 1.0으로 승인됐으며, 241개 입력 파일은 `rag-input-baseline-v1.0` tag와 SHA-256 inventory로 동결됐다.
+
+`prototype_generation` 접근 정책에 따라 Markdown과 Reference RTL 18개 원천을 143개 chunk로 나눠 로컬 Hybrid Index에 ingestion했다. SQLite FTS5 BM25와 384차원 deterministic feature-hash dense index를 사용하며, Historical Baseline과 workspace를 포함한 금지 경로 chunk는 0개다. Retrieval smoke test까지 통과했으므로 다음 단계는 `workspace/systolic_prototype/`에 독립적인 RTL 초안을 생성하는 것이다.
