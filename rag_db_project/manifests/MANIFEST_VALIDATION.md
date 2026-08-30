@@ -24,8 +24,8 @@
 | Reference Model 기능 Baseline | 99 PASS / 1 FAIL / 99.0% |
 | RAG index 상태 | `built` |
 | Retrieval 원천 | 23개 |
-| 생성·ingestion된 chunk | 161개 |
-| Dense vector / FTS5 row | 161개 / 161개 |
+| 생성·ingestion된 chunk | 164개 |
+| Dense vector / FTS5 row | 164개 / 164개 |
 | 금지 경로 chunk | 0개 |
 | Retrieval smoke test | PASS |
 
@@ -51,7 +51,7 @@
 `checksums/source_files.sha256` 파일 자체의 SHA-256은 다음과 같다.
 
 ```text
-331f924a2d78edd9823632aad07e377672f64978d2be262aeeed5b3ee4e5e063
+65b147ff1c6a08ab61af34530ff147fb3154dcd17200cff8a9f3c80b7100d0bf
 ```
 
 이 값은 승인된 246개 원천의 경로와 개별 Checksum 목록을 식별한다. 원천 파일이나 승인 SPEC이 바뀌면 Checksum Inventory와 이 보고서를 다시 생성하고 검증해야 한다.

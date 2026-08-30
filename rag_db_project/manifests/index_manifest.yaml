@@ -14,13 +14,13 @@ chunking:
   chunker_name: rag/ingest/build_index.py
   chunker_version: "1.0"
   retrieval_source_count: 23
-  chunk_count: 161
+  chunk_count: 164
   counts_by_type:
-    markdown_heading: 46
-    requirement: 40
+    markdown_heading: 47
+    requirement: 42
     verilog_symbol: 75
   counts_by_trust_tier:
-    T0: 86
+    T0: 89
     T1: 75
 
 retrieval:
@@ -43,7 +43,7 @@ retrieval:
 
 build_provenance:
   source_git_tag: rag-input-baseline-v1.1
-  source_tree_sha256: 331f924a2d78edd9823632aad07e377672f64978d2be262aeeed5b3ee4e5e063
+  source_tree_sha256: 65b147ff1c6a08ab61af34530ff147fb3154dcd17200cff8a9f3c80b7100d0bf
   build_command: >-
     wsl.exe -d Ubuntu -- python3
     /mnt/c/Users/iuhj0/Eddie_rag_generation/rag_db_project/rag/ingest/build_index.py
@@ -51,16 +51,16 @@ build_provenance:
 artifacts:
   chunks:
     path: rag/data/prototype_generation_v2/chunks.jsonl
-    sha256: eea12afed60fe95f25c40e5d8769140d88958fcceaa93a8789b07780bf21172c
+    sha256: 13f407fe72fba5563e83d33d1e12cf1bf9b92afad016adabfe8dd4731ffb7202
   database:
     path: rag/data/prototype_generation_v2/rag_index.sqlite3
-    sha256: 5f9bb6b52b470822558e4970fc157b1cbfe1afc1b3d96a442611aee383dc077e
+    sha256: a3b7e6373197516cd0b31ed3f2c6829239203ad165606fca2498497bacaabbd0
   build_receipt:
     path: rag/data/prototype_generation_v2/build_receipt.json
-    sha256: e7b5e02cb4208d2969d1a2dd868c843e39b43d4413c784d99398d5d3e9a8229c
+    sha256: 22d11c14fd18e9d2d52a9e9502e64c9d12f631737324286e0aef493aed4b2d48
   smoke_test:
     path: rag/runs/prototype_generation_v2/smoke_test.json
-    sha256: bf434b3f4739fe0a9eae5bafe799ac1a19e8b50fc35f67059eb55c96d78b3611
+    sha256: 925901d21856cdc8a2b0ba1d2709391daa6017aeab4e5411de22901a2f5e40e9
 
 activation_gate:
   - source_manifest_validation_passed

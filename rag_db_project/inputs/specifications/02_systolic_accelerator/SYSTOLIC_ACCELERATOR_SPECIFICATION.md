@@ -148,6 +148,15 @@ OUTPUT_LOAD → MAXFINDER_START → MAXFINDER_WAIT → RESULT_VALID → IDLE
 
 생성 RTL은 변경되지 않은 4개 Systolic Controller Reference RTL과 본 SPEC을 함께 해석해야 한다.
 
+### 7.2 SRAM Streaming Adapter
+
+- Input Matrix와 Weight Matrix 전체를 Controller 내부 Register로 복제하거나 `latched_mat_a`, `latched_mat_b`와 동등한 저장 구조를 생성해서는 안 된다.
+- Input/Activation은 Input Buffer 또는 Global Buffer에, Weight는 Weight SRAM에 유지한다.
+- Systolic Controller의 RUN Counter와 Row/Column Skew가 매 Cycle 필요한 reduction index를 생성하고, SRAM Streaming Adapter는 이를 Buffer/SRAM read address와 enable로 변환한다.
+- 1-Cycle SRAM Read Latency 뒤에 반환된 5개 row operand와 5개 column weight만 Lane 단위로 Systolic Array에 공급한다.
+- K 범위 밖의 Skew 구간은 valid를 내리고 0 padding으로 처리하며, 대형 Matrix를 별도 Register Array에 복제하지 않는다.
+- Controller의 FSM, Skewing과 `systolic_controller → systolic_array_2d → pe_systolic_cell → mac_pe` 계층은 승인 Reference의 역할을 계승해야 한다.
+
 ## 8. Weight SRAM, Bias SRAM And SigROM
 
 - Weight SRAM은 5개 column에 대응하는 5개 bank로 구성하고 현재 layer/group의 Q4.4 weight를 공급한다.
@@ -293,6 +302,8 @@ Agent가 목표 cycle과 다른 완료 조건이 불가피하다고 판단하면
 ## 15. Code Generation Boundary
 
 - Reference Model에서 계승한 external AXI signal과 parameter 이름은 그대로 유지한다.
+- Reference Model에 존재하는 module의 기능을 계승하면 해당 module 이름을 유지한다. 특히 AXI-Lite 결과 Interface는 `axi_lite_wrapper`, Top은 `zyNet`, Class 선택기는 `maxFinder` 이름을 사용한다.
+- Reference Model에 없는 Input Buffer, Global Buffer, Weight SRAM, Bias SRAM, Activation Unit과 DNN Scheduler에는 기능을 나타내는 새 module 이름을 사용할 수 있다.
 - 본 SPEC에서 이름을 명시한 `i_start`, `o_busy`, `o_done`은 controller interface 계약으로 유지한다.
 - 새 parameter 이름은 의미를 나타내는 full name의 `UPPER_SNAKE_CASE`를 사용한다.
 - 새 signal, register, counter와 내부 control 이름은 의미를 나타내는 full name의 lowercase `snake_case`를 사용한다.
@@ -333,6 +344,8 @@ Q15.11→Q5.5 saturation은 comparator와 three-way MUX로 구성한 combination
 - REQ-SYS-025: 새 parameter는 `UPPER_SNAKE_CASE`, 새 internal signal/register/counter는 full-name lowercase `snake_case` 규칙을 따라야 한다.
 - REQ-SYS-026: Q5.5 saturation은 기본적으로 추가 pipeline cycle 없는 combinational comparator/MUX 구조로 구현해야 한다.
 - REQ-SYS-027: 생성 RTL은 변경되지 않은 4개 Systolic Controller Reference RTL과 본 SPEC을 함께 해석해 Reference Model에 Systolic Controller를 이식하고, 본 문서의 기능·Interface·Timing 요구사항을 만족해야 한다.
+- REQ-SYS-028: 생성 RTL은 Matrix 전체를 Controller Register로 복제하지 않고 Input Buffer, Global Buffer와 Weight SRAM을 사용하는 SRAM Streaming Adapter 방식으로 operand를 공급해야 한다.
+- REQ-SYS-029: Reference Model에서 기능을 계승한 `zyNet`, `axi_lite_wrapper`, `maxFinder`의 module 이름을 유지해야 한다.
 
 ## 17. Verification Items
 
@@ -355,5 +368,7 @@ Q15.11→Q5.5 saturation은 comparator와 three-way MUX로 구성한 combination
 - saturation combinational path가 target cycle을 증가시키지 않는지 확인
 - group별 797/43/33 target cycle assertion
 - 승인 입력의 4개 Systolic Controller Reference RTL이 원본과 Byte 단위로 동일한지 확인
+- Controller 또는 Adapter에 전체 Input/Weight Matrix를 복제하는 Register Array가 없는지 확인
+- `zyNet`, `axi_lite_wrapper`, `maxFinder` module 이름 보존 확인
 - 생성 설계가 본 SPEC의 Controller, Array, Interface와 Timing 요구사항을 만족하는지 확인
 - 100-image inference 결과와 Reference Model 기능 비교

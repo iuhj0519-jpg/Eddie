@@ -62,6 +62,18 @@ def main() -> int:
             "expected_path": "inputs/specifications/02_systolic_accelerator/",
             "expected_token": "Q5.5",
         },
+        {
+            "id": "sram_streaming_adapter",
+            "query": "SRAM Streaming Adapter no full matrix register duplication latched matrix",
+            "expected_path": "inputs/specifications/02_systolic_accelerator/",
+            "expected_token": "SRAM Streaming Adapter",
+        },
+        {
+            "id": "reference_module_names",
+            "query": "Reference Model module names zyNet axi_lite_wrapper maxFinder preserve",
+            "expected_path": "inputs/specifications/02_systolic_accelerator/",
+            "expected_token": "axi_lite_wrapper",
+        },
     ]
 
     report_cases: list[dict[str, object]] = []

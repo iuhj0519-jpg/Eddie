@@ -1,16 +1,8 @@
 # Legacy FC-MLP To Systolic Accelerator RAG Project
 
-## 외부 LLM API 최후 수단 정책
+## RAG-Only 생성 정책
 
-일반적인 프로젝트 운영에서는 외부 LLM API를 원천 차단하지 않는다. 승인된 RAG DB에서 필요한 근거를 찾지 못한 경우에만 다음 절차를 적용한다.
-
-1. Agent는 근거가 없는 설계 결정을 추측하지 않고 `unknown`으로 보고한다.
-2. 부족한 정보와 영향을 받는 Requirement를 사용자에게 제시하고 외부 조사 승인을 받는다.
-3. 승인된 경우에만 외부 LLM API 또는 외부 자료를 최후의 수단으로 사용한다.
-4. 외부에서 얻은 내용은 바로 코드 근거로 사용하지 않는다. 사용자가 검토한 뒤 SPEC에 반영하고 Source Manifest와 RAG Index를 다시 생성한다.
-5. 새 SPEC의 Requirement와 Retrieval Evidence가 고정된 뒤에만 코드 생성을 재개한다.
-
-그림의 `신뢰도 90%`는 LLM의 주관적 자기평가가 아니라 Requirement Coverage, 인용 가능한 근거, Source Hash, 금지 경로 누출 검사로 판정한다. `systolic_prototype_run_001`은 비교 실험의 독립성을 위해 이 최후 수단까지 비활성화한 예외 Run이며, 외부 Web 검색과 외부 LLM/API를 사용하지 않는다.
+이 프로젝트는 외부 Web 검색, 외부 자료와 외부 LLM/API를 코드 생성 근거에서 완전히 배제하고, 승인된 RAG DB만으로 설계·구현·검증하는 조건에서 RAG 성능을 최대한 끌어올리는 것을 목표로 한다. 승인 DB에 근거가 없으면 Agent는 외부 지식으로 보완하지 않고 `unknown` 또는 Requirement mismatch로 보고한다.
 
 이 프로젝트는 MNIST handwritten digit inference를 수행하는 legacy FC-MLP RTL에 5×5 output-stationary systolic array 기반의 TPU-style 연산 구조를 적용하고, 그 과정을 RAG 기반 AI Agent로 재현·최적화·검증하는 것을 목표로 한다.
 
@@ -77,6 +69,7 @@ Compile, simulation, regression and comparison
 ## 생성 독립성과 명명 정책
 
 - Reference Model에 이미 선언된 external interface, 변수 및 parameter 이름은 호환성을 위해 그대로 유지한다.
+- Reference Model에 존재하는 module의 기능을 계승하면 해당 module 이름을 그대로 유지하고, Input Buffer, Global Buffer, Weight SRAM, Bias SRAM, Activation Unit, DNN Scheduler처럼 새로 추가된 기능 블록에만 새 이름을 사용한다.
 - 승인된 SPEC이 이름까지 요구한 signal만 생성 코드의 고정 interface로 사용한다.
 - 내부 module, state, register 및 helper signal 이름은 `historical_baselines/`에서 복사하거나 그 이름을 정답처럼 사용하지 않는다.
 - Historical Baseline에만 존재하는 구현 세부사항은 SPEC 요구사항으로 승격하지 않는다.
@@ -87,4 +80,4 @@ Compile, simulation, regression and comparison
 
 Reference Model, 변경되지 않은 Systolic Controller Reference RTL 4개와 Systolic Accelerator SPEC version 1.1을 포함한 246개 입력 파일은 `rag-input-baseline-v1.1`과 SHA-256 Inventory로 동결한다.
 
-`prototype_generation` 접근 정책에 따라 Markdown과 두 Reference RTL 계층의 23개 원천을 161개 Chunk로 나눠 `prototype_generation_v2` Hybrid Index에 Ingestion했다. SQLite FTS5 BM25와 384차원 deterministic feature-hash Dense Index를 사용하며, Historical Baseline과 Workspace를 포함한 금지 경로 Chunk는 0개다. 다음 생성은 변경되지 않은 4개 Controller Reference와 SPEC을 함께 근거로 삼아 Reference Model에 Systolic Controller를 이식·동기화해야 한다.
+`prototype_generation` 접근 정책에 따라 Markdown과 두 Reference RTL 계층의 23개 원천을 164개 Chunk로 나눠 `prototype_generation_v2` Hybrid Index에 Ingestion했다. SQLite FTS5 BM25와 384차원 deterministic feature-hash Dense Index를 사용하며, Historical Baseline과 Workspace를 포함한 금지 경로 Chunk는 0개다. 다음 Systolic Prototype은 변경되지 않은 4개 Controller Reference와 SPEC을 근거로 SRAM Streaming Adapter를 사용해 생성해야 한다.
