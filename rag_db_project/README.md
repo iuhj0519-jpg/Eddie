@@ -85,3 +85,14 @@ Reference Model, 변경되지 않은 Systolic Controller Reference RTL 4개와 S
 다음 단계는 `inputs/specifications/03_architecture_optimization/`의 Architecture Optimization SPEC을 검토·승인하는 것이다. 이 초안은 Input Buffer와 Global Buffer를 Unified Buffer로 통합하고, 현재 Batch의 Compute와 다음 Batch의 AXI-Stream Prefetch를 겹쳐 첫 Batch 이외의 입력 Latency를 숨기는 계약을 정의한다.
 
 최적화 SPEC은 현재 `draft-for-review`이므로 승인된 RAG Index에는 아직 포함하지 않는다. 승인 후 Source Manifest, Phase Access Policy, Checksum Inventory와 Optimization 전용 Index를 함께 갱신하고 별도의 Evidence Freeze를 만든다.
+
+## Prototype Generation Run 역할
+
+`experiments/prototype_generation/`의 Run은 생성 당시 Source와 Index Hash를 포함하는 불변 감사 기록이다. 뒤 Run이 앞 Run의 생성 기준을 대체하더라도 이전 Run의 Chunk Count와 Index Hash를 삭제하거나 재작성하지 않는다.
+
+| Run | 역할 | 후속 생성 기준 |
+|---|---|---|
+| `run_001` | Generation Query의 의미, RAG 접근 정책, Protocol Preservation과 최초 Evidence Freeze가 형성된 실험 기록 | 사용하지 않음 |
+| `run_002` | Systolic Controller Reference RTL까지 포함한 Source, Chunking/Ingestion, Retrieval Evidence와 최종 Systolic Prototype 검증 기록 | 현재 기준 |
+
+`run_001`의 Source/Index 정보는 현재 RAG DB를 설명하기 위한 값이 아니라 당시 Query 결과를 재현하기 위한 값이다. Optimization Generation은 `run_002`가 고정한 검증 완료 Systolic Prototype과 새로 승인할 Optimization SPEC만 사용한다.
