@@ -10,8 +10,6 @@
 4. 외부에서 얻은 내용은 바로 코드 근거로 사용하지 않는다. 사용자가 검토한 뒤 SPEC에 반영하고 Source Manifest와 RAG Index를 다시 생성한다.
 5. 새 SPEC의 Requirement와 Retrieval Evidence가 고정된 뒤에만 코드 생성을 재개한다.
 
-그림의 `신뢰도 90%`는 LLM의 주관적 자기평가가 아니라 Requirement Coverage, 인용 가능한 근거, Source Hash, 금지 경로 누출 검사로 판정한다. `systolic_prototype_run_001`은 비교 실험의 독립성을 위해 이 최후 수단까지 비활성화한 예외 Run이며, 외부 Web 검색과 외부 LLM/API를 사용하지 않는다.
-
 이 프로젝트는 MNIST handwritten digit inference를 수행하는 legacy FC-MLP RTL에 5×5 output-stationary systolic array 기반의 TPU-style 연산 구조를 적용하고, 그 과정을 RAG 기반 AI Agent로 재현·최적화·검증하는 것을 목표로 한다.
 
 완성된 RTL을 단순히 검색하는 프로젝트가 아니다. 승인된 reference model과 단계별 specification을 근거로 다음 산출물을 순서대로 생성하고 검증한다.
