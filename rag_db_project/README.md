@@ -81,3 +81,7 @@ Compile, simulation, regression and comparison
 Reference Model, 변경되지 않은 Systolic Controller Reference RTL 4개와 Systolic Accelerator SPEC version 1.1을 포함한 246개 입력 파일은 `rag-input-baseline-v1.1`과 SHA-256 Inventory로 동결한다.
 
 `prototype_generation` 접근 정책에 따라 Markdown과 두 Reference RTL 계층의 23개 원천을 164개 Chunk로 나눠 `prototype_generation_v2` Hybrid Index에 Ingestion했다. SQLite FTS5 BM25와 384차원 deterministic feature-hash Dense Index를 사용하며, Historical Baseline과 Workspace를 포함한 금지 경로 Chunk는 0개다. Systolic Prototype은 변경되지 않은 4개 Controller Reference와 SPEC을 근거로 SRAM Streaming Adapter를 사용해 생성했으며, ModelSim 100-Sample Regression에서 99 PASS/1 FAIL, Accuracy 99.0%를 확인했다.
+
+다음 단계는 `inputs/specifications/03_architecture_optimization/`의 Architecture Optimization SPEC을 검토·승인하는 것이다. 이 초안은 Input Buffer와 Global Buffer를 Unified Buffer로 통합하고, 현재 Batch의 Compute와 다음 Batch의 AXI-Stream Prefetch를 겹쳐 첫 Batch 이외의 입력 Latency를 숨기는 계약을 정의한다.
+
+최적화 SPEC은 현재 `draft-for-review`이므로 승인된 RAG Index에는 아직 포함하지 않는다. 승인 후 Source Manifest, Phase Access Policy, Checksum Inventory와 Optimization 전용 Index를 함께 갱신하고 별도의 Evidence Freeze를 만든다.
