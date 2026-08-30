@@ -1,7 +1,7 @@
 `timescale 1ns/1ps
 
-module max_finder (
-    input  wire        clock,
+module maxFinder (
+    input  wire        i_clk,
     input  wire        reset,
     input  wire        clear_results,
     input  wire        score_column_valid,
@@ -14,7 +14,7 @@ module max_finder (
     reg [7:0] maximum_score [0:4];
     integer image_index;
 
-    always @(posedge clock) begin
+    always @(posedge i_clk) begin
         if (reset || clear_results) begin
             results_ready  <= 1'b0;
             result_classes <= 20'd0;

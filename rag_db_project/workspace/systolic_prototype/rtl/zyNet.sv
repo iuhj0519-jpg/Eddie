@@ -43,37 +43,21 @@ module zyNet #(
     wire controller_start;
     wire controller_busy;
     wire controller_done;
-    wire array_clear;
     wire [9:0] run_cycle;
     wire [9:0] reduction_length = (layer_index == 2'd1) ? 10'd784 :
                                   (layer_index == 2'd2) ? 10'd30  : 10'd20;
 
-    reg [49:0] input_read_address;
-    reg [49:0] weight_read_address;
-    reg [24:0] global_read_address;
-    reg [4:0] operand_read_enable;
-    reg [4:0] weight_read_enable;
+    wire [49:0] operand_read_address;
+    wire [4:0] operand_read_enable;
+    wire [49:0] weight_read_address;
+    wire [4:0] weight_read_enable;
+    reg  [24:0] global_read_address;
     integer lane_index;
-    integer source_index;
 
     always @(*) begin
-        input_read_address  = 50'd0;
-        weight_read_address = 50'd0;
         global_read_address = 25'd0;
-        operand_read_enable = 5'd0;
-        weight_read_enable  = 5'd0;
-        for (lane_index = 0; lane_index < 5; lane_index = lane_index + 1) begin
-            if (controller_busy && (run_cycle >= lane_index)) begin
-                source_index = run_cycle - lane_index;
-                if (source_index < reduction_length) begin
-                    input_read_address[lane_index*10 +: 10] = source_index[9:0];
-                    global_read_address[lane_index*5 +: 5] = source_index[4:0];
-                    operand_read_enable[lane_index] = 1'b1;
-                    weight_read_address[lane_index*10 +: 10] = source_index[9:0];
-                    weight_read_enable[lane_index] = 1'b1;
-                end
-            end
-        end
+        for (lane_index = 0; lane_index < 5; lane_index = lane_index + 1)
+            global_read_address[lane_index*5 +: 5] = operand_read_address[lane_index*10 +: 5];
     end
 
     wire signed [39:0] input_buffer_read_data;
@@ -84,7 +68,7 @@ module zyNet #(
         .clear_batch(clear_batch),
         .stream_data(axis_in_data),
         .stream_valid(axis_in_data_valid),
-        .read_address(input_read_address),
+        .read_address(operand_read_address),
         .read_enable((layer_index == 2'd1) ? operand_read_enable : 5'd0),
         .read_data(input_buffer_read_data),
         .read_valid(input_buffer_read_valid),
@@ -126,29 +110,28 @@ module zyNet #(
         .read_valid(weight_read_valid)
     );
 
-    wire signed [39:0] row_input_data = (layer_index == 2'd1) ? input_buffer_read_data : global_buffer_read_data;
-    wire [4:0] row_input_valid = (layer_index == 2'd1) ? input_buffer_read_valid : global_buffer_read_valid;
+    wire signed [39:0] streamed_operand_data =
+        (layer_index == 2'd1) ? input_buffer_read_data : global_buffer_read_data;
+    wire [4:0] streamed_operand_valid =
+        (layer_index == 2'd1) ? input_buffer_read_valid : global_buffer_read_valid;
     wire signed [649:0] partial_sums;
 
-    systolic_array systolic_array_instance (
-        .clock(s_axi_aclk),
-        .reset(reset),
-        .clear_accumulators(array_clear),
-        .row_input_data(row_input_data),
-        .row_input_valid(row_input_valid),
-        .column_weight_data(weight_read_data),
-        .column_weight_valid(weight_read_valid),
-        .partial_sums(partial_sums)
-    );
-
     systolic_controller systolic_controller_instance (
-        .clock(s_axi_aclk),
-        .reset(reset),
+        .clk(s_axi_aclk),
+        .rst_n(s_axi_aresetn),
         .i_start(controller_start),
         .reduction_length(reduction_length),
-        .o_busy(controller_busy),
         .o_done(controller_done),
-        .array_clear(array_clear),
+        .o_busy(controller_busy),
+        .operand_read_address(operand_read_address),
+        .operand_read_enable(operand_read_enable),
+        .weight_read_address(weight_read_address),
+        .weight_read_enable(weight_read_enable),
+        .operand_read_data(streamed_operand_data),
+        .operand_read_valid(streamed_operand_valid),
+        .weight_read_data(weight_read_data),
+        .weight_read_valid(weight_read_valid),
+        .o_mat_c(partial_sums),
         .run_cycle(run_cycle)
     );
 
@@ -163,7 +146,8 @@ module zyNet #(
     reg signed [129:0] selected_accumulators;
     always @(*) begin
         for (lane_index = 0; lane_index < 5; lane_index = lane_index + 1)
-            selected_accumulators[lane_index*26 +: 26] = partial_sums[(lane_index*5+activation_column)*26 +: 26];
+            selected_accumulators[lane_index*26 +: 26] =
+                partial_sums[(lane_index*5+activation_column)*26 +: 26];
     end
 
     wire activation_start;
@@ -188,8 +172,8 @@ module zyNet #(
     wire score_column_valid;
     wire [19:0] result_classes;
     wire results_ready;
-    max_finder max_finder_instance (
-        .clock(s_axi_aclk),
+    maxFinder maxFinder_instance (
+        .i_clk(s_axi_aclk),
         .reset(reset),
         .clear_results(clear_results),
         .score_column_valid(score_column_valid),
@@ -223,22 +207,33 @@ module zyNet #(
         .scheduler_state(scheduler_state)
     );
 
-    axi_lite_result_interface #(
+    axi_lite_wrapper #(
         .C_S_AXI_DATA_WIDTH(C_S_AXI_DATA_WIDTH),
         .C_S_AXI_ADDR_WIDTH(C_S_AXI_ADDR_WIDTH)
-    ) axi_lite_result_interface_instance (
-        .clock(s_axi_aclk),
-        .reset_n(s_axi_aresetn),
-        .s_axi_awaddr(s_axi_awaddr), .s_axi_awprot(s_axi_awprot),
-        .s_axi_awvalid(s_axi_awvalid), .s_axi_awready(s_axi_awready),
-        .s_axi_wdata(s_axi_wdata), .s_axi_wstrb(s_axi_wstrb),
-        .s_axi_wvalid(s_axi_wvalid), .s_axi_wready(s_axi_wready),
-        .s_axi_bresp(s_axi_bresp), .s_axi_bvalid(s_axi_bvalid), .s_axi_bready(s_axi_bready),
-        .s_axi_araddr(s_axi_araddr), .s_axi_arprot(s_axi_arprot),
-        .s_axi_arvalid(s_axi_arvalid), .s_axi_arready(s_axi_arready),
-        .s_axi_rdata(s_axi_rdata), .s_axi_rresp(s_axi_rresp),
-        .s_axi_rvalid(s_axi_rvalid), .s_axi_rready(s_axi_rready),
-        .result_classes(result_classes), .results_ready(results_ready),
+    ) axi_lite_wrapper_instance (
+        .S_AXI_ACLK(s_axi_aclk),
+        .S_AXI_ARESETN(s_axi_aresetn),
+        .S_AXI_AWADDR(s_axi_awaddr),
+        .S_AXI_AWPROT(s_axi_awprot),
+        .S_AXI_AWVALID(s_axi_awvalid),
+        .S_AXI_AWREADY(s_axi_awready),
+        .S_AXI_WDATA(s_axi_wdata),
+        .S_AXI_WSTRB(s_axi_wstrb),
+        .S_AXI_WVALID(s_axi_wvalid),
+        .S_AXI_WREADY(s_axi_wready),
+        .S_AXI_BRESP(s_axi_bresp),
+        .S_AXI_BVALID(s_axi_bvalid),
+        .S_AXI_BREADY(s_axi_bready),
+        .S_AXI_ARADDR(s_axi_araddr),
+        .S_AXI_ARPROT(s_axi_arprot),
+        .S_AXI_ARVALID(s_axi_arvalid),
+        .S_AXI_ARREADY(s_axi_arready),
+        .S_AXI_RDATA(s_axi_rdata),
+        .S_AXI_RRESP(s_axi_rresp),
+        .S_AXI_RVALID(s_axi_rvalid),
+        .S_AXI_RREADY(s_axi_rready),
+        .result_classes(result_classes),
+        .results_ready(results_ready),
         .results_consumed(results_consumed)
     );
 

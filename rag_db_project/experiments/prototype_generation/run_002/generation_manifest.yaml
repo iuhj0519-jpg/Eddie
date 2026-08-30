@@ -1,0 +1,88 @@
+schema_version: "1.0"
+generation_id: systolic_prototype_run_002
+status: code_generated_and_verified
+
+source:
+  git_tag: rag-input-baseline-v1.1
+  git_commit: 0f014e8e641dc6621f5b04aeda74cc49544d3d6b
+  inventory_sha256: 65b147ff1c6a08ab61af34530ff147fb3154dcd17200cff8a9f3c80b7100d0bf
+  approved_file_count: 246
+
+index:
+  index_id: prototype_generation_v2
+  database_sha256: a3b7e6373197516cd0b31ed3f2c6829239203ad165606fca2498497bacaabbd0
+  chunks_sha256: 13f407fe72fba5563e83d33d1e12cf1bf9b92afad016adabfe8dd4731ffb7202
+  chunk_count: 164
+  retrieval_source_count: 23
+  denied_chunk_count: 0
+  retrieval_smoke_test_count: 7
+  retrieval_smoke_test: PASS
+
+evidence:
+  path: rag_db_project/experiments/prototype_generation/run_002/retrieval_evidence.jsonl
+  sha256: 8404e0d343e7aeb75194eb88c874c7d8e728eb6b203385e7e503c943c4b44afc
+  query_count: 10
+
+knowledge_policy:
+  allowed:
+    - approved T0 specifications
+    - approved T1 Reference Model and Systolic Controller RTL
+    - direct-access Memory and Test Vector files allowed by phase_access_policy.yaml
+  forbidden:
+    - historical_baselines/**
+    - external Web search
+    - external LLM/API
+    - uncited design decisions
+  missing_evidence_action: report unknown
+
+architecture:
+  matrix_register_duplication: forbidden
+  operand_delivery: SRAM Streaming Adapter
+  core_hierarchy:
+    - systolic_controller
+    - systolic_array_2d
+    - pe_systolic_cell
+    - mac_pe
+  preserved_reference_module_names:
+    - zyNet
+    - axi_lite_wrapper
+    - maxFinder
+
+coverage:
+  reference_requirements: 13
+  systolic_requirements: 29
+  total_requirements: 42
+  status: PASS
+
+isolated_worktree:
+  branch: rag/generate-systolic-prototype-v1.1
+  path: C:/Users/iuhj0/Eddie_rag_generation
+  historical_baselines_visible: false
+  status: PASS
+
+output:
+  root: rag_db_project/workspace/systolic_prototype
+
+verification:
+  simulator: ModelSim Intel FPGA Edition 10.5b
+  compile_errors: 0
+  compile_warnings: 0
+  sample_count: 100
+  batch_count: 20
+  pass_count: 99
+  fail_count: 1
+  accuracy_percent: 99.0
+  known_failure_sample: 18
+  known_failure_detected: 8
+  known_failure_expected: 3
+  controller_cycle_assertions: PASS
+  interrupt_assertions: PASS
+  status: PASS
+
+generation_gate:
+  manifest_validation: PASS
+  retrieval_smoke_test: PASS
+  requirement_coverage: PASS
+  historical_baseline_leakage: PASS
+  modelsim_regression: PASS
+  execution_status: complete
