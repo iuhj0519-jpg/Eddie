@@ -1,8 +1,8 @@
 schema_version: "1.0"
-manifest_id: reference_functional_baseline_v1
+manifest_id: staged_functional_baseline_v2
 status: approved
 project_root: rag_db_project
-baseline_tag: rag-input-baseline-v1.1
+baseline_tag: rag-optimization-input-v1.0
 
 reference_model:
   dut_top: zyNet
@@ -18,19 +18,31 @@ approved_specifications:
     path: inputs/specifications/01_reference_model/REFERENCE_MODEL_SPECIFICATION.md
   systolic_accelerator:
     document_id: SYS-SPEC-001
-    version: "1.0"
+    version: "1.1"
     path: inputs/specifications/02_systolic_accelerator/SYSTOLIC_ACCELERATOR_SPECIFICATION.md
+  architecture_optimization:
+    document_id: OPT-SPEC-001
+    version: "1.0"
+    path: inputs/specifications/03_architecture_optimization/ARCHITECTURE_OPTIMIZATION_SPECIFICATION.md
+
+verified_systolic_prototype:
+  source_run: experiments/prototype_generation/run_002
+  source_commit: 17148560b3f65058df9b7d99392398ea3d3f6859
+  root: workspace/systolic_prototype
+  compile_errors: 0
+  compile_warnings: 0
+  pass: 99
+  fail: 1
+  accuracy_percent: 99.0
+  controller_cycle_assertions: PASS
+  interrupt_assertions: PASS
 
 simulation:
   simulator: ModelSim Intel FPGA Edition
   simulator_version: 10.5b
   toolchain: Intel FPGA 18.1
-  command: bash rag_db_project/inputs/reference_model/scripts/run_modelsim.sh
   compile_errors: 0
   compile_warnings: 0
-  simulation_errors: 0
-  elaboration_simulation_warnings: 65
-  final_simulation_time_ns: 873235
 
 expected_result:
   pass: 99
@@ -50,6 +62,8 @@ expected_source_counts:
   test_vectors: 100
   systolic_controller_reference_systemverilog: 4
   systolic_controller_reference_readme: 1
+  verified_systolic_prototype_rtl: 14
+  architecture_optimization_spec_documents: 2
 
 acceptance_rules:
   - compile_and_simulation_errors_are_zero
@@ -57,3 +71,5 @@ acceptance_rules:
   - only_failure_matches_exactly
   - source_manifest_validation_passes
   - phase_access_policy_validation_passes
+  - external_knowledge_access_is_disabled
+  - historical_baseline_access_is_denied

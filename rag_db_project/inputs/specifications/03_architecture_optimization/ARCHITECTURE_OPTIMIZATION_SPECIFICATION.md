@@ -1,8 +1,8 @@
 # Unified Buffer And AXI Latency Hiding Architecture Optimization Specification
 
 - 문서 ID: OPT-SPEC-001
-- 버전: 0.2
-- 상태: draft-for-review
+- 버전: 1.0
+- 상태: approved
 - 선행 조건: 승인된 Reference Model SPEC, Systolic Accelerator SPEC 및 검증 완료된 Systolic Prototype
 - 적용 범위: Unified Buffer, Input Loader, DNN Scheduler, AXI-Stream Input Scheduling 및 PPA 구현 규칙
 
@@ -24,7 +24,7 @@ Unified Buffer 통합이 BRAM Block 또는 Area 감소를 보장하지는 않는
 
 본 SPEC의 구현은 승인된 RAG Source와 검증된 Systolic Prototype만 근거로 사용한다. 승인되지 않은 비교용 구현이나 승인 Source 밖의 설계 사례를 구현 근거로 사용하지 않는다. 근거가 없거나 서로 충돌하는 결정은 임의로 채우지 않고 `unknown`으로 보고한 뒤 SPEC 승인을 다시 받아야 한다.
 
-본 문서의 기능·Interface·Timing Requirement가 규범적이다. 별도의 Capture Register와 MaxFinder Input Register는 필수 구조로 요구하지 않는다. Agent가 Timing 또는 기능상 필요하다고 판단하면 추가 전에 근거, Cycle과 Interface 영향을 보고해야 한다.
+본 문서의 기능·Interface·Timing Requirement가 규범적이다. Agent가 명시되지 않은 구조를 추가하려면 구현 전에 승인된 근거, Cycle과 Interface 영향을 보고해야 한다.
 
 ## 3. Optimized Top Architecture
 
@@ -257,11 +257,22 @@ Buffer의 Synchronous Read 또는 새로운 Arbitration 때문에 Controller Cyc
 - 사용하지 않는 Bank, Systolic PE Update, SRAM Read와 SigROM Lookup은 Enable로 정지한다.
 - Valid가 없는 Data 변경이 Datapath Toggle을 유발하지 않게 한다.
 
-### 10.4 Optional Exploration
+### 10.4 Unified Buffer Disadvantage Minimization
+
+Unified Buffer 통합으로 발생할 수 있는 Memory Capacity 증가, Port Competition, Address MUX 증가, Critical Path 악화와 동시 Access Power 증가를 최소화해야 한다. Agent는 하나의 Mapping을 즉시 채택하지 않고 최소 두 개 이상의 구현 후보를 비교해야 한다.
+
+- Data Lifetime 기반 Storage Reuse로 동시에 필요한 Live Data만 보존한다.
+- Compute Read와 Activation Write를 우선하고 Prefetch는 Backpressure로 안전하게 지연한다.
+- 가능한 후보마다 Memory Bit와 실제 BRAM Block 수를 모두 계산한다.
+- 큰 Crossbar보다 Bank-Local Address와 Ownership Decode를 우선한다.
+- Prefetch가 Compute Critical Path에 조합논리로 연결되지 않도록 Ready와 Ownership 경로를 분리한다.
+- 추가 Memory와 동시 Access가 만드는 Dynamic Power를 Bank Enable과 Clock Enable로 억제한다.
+- 후보 선택 기준은 기능 충족 후 Total Cycle, BRAM Block, Logic, Fmax, Power 순으로 기록한다.
+
+### 10.5 Optional Exploration
 
 - SigROM 공유는 Area를 줄일 수 있지만 5-Lane 처리량을 낮출 수 있으므로 고정하지 않는다.
 - 추가 Pipeline은 Fmax를 높일 수 있지만 Cycle과 Handshake를 바꾸므로 사전 보고와 승인이 필요하다.
-- Capture Register 또는 MaxFinder Input Register는 필수 Block이 아니다.
 
 ## 11. PPA Measurement And Acceptance
 
@@ -333,7 +344,7 @@ Maximum hidden input  = 19 × 3,920           = 74,480 cycles
 - REQ-OPT-020: Parameter는 `UPPER_SNAKE_CASE`, 새 Signal/Register/Counter는 full-name lowercase `snake_case`를 사용해야 한다.
 - REQ-OPT-021: Counter와 Address는 선택한 Mapping에 필요한 최소 Width를 사용해야 한다.
 - REQ-OPT-022: Inactive Memory와 Datapath는 Clock Enable 또는 Bank Enable로 Toggle을 억제해야 한다.
-- REQ-OPT-023: Capture Register와 MaxFinder Input Register를 필수 구조로 간주해서는 안 된다.
+- REQ-OPT-023: Agent는 Unified Buffer 후보를 최소 두 개 비교하고 Memory Capacity, Port Competition, Address MUX, Fmax와 Power 불이익을 최소화한 구조를 선택해야 한다.
 - REQ-OPT-024: `L > C_OVERLAP` 또는 Input Stall이면 Data를 덮어쓰지 않고 다음 Compute를 대기하며 Stall 원인을 기록해야 한다.
 - REQ-OPT-025: 동일 조건의 합성·시뮬레이션에서 기능, Cycle, BRAM, Logic, Register, Fmax와 가능한 Power를 보고해야 한다.
 

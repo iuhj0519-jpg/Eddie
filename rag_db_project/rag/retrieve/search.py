@@ -24,6 +24,11 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser()
     parser.add_argument("query")
     parser.add_argument("--project-root", type=Path, default=PROJECT_ROOT)
+    parser.add_argument(
+        "--config",
+        type=Path,
+        default=RAG_DIR / "config" / "prototype_index.yaml",
+    )
     parser.add_argument("--top-k", type=int)
     parser.add_argument("--trust-tier", choices=["T0", "T1"])
     parser.add_argument("--path-prefix")
@@ -143,9 +148,7 @@ def search(
 def main() -> int:
     args = parse_args()
     project_root = args.project_root.resolve()
-    config = yaml.safe_load(
-        (project_root / "rag" / "config" / "prototype_index.yaml").read_text(encoding="utf-8")
-    )
+    config = yaml.safe_load(args.config.resolve().read_text(encoding="utf-8"))
     database_path = project_root / "rag" / "data" / config["index_id"] / "rag_index.sqlite3"
     if not database_path.is_file():
         raise FileNotFoundError(f"index is not built: {database_path}")

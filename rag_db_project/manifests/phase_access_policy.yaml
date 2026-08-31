@@ -1,5 +1,5 @@
 schema_version: "1.0"
-policy_id: rag_phase_access_v1
+policy_id: rag_phase_access_v2
 status: approved
 default_action: deny
 project_root: rag_db_project
@@ -10,26 +10,17 @@ principles:
   - do_not_embed_bulk_mif_or_test_vectors
   - report_unknown_when_evidence_is_missing
   - never_use_denied_paths_as_generation_evidence
-  - use_external_knowledge_only_after_unknown_and_human_approval
-  - incorporate_approved_external_findings_into_spec_before_generation
+  - generation_runs_do_not_use_external_web_or_external_llm_api
 
 external_knowledge_fallback:
-  default: human_gated_last_resort
-  trigger: approved_rag_evidence_is_insufficient_after_query_refinement
-  sequence:
-    - report_unknown_and_affected_requirements
-    - request_human_approval
-    - consult_external_llm_or_source
-    - review_and_add_finding_to_specification
-    - rebuild_manifest_index_and_evidence_freeze
-    - resume_generation
+  default: disabled_for_generation_runs
+  missing_evidence_action: report_unknown_and_stop_affected_decision
   direct_use_as_code_evidence: false
 
 phases:
   prototype_generation:
     enabled: true
     external_knowledge_access: false
-    external_knowledge_reason: systolic_prototype_run_001_is_a_rag_only_comparison_run
     retrieval_allow:
       - inputs/README.md
       - inputs/reference_model/README.md
@@ -48,8 +39,7 @@ phases:
       - inputs/reference_model/activation/sigContent.mif
       - inputs/reference_model/testdata/test_data_*.txt
       - inputs/reference_model/scripts/run_modelsim.sh
-    execute_allow:
-      - inputs/reference_model/scripts/run_modelsim.sh
+    execute_allow: [inputs/reference_model/scripts/run_modelsim.sh]
     deny:
       - historical_baselines/**
       - workspace/**
@@ -60,20 +50,51 @@ phases:
       - inputs/specifications/04_verification/**
 
   optimization_generation:
-    enabled: false
-    activation_condition: approved_optimization_spec_and_verified_generated_prototype
+    enabled: true
+    external_knowledge_access: false
+    activation_condition: approved_optimization_spec_and_verified_run_002_prototype
+    retrieval_allow:
+      - inputs/README.md
+      - inputs/reference_model/README.md
+      - inputs/reference_model/model/rtl/*.v
+      - inputs/systolic_controller/README.md
+      - inputs/systolic_controller/rtl/*.sv
+      - inputs/specifications/README.md
+      - inputs/specifications/01_reference_model/*.md
+      - inputs/specifications/02_systolic_accelerator/*.md
+      - inputs/specifications/03_architecture_optimization/*.md
+      - workspace/systolic_prototype/rtl/*.sv
+      - workspace/systolic_prototype/rtl/*.svh
+    direct_file_allow:
+      - inputs/reference_model/model/rtl/*.v
+      - inputs/systolic_controller/rtl/*.sv
+      - inputs/reference_model/weights/*.mif
+      - inputs/reference_model/biases/*.mif
+      - inputs/reference_model/activation/sigContent.mif
+      - inputs/reference_model/testdata/test_data_*.txt
+      - workspace/systolic_prototype/rtl/*.sv
+      - workspace/systolic_prototype/rtl/*.svh
+      - workspace/systolic_prototype/tb/top_sim.sv
+      - workspace/systolic_prototype/scripts/run_modelsim.do
+      - workspace/systolic_prototype/scripts/run_modelsim.sh
+    execute_allow: [workspace/systolic_prototype/scripts/run_modelsim.sh]
     deny:
       - historical_baselines/**
       - workspace/optimized_accelerator/**
+      - verification/**
+      - experiments/**
+      - artifacts/**
+      - inputs/specifications/04_verification/**
 
   verification_generation:
     enabled: false
     activation_condition: approved_verification_spec_and_frozen_generated_dut
-    deny:
-      - historical_baselines/**
+    deny: [historical_baselines/**]
 
 policy_checks:
   - default_deny_is_enabled
-  - prototype_retrieval_paths_are_in_source_manifest
-  - prototype_denies_all_comparison_results
-  - disabled_phases_cannot_run
+  - each_phase_retrieval_paths_are_manifested
+  - optimization_allows_only_verified_systolic_prototype_workspace
+  - all_generation_phases_deny_historical_baselines
+  - optimization_denies_its_output_directory
+  - external_knowledge_is_disabled_for_generation_runs

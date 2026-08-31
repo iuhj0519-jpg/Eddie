@@ -10,12 +10,12 @@
 
 ## Current Status
 
-- 문서 상태: `draft-for-review`
-- RAG Source Manifest 포함 여부: 제외
-- Optimization Generation 허용 여부: 비활성
-- 구현 시작 조건: 아래 Approval Gate 전체 통과
+- 문서 상태: `approved`
+- RAG Source Manifest 포함 여부: 포함
+- Optimization Generation 허용 여부: 활성
+- 구현 시작 조건: Approval Gate 전체 통과
 
-현재 초안은 승인되기 전까지 코드 생성 근거가 아니다. Unified Buffer의 고정 Depth나 주소 분할을 지정하지 않으며, Agent가 Data Lifetime, Port Conflict와 목표 FPGA Memory Packing을 근거로 용량과 Mapping을 선택해야 한다. Capture Register와 MaxFinder Input Register도 필수 구조로 요구하지 않는다.
+Unified Buffer의 고정 Depth나 주소 분할은 지정하지 않는다. Agent는 Data Lifetime, Port Conflict와 목표 FPGA Memory Packing을 근거로 용량과 Mapping을 선택하고, 통합으로 발생할 수 있는 Capacity, Port, MUX, Fmax와 Power 불이익을 후보 비교로 최소화해야 한다.
 
 ## Approval Procedure
 
@@ -35,12 +35,11 @@
 
 ## Approval Checklist
 
-- [ ] Unified Buffer의 Data Lifetime 기반 용량 산정 규칙 승인
-- [ ] Agent의 Bank Depth·주소식·BRAM Mapping 사전 보고 의무 승인
-- [ ] 동적 `axis_in_data_ready` Backpressure 승인
-- [ ] Compute와 다음 Batch Prefetch Overlap 승인
-- [ ] Activation Write와 Prefetch 충돌 시 우선순위 승인
-- [ ] Layer 3 결과를 Unified Buffer에 저장하지 않는 경로 승인
-- [ ] AXI-Lite `0x08`, `intr`, Fixed-Point 계약 유지 승인
-- [ ] PPA 평가 항목과 성공 기준 승인
-- [ ] Capture Register와 MaxFinder Input Register 비필수 원칙 승인
+- [x] Unified Buffer의 Data Lifetime 기반 용량 산정 규칙 승인
+- [x] Agent의 Bank Depth·주소식·BRAM Mapping 사전 보고 의무 승인
+- [x] 동적 `axis_in_data_ready` Backpressure 승인
+- [x] Compute와 다음 Batch Prefetch Overlap 승인
+- [x] Activation Write와 Prefetch 충돌 시 우선순위 승인
+- [x] Layer 3 결과를 Unified Buffer에 저장하지 않는 경로 승인
+- [x] AXI-Lite `0x08`, `intr`, Fixed-Point 계약 유지 승인
+- [x] PPA 불이익 최소화와 평가 기준 승인

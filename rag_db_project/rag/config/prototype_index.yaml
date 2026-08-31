@@ -27,3 +27,40 @@ hybrid_retrieval:
   dense_weight: 0.55
   sparse_weight: 0.45
   default_top_k: 8
+
+smoke_test:
+  denied_prefixes:
+    - historical_baselines/
+    - workspace/
+    - verification/
+    - experiments/
+    - artifacts/
+  cases:
+    - id: result_register_protocol
+      query: REQ-SYS-024 result storage clear AXI 0x08
+      expected_path: inputs/specifications/02_systolic_accelerator/
+      expected_token: REQ-SYS-024
+    - id: reference_interrupt
+      query: batch one cycle intr Reference Model
+      expected_path: inputs/
+      expected_token: intr
+    - id: controller_states
+      query: systolic controller IDLE RUN DONE_STATE
+      expected_path: inputs/systolic_controller/
+      expected_token: DONE_STATE
+    - id: controller_skew
+      query: controller row column skew latched matrix
+      expected_path: inputs/systolic_controller/
+      expected_token: latched_mat_a
+    - id: fixed_point_saturation
+      query: Q5.5 saturation three-way MUX overflow
+      expected_path: inputs/specifications/02_systolic_accelerator/
+      expected_token: Q5.5
+    - id: sram_streaming_adapter
+      query: SRAM Streaming Adapter no full matrix register duplication
+      expected_path: inputs/specifications/02_systolic_accelerator/
+      expected_token: SRAM Streaming Adapter
+    - id: reference_module_names
+      query: Reference Model module names zyNet axi_lite_wrapper maxFinder preserve
+      expected_path: inputs/specifications/02_systolic_accelerator/
+      expected_token: axi_lite_wrapper
