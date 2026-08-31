@@ -19,7 +19,7 @@ indexes:
     canonical_run: experiments/prototype_generation/run_002
 
   optimized_accelerator:
-    status: built_and_smoke_tested
+    status: generation_completed_and_verified
     index_id: optimization_generation_v1
     source_git_tag: rag-optimization-input-v1.0
     source_commit: d12125885097914a8ed0be77c7fdfdf206ade78a
@@ -35,6 +35,10 @@ indexes:
     counts_by_trust_tier:
       T0: 144
       T1: 125
+    canonical_run: experiments/optimization_generation/run_001
+    output: workspace/optimized_accelerator
+    output_aggregate_sha256: 12c772eec7ecf401733f1b2484a9e99495b38925dbf74e64724b5b7e511f3b2b
+    verification: PASS
 
 retrieval:
   dense_index:
@@ -73,3 +77,5 @@ activation_gate:
   - retrieval_smoke_test_passed
   - denied_chunk_count_is_zero
   - external_knowledge_access_disabled
+  - optimized_accelerator_generation_completed
+  - optimized_accelerator_modelsim_verification_passed

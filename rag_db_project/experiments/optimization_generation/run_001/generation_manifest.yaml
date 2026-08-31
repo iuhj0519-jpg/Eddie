@@ -1,6 +1,6 @@
 schema_version: "1.0"
 generation_id: optimized_accelerator_run_001
-status: code_generation_active
+status: completed_and_verified
 
 source:
   git_tag: rag-optimization-input-v1.0
@@ -39,11 +39,16 @@ knowledge_policy:
   missing_evidence_action: report unknown and stop affected decision
 
 optimization_contract:
+  selected_structure: lifetime_reuse_unified_buffer
+  bank_count: 5
+  bytes_per_bank: 834
+  total_buffer_bytes: 4170
   primary_changes:
     - merge Input Buffer and Global Buffer functions into a five-bank Unified Buffer
     - overlap next-Batch AXI input with current-Batch compute
-    - select capacity and mapping by Data Lifetime and FPGA memory packing
-    - minimize capacity, port, MUX, Fmax and power disadvantages using candidate comparison
+    - release an input address only after the final Layer 1 output group reads it
+    - retain separate Layer 1 and Layer 2 intermediate regions for ping-pong dataflow
+    - limit each Bank to one read and one write per cycle
   preserved:
     - 5x5 Output-Stationary Systolic Controller hierarchy
     - 797/43/33 group cycle contract
@@ -62,9 +67,33 @@ isolated_worktree:
   path: C:/Users/iuhj0/Eddie_rag_generation
   historical_baselines_visible_during_generation: false
   status: PASS
+  post_generation_sparse_checkout_disabled: true
+  comparison_directories_restored: true
 
 output:
   root: rag_db_project/workspace/optimized_accelerator
+  aggregate_file_count: 19
+  aggregate_sha256: 12c772eec7ecf401733f1b2484a9e99495b38925dbf74e64724b5b7e511f3b2b
+  rtl_file_count: 13
+  testbench_file_count: 1
+  memory_payload_file_count: 121
+
+verification:
+  simulator: ModelSim Intel FPGA Edition 10.5b
+  compile_errors: 0
+  compile_warnings: 0
+  samples: 100
+  pass: 99
+  fail: 1
+  accuracy_percent: 99.0
+  interrupt_count: 20
+  controller_cycles:
+    layer_1: 797
+    layer_2: 43
+    layer_3: 33
+  end_to_end_cycles: 161735
+  axi_backpressure_cycles: 77977
+  status: PASS
 
 generation_gate:
   manifest_validation: PASS
@@ -73,5 +102,6 @@ generation_gate:
   historical_baseline_index_leakage: PASS
   external_knowledge_access: DISABLED
   isolated_worktree: PASS
-  ready_for_code_generation: true
-  execution_status: active
+  code_generation: PASS
+  modelsim_verification: PASS
+  execution_status: complete

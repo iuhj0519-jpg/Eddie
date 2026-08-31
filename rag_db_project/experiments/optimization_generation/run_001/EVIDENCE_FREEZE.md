@@ -12,7 +12,7 @@
 - External Web/LLM/API: disabled
 - Historical Baseline: denied
 
-본 Run은 승인된 세 SPEC, Reference RTL과 `run_002`에서 검증된 Systolic Prototype만 설계 근거로 사용한다. 근거가 없는 결정은 `unknown`으로 중단한다.
+본 Run은 승인된 세 SPEC, Reference RTL과 `run_002`에서 검증된 Systolic Prototype만 설계 근거로 사용했다. 근거가 없는 결정은 `unknown`으로 중단하는 정책을 적용했다.
 
 ## Generation Query Set
 
@@ -29,19 +29,32 @@
 
 `retrieval_evidence.jsonl`은 각 Query의 실제 Top Chunk, Source Path, Source Hash와 Line을 보존한다. 25개 Requirement 전체가 한 개 이상의 Query에 연결되어 있다.
 
-## Capacity Decision Gate
+## Capacity Decision
 
-코드 생성 전에 최소 두 후보를 비교한다.
+두 후보를 구현 전에 비교했다.
 
-1. 보수적 Double-Batch Storage: Current Input과 Next Input을 독립 보존하고 Intermediate Storage를 별도 역할로 재사용
-2. Lifetime-Reuse Storage: 이미 소비된 Current Input Address를 Next Batch Prefetch에 순차 반환하고 Layer Intermediate에 필요한 Bank-Local Storage만 유지
+1. Double-Batch Storage: Bank당 1,598 byte, 전체 7,990 byte
+2. Lifetime-Reuse Storage: Bank당 834 byte, 전체 4,170 byte
 
-기능 안정성, Port 수와 Ready Critical Path를 고려해 선택하며 결정과 계산을 구현 보고서에 남긴다.
+두 번째 후보를 선택했다. Layer 1이 입력을 여섯 output group에서 반복 사용하므로 마지막 group에서 읽은 주소만 다음 Batch에 반환한다. Layer 1 결과 30개와 Layer 2 결과 20개는 서로 다른 중간영역에 두어 ping-pong dataflow를 보존한다. Activation write 우선순위와 ready backpressure로 Bank당 최대 1-read/1-write를 유지한다.
+
+## Completed Output
+
+- Output: `workspace/optimized_accelerator`
+- RTL: 13 files, 분리형 Buffer 대신 `unified_buffer.sv`
+- Testbench: 100개 MNIST 연속 Streaming과 AXI-Lite result read
+- ModelSim: 0 errors, 0 warnings
+- Functional result: PASS 99, FAIL 1, Accuracy 99.0%
+- Controller cycle: 797/43/33 PASS
+- Interrupt: 20회 PASS
+- End-to-end inference: 161,735 cycle
+
+생성과 검증이 끝난 뒤 격리 Worktree의 sparse-checkout을 해제했으며, 비교 분석용 디렉터리가 다시 물리적으로 보이는 상태임을 확인했다. 이 복원은 생성 근거에는 영향을 주지 않는다.
 
 ## Files
 
 | File | Role |
 |---|---|
-| `generation_manifest.yaml` | Source, Index, Policy, Coverage와 Generation Gate |
+| `generation_manifest.yaml` | Source, Index, Policy, Coverage, Generation과 Verification Gate |
 | `retrieval_evidence.jsonl` | Query별 실제 Retrieval Chunk와 Source Hash |
-| `EVIDENCE_FREEZE.md` | 사람이 검토하는 경계, Query와 구현 전 Decision Gate |
+| `EVIDENCE_FREEZE.md` | 사람이 검토하는 동결 경계, Query, 구현 결정과 완료 결과 |
