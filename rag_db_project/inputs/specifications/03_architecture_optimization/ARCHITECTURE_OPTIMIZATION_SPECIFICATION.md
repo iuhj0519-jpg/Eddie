@@ -1,4 +1,4 @@
-# Unified Buffer And AXI Latency Hiding Architecture Optimization Specification
+# Unified Buffer and AXI Latency Hiding Architecture Optimization Specification
 
 - 문서 ID: OPT-SPEC-001
 - 버전: 1.0
@@ -111,7 +111,7 @@ Ping-Pong Buffering은 특정 주소 범위나 고정된 두 Physical Array를 �
 
 역할 교대는 Valid와 Ownership Metadata로 제어한다. 동등한 기능을 만족한다면 두 논리 영역, Circular Buffer, Lifetime 기반 Address Reuse 또는 다른 BRAM-Friendly Mapping을 사용할 수 있다.
 
-## 5. AXI-Stream Input And Batch Prefetch
+## 5. AXI-Stream Input and Batch Prefetch
 
 외부 Signal 이름과 Width, `axis_in_data_valid && axis_in_data_ready`에서만 Transfer가 성립한다는 AXI-Stream 규칙은 유지한다. Input Order는 Batch별 Image-Major이다.
 
@@ -180,7 +180,7 @@ Prefetch가 완료되는 Steady State의 Batch 간 Compute 시작 간격은 입�
 
 이 경우 구현은 Data를 덮어쓰지 말고 Scheduler를 대기시켜야 하며, 노출된 Stall Cycle과 원인을 기록해야 한다.
 
-## 7. Unified Buffer Port And Collision Rules
+## 7. Unified Buffer Port and Collision Rules
 
 FPGA BRAM 추론을 위해 Read는 Synchronous 1-Cycle Latency를 기본으로 한다. Memory Array 전체를 Reset하지 않고 Ownership, Valid, Address Counter와 같은 Metadata만 Reset한다.
 
@@ -202,7 +202,7 @@ Agent는 구현 전에 다음 접근 조합의 충돌 여부를 표로 작성해
 
 Read-During-Write 동작이 FPGA Device 설정에 의존하면 동일 주소 충돌을 Scheduling으로 금지해야 한다. Simulation Model과 Synthesis Inference의 의미가 달라서는 안 된다.
 
-## 8. DNN Scheduler And Input Loader
+## 8. DNN Scheduler and Input Loader
 
 DNN Scheduler는 Layer/Group/Tile/Activation/MaxFinder/Result 순서를 관리한다. Input Loader는 AXI Transfer와 Prefetch Storage를 독립적으로 관리한다. 하나의 FSM에 모든 상태를 직렬화하여 Prefetch가 Compute를 기다리게 해서는 안 된다.
 
@@ -245,7 +245,7 @@ Buffer의 Synchronous Read 또는 새로운 Arbitration 때문에 Controller Cyc
 - 합성 Report에서 MLAB/LUT RAM 또는 BRAM 중 무엇으로 추론됐는지 확인한다.
 - 최소 논리 Bit 수뿐 아니라 실제 소비되는 Memory Block 수를 기준으로 후보를 선택한다.
 
-### 10.2 Control And Counter Width
+### 10.2 Control and Counter Width
 
 - Counter와 Address Width는 선택된 용량에 필요한 최소 Width를 Parameter/Localparam에서 계산한다.
 - 큰 Data MUX보다 Ownership 기반 Address Selection을 우선한다.
