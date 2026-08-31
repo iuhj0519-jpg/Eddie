@@ -1,0 +1,77 @@
+schema_version: "1.0"
+generation_id: optimized_accelerator_run_001
+status: code_generation_active
+
+source:
+  git_tag: rag-optimization-input-v1.0
+  git_commit: d12125885097914a8ed0be77c7fdfdf206ade78a
+  inventory_sha256: 1caa17c843ede3e98b366c6a45c991b9d0826ff88c6be77830e86e1ee9da1d72
+  approved_file_count: 265
+
+index:
+  index_id: optimization_generation_v1
+  database_sha256: d7876eba703ddde16a72ea948060456e54fa71dd83abf203c28671aa684431c3
+  chunks_sha256: 1c2de70a16d68f51ff4901c8aab48e5d4ed531a7eb1b52756084cb261771a4af
+  chunk_count: 269
+  retrieval_source_count: 39
+  denied_chunk_count: 0
+  retrieval_smoke_test_count: 7
+  retrieval_smoke_test: PASS
+
+evidence:
+  path: rag_db_project/experiments/optimization_generation/run_001/retrieval_evidence.jsonl
+  sha256: da87b4ea0a1ee100efb41e00b897b1a45b1788d4fead32cd946a44034384216a
+  query_count: 8
+  requirement_binding_count: 25
+
+knowledge_policy:
+  allowed:
+    - approved T0 specifications
+    - approved Reference Model and Systolic Controller Reference RTL
+    - verified run_002 Systolic Prototype RTL and Testbench
+    - direct-access approved Memory and Test Vector files
+  forbidden:
+    - historical_baselines/**
+    - workspace/optimized_accelerator/** as generation evidence
+    - external Web search
+    - external LLM/API
+    - uncited design decisions
+  missing_evidence_action: report unknown and stop affected decision
+
+optimization_contract:
+  primary_changes:
+    - merge Input Buffer and Global Buffer functions into a five-bank Unified Buffer
+    - overlap next-Batch AXI input with current-Batch compute
+    - select capacity and mapping by Data Lifetime and FPGA memory packing
+    - minimize capacity, port, MUX, Fmax and power disadvantages using candidate comparison
+  preserved:
+    - 5x5 Output-Stationary Systolic Controller hierarchy
+    - 797/43/33 group cycle contract
+    - fixed-point and saturation contract
+    - Image-Major input order
+    - AXI-Lite 0x08 sequential results
+    - one-cycle intr per Batch
+
+coverage:
+  optimization_requirements: 25
+  covered_requirements: 25
+  status: PASS
+
+isolated_worktree:
+  branch: rag/optimized-accelerator-v1
+  path: C:/Users/iuhj0/Eddie_rag_generation
+  historical_baselines_visible_during_generation: false
+  status: PASS
+
+output:
+  root: rag_db_project/workspace/optimized_accelerator
+
+generation_gate:
+  manifest_validation: PASS
+  retrieval_smoke_test: PASS
+  requirement_coverage: PASS
+  historical_baseline_index_leakage: PASS
+  external_knowledge_access: DISABLED
+  isolated_worktree: PASS
+  ready_for_code_generation: true
+  execution_status: active

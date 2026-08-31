@@ -1,69 +1,75 @@
 schema_version: "1.0"
-manifest_id: prototype_rag_index_v2
+manifest_id: staged_rag_indexes_v3
 status: built
 project_root: rag_db_project
 source_manifest: manifests/source_manifest.yaml
 source_checksum_inventory: manifests/checksums/source_files.sha256
 phase_access_policy: manifests/phase_access_policy.yaml
 
-chunking:
-  status: completed
-  markdown_strategy: heading_aware
-  verilog_strategy: symbol_aware
-  numeric_file_strategy: metadata_only
-  chunker_name: rag/ingest/build_index.py
-  chunker_version: "1.0"
-  retrieval_source_count: 23
-  chunk_count: 164
-  counts_by_type:
-    markdown_heading: 47
-    requirement: 42
-    verilog_symbol: 75
-  counts_by_trust_tier:
-    T0: 89
-    T1: 75
+indexes:
+  systolic_accelerator:
+    status: superseded_for_generation_but_preserved
+    index_id: prototype_generation_v2
+    source_git_tag: rag-input-baseline-v1.1
+    approved_source_count: 246
+    retrieval_source_count: 23
+    chunk_count: 164
+    chunks_sha256: 13f407fe72fba5563e83d33d1e12cf1bf9b92afad016adabfe8dd4731ffb7202
+    database_sha256: a3b7e6373197516cd0b31ed3f2c6829239203ad165606fca2498497bacaabbd0
+    canonical_run: experiments/prototype_generation/run_002
+
+  optimized_accelerator:
+    status: built_and_smoke_tested
+    index_id: optimization_generation_v1
+    source_git_tag: rag-optimization-input-v1.0
+    source_commit: d12125885097914a8ed0be77c7fdfdf206ade78a
+    source_inventory_sha256: 1caa17c843ede3e98b366c6a45c991b9d0826ff88c6be77830e86e1ee9da1d72
+    approved_source_count: 265
+    retrieval_source_count: 39
+    chunk_count: 269
+    denied_chunk_count: 0
+    counts_by_type:
+      markdown_heading: 77
+      requirement: 67
+      verilog_symbol: 125
+    counts_by_trust_tier:
+      T0: 144
+      T1: 125
 
 retrieval:
   dense_index:
     status: built
     embedding_model: deterministic_feature_hash_v1
     embedding_dimension: 384
-    collection_name: prototype_generation_v2
   sparse_index:
     status: built
     engine: sqlite_fts5
     tokenizer: unicode61
     ranking: bm25
-    index_name: chunks_fts
   reranker:
     status: configured
-    model: weighted_hybrid_score_v1
     dense_weight: 0.55
     sparse_weight: 0.45
 
-build_provenance:
-  source_git_tag: rag-input-baseline-v1.1
-  source_tree_sha256: 65b147ff1c6a08ab61af34530ff147fb3154dcd17200cff8a9f3c80b7100d0bf
-  build_command: >-
-    wsl.exe -d Ubuntu -- python3
-    /mnt/c/Users/iuhj0/Eddie_rag_generation/rag_db_project/rag/ingest/build_index.py
-
-artifacts:
+optimization_artifacts:
   chunks:
-    path: rag/data/prototype_generation_v2/chunks.jsonl
-    sha256: 13f407fe72fba5563e83d33d1e12cf1bf9b92afad016adabfe8dd4731ffb7202
+    path: rag/data/optimization_generation_v1/chunks.jsonl
+    sha256: 1c2de70a16d68f51ff4901c8aab48e5d4ed531a7eb1b52756084cb261771a4af
   database:
-    path: rag/data/prototype_generation_v2/rag_index.sqlite3
-    sha256: a3b7e6373197516cd0b31ed3f2c6829239203ad165606fca2498497bacaabbd0
+    path: rag/data/optimization_generation_v1/rag_index.sqlite3
+    sha256: d7876eba703ddde16a72ea948060456e54fa71dd83abf203c28671aa684431c3
   build_receipt:
-    path: rag/data/prototype_generation_v2/build_receipt.json
-    sha256: 22d11c14fd18e9d2d52a9e9502e64c9d12f631737324286e0aef493aed4b2d48
+    path: rag/data/optimization_generation_v1/build_receipt.json
+    sha256: c5e6db87739c8a5c43de02ce553e732d33594da62eb2a6bf0faf4733016bf318
   smoke_test:
-    path: rag/runs/prototype_generation_v2/smoke_test.json
-    sha256: 925901d21856cdc8a2b0ba1d2709391daa6017aeab4e5411de22901a2f5e40e9
+    path: rag/runs/optimization_generation_v1/smoke_test.json
+    sha256: 27da84af79d94fcd2a19bc54bd3b9e77d6815c89990e3315df9568a7eae71b90
 
 activation_gate:
   - source_manifest_validation_passed
   - phase_access_policy_validation_passed
+  - architecture_optimization_spec_approved
   - chunking_completed
   - retrieval_smoke_test_passed
+  - denied_chunk_count_is_zero
+  - external_knowledge_access_disabled

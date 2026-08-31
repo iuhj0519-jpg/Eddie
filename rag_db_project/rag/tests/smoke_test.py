@@ -59,7 +59,7 @@ def main() -> int:
             f"expected path missing from top 5: {case['id']}",
         )
         require(
-            any(case["expected_token"] in str(item["content"]) for item in results[:5]),
+            any(str(case["expected_token"]) in str(item["content"]) for item in results[:5]),
             f"expected evidence missing from top 5: {case['id']}",
         )
         require(

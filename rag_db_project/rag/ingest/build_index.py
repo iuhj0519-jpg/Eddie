@@ -492,7 +492,7 @@ def main() -> int:
                     int(config["chunking"]["markdown_max_chars"]),
                 )
             )
-        elif path.suffix.lower() in {".v", ".sv"}:
+        elif path.suffix.lower() in {".v", ".sv", ".svh"}:
             chunks.extend(
                 chunk_rtl(
                     path,
