@@ -1,4 +1,4 @@
-# Optimized Accelerator Implementation And Verification
+# Optimized Accelerator Implementation and Verification
 
 ## Evidence Boundary
 
