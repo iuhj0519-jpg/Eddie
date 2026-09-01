@@ -1,4 +1,4 @@
-# Systolic Prototype Implementation And Verification
+# Systolic Prototype Implementation and Verification
 
 ## Evidence Boundary
 
