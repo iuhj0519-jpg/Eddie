@@ -1,0 +1,47 @@
+schema_version: 1
+experiment_type: automated_verification_debugging
+run_id: run_###
+target: systolic_prototype
+status: pending
+
+evidence:
+  approved_spec: ""
+  approved_spec_sha256: ""
+  retrieval_index_manifest: ""
+  external_search_allowed: false
+  historical_baseline_access_allowed: false
+
+inputs:
+  rtl_root: ""
+  testbench_top: top_sim
+  memory_root: ""
+  compile_order_manifest: ""
+
+acceptance:
+  expected_images: 100
+  expected_failures: 1
+  expected_accuracy_percent: 99.0
+  interrupt_count_per_batch: 1
+  protocol_errors: 0
+  timeout_cycles: null
+
+loop:
+  max_iterations: 5
+  automatic_fix_categories:
+    - syntax
+    - file_path
+    - compile_order
+  human_approval_categories:
+    - fsm_transition
+    - axi_protocol
+    - fixed_point_format
+    - arithmetic_order
+    - specification_change
+
+outputs:
+  artifact_root: ""
+  compile_log: compile.log
+  simulation_log: simulation.log
+  result_json: verification_result.json
+  diagnosis: diagnosis.md
+  proposed_patch: proposed_patch.diff

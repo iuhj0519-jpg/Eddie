@@ -1,0 +1,5 @@
+design=workspace_systolic
+part=xc7z020clg400-1
+clock_period_ns=10.000
+stage=post_synthesis
+wns_ns=-4.042

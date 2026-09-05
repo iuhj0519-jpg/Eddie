@@ -1,0 +1,24 @@
+schema_version: 1
+artifact_type: vivado_synthesis
+target: optimized_accelerator
+run_id: run_001
+stage: post_synthesis
+status: completed
+tool:
+  name: Vivado
+  version: "2022.1"
+files:
+  checkpoint:
+    name: post_synthesis.dcp
+    tracked_in_git: false
+    purpose: Reopen the synthesized design in Vivado.
+  reports:
+    - utilization.rpt
+    - utilization_hierarchical.rpt
+    - ram_utilization.rpt
+    - timing_summary.rpt
+    - power.rpt
+    - run_summary.txt
+notes:
+  timing_scope: Post-synthesis estimate; implementation timing is not final.
+  power_scope: Estimate quality depends on activity and constraint coverage.
