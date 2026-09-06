@@ -1,0 +1,61 @@
+schema_version: '1.0'
+target: optimized_accelerator
+run_id: run_002
+findings:
+- finding_id: PPA-DSP-001
+  category: architecture_parallelism
+  severity: high
+  state: detected_pending_human_approval
+  evidence:
+    expected_concurrent_pe_count: 25
+    observed_dsp48_count: 5.0
+    artifact_path: utilization.rpt
+  summary: The report does not demonstrate one independently mapped DSP MAC per PE;
+    confirm with cycle-level PE activity before changing RTL.
+  automatic_action: document_and_request_approval
+  prohibited_action: modify_rtl_spec_or_test_expectation_before_approval
+- finding_id: PPA-WEIGHT-001
+  category: hierarchical_lut_hotspot
+  severity: high
+  state: detected_pending_human_approval
+  evidence:
+    instance: weight_sram_instance
+    instance_lut: 13930.0
+    total_lut: 18059.0
+    lut_ratio: 0.7714
+    ramb18: 0.0
+    artifact_path: utilization_hierarchical.rpt
+  summary: One hierarchy consumes more than the configured share of total LUT resources.
+  automatic_action: document_and_request_approval
+  prohibited_action: modify_rtl_spec_or_test_expectation_before_approval
+- finding_id: PPA-TIMING-001
+  category: setup_timing
+  severity: critical
+  state: detected_pending_human_approval
+  evidence:
+    wns_ns: -4.805
+    tns_ns: -135.394
+    setup_failing_endpoints: 41
+    setup_total_endpoints: 3019
+    wpws_ns: 4.5
+    tpws_ns: 0.0
+    pulse_failing_endpoints: 0
+    artifact_path: timing_summary.rpt
+  summary: Setup timing constraints are not met; implementation timing must be rechecked
+    after an approved pipeline or memory-path change.
+  automatic_action: document_and_request_approval
+  prohibited_action: modify_rtl_spec_or_test_expectation_before_approval
+- finding_id: PPA-POWER-001
+  category: power_evidence_quality
+  severity: medium
+  state: detected_pending_human_approval
+  evidence:
+    total_on_chip_power_w: 0.268
+    confidence: Low
+    dynamic_power_w: 0.161
+    static_power_w: 0.107
+    artifact_path: power.rpt
+  summary: Power confidence is low, so the value is directional and requires activity-based
+    analysis before acceptance.
+  automatic_action: document_and_request_approval
+  prohibited_action: modify_rtl_spec_or_test_expectation_before_approval

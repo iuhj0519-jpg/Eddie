@@ -29,11 +29,16 @@ Dense Index는 외부 API key나 model download 없이 같은 입력에서 같�
 |---|---|
 | `config/prototype_index.yaml` | 1차 Systolic Prototype용 Phase와 검색 설정 |
 | `config/optimization_index.yaml` | Optimized Accelerator용 Phase와 검색 설정 |
+| `config/automation_loop.yaml` | Detector 기준, Acceptance Criteria와 반복 제한 |
+| `config/automation_loop_index.yaml` | 이전 Automation Run을 검색하는 Hybrid Index 설정 |
 | `schemas/chunk.schema.json` | Chunk metadata 구조 |
 | `rag_index.py` | Hash, tokenizer와 dense feature 공통 함수 |
 | `ingest/build_index.py` | Manifest 검증, Chunking, checksum 검사와 SQLite Ingestion |
 | `retrieve/search.py` | BM25+dense Hybrid Retrieval CLI |
 | `tests/smoke_test.py` | 검색 품질과 금지 경로 누출 검사 |
+| `automation/run_loop.py` | Artifact 분석, 승인 Gate, 격리 Patch 및 재검증 Orchestrator |
+| `automation/parsers.py` | Vivado·ModelSim 결과를 공통 Metric으로 정규화 |
+| `automation/detectors.py` | 기능·Protocol·PPA 전 범위 Finding 탐지 규칙 |
 | `data/<index_id>/` | 생성된 Chunk와 SQLite Index; Git 제외 |
 | `runs/<index_id>/` | Smoke Test 결과; Git 제외 |
 

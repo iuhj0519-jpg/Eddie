@@ -1,11 +1,11 @@
 schema_version: "1.0"
-index_id: workspace_debug_experience_v1
-status: approved_for_experience_qa
-source_manifest: manifests/experience_manifest.yaml
+index_id: workspace_automation_loop_v1
+status: approved
+source_manifest: manifests/automation_loop_manifest.yaml
 access_policy: manifests/phase_access_policy.yaml
-checksum_inventory: manifests/checksums/experience_files.sha256
-phase: experience_qa
-source_git_tag: workspace-debug-experience-v1.0
+checksum_inventory: manifests/checksums/automation_loop_files.sha256
+phase: automation_loop
+source_git_tag: pending-automation-loop-v1
 
 chunking:
   markdown_max_chars: 6000
@@ -28,24 +28,19 @@ hybrid_retrieval:
   default_top_k: 8
 
 answer_contract:
-  required_citations:
-    - run_id
-    - finding_id
-    - artifact_path
-  allowed_resolution_state: validated
+  required_citations: [run_id, finding_id, artifact_path]
+  preferred_resolution_state: validated
   pending_findings_must_be_labeled: true
-  pending_findings_may_provide_redesign_direction: true
   missing_evidence_action: unknown
 
 smoke_test:
-  denied_prefixes:
-    - historical_baselines/
+  denied_prefixes: [historical_baselines/]
   cases:
     - id: dsp_parallelism_finding
       query: Why were only five DSP48 blocks inferred for the 5 by 5 Systolic Array?
-      expected_path: experiments/automated_verification/optimized_accelerator/run_001/
+      expected_path: experiments/automation_loop/optimized_accelerator/run_001/
       expected_token: PPA-DSP-001
     - id: weight_storage_bottleneck
       query: Why did Weight SRAM consume most LUT and no Block RAM?
-      expected_path: experiments/automated_verification/optimized_accelerator/run_001/
+      expected_path: experiments/automation_loop/optimized_accelerator/run_001/
       expected_token: PPA-WEIGHT-001

@@ -1,5 +1,5 @@
 schema_version: "1.0"
-experiment_type: automated_ppa_finding
+experiment_type: automation_loop
 run_id: run_001
 target: optimized_accelerator
 status: findings_detected_pending_human_approval
@@ -28,4 +28,4 @@ gate:
 modification:
   rtl_patch_applied: false
   specification_modified: false
-  next_action: Review findings and approve or reject each SPEC change proposal.
+  next_action: Review findings and approve or reject each change proposal before isolated debugging.

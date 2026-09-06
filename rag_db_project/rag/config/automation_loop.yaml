@@ -1,0 +1,34 @@
+schema_version: "1.0"
+system_id: evidence_driven_rtl_automation_loop_v1
+status: ready_for_analysis
+
+architecture:
+  array_rows: 5
+  array_columns: 5
+
+acceptance:
+  expected_images: 100
+  expected_failures: 1
+  expected_accuracy_percent: 99.0
+  interrupt_count_per_batch: 1
+  protocol_errors: 0
+  maximum_cycles_per_batch: null
+
+thresholds:
+  minimum_wns_ns: 0.0
+  minimum_bram_bit_efficiency_percent: 35.0
+  module_lut_hotspot_ratio: 0.50
+  maximum_lut_count: 53200
+  maximum_ff_count: 106400
+  maximum_io_count: 125
+
+commands:
+  systolic_prototype: []
+  optimized_accelerator: []
+
+loop:
+  max_iterations: 5
+  stop_on_repeated_fingerprint: 2
+  patch_generation_owner: ai_agent_after_human_approval
+  patch_application_scope: isolated_debug_workspace
+  promote_to_workspace: only_after_full_regression_and_human_acceptance

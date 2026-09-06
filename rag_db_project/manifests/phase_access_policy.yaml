@@ -86,19 +86,26 @@ phases:
       - artifacts/**
       - inputs/specifications/04_verification/**
 
-  experience_qa:
+  automation_loop:
     enabled: true
     external_knowledge_access: false
-    purpose: answer debugging questions from current Workspace iteration evidence
+    purpose: detect, explain, approve, patch and revalidate current Workspace iteration findings
     retrieval_allow:
-      - experiments/automated_verification/README.md
-      - experiments/automated_verification/**/diagnosis.md
-      - experiments/automated_verification/**/spec_change_proposal.md
+      - experiments/automation_loop/README.md
+      - experiments/automation_loop/**/diagnosis.md
+      - experiments/automation_loop/**/spec_change_proposal.md
+      - experiments/automation_loop/**/run_manifest.yaml
+      - experiments/automation_loop/**/findings.yaml
+      - experiments/automation_loop/**/approval.yaml
+      - experiments/automation_loop/**/analysis_result.json
+      - experiments/automation_loop/**/gate_status.json
     direct_file_allow:
-      - experiments/automated_verification/**/run_manifest.yaml
-      - experiments/automated_verification/**/findings.yaml
-      - experiments/automated_verification/**/approval.yaml
-      - experiments/automated_verification/**/verification_result.json
+      - experiments/automation_loop/**/run_manifest.yaml
+      - experiments/automation_loop/**/findings.yaml
+      - experiments/automation_loop/**/approval.yaml
+      - experiments/automation_loop/**/analysis_result.json
+      - experiments/automation_loop/**/gate_status.json
+      - experiments/automation_loop/**/revalidation_result.json
       - artifacts/synthesis/**/run_manifest.yaml
       - artifacts/synthesis/**/run_summary.txt
       - artifacts/synthesis/**/*.rpt
@@ -115,6 +122,10 @@ phases:
       - use_only_validated_records_as_resolution_advice
       - pending_findings_may_supply_labeled_redesign_direction
       - report_unknown_when_evidence_is_missing
+    modification_rules:
+      - no_rtl_spec_or_test_expectation_change_before_human_approval
+      - apply_approved_patch_only_in_isolated_debug_workspace
+      - promote_only_after_full_regression_and_human_acceptance
 
   verification_generation:
     enabled: false
@@ -128,4 +139,4 @@ policy_checks:
   - all_generation_phases_deny_historical_baselines
   - optimization_denies_its_output_directory
   - external_knowledge_is_disabled_for_generation_runs
-  - experience_qa_denies_historical_baselines
+  - automation_loop_denies_historical_baselines

@@ -1,0 +1,74 @@
+schema_version: "1.0"
+policy_id: evidence_driven_rtl_automation_loop_v1
+status: approved
+default_action: deny
+
+purpose: >-
+  Collect every available tool result, detect functional and PPA problems, connect each
+  finding to evidence, pause for human approval, and only then generate and revalidate a patch.
+
+state_machine:
+  - preflight
+  - collect_artifacts
+  - normalize_metrics
+  - detect_findings
+  - retrieve_validated_run_experience
+  - document_diagnosis
+  - waiting_human_approval
+  - generate_patch_in_isolation
+  - compile_simulate_synthesize
+  - regression_decision
+  - validated_or_next_iteration
+
+required_traceability_chain:
+  - spec_requirement_id
+  - failure_evidence
+  - approved_change
+  - revalidation_result
+
+detector_domains:
+  - compile_and_elaboration
+  - simulation_timeout_and_assertions
+  - accuracy_and_failure_count
+  - axi_protocol_interrupt_and_handshake
+  - cycle_and_throughput_regression
+  - setup_hold_and_pulse_width_timing
+  - lut_ff_io_and_hierarchical_hotspots
+  - block_ram_inference_and_bit_efficiency
+  - dsp_parallelism_and_pe_activity
+  - power_budget_and_evidence_confidence
+  - previous_validated_run_regression
+
+approval_gate:
+  required_before:
+    - rtl_change
+    - spec_change
+    - test_expectation_change
+    - arithmetic_or_q_format_change
+    - fsm_protocol_or_memory_architecture_change
+  may_run_without_approval:
+    - read_only_artifact_collection
+    - parsing
+    - finding_generation
+    - retrieval_of_validated_workspace_run_history
+    - diagnosis_and_patch_proposal_documentation
+
+evidence_policy:
+  allow:
+    - approved_specifications
+    - current_workspace_rtl_tb_and_memory
+    - artifacts_from_current_workspace_runs
+    - validated_or_explicitly_labeled_pending_automation_runs
+  deny:
+    - historical_baselines_as_debug_evidence
+    - external_web
+    - external_llm_api
+  missing_evidence_action: record_unknown_and_request_human_decision
+
+git_policy:
+  protected_branches: [main, Project_Git]
+  debug_location: isolated_worktree_or_isolated_debug_workspace
+  commit_before_human_approval: false
+  push_before_human_approval: false
+  promote_patch_condition: full_regression_passed_and_human_accepted
+

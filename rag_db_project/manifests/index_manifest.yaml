@@ -40,21 +40,23 @@ indexes:
     output_aggregate_sha256: 12c772eec7ecf401733f1b2484a9e99495b38925dbf74e64724b5b7e511f3b2b
     verification: PASS
 
-  workspace_debug_experience:
-    status: built_for_experience_qa
-    index_id: workspace_debug_experience_v1
-    source_git_tag: workspace-debug-experience-v1.0
-    source_manifest: manifests/experience_manifest.yaml
-    source_checksum_inventory: manifests/checksums/experience_files.sha256
-    approved_source_count: 3
-    retrieval_source_count: 3
-    chunk_count: 11
+  workspace_automation_loop:
+    status: built_for_automation_loop
+    index_id: workspace_automation_loop_v1
+    source_git_tag: pending-automation-loop-v1
+    source_manifest: manifests/automation_loop_manifest.yaml
+    source_checksum_inventory: manifests/checksums/automation_loop_files.sha256
+    approved_source_count: 14
+    retrieval_source_count: 14
+    chunk_count: 34
     denied_chunk_count: 0
     counts_by_type:
-      markdown_heading: 11
+      markdown_heading: 19
+      structured_record: 15
     counts_by_trust_tier:
-      T0: 11
-    canonical_run: experiments/automated_verification/optimized_accelerator/run_001
+      T0: 19
+      T1: 15
+    canonical_run: experiments/automation_loop/optimized_accelerator/run_001
     smoke_test: PASS
 
 retrieval:
@@ -86,19 +88,17 @@ optimization_artifacts:
     path: rag/runs/optimization_generation_v1/smoke_test.json
     sha256: 27da84af79d94fcd2a19bc54bd3b9e77d6815c89990e3315df9568a7eae71b90
 
-experience_artifacts:
+automation_loop_artifacts:
+  status: built
   chunks:
-    path: rag/data/workspace_debug_experience_v1/chunks.jsonl
-    sha256: d6899b99a06e91b0768320a8a7181ec68e697f1ddac3892f2e1b3467674bf8f7
+    path: rag/data/workspace_automation_loop_v1/chunks.jsonl
+    sha256: 00def9f3fe57f6dafe238b797149ba833e93b2be956c45d4efa961e972a2d659
   database:
-    path: rag/data/workspace_debug_experience_v1/rag_index.sqlite3
-    sha256: 04cb83669ea02a96509de91474d969139fe832f5a5ba2072deccf4191ba96a81
-  build_receipt:
-    path: rag/data/workspace_debug_experience_v1/build_receipt.json
-    sha256: 8d51acf92fa3d65999c9144e35ddab722db776cfa507efd7390c2da78c47b182
+    path: rag/data/workspace_automation_loop_v1/rag_index.sqlite3
+    sha256: c2e72c2dd5c57494672905436266ddc3fd3c3aba7e601636551d14fb4a71f11c
   smoke_test:
-    path: rag/runs/workspace_debug_experience_v1/smoke_test.json
-    sha256: 7e53f408762e1d83a7b582bee758b5bf72c357efed58e0f643b7eeab8865fde2
+    path: rag/runs/workspace_automation_loop_v1/smoke_test.json
+    status: PASS
 
 activation_gate:
   - source_manifest_validation_passed

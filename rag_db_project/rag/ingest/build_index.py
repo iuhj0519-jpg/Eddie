@@ -250,6 +250,31 @@ def chunk_markdown(path: Path, project_root: Path, source_hash: str, max_chars: 
     return chunks
 
 
+def chunk_structured(path: Path, project_root: Path, source_hash: str) -> list[dict[str, object]]:
+    """Create one searchable record per Finding, or one record for other YAML/JSON files."""
+    source_path = path.relative_to(project_root).as_posix()
+    text = path.read_text(encoding="utf-8-sig")
+    parsed = json.loads(text) if path.suffix.lower() == ".json" else yaml.safe_load(text)
+    metadata = {
+        "title": f"Structured run record {path.name}",
+        "doc_id": "RUN-" + stable_id(source_path, source_hash),
+        "version": str(parsed.get("schema_version")) if isinstance(parsed, dict) else None,
+        "status": parsed.get("status") if isinstance(parsed, dict) else None,
+    }
+    records = parsed.get("findings") if isinstance(parsed, dict) else None
+    if not isinstance(records, list):
+        records = [parsed]
+    chunks: list[dict[str, object]] = []
+    for index, record in enumerate(records, 1):
+        content = json.dumps(record, ensure_ascii=False, indent=2, sort_keys=True)
+        symbol = record.get("finding_id") if isinstance(record, dict) else f"record_{index}"
+        chunks.append(base_chunk(
+            source_path, source_hash, metadata, "structured_record", index, index,
+            content, heading=path.name, symbol=str(symbol or f"record_{index}"),
+        ))
+    return chunks
+
+
 def module_context(lines: list[str], context_lines: int) -> str:
     end = min(len(lines), context_lines)
     for index in range(end):
@@ -502,6 +527,8 @@ def main() -> int:
                     int(config["chunking"]["rtl_context_lines"]),
                 )
             )
+        elif path.suffix.lower() in {".yaml", ".yml", ".json"}:
+            chunks.extend(chunk_structured(path, project_root, checksums[relative_path]))
         else:
             raise RuntimeError(f"unsupported retrieval source type: {relative_path}")
 

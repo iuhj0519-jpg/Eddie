@@ -1,0 +1,44 @@
+schema_version: "1.0"
+manifest_id: workspace_automation_loop_v1
+status: approved
+purpose: >-
+  Inventory evidence-backed Workspace run history used by the Automation Loop for
+  diagnosis, approval-gated patching, revalidation, and future troubleshooting answers.
+
+retrieval_sources:
+  narrative:
+    - experiments/automation_loop/README.md
+    - experiments/automation_loop/**/diagnosis.md
+    - experiments/automation_loop/**/spec_change_proposal.md
+  structured:
+    - experiments/automation_loop/**/run_manifest.yaml
+    - experiments/automation_loop/**/findings.yaml
+    - experiments/automation_loop/**/approval.yaml
+    - experiments/automation_loop/**/analysis_result.json
+    - experiments/automation_loop/**/gate_status.json
+    - experiments/automation_loop/**/revalidation_result.json
+  artifact_metadata:
+    - artifacts/synthesis/**/run_manifest.yaml
+    - artifacts/synthesis/**/run_summary.txt
+    - artifacts/verification/**/verification_result.json
+    - artifacts/verification/**/run_summary.yaml
+
+direct_evidence_sources:
+  - artifacts/synthesis/**/*.rpt
+  - artifacts/verification/**/*.log
+  - artifacts/verification/**/*.json
+  - workspace/systolic_prototype/rtl/*.sv
+  - workspace/optimized_accelerator/rtl/*.sv
+
+denied_sources:
+  - historical_baselines/**
+  - external_web
+  - external_llm_api
+
+retrieval_rules:
+  - preserve_observed_hypothesis_rejected_approved_validated_labels
+  - cite_run_id_finding_id_and_artifact_path
+  - use_validated_resolutions_as_preferred_debugging_evidence
+  - label_pending_findings_as_unvalidated
+  - report_unknown_when_evidence_is_missing
+  - never_treat_pending_proposal_as_approved_spec
