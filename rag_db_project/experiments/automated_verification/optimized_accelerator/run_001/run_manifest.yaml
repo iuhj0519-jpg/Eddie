@@ -1,0 +1,31 @@
+schema_version: "1.0"
+experiment_type: automated_ppa_finding
+run_id: run_001
+target: optimized_accelerator
+status: findings_detected_pending_human_approval
+
+source:
+  workspace: workspace/optimized_accelerator
+  synthesis_artifacts: artifacts/synthesis/optimized_accelerator/run_001
+  historical_baseline_used: false
+  external_knowledge_used: false
+
+detectors:
+  - detector_id: dsp_parallelism
+    rule: synthesized_dsp48_count < array_rows * array_columns
+  - detector_id: weight_storage_bottleneck
+    rule: weight_sram_bram_count == 0 and weight_sram_lut_ratio > 0.50
+
+findings:
+  - PPA-DSP-001
+  - PPA-WEIGHT-001
+
+gate:
+  required: true
+  state: pending_human_approval
+  reason: DSP mapping and Weight SRAM implementation require architecture or normative SPEC decisions.
+
+modification:
+  rtl_patch_applied: false
+  specification_modified: false
+  next_action: Review findings and approve or reject each SPEC change proposal.

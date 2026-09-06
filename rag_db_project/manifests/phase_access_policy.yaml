@@ -86,6 +86,34 @@ phases:
       - artifacts/**
       - inputs/specifications/04_verification/**
 
+  experience_qa:
+    enabled: true
+    external_knowledge_access: false
+    purpose: answer debugging questions from current Workspace iteration evidence
+    retrieval_allow:
+      - experiments/automated_verification/**/diagnosis.md
+      - experiments/automated_verification/**/spec_change_proposal.md
+      - experiments/automated_verification/**/run_manifest.yaml
+      - experiments/automated_verification/**/findings.yaml
+      - experiments/automated_verification/**/approval.yaml
+      - artifacts/synthesis/**/run_manifest.yaml
+      - artifacts/synthesis/**/run_summary.txt
+      - artifacts/verification/**/verification_result.json
+      - artifacts/verification/**/run_summary.yaml
+    direct_file_allow:
+      - artifacts/synthesis/**/*.rpt
+      - artifacts/verification/**/*.log
+      - artifacts/verification/**/*.json
+      - workspace/systolic_prototype/rtl/*.sv
+      - workspace/optimized_accelerator/rtl/*.sv
+    deny:
+      - historical_baselines/**
+    answer_rules:
+      - cite_run_id_finding_id_and_artifact_path
+      - label_pending_findings_as_unvalidated
+      - use_only_validated_records_as_resolution_advice
+      - report_unknown_when_evidence_is_missing
+
   verification_generation:
     enabled: false
     activation_condition: approved_verification_spec_and_frozen_generated_dut
@@ -98,3 +126,4 @@ policy_checks:
   - all_generation_phases_deny_historical_baselines
   - optimization_denies_its_output_directory
   - external_knowledge_is_disabled_for_generation_runs
+  - experience_qa_denies_historical_baselines

@@ -1,0 +1,46 @@
+schema_version: "1.0"
+index_id: workspace_debug_experience_v1
+status: draft_until_first_validated_debug_run
+source_manifest: manifests/experience_manifest.yaml
+access_policy: manifests/phase_access_policy.yaml
+phase: experience_qa
+
+chunking:
+  markdown_max_chars: 6000
+  structured_record_unit: finding
+  raw_log_embedding: false
+
+dense_index:
+  algorithm: deterministic_feature_hash_v1
+  dimension: 384
+
+sparse_index:
+  engine: sqlite_fts5
+  ranking: bm25
+
+hybrid_retrieval:
+  dense_weight: 0.45
+  sparse_weight: 0.55
+  default_top_k: 8
+
+answer_contract:
+  required_citations:
+    - run_id
+    - finding_id
+    - artifact_path
+  allowed_resolution_state: validated
+  pending_findings_must_be_labeled: true
+  missing_evidence_action: unknown
+
+smoke_test:
+  denied_prefixes:
+    - historical_baselines/
+  cases:
+    - id: dsp_parallelism_finding
+      query: Why were only five DSP48 blocks inferred for the 5 by 5 Systolic Array?
+      expected_path: experiments/automated_verification/optimized_accelerator/run_001/
+      expected_token: PPA-DSP-001
+    - id: weight_storage_bottleneck
+      query: Why did Weight SRAM consume most LUT and no Block RAM?
+      expected_path: experiments/automated_verification/optimized_accelerator/run_001/
+      expected_token: PPA-WEIGHT-001
