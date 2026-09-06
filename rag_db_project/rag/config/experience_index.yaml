@@ -1,14 +1,18 @@
 schema_version: "1.0"
 index_id: workspace_debug_experience_v1
-status: draft_until_first_validated_debug_run
+status: approved_for_experience_qa
 source_manifest: manifests/experience_manifest.yaml
 access_policy: manifests/phase_access_policy.yaml
+checksum_inventory: manifests/checksums/experience_files.sha256
 phase: experience_qa
+source_git_tag: workspace-debug-experience-v1.0
 
 chunking:
   markdown_max_chars: 6000
   structured_record_unit: finding
   raw_log_embedding: false
+  rtl_max_lines: 100
+  rtl_context_lines: 40
 
 dense_index:
   algorithm: deterministic_feature_hash_v1
@@ -30,6 +34,7 @@ answer_contract:
     - artifact_path
   allowed_resolution_state: validated
   pending_findings_must_be_labeled: true
+  pending_findings_may_provide_redesign_direction: true
   missing_evidence_action: unknown
 
 smoke_test:

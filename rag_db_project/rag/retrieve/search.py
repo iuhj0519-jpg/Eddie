@@ -13,6 +13,9 @@ from pathlib import Path
 
 import yaml
 
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+
 RAG_DIR = Path(__file__).resolve().parents[1]
 PROJECT_ROOT = RAG_DIR.parent
 sys.path.insert(0, str(RAG_DIR))

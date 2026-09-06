@@ -1,10 +1,11 @@
 schema_version: "1.0"
 manifest_id: workspace_debug_experience_v1
-status: draft_until_first_validated_debug_run
+status: approved_for_experience_qa
 purpose: Retrieve evidence-backed debugging experience from current Workspace iterations.
 
 retrieval_sources:
   narrative:
+    - experiments/automated_verification/README.md
     - experiments/automated_verification/**/diagnosis.md
     - experiments/automated_verification/**/spec_change_proposal.md
   structured:
@@ -33,3 +34,4 @@ retrieval_rules:
   - prefer_validated_resolution_over_unverified_hypothesis
   - report_unknown_when_evidence_is_missing
   - never_treat_pending_proposal_as_approved_spec
+  - retrieve_pending_findings_only_as_labeled_redesign_direction

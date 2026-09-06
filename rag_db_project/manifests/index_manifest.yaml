@@ -1,5 +1,5 @@
 schema_version: "1.0"
-manifest_id: staged_rag_indexes_v3
+manifest_id: staged_rag_indexes_v4
 status: built
 project_root: rag_db_project
 source_manifest: manifests/source_manifest.yaml
@@ -40,6 +40,23 @@ indexes:
     output_aggregate_sha256: 12c772eec7ecf401733f1b2484a9e99495b38925dbf74e64724b5b7e511f3b2b
     verification: PASS
 
+  workspace_debug_experience:
+    status: built_for_experience_qa
+    index_id: workspace_debug_experience_v1
+    source_git_tag: workspace-debug-experience-v1.0
+    source_manifest: manifests/experience_manifest.yaml
+    source_checksum_inventory: manifests/checksums/experience_files.sha256
+    approved_source_count: 3
+    retrieval_source_count: 3
+    chunk_count: 11
+    denied_chunk_count: 0
+    counts_by_type:
+      markdown_heading: 11
+    counts_by_trust_tier:
+      T0: 11
+    canonical_run: experiments/automated_verification/optimized_accelerator/run_001
+    smoke_test: PASS
+
 retrieval:
   dense_index:
     status: built
@@ -68,6 +85,20 @@ optimization_artifacts:
   smoke_test:
     path: rag/runs/optimization_generation_v1/smoke_test.json
     sha256: 27da84af79d94fcd2a19bc54bd3b9e77d6815c89990e3315df9568a7eae71b90
+
+experience_artifacts:
+  chunks:
+    path: rag/data/workspace_debug_experience_v1/chunks.jsonl
+    sha256: d6899b99a06e91b0768320a8a7181ec68e697f1ddac3892f2e1b3467674bf8f7
+  database:
+    path: rag/data/workspace_debug_experience_v1/rag_index.sqlite3
+    sha256: 04cb83669ea02a96509de91474d969139fe832f5a5ba2072deccf4191ba96a81
+  build_receipt:
+    path: rag/data/workspace_debug_experience_v1/build_receipt.json
+    sha256: 8d51acf92fa3d65999c9144e35ddab722db776cfa507efd7390c2da78c47b182
+  smoke_test:
+    path: rag/runs/workspace_debug_experience_v1/smoke_test.json
+    sha256: 7e53f408762e1d83a7b582bee758b5bf72c357efed58e0f643b7eeab8865fde2
 
 activation_gate:
   - source_manifest_validation_passed
