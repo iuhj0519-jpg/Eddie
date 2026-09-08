@@ -44,3 +44,19 @@ smoke_test:
       query: Why did Weight SRAM consume most LUT and no Block RAM?
       expected_path: experiments/automation_loop/optimized_accelerator/run_001/
       expected_token: PPA-WEIGHT-001
+    - id: address_path_diagnosis
+      query: Which failing path includes address control generation and memory access latency?
+      expected_path: experiments/automation_loop/optimized_accelerator/review_20260907/
+      expected_token: PPA-ADDRESS-001
+    - id: fanout_path_diagnosis
+      query: Which high fanout drivers require load distribution and timing review?
+      expected_path: experiments/automation_loop/optimized_accelerator/review_20260907/
+      expected_token: PPA-FANOUT-001
+    - id: mux_pipeline_diagnosis
+      query: Which failing path traverses dedicated MUX resources and selection depth?
+      expected_path: experiments/automation_loop/optimized_accelerator/review_20260907/
+      expected_token: PPA-MUX-001
+    - id: physical_weight_memory_mapping
+      query: SRAM module name or synchronous output register does not prove BRAM inference
+      expected_path: experiments/automation_loop/optimized_accelerator/review_20260908/
+      expected_token: PPA-MEMORY-MAPPING-001

@@ -27,6 +27,11 @@ required_traceability_chain:
   - revalidation_result
 
 detector_domains:
+  - memory_access_and_address_generation_paths
+  - mux_selection_depth_and_pipeline_alignment
+  - high_fanout_and_routing_delay
+  - drc_reset_bram_output_register_and_dsp_pipeline_warnings
+  - missing_or_unparsed_evidence_coverage
   - compile_and_elaboration
   - simulation_timeout_and_assertions
   - accuracy_and_failure_count
@@ -65,10 +70,23 @@ evidence_policy:
     - external_llm_api
   missing_evidence_action: record_unknown_and_request_human_decision
 
+runtime_contract:
+  detection_is_exhaustive_guarantee: false
+  review_all_available_reports_and_unclassified_warnings: true
+  four_existing_findings_are_not_an_allowlist: true
+  every_iteration_requires_fresh_human_decisions: true
+  approval_binding: [source_hashes, evidence_hashes, findings_sha256, config_sha256]
+  patch_scope: existing_rtl_sv_svh_only
+  patch_trace_required: true
+  tb_memory_spec_and_expectation_changes_require_separate_scope_approval: true
+  empty_tool_commands_action: fail_closed
+  missing_tools_or_missing_metrics_action: fail_closed_or_record_unknown
+  synthesis_pass_is_not_post_route_timing_closure: true
+  automatic_workspace_promotion: false
+
 git_policy:
   protected_branches: [main, Project_Git]
   debug_location: isolated_worktree_or_isolated_debug_workspace
   commit_before_human_approval: false
   push_before_human_approval: false
   promote_patch_condition: full_regression_passed_and_human_accepted
-

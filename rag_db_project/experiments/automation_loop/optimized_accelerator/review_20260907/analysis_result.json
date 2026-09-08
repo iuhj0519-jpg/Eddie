@@ -1,0 +1,1537 @@
+{
+  "schema_version": "1.0",
+  "target": "optimized_accelerator",
+  "run_id": "review_20260907",
+  "status": "findings_detected_pending_human_approval",
+  "artifact_root": "artifacts/implementation/optimized_accelerator/run_001",
+  "metrics": {
+    "utilization": {
+      "lut": 18060.0,
+      "lut_logic": 18060.0,
+      "lut_memory": 0.0,
+      "ff": 1455.0,
+      "bram_tile": 2.5,
+      "ramb18": 5.0,
+      "dsp": 5.0,
+      "io": 64.0
+    },
+    "hierarchy": {
+      "zyNet": {
+        "module": "(top)",
+        "total_lut": 18060.0,
+        "logic_lut": 18060.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 1455.0,
+        "ramb36": 0.0,
+        "ramb18": 5.0,
+        "dsp": 5.0
+      },
+      "zyNet/activation_unit_instance": {
+        "module": "activation_unit",
+        "total_lut": 342.0,
+        "logic_lut": 342.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 36.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 0.0
+      },
+      "zyNet/axi_lite_wrapper_instance": {
+        "module": "axi_lite_wrapper",
+        "total_lut": 18.0,
+        "logic_lut": 18.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 15.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 0.0
+      },
+      "zyNet/bias_sram_instance": {
+        "module": "bias_sram",
+        "total_lut": 7.0,
+        "logic_lut": 7.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 35.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 0.0
+      },
+      "zyNet/dnn_scheduler_instance": {
+        "module": "dnn_scheduler",
+        "total_lut": 397.0,
+        "logic_lut": 397.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 62.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 0.0
+      },
+      "zyNet/maxFinder_instance": {
+        "module": "maxFinder",
+        "total_lut": 9.0,
+        "logic_lut": 9.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 56.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 0.0
+      },
+      "zyNet/systolic_controller_instance": {
+        "module": "systolic_controller",
+        "total_lut": 3300.0,
+        "logic_lut": 3300.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 1128.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 0.0
+      },
+      "zyNet/systolic_controller_instance/systolic_array_2d_instance": {
+        "module": "systolic_array_2d",
+        "total_lut": 2610.0,
+        "logic_lut": 2610.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 1100.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 0.0
+      },
+      "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[0].ARRAY_COLUMNS[0].pe_systolic_cell_instance": {
+        "module": "pe_systolic_cell",
+        "total_lut": 92.0,
+        "logic_lut": 92.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 44.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 0.0
+      },
+      "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[0].ARRAY_COLUMNS[0].pe_systolic_cell_instance/mac_pe_instance": {
+        "module": "mac_pe_47",
+        "total_lut": 90.0,
+        "logic_lut": 90.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 26.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 0.0
+      },
+      "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[0].ARRAY_COLUMNS[1].pe_systolic_cell_instance": {
+        "module": "pe_systolic_cell_0",
+        "total_lut": 92.0,
+        "logic_lut": 92.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 44.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 0.0
+      },
+      "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[0].ARRAY_COLUMNS[1].pe_systolic_cell_instance/mac_pe_instance": {
+        "module": "mac_pe_46",
+        "total_lut": 90.0,
+        "logic_lut": 90.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 26.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 0.0
+      },
+      "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[0].ARRAY_COLUMNS[2].pe_systolic_cell_instance": {
+        "module": "pe_systolic_cell_1",
+        "total_lut": 92.0,
+        "logic_lut": 92.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 44.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 0.0
+      },
+      "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[0].ARRAY_COLUMNS[2].pe_systolic_cell_instance/mac_pe_instance": {
+        "module": "mac_pe_45",
+        "total_lut": 90.0,
+        "logic_lut": 90.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 26.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 0.0
+      },
+      "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[0].ARRAY_COLUMNS[3].pe_systolic_cell_instance": {
+        "module": "pe_systolic_cell_2",
+        "total_lut": 124.0,
+        "logic_lut": 124.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 44.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 0.0
+      },
+      "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[0].ARRAY_COLUMNS[3].pe_systolic_cell_instance/mac_pe_instance": {
+        "module": "mac_pe_44",
+        "total_lut": 122.0,
+        "logic_lut": 122.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 26.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 0.0
+      },
+      "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[0].ARRAY_COLUMNS[4].pe_systolic_cell_instance": {
+        "module": "pe_systolic_cell_3",
+        "total_lut": 91.0,
+        "logic_lut": 91.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 44.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 0.0
+      },
+      "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[0].ARRAY_COLUMNS[4].pe_systolic_cell_instance/mac_pe_instance": {
+        "module": "mac_pe_43",
+        "total_lut": 90.0,
+        "logic_lut": 90.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 26.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 0.0
+      },
+      "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[1].ARRAY_COLUMNS[0].pe_systolic_cell_instance": {
+        "module": "pe_systolic_cell_4",
+        "total_lut": 92.0,
+        "logic_lut": 92.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 44.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 0.0
+      },
+      "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[1].ARRAY_COLUMNS[0].pe_systolic_cell_instance/mac_pe_instance": {
+        "module": "mac_pe_42",
+        "total_lut": 90.0,
+        "logic_lut": 90.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 26.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 0.0
+      },
+      "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[1].ARRAY_COLUMNS[1].pe_systolic_cell_instance": {
+        "module": "pe_systolic_cell_5",
+        "total_lut": 91.0,
+        "logic_lut": 91.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 44.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 0.0
+      },
+      "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[1].ARRAY_COLUMNS[1].pe_systolic_cell_instance/mac_pe_instance": {
+        "module": "mac_pe_41",
+        "total_lut": 90.0,
+        "logic_lut": 90.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 26.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 0.0
+      },
+      "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[1].ARRAY_COLUMNS[2].pe_systolic_cell_instance": {
+        "module": "pe_systolic_cell_6",
+        "total_lut": 135.0,
+        "logic_lut": 135.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 44.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 0.0
+      },
+      "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[1].ARRAY_COLUMNS[2].pe_systolic_cell_instance/mac_pe_instance": {
+        "module": "mac_pe_40",
+        "total_lut": 134.0,
+        "logic_lut": 134.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 26.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 0.0
+      },
+      "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[1].ARRAY_COLUMNS[3].pe_systolic_cell_instance": {
+        "module": "pe_systolic_cell_7",
+        "total_lut": 123.0,
+        "logic_lut": 123.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 44.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 0.0
+      },
+      "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[1].ARRAY_COLUMNS[3].pe_systolic_cell_instance/mac_pe_instance": {
+        "module": "mac_pe_39",
+        "total_lut": 122.0,
+        "logic_lut": 122.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 26.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 0.0
+      },
+      "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[1].ARRAY_COLUMNS[4].pe_systolic_cell_instance": {
+        "module": "pe_systolic_cell_8",
+        "total_lut": 91.0,
+        "logic_lut": 91.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 44.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 0.0
+      },
+      "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[1].ARRAY_COLUMNS[4].pe_systolic_cell_instance/mac_pe_instance": {
+        "module": "mac_pe_38",
+        "total_lut": 90.0,
+        "logic_lut": 90.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 26.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 0.0
+      },
+      "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[2].ARRAY_COLUMNS[0].pe_systolic_cell_instance": {
+        "module": "pe_systolic_cell_9",
+        "total_lut": 92.0,
+        "logic_lut": 92.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 44.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 0.0
+      },
+      "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[2].ARRAY_COLUMNS[0].pe_systolic_cell_instance/mac_pe_instance": {
+        "module": "mac_pe_37",
+        "total_lut": 90.0,
+        "logic_lut": 90.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 26.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 0.0
+      },
+      "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[2].ARRAY_COLUMNS[1].pe_systolic_cell_instance": {
+        "module": "pe_systolic_cell_10",
+        "total_lut": 91.0,
+        "logic_lut": 91.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 44.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 0.0
+      },
+      "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[2].ARRAY_COLUMNS[1].pe_systolic_cell_instance/mac_pe_instance": {
+        "module": "mac_pe_36",
+        "total_lut": 90.0,
+        "logic_lut": 90.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 26.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 0.0
+      },
+      "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[2].ARRAY_COLUMNS[2].pe_systolic_cell_instance": {
+        "module": "pe_systolic_cell_11",
+        "total_lut": 135.0,
+        "logic_lut": 135.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 44.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 0.0
+      },
+      "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[2].ARRAY_COLUMNS[2].pe_systolic_cell_instance/mac_pe_instance": {
+        "module": "mac_pe_35",
+        "total_lut": 134.0,
+        "logic_lut": 134.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 26.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 0.0
+      },
+      "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[2].ARRAY_COLUMNS[3].pe_systolic_cell_instance": {
+        "module": "pe_systolic_cell_12",
+        "total_lut": 123.0,
+        "logic_lut": 123.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 44.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 0.0
+      },
+      "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[2].ARRAY_COLUMNS[3].pe_systolic_cell_instance/mac_pe_instance": {
+        "module": "mac_pe_34",
+        "total_lut": 122.0,
+        "logic_lut": 122.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 26.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 0.0
+      },
+      "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[2].ARRAY_COLUMNS[4].pe_systolic_cell_instance": {
+        "module": "pe_systolic_cell_13",
+        "total_lut": 91.0,
+        "logic_lut": 91.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 44.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 0.0
+      },
+      "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[2].ARRAY_COLUMNS[4].pe_systolic_cell_instance/mac_pe_instance": {
+        "module": "mac_pe_33",
+        "total_lut": 90.0,
+        "logic_lut": 90.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 26.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 0.0
+      },
+      "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[3].ARRAY_COLUMNS[0].pe_systolic_cell_instance": {
+        "module": "pe_systolic_cell_14",
+        "total_lut": 93.0,
+        "logic_lut": 93.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 44.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 0.0
+      },
+      "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[3].ARRAY_COLUMNS[0].pe_systolic_cell_instance/mac_pe_instance": {
+        "module": "mac_pe_32",
+        "total_lut": 91.0,
+        "logic_lut": 91.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 26.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 0.0
+      },
+      "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[3].ARRAY_COLUMNS[1].pe_systolic_cell_instance": {
+        "module": "pe_systolic_cell_15",
+        "total_lut": 91.0,
+        "logic_lut": 91.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 44.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 0.0
+      },
+      "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[3].ARRAY_COLUMNS[1].pe_systolic_cell_instance/mac_pe_instance": {
+        "module": "mac_pe_31",
+        "total_lut": 90.0,
+        "logic_lut": 90.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 26.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 0.0
+      },
+      "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[3].ARRAY_COLUMNS[2].pe_systolic_cell_instance": {
+        "module": "pe_systolic_cell_16",
+        "total_lut": 135.0,
+        "logic_lut": 135.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 44.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 0.0
+      },
+      "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[3].ARRAY_COLUMNS[2].pe_systolic_cell_instance/mac_pe_instance": {
+        "module": "mac_pe_30",
+        "total_lut": 134.0,
+        "logic_lut": 134.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 26.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 0.0
+      },
+      "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[3].ARRAY_COLUMNS[3].pe_systolic_cell_instance": {
+        "module": "pe_systolic_cell_17",
+        "total_lut": 123.0,
+        "logic_lut": 123.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 44.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 0.0
+      },
+      "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[3].ARRAY_COLUMNS[3].pe_systolic_cell_instance/mac_pe_instance": {
+        "module": "mac_pe_29",
+        "total_lut": 122.0,
+        "logic_lut": 122.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 26.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 0.0
+      },
+      "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[3].ARRAY_COLUMNS[4].pe_systolic_cell_instance": {
+        "module": "pe_systolic_cell_18",
+        "total_lut": 92.0,
+        "logic_lut": 92.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 44.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 0.0
+      },
+      "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[3].ARRAY_COLUMNS[4].pe_systolic_cell_instance/mac_pe_instance": {
+        "module": "mac_pe_28",
+        "total_lut": 91.0,
+        "logic_lut": 91.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 26.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 0.0
+      },
+      "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[4].ARRAY_COLUMNS[0].pe_systolic_cell_instance": {
+        "module": "pe_systolic_cell_19",
+        "total_lut": 91.0,
+        "logic_lut": 91.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 44.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 0.0
+      },
+      "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[4].ARRAY_COLUMNS[0].pe_systolic_cell_instance/mac_pe_instance": {
+        "module": "mac_pe_27",
+        "total_lut": 90.0,
+        "logic_lut": 90.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 26.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 0.0
+      },
+      "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[4].ARRAY_COLUMNS[1].pe_systolic_cell_instance": {
+        "module": "pe_systolic_cell_20",
+        "total_lut": 91.0,
+        "logic_lut": 91.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 44.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 0.0
+      },
+      "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[4].ARRAY_COLUMNS[1].pe_systolic_cell_instance/mac_pe_instance": {
+        "module": "mac_pe_26",
+        "total_lut": 90.0,
+        "logic_lut": 90.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 26.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 0.0
+      },
+      "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[4].ARRAY_COLUMNS[2].pe_systolic_cell_instance": {
+        "module": "pe_systolic_cell_21",
+        "total_lut": 136.0,
+        "logic_lut": 136.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 44.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 0.0
+      },
+      "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[4].ARRAY_COLUMNS[2].pe_systolic_cell_instance/mac_pe_instance": {
+        "module": "mac_pe_25",
+        "total_lut": 135.0,
+        "logic_lut": 135.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 26.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 0.0
+      },
+      "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[4].ARRAY_COLUMNS[3].pe_systolic_cell_instance": {
+        "module": "pe_systolic_cell_22",
+        "total_lut": 117.0,
+        "logic_lut": 117.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 44.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 0.0
+      },
+      "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[4].ARRAY_COLUMNS[3].pe_systolic_cell_instance/mac_pe_instance": {
+        "module": "mac_pe_24",
+        "total_lut": 116.0,
+        "logic_lut": 116.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 26.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 0.0
+      },
+      "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[4].ARRAY_COLUMNS[4].pe_systolic_cell_instance": {
+        "module": "pe_systolic_cell_23",
+        "total_lut": 93.0,
+        "logic_lut": 93.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 44.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 0.0
+      },
+      "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[4].ARRAY_COLUMNS[4].pe_systolic_cell_instance/mac_pe_instance": {
+        "module": "mac_pe",
+        "total_lut": 91.0,
+        "logic_lut": 91.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 26.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 0.0
+      },
+      "zyNet/unified_buffer_instance": {
+        "module": "unified_buffer",
+        "total_lut": 60.0,
+        "logic_lut": 60.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 75.0,
+        "ramb36": 0.0,
+        "ramb18": 5.0,
+        "dsp": 0.0
+      },
+      "zyNet/weight_sram_instance": {
+        "module": "weight_sram",
+        "total_lut": 13955.0,
+        "logic_lut": 13955.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 45.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 5.0
+      }
+    },
+    "timing": {
+      "wns_ns": -5.362,
+      "tns_ns": -252.171,
+      "setup_failing_endpoints": 104.0,
+      "setup_total_endpoints": 3043.0,
+      "whs_ns": 0.113,
+      "ths_ns": 0.0,
+      "hold_failing_endpoints": 0.0,
+      "hold_total_endpoints": 3043.0,
+      "wpws_ns": 4.5,
+      "tpws_ns": 0.0,
+      "pulse_failing_endpoints": 0.0,
+      "pulse_total_endpoints": 1466.0
+    },
+    "power": {
+      "total_on_chip_power_w": 0.332,
+      "confidence": "Low",
+      "dynamic_power_w": 0.224,
+      "static_power_w": 0.108
+    },
+    "ram": {
+      "ramb18_instances": 5,
+      "minimum_bram_bit_efficiency_percent": 44.44
+    },
+    "verification": {},
+    "execution": {},
+    "implementation": {
+      "drc_violations": 0,
+      "critical_warnings": 4,
+      "unrouted_nets": 0,
+      "routing_errors": 0
+    },
+    "logs": [],
+    "sources": {
+      "utilization": "utilization.rpt",
+      "utilization_hierarchical": "utilization_hierarchical.rpt",
+      "timing_summary": "timing_summary.rpt",
+      "power": "power.rpt"
+    },
+    "paths": [
+      {
+        "slack_ns": -5.362,
+        "artifact_path": "critical_paths.rpt",
+        "line": 14,
+        "source": "systolic_controller_instance/cycle_count_reg[5]/C",
+        "destination": "weight_sram_instance/read_data_reg[24]/D",
+        "logic_levels": 17.0,
+        "delay_ns": 15.216,
+        "logic_ns": 5.506,
+        "route_ns": 9.71,
+        "mux_present": true,
+        "address_path": true,
+        "dsp_present": true
+      },
+      {
+        "slack_ns": -5.286,
+        "artifact_path": "critical_paths.rpt",
+        "line": 107,
+        "source": "systolic_controller_instance/cycle_count_reg[5]/C",
+        "destination": "weight_sram_instance/read_data_reg[31]/D",
+        "logic_levels": 15.0,
+        "delay_ns": 15.143,
+        "logic_ns": 5.249,
+        "route_ns": 9.894,
+        "mux_present": true,
+        "address_path": true,
+        "dsp_present": true
+      },
+      {
+        "slack_ns": -5.284,
+        "artifact_path": "critical_paths.rpt",
+        "line": 196,
+        "source": "systolic_controller_instance/cycle_count_reg[5]/C",
+        "destination": "weight_sram_instance/read_data_reg[30]/D",
+        "logic_levels": 15.0,
+        "delay_ns": 15.142,
+        "logic_ns": 5.249,
+        "route_ns": 9.893,
+        "mux_present": true,
+        "address_path": true,
+        "dsp_present": true
+      },
+      {
+        "slack_ns": -5.28,
+        "artifact_path": "critical_paths.rpt",
+        "line": 285,
+        "source": "systolic_controller_instance/cycle_count_reg[5]/C",
+        "destination": "weight_sram_instance/read_data_reg[26]/D",
+        "logic_levels": 17.0,
+        "delay_ns": 15.142,
+        "logic_ns": 5.472,
+        "route_ns": 9.67,
+        "mux_present": true,
+        "address_path": true,
+        "dsp_present": true
+      },
+      {
+        "slack_ns": -5.251,
+        "artifact_path": "critical_paths.rpt",
+        "line": 378,
+        "source": "systolic_controller_instance/cycle_count_reg[5]/C",
+        "destination": "weight_sram_instance/read_data_reg[29]/D",
+        "logic_levels": 17.0,
+        "delay_ns": 15.202,
+        "logic_ns": 5.496,
+        "route_ns": 9.706,
+        "mux_present": true,
+        "address_path": true,
+        "dsp_present": true
+      },
+      {
+        "slack_ns": -5.229,
+        "artifact_path": "critical_paths.rpt",
+        "line": 471,
+        "source": "systolic_controller_instance/cycle_count_reg[4]/C",
+        "destination": "weight_sram_instance/read_data_reg[15]/D",
+        "logic_levels": 18.0,
+        "delay_ns": 15.187,
+        "logic_ns": 5.671,
+        "route_ns": 9.516,
+        "mux_present": true,
+        "address_path": true,
+        "dsp_present": true
+      },
+      {
+        "slack_ns": -5.221,
+        "artifact_path": "critical_paths.rpt",
+        "line": 566,
+        "source": "systolic_controller_instance/cycle_count_reg[5]/C",
+        "destination": "weight_sram_instance/read_data_reg[27]/D",
+        "logic_levels": 16.0,
+        "delay_ns": 15.141,
+        "logic_ns": 5.066,
+        "route_ns": 10.075,
+        "mux_present": true,
+        "address_path": true,
+        "dsp_present": true
+      },
+      {
+        "slack_ns": -5.198,
+        "artifact_path": "critical_paths.rpt",
+        "line": 657,
+        "source": "systolic_controller_instance/cycle_count_reg[5]/C",
+        "destination": "weight_sram_instance/read_data_reg[28]/D",
+        "logic_levels": 15.0,
+        "delay_ns": 15.068,
+        "logic_ns": 5.285,
+        "route_ns": 9.783,
+        "mux_present": true,
+        "address_path": true,
+        "dsp_present": true
+      },
+      {
+        "slack_ns": -5.194,
+        "artifact_path": "critical_paths.rpt",
+        "line": 746,
+        "source": "systolic_controller_instance/cycle_count_reg[5]/C",
+        "destination": "weight_sram_instance/read_data_reg[25]/D",
+        "logic_levels": 16.0,
+        "delay_ns": 15.059,
+        "logic_ns": 5.352,
+        "route_ns": 9.707,
+        "mux_present": true,
+        "address_path": true,
+        "dsp_present": true
+      },
+      {
+        "slack_ns": -5.086,
+        "artifact_path": "critical_paths.rpt",
+        "line": 837,
+        "source": "systolic_controller_instance/cycle_count_reg[4]/C",
+        "destination": "weight_sram_instance/read_data_reg[9]/D",
+        "logic_levels": 17.0,
+        "delay_ns": 15.027,
+        "logic_ns": 5.532,
+        "route_ns": 9.495,
+        "mux_present": true,
+        "address_path": true,
+        "dsp_present": true
+      },
+      {
+        "slack_ns": -5.083,
+        "artifact_path": "critical_paths.rpt",
+        "line": 930,
+        "source": "systolic_controller_instance/cycle_count_reg[4]/C",
+        "destination": "weight_sram_instance/read_data_reg[33]/D",
+        "logic_levels": 16.0,
+        "delay_ns": 15.034,
+        "logic_ns": 5.181,
+        "route_ns": 9.853,
+        "mux_present": true,
+        "address_path": true,
+        "dsp_present": true
+      },
+      {
+        "slack_ns": -5.033,
+        "artifact_path": "critical_paths.rpt",
+        "line": 1021,
+        "source": "systolic_controller_instance/cycle_count_reg[4]/C",
+        "destination": "weight_sram_instance/read_data_reg[10]/D",
+        "logic_levels": 17.0,
+        "delay_ns": 14.972,
+        "logic_ns": 5.55,
+        "route_ns": 9.422,
+        "mux_present": true,
+        "address_path": true,
+        "dsp_present": true
+      },
+      {
+        "slack_ns": -5.011,
+        "artifact_path": "critical_paths.rpt",
+        "line": 1114,
+        "source": "systolic_controller_instance/cycle_count_reg[4]/C",
+        "destination": "weight_sram_instance/read_data_reg[12]/D",
+        "logic_levels": 18.0,
+        "delay_ns": 14.957,
+        "logic_ns": 5.632,
+        "route_ns": 9.325,
+        "mux_present": true,
+        "address_path": true,
+        "dsp_present": true
+      },
+      {
+        "slack_ns": -4.962,
+        "artifact_path": "critical_paths.rpt",
+        "line": 1209,
+        "source": "systolic_controller_instance/cycle_count_reg[4]/C",
+        "destination": "weight_sram_instance/read_data_reg[13]/D",
+        "logic_levels": 18.0,
+        "delay_ns": 14.915,
+        "logic_ns": 5.671,
+        "route_ns": 9.244,
+        "mux_present": true,
+        "address_path": true,
+        "dsp_present": true
+      },
+      {
+        "slack_ns": -4.953,
+        "artifact_path": "critical_paths.rpt",
+        "line": 1304,
+        "source": "systolic_controller_instance/cycle_count_reg[4]/C",
+        "destination": "weight_sram_instance/read_data_reg[34]/D",
+        "logic_levels": 16.0,
+        "delay_ns": 14.949,
+        "logic_ns": 5.43,
+        "route_ns": 9.519,
+        "mux_present": true,
+        "address_path": true,
+        "dsp_present": true
+      },
+      {
+        "slack_ns": -4.951,
+        "artifact_path": "critical_paths.rpt",
+        "line": 1395,
+        "source": "systolic_controller_instance/cycle_count_reg[4]/C",
+        "destination": "weight_sram_instance/read_data_reg[11]/D",
+        "logic_levels": 17.0,
+        "delay_ns": 14.894,
+        "logic_ns": 5.553,
+        "route_ns": 9.341,
+        "mux_present": true,
+        "address_path": true,
+        "dsp_present": true
+      },
+      {
+        "slack_ns": -4.94,
+        "artifact_path": "critical_paths.rpt",
+        "line": 1488,
+        "source": "systolic_controller_instance/cycle_count_reg[4]/C",
+        "destination": "weight_sram_instance/read_data_reg[14]/D",
+        "logic_levels": 18.0,
+        "delay_ns": 14.889,
+        "logic_ns": 5.671,
+        "route_ns": 9.218,
+        "mux_present": true,
+        "address_path": true,
+        "dsp_present": true
+      },
+      {
+        "slack_ns": -4.913,
+        "artifact_path": "critical_paths.rpt",
+        "line": 1583,
+        "source": "systolic_controller_instance/cycle_count_reg[5]/C",
+        "destination": "weight_sram_instance/read_data_reg[18]/D",
+        "logic_levels": 16.0,
+        "delay_ns": 14.857,
+        "logic_ns": 5.302,
+        "route_ns": 9.555,
+        "mux_present": true,
+        "address_path": true,
+        "dsp_present": true
+      },
+      {
+        "slack_ns": -4.912,
+        "artifact_path": "critical_paths.rpt",
+        "line": 1674,
+        "source": "systolic_controller_instance/cycle_count_reg[4]/C",
+        "destination": "weight_sram_instance/read_data_reg[37]/D",
+        "logic_levels": 16.0,
+        "delay_ns": 14.996,
+        "logic_ns": 5.433,
+        "route_ns": 9.563,
+        "mux_present": true,
+        "address_path": true,
+        "dsp_present": true
+      },
+      {
+        "slack_ns": -4.912,
+        "artifact_path": "critical_paths.rpt",
+        "line": 1765,
+        "source": "systolic_controller_instance/cycle_count_reg[4]/C",
+        "destination": "weight_sram_instance/read_data_reg[36]/D",
+        "logic_levels": 16.0,
+        "delay_ns": 14.93,
+        "logic_ns": 5.453,
+        "route_ns": 9.477,
+        "mux_present": true,
+        "address_path": true,
+        "dsp_present": true
+      }
+    ],
+    "fanout": [
+      {
+        "net": "weight_sram_instance/read_data1__0_n_100",
+        "fanout": 2415,
+        "driver": "DSP48E1",
+        "slack": "-4.908",
+        "artifact_path": "high_fanout_nets.rpt",
+        "line": 19
+      },
+      {
+        "net": "weight_sram_instance/read_data1__0_n_101",
+        "fanout": 2415,
+        "driver": "DSP48E1",
+        "slack": "-5.033",
+        "artifact_path": "high_fanout_nets.rpt",
+        "line": 20
+      },
+      {
+        "net": "weight_sram_instance/read_data1__0_n_102",
+        "fanout": 2415,
+        "driver": "DSP48E1",
+        "slack": "-5.099",
+        "artifact_path": "high_fanout_nets.rpt",
+        "line": 21
+      },
+      {
+        "net": "weight_sram_instance/read_data1__1_n_100",
+        "fanout": 2415,
+        "driver": "DSP48E1",
+        "slack": "-4.823",
+        "artifact_path": "high_fanout_nets.rpt",
+        "line": 22
+      },
+      {
+        "net": "weight_sram_instance/read_data1__1_n_101",
+        "fanout": 2415,
+        "driver": "DSP48E1",
+        "slack": "-4.702",
+        "artifact_path": "high_fanout_nets.rpt",
+        "line": 23
+      },
+      {
+        "net": "weight_sram_instance/read_data1__1_n_102",
+        "fanout": 2415,
+        "driver": "DSP48E1",
+        "slack": "-4.886",
+        "artifact_path": "high_fanout_nets.rpt",
+        "line": 24
+      },
+      {
+        "net": "weight_sram_instance/read_data1__2_n_100",
+        "fanout": 2415,
+        "driver": "DSP48E1",
+        "slack": "-5.056",
+        "artifact_path": "high_fanout_nets.rpt",
+        "line": 25
+      },
+      {
+        "net": "weight_sram_instance/read_data1__2_n_101",
+        "fanout": 2415,
+        "driver": "DSP48E1",
+        "slack": "-5.219",
+        "artifact_path": "high_fanout_nets.rpt",
+        "line": 26
+      },
+      {
+        "net": "weight_sram_instance/read_data1__2_n_102",
+        "fanout": 2415,
+        "driver": "DSP48E1",
+        "slack": "-5.308",
+        "artifact_path": "high_fanout_nets.rpt",
+        "line": 27
+      },
+      {
+        "net": "weight_sram_instance/read_data1__3_n_100",
+        "fanout": 2415,
+        "driver": "DSP48E1",
+        "slack": "-4.688",
+        "artifact_path": "high_fanout_nets.rpt",
+        "line": 28
+      },
+      {
+        "net": "weight_sram_instance/read_data1__3_n_101",
+        "fanout": 2415,
+        "driver": "DSP48E1",
+        "slack": "-4.880",
+        "artifact_path": "high_fanout_nets.rpt",
+        "line": 29
+      },
+      {
+        "net": "weight_sram_instance/read_data1__3_n_102",
+        "fanout": 2415,
+        "driver": "DSP48E1",
+        "slack": "-4.872",
+        "artifact_path": "high_fanout_nets.rpt",
+        "line": 30
+      },
+      {
+        "net": "weight_sram_instance/read_data1_n_100",
+        "fanout": 2415,
+        "driver": "DSP48E1",
+        "slack": "-4.641",
+        "artifact_path": "high_fanout_nets.rpt",
+        "line": 31
+      },
+      {
+        "net": "weight_sram_instance/read_data1_n_101",
+        "fanout": 2415,
+        "driver": "DSP48E1",
+        "slack": "-4.758",
+        "artifact_path": "high_fanout_nets.rpt",
+        "line": 32
+      },
+      {
+        "net": "weight_sram_instance/read_data1_n_102",
+        "fanout": 2415,
+        "driver": "DSP48E1",
+        "slack": "-4.774",
+        "artifact_path": "high_fanout_nets.rpt",
+        "line": 33
+      },
+      {
+        "net": "weight_sram_instance/read_data1__0_n_103",
+        "fanout": 2410,
+        "driver": "DSP48E1",
+        "slack": "-5.018",
+        "artifact_path": "high_fanout_nets.rpt",
+        "line": 34
+      },
+      {
+        "net": "weight_sram_instance/read_data1__1_n_103",
+        "fanout": 2410,
+        "driver": "DSP48E1",
+        "slack": "-4.828",
+        "artifact_path": "high_fanout_nets.rpt",
+        "line": 35
+      },
+      {
+        "net": "weight_sram_instance/read_data1__2_n_103",
+        "fanout": 2410,
+        "driver": "DSP48E1",
+        "slack": "-5.291",
+        "artifact_path": "high_fanout_nets.rpt",
+        "line": 36
+      },
+      {
+        "net": "weight_sram_instance/read_data1__3_n_103",
+        "fanout": 2410,
+        "driver": "DSP48E1",
+        "slack": "-4.931",
+        "artifact_path": "high_fanout_nets.rpt",
+        "line": 37
+      },
+      {
+        "net": "weight_sram_instance/read_data1_n_103",
+        "fanout": 2410,
+        "driver": "DSP48E1",
+        "slack": "-4.797",
+        "artifact_path": "high_fanout_nets.rpt",
+        "line": 38
+      },
+      {
+        "net": "weight_sram_instance/read_data1__0_n_105",
+        "fanout": 2401,
+        "driver": "DSP48E1",
+        "slack": "-5.154",
+        "artifact_path": "high_fanout_nets.rpt",
+        "line": 39
+      },
+      {
+        "net": "weight_sram_instance/read_data1__1_n_105",
+        "fanout": 2401,
+        "driver": "DSP48E1",
+        "slack": "-4.913",
+        "artifact_path": "high_fanout_nets.rpt",
+        "line": 40
+      },
+      {
+        "net": "weight_sram_instance/read_data1__2_n_105",
+        "fanout": 2401,
+        "driver": "DSP48E1",
+        "slack": "-5.362",
+        "artifact_path": "high_fanout_nets.rpt",
+        "line": 41
+      },
+      {
+        "net": "weight_sram_instance/read_data1__3_n_105",
+        "fanout": 2401,
+        "driver": "DSP48E1",
+        "slack": "-5.083",
+        "artifact_path": "high_fanout_nets.rpt",
+        "line": 42
+      },
+      {
+        "net": "weight_sram_instance/read_data1_n_105",
+        "fanout": 2401,
+        "driver": "DSP48E1",
+        "slack": "-4.604",
+        "artifact_path": "high_fanout_nets.rpt",
+        "line": 43
+      },
+      {
+        "net": "weight_sram_instance/read_data1__0_n_104",
+        "fanout": 2400,
+        "driver": "DSP48E1",
+        "slack": "-5.229",
+        "artifact_path": "high_fanout_nets.rpt",
+        "line": 44
+      },
+      {
+        "net": "weight_sram_instance/read_data1__1_n_104",
+        "fanout": 2400,
+        "driver": "DSP48E1",
+        "slack": "-4.907",
+        "artifact_path": "high_fanout_nets.rpt",
+        "line": 45
+      },
+      {
+        "net": "weight_sram_instance/read_data1__2_n_104",
+        "fanout": 2400,
+        "driver": "DSP48E1",
+        "slack": "-5.259",
+        "artifact_path": "high_fanout_nets.rpt",
+        "line": 46
+      },
+      {
+        "net": "weight_sram_instance/read_data1__3_n_104",
+        "fanout": 2400,
+        "driver": "DSP48E1",
+        "slack": "-5.061",
+        "artifact_path": "high_fanout_nets.rpt",
+        "line": 47
+      },
+      {
+        "net": "weight_sram_instance/read_data1_n_104",
+        "fanout": 2400,
+        "driver": "DSP48E1",
+        "slack": "-4.826",
+        "artifact_path": "high_fanout_nets.rpt",
+        "line": 48
+      },
+      {
+        "net": "weight_sram_instance/read_data1__0_n_99",
+        "fanout": 1269,
+        "driver": "DSP48E1",
+        "slack": "-4.669",
+        "artifact_path": "high_fanout_nets.rpt",
+        "line": 49
+      },
+      {
+        "net": "weight_sram_instance/read_data1__1_n_99",
+        "fanout": 1269,
+        "driver": "DSP48E1",
+        "slack": "-4.450",
+        "artifact_path": "high_fanout_nets.rpt",
+        "line": 50
+      },
+      {
+        "net": "weight_sram_instance/read_data1__2_n_99",
+        "fanout": 1269,
+        "driver": "DSP48E1",
+        "slack": "-4.921",
+        "artifact_path": "high_fanout_nets.rpt",
+        "line": 51
+      },
+      {
+        "net": "weight_sram_instance/read_data1__3_n_99",
+        "fanout": 1269,
+        "driver": "DSP48E1",
+        "slack": "-4.476",
+        "artifact_path": "high_fanout_nets.rpt",
+        "line": 52
+      },
+      {
+        "net": "weight_sram_instance/read_data1_n_99",
+        "fanout": 1269,
+        "driver": "DSP48E1",
+        "slack": "-4.330",
+        "artifact_path": "high_fanout_nets.rpt",
+        "line": 53
+      },
+      {
+        "net": "systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[4].ARRAY_COLUMNS[4].pe_systolic_cell_instance/mac_pe_instance/s_axi_aresetn",
+        "fanout": 1262,
+        "driver": "LUT1",
+        "slack": "inf",
+        "artifact_path": "high_fanout_nets.rpt",
+        "line": 54
+      },
+      {
+        "net": "weight_sram_instance/read_data1__0_n_98",
+        "fanout": 554,
+        "driver": "DSP48E1",
+        "slack": "-4.541",
+        "artifact_path": "high_fanout_nets.rpt",
+        "line": 55
+      },
+      {
+        "net": "weight_sram_instance/read_data1__1_n_98",
+        "fanout": 554,
+        "driver": "DSP48E1",
+        "slack": "-4.427",
+        "artifact_path": "high_fanout_nets.rpt",
+        "line": 56
+      },
+      {
+        "net": "weight_sram_instance/read_data1__2_n_98",
+        "fanout": 554,
+        "driver": "DSP48E1",
+        "slack": "-4.737",
+        "artifact_path": "high_fanout_nets.rpt",
+        "line": 57
+      },
+      {
+        "net": "weight_sram_instance/read_data1__3_n_98",
+        "fanout": 554,
+        "driver": "DSP48E1",
+        "slack": "-4.272",
+        "artifact_path": "high_fanout_nets.rpt",
+        "line": 58
+      },
+      {
+        "net": "weight_sram_instance/read_data1_n_98",
+        "fanout": 554,
+        "driver": "DSP48E1",
+        "slack": "-4.252",
+        "artifact_path": "high_fanout_nets.rpt",
+        "line": 59
+      },
+      {
+        "net": "systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[4].ARRAY_COLUMNS[4].pe_systolic_cell_instance/E[0]",
+        "fanout": 400,
+        "driver": "LUT3",
+        "slack": "-0.089",
+        "artifact_path": "high_fanout_nets.rpt",
+        "line": 60
+      },
+      {
+        "net": "weight_sram_instance/read_data1__0_n_97",
+        "fanout": 277,
+        "driver": "DSP48E1",
+        "slack": "-3.732",
+        "artifact_path": "high_fanout_nets.rpt",
+        "line": 61
+      },
+      {
+        "net": "weight_sram_instance/read_data1__1_n_97",
+        "fanout": 277,
+        "driver": "DSP48E1",
+        "slack": "-3.666",
+        "artifact_path": "high_fanout_nets.rpt",
+        "line": 62
+      },
+      {
+        "net": "weight_sram_instance/read_data1__2_n_97",
+        "fanout": 277,
+        "driver": "DSP48E1",
+        "slack": "-4.040",
+        "artifact_path": "high_fanout_nets.rpt",
+        "line": 63
+      },
+      {
+        "net": "weight_sram_instance/read_data1__3_n_97",
+        "fanout": 277,
+        "driver": "DSP48E1",
+        "slack": "-3.589",
+        "artifact_path": "high_fanout_nets.rpt",
+        "line": 64
+      },
+      {
+        "net": "weight_sram_instance/read_data1_n_97",
+        "fanout": 277,
+        "driver": "DSP48E1",
+        "slack": "-3.767",
+        "artifact_path": "high_fanout_nets.rpt",
+        "line": 65
+      },
+      {
+        "net": "dnn_scheduler_instance/layer_index[0]",
+        "fanout": 176,
+        "driver": "FDSE",
+        "slack": "-5.193",
+        "artifact_path": "high_fanout_nets.rpt",
+        "line": 66
+      },
+      {
+        "net": "dnn_scheduler_instance/layer_index[1]",
+        "fanout": 171,
+        "driver": "FDRE",
+        "slack": "-5.309",
+        "artifact_path": "high_fanout_nets.rpt",
+        "line": 67
+      },
+      {
+        "net": "dnn_scheduler_instance/group_index[2]",
+        "fanout": 165,
+        "driver": "FDRE",
+        "slack": "-4.626",
+        "artifact_path": "high_fanout_nets.rpt",
+        "line": 68
+      }
+    ],
+    "drc_rules": [
+      {
+        "rule": "NSTD-1",
+        "severity": "Critical Warning",
+        "count": 1,
+        "line": 31,
+        "artifact_path": "drc.rpt"
+      },
+      {
+        "rule": "UCIO-1",
+        "severity": "Critical Warning",
+        "count": 1,
+        "line": 32,
+        "artifact_path": "drc.rpt"
+      },
+      {
+        "rule": "CHECK-3",
+        "severity": "Warning",
+        "count": 1,
+        "line": 33,
+        "artifact_path": "drc.rpt"
+      },
+      {
+        "rule": "DPIP-1",
+        "severity": "Warning",
+        "count": 10,
+        "line": 34,
+        "artifact_path": "drc.rpt"
+      },
+      {
+        "rule": "DPOP-1",
+        "severity": "Warning",
+        "count": 5,
+        "line": 35,
+        "artifact_path": "drc.rpt"
+      },
+      {
+        "rule": "DPOP-2",
+        "severity": "Warning",
+        "count": 5,
+        "line": 36,
+        "artifact_path": "drc.rpt"
+      },
+      {
+        "rule": "RBOR-1",
+        "severity": "Warning",
+        "count": 5,
+        "line": 37,
+        "artifact_path": "drc.rpt"
+      },
+      {
+        "rule": "REQP-1840",
+        "severity": "Warning",
+        "count": 20,
+        "line": 38,
+        "artifact_path": "drc.rpt"
+      },
+      {
+        "rule": "ZPS7-1",
+        "severity": "Warning",
+        "count": 1,
+        "line": 39,
+        "artifact_path": "drc.rpt"
+      }
+    ],
+    "unconstrained_io": {
+      "no_input_delay": 20,
+      "no_output_delay": 11
+    },
+    "unbound_checkpoint_source": true,
+    "coverage": {
+      "critical_paths": {
+        "state": "observed",
+        "artifact_path": "critical_paths.rpt"
+      },
+      "fanout": {
+        "state": "observed",
+        "artifact_path": "high_fanout_nets.rpt"
+      },
+      "drc": {
+        "state": "observed",
+        "artifact_path": "drc.rpt"
+      },
+      "ram": {
+        "state": "observed",
+        "artifact_path": "ram_utilization.rpt"
+      },
+      "verification": {
+        "state": "unknown",
+        "artifact_path": "verification_result.json"
+      },
+      "utilization": {
+        "state": "observed",
+        "artifact_path": "utilization.rpt"
+      },
+      "utilization_hierarchical": {
+        "state": "observed",
+        "artifact_path": "utilization_hierarchical.rpt"
+      },
+      "timing_summary": {
+        "state": "observed",
+        "artifact_path": "timing_summary.rpt"
+      },
+      "power": {
+        "state": "observed",
+        "artifact_path": "power.rpt"
+      }
+    },
+    "previous_metrics": null
+  },
+  "finding_ids": [
+    "PPA-DSP-001",
+    "PPA-WEIGHT-001",
+    "PPA-TIMING-001",
+    "PPA-POWER-001",
+    "IMPL-DRC-001",
+    "PPA-ADDRESS-001",
+    "PPA-MUX-001",
+    "PPA-PIPELINE-001",
+    "PPA-ROUTE-DELAY-001",
+    "PPA-FANOUT-001",
+    "DRC-NSTD-1",
+    "DRC-UCIO-1",
+    "DRC-CHECK-3",
+    "DRC-DPIP-1",
+    "DRC-DPOP-1",
+    "DRC-DPOP-2",
+    "DRC-RBOR-1",
+    "DRC-REQP-1840",
+    "DRC-ZPS7-1",
+    "PPA-CONSTRAINT-001",
+    "EVIDENCE-PROVENANCE-001",
+    "EVIDENCE-COVERAGE-001"
+  ]
+}

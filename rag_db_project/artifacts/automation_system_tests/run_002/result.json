@@ -1,0 +1,6 @@
+{
+  "status": "PASS",
+  "tests": 23,
+  "kind": "automation_regression_not_dut_debugging",
+  "production_approval": false
+}

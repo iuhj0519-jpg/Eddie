@@ -100,6 +100,17 @@ phases:
       - experiments/automation_loop/**/analysis_result.json
       - experiments/automation_loop/**/gate_status.json
     direct_file_allow:
+      - inputs/specifications/**/*.md
+      - inputs/reference_model/testdata/test_data_*.txt
+      - workspace/*/tb/*.sv
+      - workspace/*/memory/*.mif
+      - workspace/*/scripts/*
+      - workspace/*/rtl/*.svh
+      - artifacts/implementation/**/*.rpt
+      - artifacts/implementation/**/*.yaml
+      - artifacts/automation_loop/**/*.rpt
+      - artifacts/automation_loop/**/*.log
+      - artifacts/automation_loop/**/*.json
       - experiments/automation_loop/**/run_manifest.yaml
       - experiments/automation_loop/**/findings.yaml
       - experiments/automation_loop/**/approval.yaml

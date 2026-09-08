@@ -1,0 +1,44 @@
+{
+  "approved_source_count": 50,
+  "cases": [
+    {
+      "id": "dsp_parallelism_finding",
+      "status": "PASS",
+      "top_chunk_id": "chunk-b86907fd1714e417154d990e",
+      "top_result": "experiments/automation_loop/optimized_accelerator/run_001/findings.yaml"
+    },
+    {
+      "id": "weight_storage_bottleneck",
+      "status": "PASS",
+      "top_chunk_id": "chunk-0072bea162ce7e36af7898cb",
+      "top_result": "experiments/automation_loop/optimized_accelerator/run_001/findings.yaml"
+    },
+    {
+      "id": "address_path_diagnosis",
+      "status": "PASS",
+      "top_chunk_id": "chunk-777475dfbc0fcd636de9f217",
+      "top_result": "experiments/automation_loop/optimized_accelerator/review_20260907/diagnosis.md"
+    },
+    {
+      "id": "fanout_path_diagnosis",
+      "status": "PASS",
+      "top_chunk_id": "chunk-0526021035b73aa9d7a0e189",
+      "top_result": "experiments/automation_loop/optimized_accelerator/review_20260907/diagnosis.md"
+    },
+    {
+      "id": "mux_pipeline_diagnosis",
+      "status": "PASS",
+      "top_chunk_id": "chunk-f5ab63370ed5bb6028638d5b",
+      "top_result": "experiments/automation_loop/optimized_accelerator/review_20260907/diagnosis.md"
+    }
+  ],
+  "chunk_count": 95,
+  "denied_chunk_count": 0,
+  "dense_vector_count": 95,
+  "fts_row_count": 95,
+  "index_id": "workspace_automation_loop_v1",
+  "phase": "automation_loop",
+  "retrieval_source_count": 21,
+  "schema_version": "1.0",
+  "status": "PASS"
+}

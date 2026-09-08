@@ -6,6 +6,13 @@ architecture:
   array_rows: 5
   array_columns: 5
 
+# User-requested physical acceptance, pending final SPEC/debugging approval.
+memory_mapping_requirements:
+  - module: weight_sram
+    storage: block_ram
+    requirement_id: REQ-OPT-MEM-026
+    requirement_state: proposed_pending_final_approval
+
 acceptance:
   expected_images: 100
   expected_failures: 1
@@ -15,6 +22,9 @@ acceptance:
   maximum_cycles_per_batch: null
 
 thresholds:
+  maximum_logic_levels: 12
+  maximum_fanout: 500
+  route_delay_ratio: 0.60
   minimum_wns_ns: 0.0
   minimum_bram_bit_efficiency_percent: 35.0
   module_lut_hotspot_ratio: 0.50
@@ -23,8 +33,14 @@ thresholds:
   maximum_io_count: 125
 
 commands:
-  systolic_prototype: []
-  optimized_accelerator: []
+  systolic_prototype: &local_flow
+    - stage: compile
+      tool: C:/intelFPGA/18.1/modelsim_ase/win32aloem/vlog.exe
+    - stage: simulation
+      tool: C:/intelFPGA/18.1/modelsim_ase/win32aloem/vsim.exe
+    - stage: synthesis
+      tool: C:/Xilinx/Vivado/2022.1/bin/vivado.bat
+  optimized_accelerator: *local_flow
 
 loop:
   max_iterations: 5

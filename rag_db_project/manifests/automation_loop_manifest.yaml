@@ -18,12 +18,18 @@ retrieval_sources:
     - experiments/automation_loop/**/gate_status.json
     - experiments/automation_loop/**/revalidation_result.json
   artifact_metadata:
+    - artifacts/implementation/**/run_manifest.yaml
+    - artifacts/automation_loop/**/execution_result.json
     - artifacts/synthesis/**/run_manifest.yaml
     - artifacts/synthesis/**/run_summary.txt
     - artifacts/verification/**/verification_result.json
     - artifacts/verification/**/run_summary.yaml
 
 direct_evidence_sources:
+  - artifacts/implementation/**/*.rpt
+  - artifacts/automation_loop/**/*.rpt
+  - artifacts/automation_loop/**/*.log
+  - artifacts/automation_loop/**/*.json
   - artifacts/synthesis/**/*.rpt
   - artifacts/verification/**/*.log
   - artifacts/verification/**/*.json

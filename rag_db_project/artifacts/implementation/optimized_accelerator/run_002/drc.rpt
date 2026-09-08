@@ -1,0 +1,295 @@
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+--------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2022.1 (win64) Build 3526262 Mon Apr 18 15:48:16 MDT 2022
+| Date         : Tue Sep  8 17:28:11 2026
+| Host         : BOOK-P2O9FRPHFQ running 64-bit major release  (build 9200)
+| Command      : report_drc -file C:/intelFPGA/18.1/dnn_optimization_project/vivado_ppa_compare/workspace_optimized/ppa_final/drc.rpt
+| Design       : zyNet
+| Device       : xc7z020clg400-1
+| Speed File   : -1
+| Design State : Fully Routed
+--------------------------------------------------------------------------------------------------------------------------------------
+
+Report DRC
+
+Table of Contents
+-----------------
+1. REPORT SUMMARY
+2. REPORT DETAILS
+
+1. REPORT SUMMARY
+-----------------
+            Netlist: netlist
+          Floorplan: checkpoint_post_route
+      Design limits: <entire design considered>
+           Ruledeck: default
+             Max violations: <unlimited>
+             Violations found: 49
++-----------+------------------+----------------------------+------------+
+| Rule      | Severity         | Description                | Violations |
++-----------+------------------+----------------------------+------------+
+| NSTD-1    | Critical Warning | Unspecified I/O Standard   | 1          |
+| UCIO-1    | Critical Warning | Unconstrained Logical Port | 1          |
+| CHECK-3   | Warning          | Report rule limit reached  | 1          |
+| DPIP-1    | Warning          | Input pipelining           | 10         |
+| DPOP-1    | Warning          | PREG Output pipelining     | 5          |
+| DPOP-2    | Warning          | MREG Output pipelining     | 5          |
+| RBOR-1    | Warning          | RAMB output registers      | 5          |
+| REQP-1840 | Warning          | RAMB18 async control check | 20         |
+| ZPS7-1    | Warning          | PS7 block required         | 1          |
++-----------+------------------+----------------------------+------------+
+
+2. REPORT DETAILS
+-----------------
+NSTD-1#1 Critical Warning
+Unspecified I/O Standard  
+64 out of 64 logical ports use I/O standard (IOSTANDARD) value 'DEFAULT', instead of a user assigned specific value. This may cause I/O contention or incompatibility with the board power or connectivity affecting performance, signal integrity or in extreme cases cause damage to the device or the components to which it is connected. To correct this violation, specify all I/O standards. This design will fail to generate a bitstream unless all logical ports have a user specified I/O standard value defined. To allow bitstream creation with unspecified I/O standard values (not recommended), use this command: set_property SEVERITY {Warning} [get_drc_checks NSTD-1].  NOTE: When using the Vivado Runs infrastructure (e.g. launch_runs Tcl command), add this command to a .tcl file and add that file as a pre-hook for write_bitstream step for the implementation run. Problem ports: axis_in_data[7:0], axis_in_data_ready, axis_in_data_valid, intr,
+s_axi_aclk, s_axi_araddr[4:0], s_axi_aresetn, s_axi_arready, s_axi_arvalid,
+s_axi_awready, s_axi_awvalid, s_axi_bready, s_axi_bresp[1:0],
+s_axi_rdata[31:0], s_axi_rresp[1:0] (the first 15 of 20 listed).
+Related violations: <none>
+
+UCIO-1#1 Critical Warning
+Unconstrained Logical Port  
+64 out of 64 logical ports have no user assigned specific location constraint (LOC). This may cause I/O contention or incompatibility with the board power or connectivity affecting performance, signal integrity or in extreme cases cause damage to the device or the components to which it is connected. To correct this violation, specify all pin locations. This design will fail to generate a bitstream unless all logical ports have a user specified site LOC constraint defined.  To allow bitstream creation with unspecified pin locations (not recommended), use this command: set_property SEVERITY {Warning} [get_drc_checks UCIO-1].  NOTE: When using the Vivado Runs infrastructure (e.g. launch_runs Tcl command), add this command to a .tcl file and add that file as a pre-hook for write_bitstream step for the implementation run.  Problem ports: axis_in_data[7:0], axis_in_data_ready, axis_in_data_valid, intr,
+s_axi_aclk, s_axi_araddr[4:0], s_axi_aresetn, s_axi_arready, s_axi_arvalid,
+s_axi_awready, s_axi_awvalid, s_axi_bready, s_axi_bresp[1:0],
+s_axi_rdata[31:0], s_axi_rresp[1:0] (the first 15 of 20 listed).
+Related violations: <none>
+
+CHECK-3#1 Warning
+Report rule limit reached  
+REQP-1840 rule limit reached: 20 violations have been found.
+Related violations: <none>
+
+DPIP-1#1 Warning
+Input pipelining  
+DSP weight_sram_instance/read_data1 input weight_sram_instance/read_data1/A[29:0] is not pipelined. Pipelining DSP48 input will improve performance.
+Related violations: <none>
+
+DPIP-1#2 Warning
+Input pipelining  
+DSP weight_sram_instance/read_data1 input weight_sram_instance/read_data1/C[47:0] is not pipelined. Pipelining DSP48 input will improve performance.
+Related violations: <none>
+
+DPIP-1#3 Warning
+Input pipelining  
+DSP weight_sram_instance/read_data1__0 input weight_sram_instance/read_data1__0/A[29:0] is not pipelined. Pipelining DSP48 input will improve performance.
+Related violations: <none>
+
+DPIP-1#4 Warning
+Input pipelining  
+DSP weight_sram_instance/read_data1__0 input weight_sram_instance/read_data1__0/C[47:0] is not pipelined. Pipelining DSP48 input will improve performance.
+Related violations: <none>
+
+DPIP-1#5 Warning
+Input pipelining  
+DSP weight_sram_instance/read_data1__1 input weight_sram_instance/read_data1__1/A[29:0] is not pipelined. Pipelining DSP48 input will improve performance.
+Related violations: <none>
+
+DPIP-1#6 Warning
+Input pipelining  
+DSP weight_sram_instance/read_data1__1 input weight_sram_instance/read_data1__1/C[47:0] is not pipelined. Pipelining DSP48 input will improve performance.
+Related violations: <none>
+
+DPIP-1#7 Warning
+Input pipelining  
+DSP weight_sram_instance/read_data1__2 input weight_sram_instance/read_data1__2/A[29:0] is not pipelined. Pipelining DSP48 input will improve performance.
+Related violations: <none>
+
+DPIP-1#8 Warning
+Input pipelining  
+DSP weight_sram_instance/read_data1__2 input weight_sram_instance/read_data1__2/C[47:0] is not pipelined. Pipelining DSP48 input will improve performance.
+Related violations: <none>
+
+DPIP-1#9 Warning
+Input pipelining  
+DSP weight_sram_instance/read_data1__3 input weight_sram_instance/read_data1__3/A[29:0] is not pipelined. Pipelining DSP48 input will improve performance.
+Related violations: <none>
+
+DPIP-1#10 Warning
+Input pipelining  
+DSP weight_sram_instance/read_data1__3 input weight_sram_instance/read_data1__3/C[47:0] is not pipelined. Pipelining DSP48 input will improve performance.
+Related violations: <none>
+
+DPOP-1#1 Warning
+PREG Output pipelining  
+DSP weight_sram_instance/read_data1 output weight_sram_instance/read_data1/P[47:0] is not pipelined (PREG=0). Pipelining the DSP48 output will improve performance and often saves power so it is suggested whenever possible to fully pipeline this function.  If this DSP48 function was inferred, it is suggested to describe an additional register stage after this function.  If the DSP48 was instantiated in the design, it is suggested to set the PREG attribute to 1.
+Related violations: <none>
+
+DPOP-1#2 Warning
+PREG Output pipelining  
+DSP weight_sram_instance/read_data1__0 output weight_sram_instance/read_data1__0/P[47:0] is not pipelined (PREG=0). Pipelining the DSP48 output will improve performance and often saves power so it is suggested whenever possible to fully pipeline this function.  If this DSP48 function was inferred, it is suggested to describe an additional register stage after this function.  If the DSP48 was instantiated in the design, it is suggested to set the PREG attribute to 1.
+Related violations: <none>
+
+DPOP-1#3 Warning
+PREG Output pipelining  
+DSP weight_sram_instance/read_data1__1 output weight_sram_instance/read_data1__1/P[47:0] is not pipelined (PREG=0). Pipelining the DSP48 output will improve performance and often saves power so it is suggested whenever possible to fully pipeline this function.  If this DSP48 function was inferred, it is suggested to describe an additional register stage after this function.  If the DSP48 was instantiated in the design, it is suggested to set the PREG attribute to 1.
+Related violations: <none>
+
+DPOP-1#4 Warning
+PREG Output pipelining  
+DSP weight_sram_instance/read_data1__2 output weight_sram_instance/read_data1__2/P[47:0] is not pipelined (PREG=0). Pipelining the DSP48 output will improve performance and often saves power so it is suggested whenever possible to fully pipeline this function.  If this DSP48 function was inferred, it is suggested to describe an additional register stage after this function.  If the DSP48 was instantiated in the design, it is suggested to set the PREG attribute to 1.
+Related violations: <none>
+
+DPOP-1#5 Warning
+PREG Output pipelining  
+DSP weight_sram_instance/read_data1__3 output weight_sram_instance/read_data1__3/P[47:0] is not pipelined (PREG=0). Pipelining the DSP48 output will improve performance and often saves power so it is suggested whenever possible to fully pipeline this function.  If this DSP48 function was inferred, it is suggested to describe an additional register stage after this function.  If the DSP48 was instantiated in the design, it is suggested to set the PREG attribute to 1.
+Related violations: <none>
+
+DPOP-2#1 Warning
+MREG Output pipelining  
+DSP weight_sram_instance/read_data1 multiplier stage weight_sram_instance/read_data1/P[47:0] is not pipelined (MREG=0). Pipelining the multiplier function will improve performance and will save significant power so it is suggested whenever possible to fully pipeline this function.  If this multiplier was inferred, it is suggested to describe an additional register stage after this function.  If there is no registered adder/accumulator following the multiply function, two pipeline stages are suggested to allow both the MREG and PREG registers to be used.  If the DSP48 was instantiated in the design, it is suggested to set both the MREG and PREG attributes to 1 when performing multiply functions.
+Related violations: <none>
+
+DPOP-2#2 Warning
+MREG Output pipelining  
+DSP weight_sram_instance/read_data1__0 multiplier stage weight_sram_instance/read_data1__0/P[47:0] is not pipelined (MREG=0). Pipelining the multiplier function will improve performance and will save significant power so it is suggested whenever possible to fully pipeline this function.  If this multiplier was inferred, it is suggested to describe an additional register stage after this function.  If there is no registered adder/accumulator following the multiply function, two pipeline stages are suggested to allow both the MREG and PREG registers to be used.  If the DSP48 was instantiated in the design, it is suggested to set both the MREG and PREG attributes to 1 when performing multiply functions.
+Related violations: <none>
+
+DPOP-2#3 Warning
+MREG Output pipelining  
+DSP weight_sram_instance/read_data1__1 multiplier stage weight_sram_instance/read_data1__1/P[47:0] is not pipelined (MREG=0). Pipelining the multiplier function will improve performance and will save significant power so it is suggested whenever possible to fully pipeline this function.  If this multiplier was inferred, it is suggested to describe an additional register stage after this function.  If there is no registered adder/accumulator following the multiply function, two pipeline stages are suggested to allow both the MREG and PREG registers to be used.  If the DSP48 was instantiated in the design, it is suggested to set both the MREG and PREG attributes to 1 when performing multiply functions.
+Related violations: <none>
+
+DPOP-2#4 Warning
+MREG Output pipelining  
+DSP weight_sram_instance/read_data1__2 multiplier stage weight_sram_instance/read_data1__2/P[47:0] is not pipelined (MREG=0). Pipelining the multiplier function will improve performance and will save significant power so it is suggested whenever possible to fully pipeline this function.  If this multiplier was inferred, it is suggested to describe an additional register stage after this function.  If there is no registered adder/accumulator following the multiply function, two pipeline stages are suggested to allow both the MREG and PREG registers to be used.  If the DSP48 was instantiated in the design, it is suggested to set both the MREG and PREG attributes to 1 when performing multiply functions.
+Related violations: <none>
+
+DPOP-2#5 Warning
+MREG Output pipelining  
+DSP weight_sram_instance/read_data1__3 multiplier stage weight_sram_instance/read_data1__3/P[47:0] is not pipelined (MREG=0). Pipelining the multiplier function will improve performance and will save significant power so it is suggested whenever possible to fully pipeline this function.  If this multiplier was inferred, it is suggested to describe an additional register stage after this function.  If there is no registered adder/accumulator following the multiply function, two pipeline stages are suggested to allow both the MREG and PREG registers to be used.  If the DSP48 was instantiated in the design, it is suggested to set both the MREG and PREG attributes to 1 when performing multiply functions.
+Related violations: <none>
+
+RBOR-1#1 Warning
+RAMB output registers  
+RAMB unified_buffer_instance/memory_bank_0_reg output DOB (8) is connected to asynchronous registers, if you use synchronous controls you will get better results both in area and delay (RAMB has synchronous registers built in).
+Related violations: <none>
+
+RBOR-1#2 Warning
+RAMB output registers  
+RAMB unified_buffer_instance/memory_bank_1_reg output DOB (8) is connected to asynchronous registers, if you use synchronous controls you will get better results both in area and delay (RAMB has synchronous registers built in).
+Related violations: <none>
+
+RBOR-1#3 Warning
+RAMB output registers  
+RAMB unified_buffer_instance/memory_bank_2_reg output DOB (8) is connected to asynchronous registers, if you use synchronous controls you will get better results both in area and delay (RAMB has synchronous registers built in).
+Related violations: <none>
+
+RBOR-1#4 Warning
+RAMB output registers  
+RAMB unified_buffer_instance/memory_bank_3_reg output DOB (8) is connected to asynchronous registers, if you use synchronous controls you will get better results both in area and delay (RAMB has synchronous registers built in).
+Related violations: <none>
+
+RBOR-1#5 Warning
+RAMB output registers  
+RAMB unified_buffer_instance/memory_bank_4_reg output DOB (8) is connected to asynchronous registers, if you use synchronous controls you will get better results both in area and delay (RAMB has synchronous registers built in).
+Related violations: <none>
+
+REQP-1840#1 Warning
+RAMB18 async control check  
+The RAMB18E1 unified_buffer_instance/memory_bank_0_reg has an input control pin unified_buffer_instance/memory_bank_0_reg/ADDRBWRADDR[12] (net: unified_buffer_instance/selected_read_address[8]) which is driven by a register (systolic_controller_instance/cycle_count_reg[0]) that has an active asychronous set or reset. This may cause corruption of the memory contents and/or read values when the set/reset is asserted and is not analyzed by the default static timing analysis. It is suggested to eliminate the use of a set/reset to registers driving this RAMB pin or else use a synchronous reset in which the assertion of the reset is timed by default.
+Related violations: <none>
+
+REQP-1840#2 Warning
+RAMB18 async control check  
+The RAMB18E1 unified_buffer_instance/memory_bank_0_reg has an input control pin unified_buffer_instance/memory_bank_0_reg/ADDRBWRADDR[12] (net: unified_buffer_instance/selected_read_address[8]) which is driven by a register (systolic_controller_instance/cycle_count_reg[1]) that has an active asychronous set or reset. This may cause corruption of the memory contents and/or read values when the set/reset is asserted and is not analyzed by the default static timing analysis. It is suggested to eliminate the use of a set/reset to registers driving this RAMB pin or else use a synchronous reset in which the assertion of the reset is timed by default.
+Related violations: <none>
+
+REQP-1840#3 Warning
+RAMB18 async control check  
+The RAMB18E1 unified_buffer_instance/memory_bank_0_reg has an input control pin unified_buffer_instance/memory_bank_0_reg/ADDRBWRADDR[12] (net: unified_buffer_instance/selected_read_address[8]) which is driven by a register (systolic_controller_instance/cycle_count_reg[2]) that has an active asychronous set or reset. This may cause corruption of the memory contents and/or read values when the set/reset is asserted and is not analyzed by the default static timing analysis. It is suggested to eliminate the use of a set/reset to registers driving this RAMB pin or else use a synchronous reset in which the assertion of the reset is timed by default.
+Related violations: <none>
+
+REQP-1840#4 Warning
+RAMB18 async control check  
+The RAMB18E1 unified_buffer_instance/memory_bank_0_reg has an input control pin unified_buffer_instance/memory_bank_0_reg/ADDRBWRADDR[12] (net: unified_buffer_instance/selected_read_address[8]) which is driven by a register (systolic_controller_instance/cycle_count_reg[3]) that has an active asychronous set or reset. This may cause corruption of the memory contents and/or read values when the set/reset is asserted and is not analyzed by the default static timing analysis. It is suggested to eliminate the use of a set/reset to registers driving this RAMB pin or else use a synchronous reset in which the assertion of the reset is timed by default.
+Related violations: <none>
+
+REQP-1840#5 Warning
+RAMB18 async control check  
+The RAMB18E1 unified_buffer_instance/memory_bank_0_reg has an input control pin unified_buffer_instance/memory_bank_0_reg/ADDRBWRADDR[12] (net: unified_buffer_instance/selected_read_address[8]) which is driven by a register (systolic_controller_instance/cycle_count_reg[5]) that has an active asychronous set or reset. This may cause corruption of the memory contents and/or read values when the set/reset is asserted and is not analyzed by the default static timing analysis. It is suggested to eliminate the use of a set/reset to registers driving this RAMB pin or else use a synchronous reset in which the assertion of the reset is timed by default.
+Related violations: <none>
+
+REQP-1840#6 Warning
+RAMB18 async control check  
+The RAMB18E1 unified_buffer_instance/memory_bank_0_reg has an input control pin unified_buffer_instance/memory_bank_0_reg/ADDRBWRADDR[12] (net: unified_buffer_instance/selected_read_address[8]) which is driven by a register (systolic_controller_instance/cycle_count_reg[6]) that has an active asychronous set or reset. This may cause corruption of the memory contents and/or read values when the set/reset is asserted and is not analyzed by the default static timing analysis. It is suggested to eliminate the use of a set/reset to registers driving this RAMB pin or else use a synchronous reset in which the assertion of the reset is timed by default.
+Related violations: <none>
+
+REQP-1840#7 Warning
+RAMB18 async control check  
+The RAMB18E1 unified_buffer_instance/memory_bank_0_reg has an input control pin unified_buffer_instance/memory_bank_0_reg/ADDRBWRADDR[12] (net: unified_buffer_instance/selected_read_address[8]) which is driven by a register (systolic_controller_instance/cycle_count_reg[7]) that has an active asychronous set or reset. This may cause corruption of the memory contents and/or read values when the set/reset is asserted and is not analyzed by the default static timing analysis. It is suggested to eliminate the use of a set/reset to registers driving this RAMB pin or else use a synchronous reset in which the assertion of the reset is timed by default.
+Related violations: <none>
+
+REQP-1840#8 Warning
+RAMB18 async control check  
+The RAMB18E1 unified_buffer_instance/memory_bank_0_reg has an input control pin unified_buffer_instance/memory_bank_0_reg/ADDRBWRADDR[12] (net: unified_buffer_instance/selected_read_address[8]) which is driven by a register (systolic_controller_instance/cycle_count_reg[8]) that has an active asychronous set or reset. This may cause corruption of the memory contents and/or read values when the set/reset is asserted and is not analyzed by the default static timing analysis. It is suggested to eliminate the use of a set/reset to registers driving this RAMB pin or else use a synchronous reset in which the assertion of the reset is timed by default.
+Related violations: <none>
+
+REQP-1840#9 Warning
+RAMB18 async control check  
+The RAMB18E1 unified_buffer_instance/memory_bank_0_reg has an input control pin unified_buffer_instance/memory_bank_0_reg/ADDRBWRADDR[12] (net: unified_buffer_instance/selected_read_address[8]) which is driven by a register (systolic_controller_instance/cycle_count_reg[9]) that has an active asychronous set or reset. This may cause corruption of the memory contents and/or read values when the set/reset is asserted and is not analyzed by the default static timing analysis. It is suggested to eliminate the use of a set/reset to registers driving this RAMB pin or else use a synchronous reset in which the assertion of the reset is timed by default.
+Related violations: <none>
+
+REQP-1840#10 Warning
+RAMB18 async control check  
+The RAMB18E1 unified_buffer_instance/memory_bank_0_reg has an input control pin unified_buffer_instance/memory_bank_0_reg/ADDRBWRADDR[13] (net: unified_buffer_instance/selected_read_address[9]) which is driven by a register (systolic_controller_instance/FSM_onehot_state_reg[3]) that has an active asychronous set or reset. This may cause corruption of the memory contents and/or read values when the set/reset is asserted and is not analyzed by the default static timing analysis. It is suggested to eliminate the use of a set/reset to registers driving this RAMB pin or else use a synchronous reset in which the assertion of the reset is timed by default.
+Related violations: <none>
+
+REQP-1840#11 Warning
+RAMB18 async control check  
+The RAMB18E1 unified_buffer_instance/memory_bank_0_reg has an input control pin unified_buffer_instance/memory_bank_0_reg/ADDRBWRADDR[13] (net: unified_buffer_instance/selected_read_address[9]) which is driven by a register (systolic_controller_instance/cycle_count_reg[0]) that has an active asychronous set or reset. This may cause corruption of the memory contents and/or read values when the set/reset is asserted and is not analyzed by the default static timing analysis. It is suggested to eliminate the use of a set/reset to registers driving this RAMB pin or else use a synchronous reset in which the assertion of the reset is timed by default.
+Related violations: <none>
+
+REQP-1840#12 Warning
+RAMB18 async control check  
+The RAMB18E1 unified_buffer_instance/memory_bank_0_reg has an input control pin unified_buffer_instance/memory_bank_0_reg/ADDRBWRADDR[13] (net: unified_buffer_instance/selected_read_address[9]) which is driven by a register (systolic_controller_instance/cycle_count_reg[1]) that has an active asychronous set or reset. This may cause corruption of the memory contents and/or read values when the set/reset is asserted and is not analyzed by the default static timing analysis. It is suggested to eliminate the use of a set/reset to registers driving this RAMB pin or else use a synchronous reset in which the assertion of the reset is timed by default.
+Related violations: <none>
+
+REQP-1840#13 Warning
+RAMB18 async control check  
+The RAMB18E1 unified_buffer_instance/memory_bank_0_reg has an input control pin unified_buffer_instance/memory_bank_0_reg/ADDRBWRADDR[13] (net: unified_buffer_instance/selected_read_address[9]) which is driven by a register (systolic_controller_instance/cycle_count_reg[2]) that has an active asychronous set or reset. This may cause corruption of the memory contents and/or read values when the set/reset is asserted and is not analyzed by the default static timing analysis. It is suggested to eliminate the use of a set/reset to registers driving this RAMB pin or else use a synchronous reset in which the assertion of the reset is timed by default.
+Related violations: <none>
+
+REQP-1840#14 Warning
+RAMB18 async control check  
+The RAMB18E1 unified_buffer_instance/memory_bank_0_reg has an input control pin unified_buffer_instance/memory_bank_0_reg/ADDRBWRADDR[13] (net: unified_buffer_instance/selected_read_address[9]) which is driven by a register (systolic_controller_instance/cycle_count_reg[3]) that has an active asychronous set or reset. This may cause corruption of the memory contents and/or read values when the set/reset is asserted and is not analyzed by the default static timing analysis. It is suggested to eliminate the use of a set/reset to registers driving this RAMB pin or else use a synchronous reset in which the assertion of the reset is timed by default.
+Related violations: <none>
+
+REQP-1840#15 Warning
+RAMB18 async control check  
+The RAMB18E1 unified_buffer_instance/memory_bank_0_reg has an input control pin unified_buffer_instance/memory_bank_0_reg/ADDRBWRADDR[13] (net: unified_buffer_instance/selected_read_address[9]) which is driven by a register (systolic_controller_instance/cycle_count_reg[4]) that has an active asychronous set or reset. This may cause corruption of the memory contents and/or read values when the set/reset is asserted and is not analyzed by the default static timing analysis. It is suggested to eliminate the use of a set/reset to registers driving this RAMB pin or else use a synchronous reset in which the assertion of the reset is timed by default.
+Related violations: <none>
+
+REQP-1840#16 Warning
+RAMB18 async control check  
+The RAMB18E1 unified_buffer_instance/memory_bank_0_reg has an input control pin unified_buffer_instance/memory_bank_0_reg/ADDRBWRADDR[13] (net: unified_buffer_instance/selected_read_address[9]) which is driven by a register (systolic_controller_instance/cycle_count_reg[5]) that has an active asychronous set or reset. This may cause corruption of the memory contents and/or read values when the set/reset is asserted and is not analyzed by the default static timing analysis. It is suggested to eliminate the use of a set/reset to registers driving this RAMB pin or else use a synchronous reset in which the assertion of the reset is timed by default.
+Related violations: <none>
+
+REQP-1840#17 Warning
+RAMB18 async control check  
+The RAMB18E1 unified_buffer_instance/memory_bank_0_reg has an input control pin unified_buffer_instance/memory_bank_0_reg/ADDRBWRADDR[13] (net: unified_buffer_instance/selected_read_address[9]) which is driven by a register (systolic_controller_instance/cycle_count_reg[6]) that has an active asychronous set or reset. This may cause corruption of the memory contents and/or read values when the set/reset is asserted and is not analyzed by the default static timing analysis. It is suggested to eliminate the use of a set/reset to registers driving this RAMB pin or else use a synchronous reset in which the assertion of the reset is timed by default.
+Related violations: <none>
+
+REQP-1840#18 Warning
+RAMB18 async control check  
+The RAMB18E1 unified_buffer_instance/memory_bank_0_reg has an input control pin unified_buffer_instance/memory_bank_0_reg/ADDRBWRADDR[13] (net: unified_buffer_instance/selected_read_address[9]) which is driven by a register (systolic_controller_instance/cycle_count_reg[7]) that has an active asychronous set or reset. This may cause corruption of the memory contents and/or read values when the set/reset is asserted and is not analyzed by the default static timing analysis. It is suggested to eliminate the use of a set/reset to registers driving this RAMB pin or else use a synchronous reset in which the assertion of the reset is timed by default.
+Related violations: <none>
+
+REQP-1840#19 Warning
+RAMB18 async control check  
+The RAMB18E1 unified_buffer_instance/memory_bank_0_reg has an input control pin unified_buffer_instance/memory_bank_0_reg/ADDRBWRADDR[13] (net: unified_buffer_instance/selected_read_address[9]) which is driven by a register (systolic_controller_instance/cycle_count_reg[8]) that has an active asychronous set or reset. This may cause corruption of the memory contents and/or read values when the set/reset is asserted and is not analyzed by the default static timing analysis. It is suggested to eliminate the use of a set/reset to registers driving this RAMB pin or else use a synchronous reset in which the assertion of the reset is timed by default.
+Related violations: <none>
+
+REQP-1840#20 Warning
+RAMB18 async control check  
+The RAMB18E1 unified_buffer_instance/memory_bank_0_reg has an input control pin unified_buffer_instance/memory_bank_0_reg/ADDRBWRADDR[13] (net: unified_buffer_instance/selected_read_address[9]) which is driven by a register (systolic_controller_instance/cycle_count_reg[9]) that has an active asychronous set or reset. This may cause corruption of the memory contents and/or read values when the set/reset is asserted and is not analyzed by the default static timing analysis. It is suggested to eliminate the use of a set/reset to registers driving this RAMB pin or else use a synchronous reset in which the assertion of the reset is timed by default.
+Related violations: <none>
+
+ZPS7-1#1 Warning
+PS7 block required  
+The PS7 cell must be used in this Zynq design in order to enable correct default configuration.
+Related violations: <none>
+
+

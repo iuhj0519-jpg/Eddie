@@ -1,0 +1,93 @@
+schema_version: '1.0'
+target: optimized_accelerator
+run_id: review_20260907
+overall_state: pending_human_approval
+items:
+  PPA-DSP-001:
+    decision: pending
+    rtl_change_allowed: false
+    approved_spec_requirement: null
+  PPA-WEIGHT-001:
+    decision: pending
+    rtl_change_allowed: false
+    approved_spec_requirement: null
+  PPA-TIMING-001:
+    decision: pending
+    rtl_change_allowed: false
+    approved_spec_requirement: null
+  PPA-POWER-001:
+    decision: pending
+    rtl_change_allowed: false
+    approved_spec_requirement: null
+  IMPL-DRC-001:
+    decision: pending
+    rtl_change_allowed: false
+    approved_spec_requirement: null
+  PPA-ADDRESS-001:
+    decision: pending
+    rtl_change_allowed: false
+    approved_spec_requirement: null
+  PPA-MUX-001:
+    decision: pending
+    rtl_change_allowed: false
+    approved_spec_requirement: null
+  PPA-PIPELINE-001:
+    decision: pending
+    rtl_change_allowed: false
+    approved_spec_requirement: null
+  PPA-ROUTE-DELAY-001:
+    decision: pending
+    rtl_change_allowed: false
+    approved_spec_requirement: null
+  PPA-FANOUT-001:
+    decision: pending
+    rtl_change_allowed: false
+    approved_spec_requirement: null
+  DRC-NSTD-1:
+    decision: pending
+    rtl_change_allowed: false
+    approved_spec_requirement: null
+  DRC-UCIO-1:
+    decision: pending
+    rtl_change_allowed: false
+    approved_spec_requirement: null
+  DRC-CHECK-3:
+    decision: pending
+    rtl_change_allowed: false
+    approved_spec_requirement: null
+  DRC-DPIP-1:
+    decision: pending
+    rtl_change_allowed: false
+    approved_spec_requirement: null
+  DRC-DPOP-1:
+    decision: pending
+    rtl_change_allowed: false
+    approved_spec_requirement: null
+  DRC-DPOP-2:
+    decision: pending
+    rtl_change_allowed: false
+    approved_spec_requirement: null
+  DRC-RBOR-1:
+    decision: pending
+    rtl_change_allowed: false
+    approved_spec_requirement: null
+  DRC-REQP-1840:
+    decision: pending
+    rtl_change_allowed: false
+    approved_spec_requirement: null
+  DRC-ZPS7-1:
+    decision: pending
+    rtl_change_allowed: false
+    approved_spec_requirement: null
+  PPA-CONSTRAINT-001:
+    decision: pending
+    rtl_change_allowed: false
+    approved_spec_requirement: null
+  EVIDENCE-PROVENANCE-001:
+    decision: pending
+    rtl_change_allowed: false
+    approved_spec_requirement: null
+  EVIDENCE-COVERAGE-001:
+    decision: pending
+    rtl_change_allowed: false
+    approved_spec_requirement: null

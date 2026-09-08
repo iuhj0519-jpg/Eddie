@@ -1,0 +1,17 @@
+{
+  "purpose": "unmodified tool adapter smoke test, not approved debugging",
+  "stages": [
+    {
+      "stage": "compile",
+      "exit_code": 0
+    },
+    {
+      "stage": "simulation",
+      "exit_code": 0
+    },
+    {
+      "stage": "synthesis",
+      "exit_code": 0
+    }
+  ]
+}

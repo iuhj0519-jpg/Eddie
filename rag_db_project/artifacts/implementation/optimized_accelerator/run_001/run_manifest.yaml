@@ -1,0 +1,15 @@
+schema_version: '1.0'
+target: optimized_accelerator
+stage: post_route_checkpoint_diagnostics
+status: observed_pending_review
+tool: Vivado 2022.1
+part: xc7z020clg400-1
+clock_period_ns: 10.0
+checkpoint_path: C:/intelFPGA/18.1/dnn_optimization_project/vivado_ppa_compare/workspace_optimized/post_route.dcp
+checkpoint_sha256: 4db3ddaca3cd6a2009b7020f011acf2b38cc2caa7adceda47f6e9873dbdf2849
+collection_date: '2026-09-07'
+collection_script: rag/automation/collect_checkpoint.tcl
+rtl_modified: false
+placement_or_routing_rerun: false
+source_commit_binding: not_recorded_in_original_checkpoint_manifest
+note: Current workspace hashes are frozen separately in review binding; they do not prove the source identity of this older checkpoint.

@@ -1,0 +1,50 @@
+{
+  "approved_source_count": 102,
+  "cases": [
+    {
+      "id": "dsp_parallelism_finding",
+      "status": "PASS",
+      "top_chunk_id": "chunk-b86907fd1714e417154d990e",
+      "top_result": "experiments/automation_loop/optimized_accelerator/run_001/findings.yaml"
+    },
+    {
+      "id": "weight_storage_bottleneck",
+      "status": "PASS",
+      "top_chunk_id": "chunk-0072bea162ce7e36af7898cb",
+      "top_result": "experiments/automation_loop/optimized_accelerator/run_001/findings.yaml"
+    },
+    {
+      "id": "address_path_diagnosis",
+      "status": "PASS",
+      "top_chunk_id": "chunk-4d72f6fb5368bb3e793df7a6",
+      "top_result": "experiments/automation_loop/optimized_accelerator/review_20260908/diagnosis.md"
+    },
+    {
+      "id": "fanout_path_diagnosis",
+      "status": "PASS",
+      "top_chunk_id": "chunk-f46925e7960a8e88b75db3df",
+      "top_result": "experiments/automation_loop/optimized_accelerator/review_20260908/diagnosis.md"
+    },
+    {
+      "id": "mux_pipeline_diagnosis",
+      "status": "PASS",
+      "top_chunk_id": "chunk-2bf01f0a4f651b0396ef7e4b",
+      "top_result": "experiments/automation_loop/optimized_accelerator/review_20260908/diagnosis.md"
+    },
+    {
+      "id": "physical_weight_memory_mapping",
+      "status": "PASS",
+      "top_chunk_id": "chunk-e33abd45332c63bb456e5793",
+      "top_result": "experiments/automation_loop/optimized_accelerator/review_20260908/diagnosis.md"
+    }
+  ],
+  "chunk_count": 171,
+  "denied_chunk_count": 0,
+  "dense_vector_count": 171,
+  "fts_row_count": 171,
+  "index_id": "workspace_automation_loop_v1",
+  "phase": "automation_loop",
+  "retrieval_source_count": 31,
+  "schema_version": "1.0",
+  "status": "PASS"
+}

@@ -1,0 +1,114 @@
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2022.1 (win64) Build 3526262 Mon Apr 18 15:48:16 MDT 2022
+| Date         : Mon Sep  7 16:48:51 2026
+| Host         : BOOK-P2O9FRPHFQ running 64-bit major release  (build 9200)
+| Command      : report_ram_utilization -file C:/intelFPGA/18.1/dnn_optimization_project/.automation_build_20260907/artifacts/implementation/optimized_accelerator/run_001/ram_utilization.rpt
+| Design       : zyNet
+| Device       : xc7z020clg400-1
+| Speed File   : -1
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+RAM Usage Information
+
+Table of Contents
+-----------------
+1. Summary
+2. Memory Description
+3. Memory Utilization - Inferred
+4. Memory Performance - Inferred
+5. Block Ram / URAM Memory Power - Inferred
+
+1. Summary
+----------
+
++--------------------------+------------+-----------+-------+-----------+
+| Memory Type              | Total Used | Available | Util% | Inferred% |
++--------------------------+------------+-----------+-------+-----------+
+| URAM                     |          0 |         0 |  0.00 |      0.00 |
+| BlockRAM                 |        2.5 |       140 |  1.79 |    100.00 |
+|  RAMB18E1                |          5 |           |       |    100.00 |
+| LUTMs as Distributed RAM |          0 |     17400 |  0.00 |      0.00 |
+| XRAM                     |          0 |         0 |  0.00 |      0.00 |
++--------------------------+------------+-----------+-------+-----------+
+*  Each RAMB18 is calculated as 0.5 BlockRAM
+**  Tables 2, 3, 4 and 5 cover RAMs inferred by Vivado Synthesis using XPMs or RTL inference
+***  XRAMs are not reported for detailed tables
+
+
+2. Memory Description
+---------------------
+
++--------------------------------------------+------------+-------------+------------------------+------------------------+
+| Memory Name                                | Array Size | Memory Type | Port 1 Dimension / Map | Port 2 Dimension / Map |
++--------------------------------------------+------------+-------------+------------------------+------------------------+
+| unified_buffer_instance/memory_bank_0      |       6672 | RAM_SDP     | 1024x8                 | 1024x8                 |
+|  unified_buffer_instance/memory_bank_0_reg |       8192 |             |  A:A:1024x8            |  B:B:1024x8            |
+| unified_buffer_instance/memory_bank_1      |       6672 | RAM_SDP     | 1024x8                 | 1024x8                 |
+|  unified_buffer_instance/memory_bank_1_reg |       8192 |             |  A:A:1024x8            |  B:B:1024x8            |
+| unified_buffer_instance/memory_bank_2      |       6672 | RAM_SDP     | 1024x8                 | 1024x8                 |
+|  unified_buffer_instance/memory_bank_2_reg |       8192 |             |  A:A:1024x8            |  B:B:1024x8            |
+| unified_buffer_instance/memory_bank_3      |       6672 | RAM_SDP     | 1024x8                 | 1024x8                 |
+|  unified_buffer_instance/memory_bank_3_reg |       8192 |             |  A:A:1024x8            |  B:B:1024x8            |
+| unified_buffer_instance/memory_bank_4      |       6672 | RAM_SDP     | 1024x8                 | 1024x8                 |
+|  unified_buffer_instance/memory_bank_4_reg |       8192 |             |  A:A:1024x8            |  B:B:1024x8            |
++--------------------------------------------+------------+-------------+------------------------+------------------------+
+
+
+3. Memory Utilization - Inferred
+--------------------------------
+
++--------------------------------------------+-----------+----------------+-----------+-----------+---------+---------------+---------------+---------+---------------+---------------+---------+---------------+---------------+---------+---------------+---------------+
+| Memory Name                                | Primitive | Available Bits | Used Bits | Bit Util% | A Depth | A Depth Avail | A Depth Util% | A Width | A Width Avail | A Width Util% | B Depth | B Depth Avail | B Depth Util% | B Width | B Width Avail | B Width Util% |
++--------------------------------------------+-----------+----------------+-----------+-----------+---------+---------------+---------------+---------+---------------+---------------+---------+---------------+---------------+---------+---------------+---------------+
+| unified_buffer_instance/memory_bank_0      |           |                |           |           |         |               |               |         |               |               |         |               |               |         |               |               |
+|  unified_buffer_instance/memory_bank_0_reg | RAMB18E1  |          18432 |      8192 |     44.44 |    1024 |          1024 |        100.00 |       8 |            18 |         44.44 |    1024 |          1024 |        100.00 |       8 |            18 |         44.44 |
+| unified_buffer_instance/memory_bank_1      |           |                |           |           |         |               |               |         |               |               |         |               |               |         |               |               |
+|  unified_buffer_instance/memory_bank_1_reg | RAMB18E1  |          18432 |      8192 |     44.44 |    1024 |          1024 |        100.00 |       8 |            18 |         44.44 |    1024 |          1024 |        100.00 |       8 |            18 |         44.44 |
+| unified_buffer_instance/memory_bank_2      |           |                |           |           |         |               |               |         |               |               |         |               |               |         |               |               |
+|  unified_buffer_instance/memory_bank_2_reg | RAMB18E1  |          18432 |      8192 |     44.44 |    1024 |          1024 |        100.00 |       8 |            18 |         44.44 |    1024 |          1024 |        100.00 |       8 |            18 |         44.44 |
+| unified_buffer_instance/memory_bank_3      |           |                |           |           |         |               |               |         |               |               |         |               |               |         |               |               |
+|  unified_buffer_instance/memory_bank_3_reg | RAMB18E1  |          18432 |      8192 |     44.44 |    1024 |          1024 |        100.00 |       8 |            18 |         44.44 |    1024 |          1024 |        100.00 |       8 |            18 |         44.44 |
+| unified_buffer_instance/memory_bank_4      |           |                |           |           |         |               |               |         |               |               |         |               |               |         |               |               |
+|  unified_buffer_instance/memory_bank_4_reg | RAMB18E1  |          18432 |      8192 |     44.44 |    1024 |          1024 |        100.00 |       8 |            18 |         44.44 |    1024 |          1024 |        100.00 |       8 |            18 |         44.44 |
++--------------------------------------------+-----------+----------------+-----------+-----------+---------+---------------+---------------+---------+---------------+---------------+---------+---------------+---------------+---------+---------------+---------------+
+
+
+4. Memory Performance - Inferred
+--------------------------------
+
++--------------------------------------------+-----------+------------------------+------------------------+-------------+-------------------------+-------------+-------------------------+-----------+--------+--------+---------+-----------+--------+--------+---------+
+| Memory Name                                | Primitive | Port 1 Dimension / Map | Port 2 Dimension / Map | Port A Type | Port A Requirement (ns) | Port B Type | Port B Requirement (ns) | A Cascade | IREG_A | OREG_A | DOA_REG | B Cascade | IREG_B | OREG_B | DOB_REG |
++--------------------------------------------+-----------+------------------------+------------------------+-------------+-------------------------+-------------+-------------------------+-----------+--------+--------+---------+-----------+--------+--------+---------+
+| unified_buffer_instance/memory_bank_0      |           | 1024x8                 | 1024x8                 |             |                         |             |                         |           |        |        |         |           |        |        |         |
+|  unified_buffer_instance/memory_bank_0_reg | RAMB18E1  |  A:A:1024x8            |  B:B:1024x8            |       Write |                    10.0 |        Read |                    10.0 |           |        |        |       0 |           |        |        |       0 |
+| unified_buffer_instance/memory_bank_1      |           | 1024x8                 | 1024x8                 |             |                         |             |                         |           |        |        |         |           |        |        |         |
+|  unified_buffer_instance/memory_bank_1_reg | RAMB18E1  |  A:A:1024x8            |  B:B:1024x8            |       Write |                    10.0 |        Read |                    10.0 |           |        |        |       0 |           |        |        |       0 |
+| unified_buffer_instance/memory_bank_2      |           | 1024x8                 | 1024x8                 |             |                         |             |                         |           |        |        |         |           |        |        |         |
+|  unified_buffer_instance/memory_bank_2_reg | RAMB18E1  |  A:A:1024x8            |  B:B:1024x8            |       Write |                    10.0 |        Read |                    10.0 |           |        |        |       0 |           |        |        |       0 |
+| unified_buffer_instance/memory_bank_3      |           | 1024x8                 | 1024x8                 |             |                         |             |                         |           |        |        |         |           |        |        |         |
+|  unified_buffer_instance/memory_bank_3_reg | RAMB18E1  |  A:A:1024x8            |  B:B:1024x8            |       Write |                    10.0 |        Read |                    10.0 |           |        |        |       0 |           |        |        |       0 |
+| unified_buffer_instance/memory_bank_4      |           | 1024x8                 | 1024x8                 |             |                         |             |                         |           |        |        |         |           |        |        |         |
+|  unified_buffer_instance/memory_bank_4_reg | RAMB18E1  |  A:A:1024x8            |  B:B:1024x8            |       Write |                    10.0 |        Read |                    10.0 |           |        |        |       0 |           |        |        |       0 |
++--------------------------------------------+-----------+------------------------+------------------------+-------------+-------------------------+-------------+-------------------------+-----------+--------+--------+---------+-----------+--------+--------+---------+
+
+
+5. Block Ram / URAM Memory Power - Inferred
+-------------------------------------------
+
++--------------------------------------------+-----------+------------------------+------------------------+--------------------+---------------+-------------------+-----------+--------------------+---------------+-------------------+-----------+
+| Memory Name                                | Primitive | Port 1 Dimension / Map | Port 2 Dimension / Map | Port A Power Gated | Port A Enable | Port A WRITE_MODE | A Cascade | Port B Power Gated | Port B Enable | Port B WRITE_MODE | B Cascade |
++--------------------------------------------+-----------+------------------------+------------------------+--------------------+---------------+-------------------+-----------+--------------------+---------------+-------------------+-----------+
+| unified_buffer_instance/memory_bank_0      |           | 1024x8                 | 1024x8                 |                    |               |                   |           |                    |               |                   |           |
+|  unified_buffer_instance/memory_bank_0_reg | RAMB18E1  |  A:A:1024x8            |  B:B:1024x8            |        ENARDEN=AUG |        SIGNAL |        READ_FIRST |           |        ENARDEN=AUG |        SIGNAL |       WRITE_FIRST |           |
+| unified_buffer_instance/memory_bank_1      |           | 1024x8                 | 1024x8                 |                    |               |                   |           |                    |               |                   |           |
+|  unified_buffer_instance/memory_bank_1_reg | RAMB18E1  |  A:A:1024x8            |  B:B:1024x8            |        ENARDEN=AUG |        SIGNAL |        READ_FIRST |           |        ENARDEN=AUG |        SIGNAL |       WRITE_FIRST |           |
+| unified_buffer_instance/memory_bank_2      |           | 1024x8                 | 1024x8                 |                    |               |                   |           |                    |               |                   |           |
+|  unified_buffer_instance/memory_bank_2_reg | RAMB18E1  |  A:A:1024x8            |  B:B:1024x8            |        ENARDEN=AUG |        SIGNAL |        READ_FIRST |           |        ENARDEN=AUG |        SIGNAL |       WRITE_FIRST |           |
+| unified_buffer_instance/memory_bank_3      |           | 1024x8                 | 1024x8                 |                    |               |                   |           |                    |               |                   |           |
+|  unified_buffer_instance/memory_bank_3_reg | RAMB18E1  |  A:A:1024x8            |  B:B:1024x8            |        ENARDEN=AUG |        SIGNAL |        READ_FIRST |           |        ENARDEN=AUG |        SIGNAL |       WRITE_FIRST |           |
+| unified_buffer_instance/memory_bank_4      |           | 1024x8                 | 1024x8                 |                    |               |                   |           |                    |               |                   |           |
+|  unified_buffer_instance/memory_bank_4_reg | RAMB18E1  |  A:A:1024x8            |  B:B:1024x8            |        ENARDEN=AUG |        SIGNAL |        READ_FIRST |           |        ENARDEN=AUG |        SIGNAL |       WRITE_FIRST |           |
++--------------------------------------------+-----------+------------------------+------------------------+--------------------+---------------+-------------------+-----------+--------------------+---------------+-------------------+-----------+
+
+

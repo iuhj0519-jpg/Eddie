@@ -1,0 +1,17 @@
+schema_version: '1.0'
+target: optimized_accelerator
+stage: post_route
+status: observed_pending_review
+collection_date: '2026-09-08'
+source_directory: C:/intelFPGA/18.1/dnn_optimization_project/vivado_ppa_compare/workspace_optimized/ppa_final
+source_commit_binding: not_recorded_in_original_checkpoint_manifest
+note: Only the seven supplied reports are imported. Totals are derived from hierarchy;
+  no older utilization/RAM report is silently substituted.
+sha256:
+  critical_paths.rpt: 265370664f3cda493328272460152846055da90384b5e079c4ad18cbc5cba35f
+  drc.rpt: 51d765e97d1f268c31268c78e2c85181f1051cca81605a7304d1b9630c0d74ff
+  high_fanout_nets.rpt: b0b46c45fc38e93f8f244397e6096aae3fc5ae63a453058254eaa336118aa3c9
+  power.rpt: 415462cdee884a8353573a2ff7d4cc24a2d2d1853e35a50e8deb9a8f0ddd596a
+  route_status.rpt: 07646a5fe75d5a22396fa2ffd16cd7c10427c41e4a1b82c521db9a44223097aa
+  timing_summary.rpt: 8a178a52e408185b364b0d1db2b492e0667cf68226cf9815c87349ce4c1b4c01
+  utilization_hierarchical.rpt: c933a07d36ed6a7162d45a8efd4f2fcf9ebf956271ad2cf2e42efedfcdbcb81e

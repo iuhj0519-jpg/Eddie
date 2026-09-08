@@ -18,7 +18,7 @@ def _finding(fid: str, category: str, severity: str, evidence: dict[str, Any], s
     }
 
 
-def detect(metrics: dict[str, Any], policy: dict[str, Any]) -> list[dict[str, Any]]:
+def _base_detect(metrics: dict[str, Any], policy: dict[str, Any]) -> list[dict[str, Any]]:
     findings: list[dict[str, Any]] = []
     util = metrics.get("utilization", {})
     timing = metrics.get("timing", {})
@@ -142,4 +142,94 @@ def detect(metrics: dict[str, Any], policy: dict[str, Any]) -> list[dict[str, An
             {"observed_peak_active_pe_count": peak_active_pe, "expected_concurrent_pe_count": expected_dsp,
              "artifact_path": "verification_result.json"},
             "Cycle-level activity does not demonstrate simultaneous use of all Systolic Array PEs."))
+    return findings
+
+
+def detect(metrics: dict[str, Any], policy: dict[str, Any]) -> list[dict[str, Any]]:
+    findings = _base_detect(metrics, policy)
+    limits = policy.get("thresholds", {})
+    def add(fid, category, evidence, summary, severity="high"):
+        findings.append(_finding(fid, category, severity, evidence, summary))
+    for requirement in policy.get("memory_mapping_requirements", []):
+        rows = [(name, row) for name, row in metrics.get("hierarchy", {}).items()
+                if row.get("module") == requirement["module"]]
+        if not rows:
+            add("EVIDENCE-MEMORY-MAPPING-001", "missing_memory_mapping_evidence", requirement,
+                "Required memory hierarchy was not found. Physical mapping is UNKNOWN, not passed.", "medium")
+        for name, row in rows:
+            if requirement.get("storage") == "block_ram" and row.get("ramb18", 0) + row.get("ramb36", 0) == 0:
+                add("PPA-MEMORY-MAPPING-001", "physical_memory_mapping", {
+                    **requirement, "instance": name, "logic_lut": row.get("logic_lut"),
+                    "lutram": row.get("lutram"), "ramb18": row.get("ramb18"), "ramb36": row.get("ramb36"),
+                    "artifact_path": "utilization_hierarchical.rpt"},
+                    "Requested block-memory mapping is absent. An SRAM module name or synchronous output register does not prove BRAM inference. Review banked storage/ROM inference and address selection, independently of the LUT hotspot threshold.")
+    paths = [p for p in metrics.get("paths", []) if p["slack_ns"] < 0]
+    for fid, category, selected, description in (
+        ("PPA-ADDRESS-001", "address_generation_path", [p for p in paths if p["address_path"]],
+         "Failing path includes address/control generation. Review widths, arithmetic and memory access latency; cause remains a hypothesis until RTL/netlist review."),
+        ("PPA-MUX-001", "large_selection_path", [p for p in paths if p["mux_present"]],
+         "Failing path traverses dedicated MUX resources. Review selection depth and BRAM inference without assuming a specific fix."),
+        ("PPA-PIPELINE-001", "pipeline_depth", [p for p in paths if p.get("logic_levels", 0) >= limits.get("maximum_logic_levels", 12)],
+         "Deep failing combinational paths require pipeline review including valid, address and scheduler alignment."),
+        ("PPA-ROUTE-DELAY-001", "route_delay_dominance", [p for p in paths if p.get("route_ns", 0) / max(p.get("delay_ns", 0), .001) >= limits.get("route_delay_ratio", .6)],
+         "Routing dominates a failing path. Review fanout and placement with logic changes; this is not proof of congestion.")):
+        if selected:
+            add(fid, category, {"paths": selected[:20]}, description)
+    fanout = [p for p in metrics.get("fanout", []) if p["fanout"] >= limits.get("maximum_fanout", 500)]
+    if fanout:
+        add("PPA-FANOUT-001", "high_fanout", {"nets": fanout}, "High-fanout drivers require load distribution and timing review.")
+    for rule in metrics.get("drc_rules", []):
+        add("DRC-" + rule["rule"], "drc_rule", rule,
+            "Review reported DRC rule before approval; pipeline/reset/I/O recommendations must not be applied blindly.",
+            "critical" if rule["severity"] in ("Error", "Critical Warning") else "medium")
+    if any(metrics.get("unconstrained_io", {}).values()):
+        add("PPA-CONSTRAINT-001", "io_timing_coverage", metrics["unconstrained_io"], "External I/O delays are missing; timing coverage is incomplete.")
+    if metrics.get("unbound_checkpoint_source"):
+        add("EVIDENCE-PROVENANCE-001", "checkpoint_source_binding", {"artifact_path": "run_manifest.yaml"},
+            "Checkpoint identity is hashed, but its original RTL source hash was not recorded. Do not infer source equivalence from the model name.", "medium")
+    if metrics.get("implementation", {}).get("routing_errors", 0):
+        add("IMPL-ROUTE-ERROR-001", "routing_errors", metrics["implementation"], "Routing errors require review.", "critical")
+    warnings = [log for log in metrics.get("logs", []) if log.get("warning_count", 0)]
+    if warnings:
+        add("TOOL-WARNING-001", "unclassified_warning_review", {"logs": warnings}, "Review all raw warning records, including warnings not classified by a specific detector.", "medium")
+    for key, fid in (("whs_ns", "PPA-HOLD-001"), ("wpws_ns", "PPA-PULSE-001")):
+        value = metrics.get("timing", {}).get(key)
+        if value is not None and value < 0:
+            add(fid, "timing", {key: value}, "Timing check failed.", "critical")
+    unknown = [key for key, row in metrics.get("coverage", {}).items() if row["state"] == "unknown"]
+    if metrics.get("timing", {}).get("wns_ns") is None:
+        unknown.append("parsed_setup_timing")
+    if metrics.get("utilization", {}).get("lut") is None:
+        unknown.append("parsed_utilization")
+    if "whs_ns" not in metrics.get("timing", {}):
+        unknown.append("hold_timing")
+    verification = metrics.get("verification", {})
+    for key in ("protocol_errors", "peak_active_pe_count", "interrupt_count_per_batch"):
+        if verification.get(key) is None:
+            unknown.append(key)
+    if metrics.get("execution") and not metrics["execution"].get("all_tools_passed"):
+        add("VERIFY-EXECUTION-001", "tool_execution", metrics["execution"], "Tool execution failed or stages were skipped; inspect raw logs.", "critical")
+    if verification and not verification.get("completed", True):
+        add("VERIFY-COMPLETION-001", "simulation_incomplete", verification, "Expected simulation completion was not observed.", "critical")
+    previous = metrics.get("previous_metrics") or {}
+    for group, key, lower_worse in (("timing", "wns_ns", True), ("utilization", "lut", False),
+            ("utilization", "ff", False), ("power", "total_on_chip_power_w", False),
+            ("verification", "total_inference_cycles", False)):
+        before, after = previous.get(group, {}).get(key), metrics.get(group, {}).get(key)
+        if before is not None and after is not None and (after < before if lower_worse else after > before):
+            add("REGRESSION-" + key.upper().replace("_", "-"), "previous_run_regression",
+                {"before": before, "after": after, "metric": key}, "Metric worsened versus parent run; review the tradeoff, not an automatic rejection of all design changes.")
+    samples_before = previous.get("verification", {}).get("sample_results")
+    samples_after = verification.get("sample_results")
+    if samples_before and samples_after and samples_before != samples_after:
+        add("VERIFY-SAMPLE-REGRESSION-001", "sample_prediction_regression",
+            {"before": samples_before, "after": samples_after}, "Per-sample prediction changed despite possible equal aggregate accuracy.", "critical")
+    if unknown:
+        add("EVIDENCE-COVERAGE-001", "missing_evidence", {"unknown": sorted(set(unknown))},
+            "Missing/unparsed evidence is UNKNOWN, never a pass. Collect evidence or request a human decision.", "medium")
+    for item in findings:
+        evidence = item["evidence"]
+        name = evidence.get("artifact_path")
+        if name:
+            evidence["artifact_path"] = metrics.get("sources", {}).get(name.removesuffix(".rpt"), name)
     return findings
