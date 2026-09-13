@@ -8,6 +8,10 @@ purpose: >-
   finding to evidence, pause for human approval, and only then generate and revalidate a patch.
 
 state_machine:
+  - intake_raw_developer_request_and_chunk
+  - draft_additive_spec_with_measurable_acceptance
+  - human_approve_exact_spec_digest
+  - freeze_versioned_spec_overlay_and_refresh_rag
   - preflight
   - collect_artifacts
   - normalize_metrics
@@ -18,6 +22,8 @@ state_machine:
   - generate_patch_in_isolation
   - compile_simulate_synthesize
   - regression_decision
+  - evaluate_approved_requirements_and_propose_improvements
+  - draft_next_spec_and_wait_for_fresh_approval_or_final_acceptance
   - validated_or_next_iteration
 
 required_traceability_chain:
@@ -71,6 +77,14 @@ evidence_policy:
   missing_evidence_action: record_unknown_and_request_human_decision
 
 runtime_contract:
+  requirement_intake: preserve_raw_text_and_ids_never_infer_approval
+  spec_versions: immutable_additive_overlay_with_baseline_and_ancestor_hashes
+  approval_requires_existing_requirement_in_bound_spec: true
+  proposals_cover_all_findings_not_only_weight_sram: true
+  manual_predicates_require_bound_evidence_and_named_human_review: true
+  rag_refresh_after_lifecycle_events: required_local_only
+  final_acceptance_requires_same_source_post_route_and_full_evidence: true
+  specification_relaxation: not_supported_by_additive_revision_requires_separate_review
   detection_is_exhaustive_guarantee: false
   review_all_available_reports_and_unclassified_warnings: true
   four_existing_findings_are_not_an_allowlist: true

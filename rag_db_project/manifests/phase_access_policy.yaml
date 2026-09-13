@@ -90,7 +90,25 @@ phases:
     enabled: true
     external_knowledge_access: false
     purpose: detect, explain, approve, patch and revalidate current Workspace iteration findings
+    # Lifecycle outputs do not exist until their event occurs. Never create fake approvals.
+    retrieval_optional:
+      - experiments/automation_loop/**/request.md
+      - experiments/automation_loop/**/SPEC.md
+      - experiments/automation_loop/**/requirements.yaml
+      - experiments/automation_loop/**/spec.yaml
+      - experiments/automation_loop/**/requirements_result.json
+      - experiments/automation_loop/**/optimization_assessment.json
+      - experiments/automation_loop/**/requirement_reviews.yaml
+      - experiments/automation_loop/**/final_acceptance.yaml
     retrieval_allow:
+      - experiments/automation_loop/**/request.md
+      - experiments/automation_loop/**/SPEC.md
+      - experiments/automation_loop/**/requirements.yaml
+      - experiments/automation_loop/**/spec.yaml
+      - experiments/automation_loop/**/requirements_result.json
+      - experiments/automation_loop/**/optimization_assessment.json
+      - experiments/automation_loop/**/requirement_reviews.yaml
+      - experiments/automation_loop/**/final_acceptance.yaml
       - experiments/automation_loop/README.md
       - experiments/automation_loop/**/diagnosis.md
       - experiments/automation_loop/**/spec_change_proposal.md

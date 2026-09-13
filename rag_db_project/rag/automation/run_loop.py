@@ -22,10 +22,12 @@ if __package__:
     from .detectors import detect
     from .parsers import collect_metrics
     from . import tool_flow
+    from . import lifecycle
 else:
     from detectors import detect
     from parsers import collect_metrics
     import tool_flow
+    import lifecycle
 
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -84,6 +86,7 @@ def spec_hashes():
 def runtime_hashes():
     paths = list((ROOT / "rag/automation").glob("*.py")) + list((ROOT / "rag/automation").glob("*.tcl"))
     paths += [ROOT / "manifests" / name for name in ("automation_loop_policy.yaml", "phase_access_policy.yaml")]
+    paths.append(ROOT / "rag/ingest/build_index.py")
     return {p.relative_to(ROOT).as_posix(): sha256(p) for p in paths if p.is_file()}
 
 
@@ -131,6 +134,14 @@ def write_diagnosis(path: Path, target: str, run_id: str, findings: list[dict[st
 
 def analyze(args: argparse.Namespace, config: dict[str, Any]) -> int:
     target = args.target
+    if getattr(args, "parent_run", None) and not getattr(args, "source_workspace", None):
+        parent = safe_run(target, args.parent_run)
+        verify_binding(parent, config)
+        prior = load_yaml(parent / "run_manifest.yaml")
+        args.source_workspace = ROOT / prior["binding"]["workspace"]
+        args.previous_metrics = json.loads((parent / "analysis_result.json").read_text(encoding="utf-8"))["metrics"]
+        args.spec_revision = getattr(args, "spec_revision", None) or prior.get("spec_revision")
+        args.iteration = prior.get("iteration", 0)
     artifact_root = bound_artifact(ROOT / (args.artifact_root or f"artifacts/synthesis/{target}/run_001"))
     target_root = ROOT / "experiments" / "automation_loop" / target
     run_id = args.run_id or next_run_id(target_root)
@@ -139,8 +150,22 @@ def analyze(args: argparse.Namespace, config: dict[str, Any]) -> int:
         raise SystemExit(f"Refusing to overwrite existing run: {run_root}")
 
     metrics = collect_metrics(artifact_root)
+    context_path = artifact_root / "comparison_context.json"
+    metrics["comparison_context"] = lifecycle.read(context_path) if context_path.exists() else {}
     metrics["previous_metrics"] = getattr(args, "previous_metrics", None)
     findings = detect(metrics, config)
+    revision = getattr(args, "spec_revision", None)
+    spec = lifecycle.get_revision(ROOT, target, revision) if revision else None
+    # Physical memory checks use the actual hierarchy, never a module name alone.
+    weight_rows = [r for r in metrics.get("hierarchy", {}).values() if r.get("module") == "weight_sram"]
+    if weight_rows:
+        metrics.setdefault("ram", {})["weight_block_count"] = sum(r.get("ramb18", 0) + r.get("ramb36", 0) for r in weight_rows)
+    evaluation = lifecycle.evaluate(spec, metrics) if spec else []
+    for row in evaluation:
+        if row["state"] != "pass":
+            findings.append({"finding_id": "SPEC-CHECK-" + row["requirement_id"],
+                "category": "approved_spec_verification", "severity": "high", "state": "pending_human_approval",
+                "summary": "Approved requirement is " + row["state"], "evidence": row})
     workspace = Path(getattr(args, "source_workspace", None) or ROOT / "workspace" / target)
     if not workspace.resolve().is_relative_to(ROOT.resolve()):
         raise SystemExit("Workspace must be local")
@@ -166,6 +191,8 @@ def analyze(args: argparse.Namespace, config: dict[str, Any]) -> int:
         "schema_version": "1.0", "experiment_type": "automation_loop", "target": target,
         "run_id": run_id, "status": status,
         "binding": binding,
+        "spec_revision": revision,
+        "spec_sha256": lifecycle.digest(spec) if spec else None,
         "parent_run": getattr(args, "parent_run", None),
         "iteration": getattr(args, "iteration", 0),
         "source": {"workspace": f"workspace/{target}", "artifact_root": artifact_root.relative_to(ROOT).as_posix(),
@@ -177,9 +204,19 @@ def analyze(args: argparse.Namespace, config: dict[str, Any]) -> int:
     write_diagnosis(run_root / "diagnosis.md", target, run_id, findings)
     dump_json(run_root / "coverage.json", metrics.get("coverage", {}))
     dump_json(run_root / "gate_status.json", {"status": "not_approved", "message": "Run is not approved for patch generation."})
-    (run_root / "spec_change_proposal.md").write_text(
-        "# Pending review — not an approved SPEC\n\n" + "\n".join(f"- {f['finding_id']}: {f['summary']}" for f in findings)
-        + "\n\nAssign an approved SPEC Requirement ID to each authorized change. No approved SPEC was modified.\n", encoding="utf-8")
+    lifecycle.propose(ROOT, run_root, target, findings, revision)
+    if getattr(args, "request_id", None):
+        lifecycle.attach_request(ROOT, run_root, target, args.request_id)
+    dump_json(run_root / "requirements_result.json", {"spec_revision": revision, "results": evaluation,
+        "state": "unbound" if not spec else "pass" if all(r["state"] == "pass" for r in evaluation) else "needs_review"})
+    dump_json(run_root / "optimization_assessment.json", {
+        "compliance": evaluation,
+        "ppa_comparison": lifecycle.compare(metrics),
+        "improvement_candidates": [f["finding_id"] for f in findings],
+        "decision": "propose_and_reapprove" if findings else "candidate_pending_full_validation",
+        "tradeoff_policy": "An area/power regression is not automatically a rejection; require same-stage, clock, workload and activity evidence plus human disposition.",
+        "post_route": "required_before_final_acceptance"})
+    lifecycle.sync(ROOT)
     print(f"{status}: {run_root.relative_to(ROOT)}")
     return 2 if findings else 0
 
@@ -190,6 +227,8 @@ def approve(args: argparse.Namespace, config: dict[str, Any]) -> int:
     binding = verify_binding(run_root, config)
     if args.decision == "approved" and not args.requirement_id:
         raise SystemExit("An approved SPEC Requirement ID is required")
+    if args.decision == "approved":
+        lifecycle.authorize(ROOT, args.target, manifest.get("spec_revision"), args.requirement_id, args.finding_id)
     path = run_root / "approval.yaml"
     approval = load_yaml(path)
     if args.finding_id not in approval.get("items", {}):
@@ -211,6 +250,7 @@ def approve(args: argparse.Namespace, config: dict[str, Any]) -> int:
         "message": "Run is approved for patch generation." if approval["overall_state"] == "approved_for_patch_generation" else "Run is not approved for patch generation.",
     })
     print(approval["overall_state"])
+    lifecycle.sync(ROOT)
     return 0
 
 
@@ -218,6 +258,10 @@ def approve(args: argparse.Namespace, config: dict[str, Any]) -> int:
 
 def verify_binding(run_root, config):
     manifest = load_yaml(run_root / "run_manifest.yaml")
+    if manifest.get("spec_revision"):
+        spec = lifecycle.get_revision(ROOT, manifest["target"], manifest["spec_revision"])
+        if lifecycle.digest(spec) != manifest.get("spec_sha256"):
+            raise SystemExit("Stale SPEC revision; re-analyze")
     binding = manifest.get("binding")
     if not binding:
         raise SystemExit("Legacy run has no approval binding; collect a fresh analysis before approval")
@@ -266,6 +310,9 @@ def resume(args: argparse.Namespace, config: dict[str, Any]) -> int:
     if any(row.get("binding_sha256") != fingerprint(binding) or row.get("decision") not in ("approved", "rejected") for row in approval["items"].values()):
         raise SystemExit("Every finding requires a fresh bound human decision")
     manifest = load_yaml(run_root / "run_manifest.yaml")
+    for fid, row in approval["items"].items():
+        if row["decision"] == "approved":
+            lifecycle.authorize(ROOT, args.target, manifest.get("spec_revision"), row["approved_spec_requirement"], fid)
     if manifest.get("iteration", 0) >= config["loop"]["max_iterations"] or manifest.get("stop_reason"):
         raise SystemExit("Iteration stop condition reached")
     commands = config.get("commands", {}).get(args.target, [])
@@ -339,6 +386,7 @@ def resume(args: argparse.Namespace, config: dict[str, Any]) -> int:
     dump_json(combined / "execution_result.json", result)
     analyze(argparse.Namespace(target=args.target, run_id=child, artifact_root=combined.relative_to(ROOT).as_posix(),
         source_workspace=debug, parent_run=args.run_id, iteration=manifest.get("iteration", 0) + 1,
+        spec_revision=manifest.get("spec_revision"),
         previous_metrics=json.loads((run_root / "analysis_result.json").read_text(encoding="utf-8"))["metrics"]), config)
     child_root = run_root.parent / child
     child_manifest = load_yaml(child_root / "run_manifest.yaml")
@@ -365,6 +413,7 @@ def resume(args: argparse.Namespace, config: dict[str, Any]) -> int:
     dump_json(child_root / "revalidation_result.json", result)
     dump_json(run_root / "revalidation_result.json", result)
     dump_json(run_root / "progress.json", {"state": "awaiting_human_review", "child_run": child})
+    lifecycle.sync(ROOT)
     return 2 if child_findings or not result["all_tools_passed"] else 0
 
 
@@ -385,6 +434,9 @@ def main() -> int:
     analyze_parser.add_argument("--target", required=True, choices=["systolic_prototype", "optimized_accelerator"])
     analyze_parser.add_argument("--artifact-root")
     analyze_parser.add_argument("--run-id")
+    analyze_parser.add_argument("--spec-revision")
+    analyze_parser.add_argument("--request-id")
+    analyze_parser.add_argument("--parent-run")
     approve_parser = sub.add_parser("approve")
     approve_parser.add_argument("--target", required=True)
     approve_parser.add_argument("--run-id", required=True)
@@ -396,8 +448,16 @@ def main() -> int:
     resume_parser.add_argument("--run-id", required=True)
     status_parser = sub.add_parser("status")
     status_parser.add_argument("--target", required=True)
+    lifecycle.register_cli(sub)
     args = parser.parse_args()
     config = load_yaml(args.config)
+    if args.command in ("review-requirement", "accept", "bind-spec"):
+        if args.config != DEFAULT_CONFIG:
+            raise SystemExit("Review/accept use the bound default configuration")
+        return {"accept": lifecycle.accept, "review-requirement": lifecycle.review_requirement,
+                "bind-spec": lifecycle.bind_spec}[args.command](sys.modules[__name__], args)
+    if args.command in ("intake", "approve-spec", "sync"):
+        return lifecycle.dispatch(args, ROOT)
     return {"analyze": analyze, "approve": approve, "resume": resume, "status": status}[args.command](args, config)
 
 

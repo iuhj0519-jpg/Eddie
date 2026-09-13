@@ -7,10 +7,18 @@ purpose: >-
 
 retrieval_sources:
   narrative:
+    - experiments/automation_loop/**/request.md
+    - experiments/automation_loop/**/SPEC.md
     - experiments/automation_loop/README.md
     - experiments/automation_loop/**/diagnosis.md
     - experiments/automation_loop/**/spec_change_proposal.md
   structured:
+    - experiments/automation_loop/**/requirements.yaml
+    - experiments/automation_loop/**/spec.yaml
+    - experiments/automation_loop/**/requirements_result.json
+    - experiments/automation_loop/**/optimization_assessment.json
+    - experiments/automation_loop/**/requirement_reviews.yaml
+    - experiments/automation_loop/**/final_acceptance.yaml
     - experiments/automation_loop/**/run_manifest.yaml
     - experiments/automation_loop/**/findings.yaml
     - experiments/automation_loop/**/approval.yaml

@@ -1,6 +1,16 @@
 # 승인 기반 RTL Automation Loop
 
-## 최신 승인 대상 (2026-09-08)
+## 요구사항/SPEC 반복 Loop (2026-09-13)
+
+최신 기능과 명령은 [LIFECYCLE.md](LIFECYCLE.md)를 기준으로 한다.
+`intake → SPEC 초안 → approve-spec → bind-spec → Finding approve → resume → 다음 Run/SPEC 초안`을 연결했다.
+현재 `review_20260913`은 미승인 초안이며, 실제 SPEC/Finding 승인이나 RTL Debugging은 실행하지 않았다.
+모든 Finding을 제안으로 변환하며 `requirements_result.json`과 `optimization_assessment.json`으로
+기존 SPEC 충족 여부와 추가 개선 후보를 구분한다. 승인된 Requirement ID의 실제 존재와 Finding 연결을 검사한다.
+이전 review는 Runtime/Policy 변경 전 기록이므로 현재 승인 대상으로 사용하지 않는다.
+Vivado 오류 원인과 출력 위치는 [SIMULATION_DIAGNOSIS.md](SIMULATION_DIAGNOSIS.md)에 정리했다.
+
+## 이전 승인 대상 기록 (2026-09-08, 현재는 superseded)
 
 현재 검토 대상은 `review_20260908`이다. 아래의 2026-09-07 명령 예제는 이전 기록이며,
 실제 승인/resume 시 `--run-id review_20260908`을 사용한다. 기존 run_001/run_002와 이전 review는 보존한다.

@@ -17,6 +17,8 @@ class Tests(unittest.TestCase):
         self.root = Path(self.temp.name)
         self.previous = loop.ROOT
         loop.ROOT = self.root
+        self.sync_patch = patch.object(loop.lifecycle, "sync")
+        self.sync_patch.start()
         self.config = {"thresholds": {}, "loop": {"max_iterations": 5, "stop_on_repeated_fingerprint": 2},
             "commands": {"optimized_accelerator": [{"stage": name, "tool": __file__} for name in ("compile", "simulation", "synthesis")]}}
         for folder in ("rtl", "tb", "memory", "scripts"):
@@ -25,9 +27,18 @@ class Tests(unittest.TestCase):
             (p / ("top.sv" if folder == "rtl" else "fixture.txt")).write_text("module top; endmodule\n")
         self.artifact = self.root / "artifacts/synthesis/optimized_accelerator/run_001"
         self.artifact.mkdir(parents=True)
-        self.args = argparse.Namespace(target="optimized_accelerator", run_id="run_001", artifact_root=None)
+        self.args = argparse.Namespace(target="optimized_accelerator", run_id="run_001", artifact_root=None, spec_revision="spec_001")
+        doc = {"target": "optimized_accelerator", "state": "approved", "revision": "spec_001",
+               "baseline_hashes": {}, "requirements": [{"requirement_id": "TEST-ONLY-001",
+               "finding_ids": ["EVIDENCE-COVERAGE-001"], "kind": "evidence", "before": {}, "after": "fixture",
+               "verification": "fixture", "expected_benefit": "fixture", "risk": "fixture",
+               "acceptance": [{"metric": "fixture", "op": "eq", "value": True}]}]}
+        dest = self.root / "experiments/automation_loop/optimized_accelerator/spec_versions/spec_001"
+        loop.dump_yaml(dest / "spec.yaml", doc)
+        loop.dump_yaml(dest / "approval.yaml", {"spec_sha256": loop.lifecycle.digest(doc)})
 
     def tearDown(self):
+        self.sync_patch.stop()
         loop.ROOT = self.previous
         self.temp.cleanup()
 

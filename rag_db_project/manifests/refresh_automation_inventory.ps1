@@ -3,6 +3,7 @@ $ErrorActionPreference = 'Stop'
 $projectPath = (Resolve-Path -LiteralPath $ProjectRoot).Path
 $inventoryPath = Join-Path $projectPath 'manifests/checksums/automation_loop_files.sha256'
 $relativePaths = [System.Collections.Generic.HashSet[string]]::new()
+[void]$relativePaths.Add('rag/ingest/build_index.py')
 if (Test-Path -LiteralPath $inventoryPath) {
     foreach ($line in Get-Content -LiteralPath $inventoryPath) {
         if ($line -match '^[0-9a-fA-F]{64}\s+(.+)$') { [void]$relativePaths.Add($Matches[1]) }
