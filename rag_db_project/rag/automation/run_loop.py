@@ -91,7 +91,7 @@ def runtime_hashes():
 
 
 def safe_run(target, run_id):
-    if target not in ("systolic_prototype", "optimized_accelerator") or not re.fullmatch(r"(?:run_\d{3,}|review_\d{8})", run_id):
+    if target not in ("systolic_prototype", "optimized_accelerator") or not re.fullmatch(r"(?:run|analysis)_\d{3,}", run_id):
         raise SystemExit("Invalid target/run identifier")
     return ROOT / "experiments" / "automation_loop" / target / run_id
 
@@ -104,8 +104,13 @@ def bound_artifact(path):
 
 
 def next_run_id(target_root: Path) -> str:
-    ids = [int(path.name.split("_")[-1]) for path in target_root.glob("run_[0-9][0-9][0-9]")]
+    ids = [int(path.name.split("_")[-1]) for path in target_root.glob("run_*") if re.fullmatch(r"run_\d{3,}", path.name)]
     return f"run_{max(ids, default=0) + 1:03d}"
+
+
+def next_analysis_id(target_root: Path) -> str:
+    ids = [int(path.name.split("_")[-1]) for path in target_root.glob("analysis_*") if re.fullmatch(r"analysis_\d{3,}", path.name)]
+    return f"analysis_{max(ids, default=0) + 1:03d}"
 
 
 def run_command(command: list[str], cwd: Path, log_path: Path) -> int:
@@ -144,7 +149,7 @@ def analyze(args: argparse.Namespace, config: dict[str, Any]) -> int:
         args.iteration = prior.get("iteration", 0)
     artifact_root = bound_artifact(ROOT / (args.artifact_root or f"artifacts/synthesis/{target}/run_001"))
     target_root = ROOT / "experiments" / "automation_loop" / target
-    run_id = args.run_id or next_run_id(target_root)
+    run_id = args.run_id or next_analysis_id(target_root)
     run_root = safe_run(target, run_id)
     if run_root.exists() and any(run_root.iterdir()):
         raise SystemExit(f"Refusing to overwrite existing run: {run_root}")
@@ -420,7 +425,8 @@ def resume(args: argparse.Namespace, config: dict[str, Any]) -> int:
 def status(args: argparse.Namespace, config: dict[str, Any]) -> int:
     del config
     target_root = ROOT / "experiments" / "automation_loop" / args.target
-    for path in sorted(target_root.glob("run_*/run_manifest.yaml")):
+    paths = list(target_root.glob("run_*/run_manifest.yaml")) + list(target_root.glob("analysis_*/run_manifest.yaml"))
+    for path in sorted(paths):
         manifest = load_yaml(path)
         print(f"{manifest.get('run_id')}: {manifest.get('status')}")
     return 0
@@ -450,6 +456,8 @@ def main() -> int:
     status_parser.add_argument("--target", required=True)
     lifecycle.register_cli(sub)
     args = parser.parse_args()
+    if args.command == "analyze" and args.run_id and args.run_id.startswith("run_"):
+        raise SystemExit("CLI analysis uses analysis_NNN; run_NNN is reserved for approved patch execution")
     config = load_yaml(args.config)
     if args.command in ("review-requirement", "accept", "bind-spec"):
         if args.config != DEFAULT_CONFIG:

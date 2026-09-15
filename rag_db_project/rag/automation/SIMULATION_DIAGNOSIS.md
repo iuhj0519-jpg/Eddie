@@ -1,4 +1,40 @@
-# Vivado 프로젝트/Simulation 진단 — 2026-09-13
+# Vivado 프로젝트/Simulation 진단
+
+## 현재 사례: 올바른 RTL이지만 XSim의 데이터 경로 누락
+
+현재 rag_simulation_project는 Git optimized TB를 실행한다. 그러나 simulate.log에는 Weight/Bias/Activation
+MIF와 MNIST 파일을 열 수 없다는 경고가 있다. `expected=x`, PASS=0/FAIL=100 및 Golden FAIL은
+정상 데이터로 측정한 Accuracy가 아니다. 표시된 161735 cycles/77977 backpressure 역시 정상 workload 성능 증거로 쓰지 않는다.
+입력/정답뿐 아니라 모델 파라미터도 누락되었으므로 MNIST만 복사해서는 부족하다.
+원본 Git testdata에는 100개 파일이 있지만, 실제 XSim 경로의 두 대상 폴더에는 필요한 파일이 없다.
+
+ModelSim 어댑터는 target workspace를 cwd로 사용한다. XSim GUI는 project.sim/sim_1/behav/xsim에서 실행하므로
+같은 상대 경로가 다른 위치를 가리킨다. RTL 파일의 Location을 기준으로 readmemb 경로가 해석되는 것이 아니다.
+
+시뮬레이션을 닫고 Vivado Tcl Console에서 아래 준비 후 Run Behavioral Simulation을 다시 실행한다.
+실행 중 단순 run all만 반복하면 이미 X로 초기화된 상태가 계속되므로 처음부터 재시작해야 한다.
+
+```tcl
+set repo {C:/Users/iuhj0/Eddie/rag_db_project}
+set sim {C:/intelFPGA/18.1/dnn_optimization_project/vivado_ppa_compare/rag_simulation_project/rag_simulation_project.sim/sim_1/behav/xsim}
+set memory_files [glob "$repo/workspace/optimized_accelerator/memory/*.mif"]
+set test_files [glob "$repo/inputs/reference_model/testdata/test_data_*.txt"]
+if {[llength $memory_files] != 121 || [llength $test_files] != 100} {
+    error "Unexpected source file counts; stop and inspect paths"
+}
+set test_dir [file normalize "$sim/../../inputs/reference_model/testdata"]
+file mkdir "$sim/memory" $test_dir
+foreach src $memory_files { file copy -force $src "$sim/memory/[file tail $src]" }
+foreach src $test_files { file copy -force $src "$test_dir/[file tail $src]" }
+puts "Memory: [llength [glob $sim/memory/*.mif]]; MNIST: [llength [glob $test_dir/test_data_*.txt]]"
+```
+
+그 다음 Behavioral Simulation을 열어 `run all`로 완료까지 진행한다.
+경고가 없고 FINAL_RESULT 및 REFERENCE_GOLDEN_MATCH PASS가 나오는지 확인한다.
+여전히 실패하면 새 로그의 처음부터 확인한다. 데이터 경로 해결만으로 다른 기능 오류까지 없다고 보장하지 않는다.
+이 절차는 안내이며 이번 이름 변경 작업에서 실제 복사/재시뮬레이션은 수행하지 않았다.
+
+## 이전 사례: 다른 소스를 참조한 프로젝트
 
 실제 RTL은 변경하지 않았다. 첨부 화면과 로컬 XPR/Tcl/소스를 대조한 결과다.
 
@@ -23,7 +59,7 @@
 - Design Top=zyNet, Simulation Top=top_sim. Sources에서 해당 모듈을 우클릭해 Set as Top을 각각 설정한다.
 - include directory는 해당 rtl 폴더다. TB의 `memory/`와 `../../inputs/reference_model/testdata` 상대경로가
   실행 디렉터리에서 실제로 존재하는지 확인한다. 파일을 프로젝트에 추가했다는 것만으로 상대경로가 일치하지는 않는다.
-- 필요하면 기존 [Power 절차](../../experiments/automation_loop/final_review_20260908/POWER_SAIF_GUIDE.md)의
+- 필요하면 기존 [Power 절차](../../experiments/automation_loop/ppa_summary/POWER_SAIF_GUIDE.md)의
   target 폴더에서 xvlog/xelab/xsim을 실행하는 방법을 사용한다. 경로 보존을 위해 복사본도 project/workspace/target 구조를 유지한다.
 
 Vivado 프로젝트 Tcl Console에서 읽기 전용으로 확인:

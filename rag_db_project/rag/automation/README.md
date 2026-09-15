@@ -1,10 +1,17 @@
 # 승인 기반 RTL Automation Loop
 
+## 현재 이름 정책
+
+[디렉터리 정책](DIRECTORY_POLICY.md)을 따른다. 날짜형 review는 analysis_NNN으로 변경했다.
+analysis는 기존 증거의 재분석이며, run은 앞으로 승인된 패치의 실행 결과에 사용한다.
+이름/코드 변경 뒤 과거 분석의 hash binding은 자동 재승인하지 않는다. 아래 이전 승인 대상 안내는 이력이며,
+다음 실제 승인 전에 재분석이 필요하다. 설명/열람만으로 새로운 analysis 폴더를 만들지 않는다.
+
 ## 요구사항/SPEC 반복 Loop (2026-09-13)
 
 최신 기능과 명령은 [LIFECYCLE.md](LIFECYCLE.md)를 기준으로 한다.
 `intake → SPEC 초안 → approve-spec → bind-spec → Finding approve → resume → 다음 Run/SPEC 초안`을 연결했다.
-현재 `review_20260913`은 미승인 초안이며, 실제 SPEC/Finding 승인이나 RTL Debugging은 실행하지 않았다.
+현재 `analysis_003`은 미승인 초안이며, 실제 SPEC/Finding 승인이나 RTL Debugging은 실행하지 않았다.
 모든 Finding을 제안으로 변환하며 `requirements_result.json`과 `optimization_assessment.json`으로
 기존 SPEC 충족 여부와 추가 개선 후보를 구분한다. 승인된 Requirement ID의 실제 존재와 Finding 연결을 검사한다.
 이전 review는 Runtime/Policy 변경 전 기록이므로 현재 승인 대상으로 사용하지 않는다.
@@ -12,9 +19,9 @@ Vivado 오류 원인과 출력 위치는 [SIMULATION_DIAGNOSIS.md](SIMULATION_DI
 
 ## 이전 승인 대상 기록 (2026-09-08, 현재는 superseded)
 
-현재 검토 대상은 `review_20260908`이다. 아래의 2026-09-07 명령 예제는 이전 기록이며,
-실제 승인/resume 시 `--run-id review_20260908`을 사용한다. 기존 run_001/run_002와 이전 review는 보존한다.
-최종 테이블과 Power 절차: [최종 정리](../../experiments/automation_loop/final_review_20260908/diagnosis.md).
+현재 검토 대상은 `analysis_002`이다. 아래의 2026-09-07 명령 예제는 이전 기록이며,
+실제 승인/resume 시 `--run-id analysis_002`을 사용한다. 기존 run_001/run_002와 이전 review는 보존한다.
+최종 테이블과 Power 절차: [최종 정리](../../experiments/automation_loop/ppa_summary/diagnosis.md).
 
 `PPA-MEMORY-MAPPING-001`은 SRAM이라는 모듈 이름과 실제 FPGA Block RAM 매핑을 구분한다.
 설정에서 block_ram이 요청된 Weight 계층의 RAMB18/RAMB36이 0이면 LUT hotspot 비율과 무관하게 검출한다.
@@ -71,16 +78,16 @@ Python은 도구 실행·파싱·승인 Gate를 담당한다. 수정안 생성�
 
 ## 실행 예
 
-프로젝트 루트에서 `python rag/automation/run_loop.py analyze --target optimized_accelerator --artifact-root artifacts/implementation/optimized_accelerator/run_001 --run-id review_20260907`
+프로젝트 루트에서 `python rag/automation/run_loop.py analyze --target optimized_accelerator --artifact-root artifacts/implementation/optimized_accelerator/run_001 --run-id analysis_001`
 
 review_YYYYMMDD는 승인 전 근거 분석용이며 run_003 등 Debugging 실행 번호를 소비하지 않는다.
 과거 run_001/run_002는 불변 이력으로 유지한다. 바인딩이 없는 과거 Run 승인은 차단되며 새 review를 승인해야 한다.
 
 사용자 명시 승인 뒤에만:
 
-`python rag/automation/run_loop.py approve --target optimized_accelerator --run-id review_20260907 --finding-id <ID> --decision approved --requirement-id <승인된-SPEC-ID>`
+`python rag/automation/run_loop.py approve --target optimized_accelerator --run-id analysis_001 --finding-id <ID> --decision approved --requirement-id <승인된-SPEC-ID>`
 
-모든 항목 검토 후 `python rag/automation/run_loop.py resume --target optimized_accelerator --run-id review_20260907`.
+모든 항목 검토 후 `python rag/automation/run_loop.py resume --target optimized_accelerator --run-id analysis_001`.
 패치가 없으면 patch_request.json 생성 후 Agent를 기다린다. Agent가 패치·추적 문서를 작성한 뒤 resume로 실행한다.
 
 ```yaml

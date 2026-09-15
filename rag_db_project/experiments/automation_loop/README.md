@@ -1,10 +1,17 @@
 # Automated Verification And Debugging Loop
 
+## 현재 디렉터리 정책
+
+`analysis_NNN`은 기존 증거 분석, `run_NNN`은 승인된 패치 실행과 재검증이다.
+날짜형 review 폴더를 사용하지 않는다. [정책 문서](../../rag/automation/DIRECTORY_POLICY.md)를 따른다.
+아래 최신/승인 대상이라는 표현은 이전 구축 이력이다. 이름/Runtime 변경 후 기존 binding은 역사적 기록이며
+다음 실제 승인 전에 재분석해야 한다. 이번 이름 정리에서는 추가 Run/분석을 생성하지 않았다.
+
 ## 최신 최종 검토: 2026-09-08
 
-[23개 Finding·SPEC 대조·Power 절차·구축 요약](final_review_20260908/diagnosis.md)을 확인한다.
-승인 대상은 `optimized_accelerator/review_20260908/approval.yaml`이며 모두 pending이다.
-이전 review_20260907은 이전 Runtime/Config에 바인딩되어 있어 승인 대상으로 사용하지 않는다.
+[23개 Finding·SPEC 대조·Power 절차·구축 요약](ppa_summary/diagnosis.md)을 확인한다.
+승인 대상은 `optimized_accelerator/analysis_002/approval.yaml`이며 모두 pending이다.
+이전 analysis_001은 이전 Runtime/Config에 바인딩되어 있어 승인 대상으로 사용하지 않는다.
 승인 SPEC과 RTL은 변경하지 않았다. 아래 2026-09-07 설명은 구축 이력이다.
 
 ## 2026-09-07 탐지·실행 범위 보완
@@ -14,7 +21,7 @@
 추가 경로/DRC 탐지와 UNKNOWN coverage, 실제 도구 어댑터, 다음 Run 생성은
 [실행 매뉴얼](../../rag/automation/README.md)을 따른다. 탐지의 완전성을 보장하지 않으며 측정이 없는 항목을 PASS로 처리하지 않는다.
 
-review_20260907은 새로운 Post-Route 근거의 승인 전 검토이며 기존 run_001/run_002를 수정하지 않는다.
+analysis_001은 새로운 Post-Route 근거의 승인 전 검토이며 기존 run_001/run_002를 수정하지 않는다.
 모든 Finding은 승인 대기다. 사용자가 Finding별 결정을 내리고 SPEC Requirement ID를 연결하기 전에는
 Run is not approved for patch generation. 다음 run_003은 승인된 패치의 도구 실행 결과로 생성한다.
 

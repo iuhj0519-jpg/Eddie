@@ -148,6 +148,19 @@ class Tests(unittest.TestCase):
         with self.assertRaises(SystemExit):
             loop.safe_run("optimized_accelerator", "../main")
 
+    def test_analysis_names_are_not_calendar_identifiers(self):
+        self.assertEqual(loop.safe_run("optimized_accelerator", "analysis_003").name, "analysis_003")
+        with self.assertRaises(SystemExit):
+            loop.safe_run("optimized_accelerator", "review_" + "2" * 8)
+
+    def test_analysis_does_not_consume_execution_number(self):
+        self.args.run_id = None
+        loop.analyze(self.args, self.config)
+        root = self.root / "experiments/automation_loop/optimized_accelerator"
+        self.assertTrue((root / "analysis_001").exists())
+        self.assertEqual(loop.next_run_id(root), "run_001")
+        self.assertEqual(loop.next_analysis_id(root), "analysis_002")
+
     def test_sample_regression(self):
         fs = detect({"previous_metrics": {"verification": {"sample_results": [["0", "1", "1"]]}},
             "verification": {"sample_results": [["0", "2", "1"]]}}, self.config)

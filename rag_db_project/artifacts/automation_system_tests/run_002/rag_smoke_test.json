@@ -17,25 +17,25 @@
       "id": "address_path_diagnosis",
       "status": "PASS",
       "top_chunk_id": "chunk-4d72f6fb5368bb3e793df7a6",
-      "top_result": "experiments/automation_loop/optimized_accelerator/review_20260908/diagnosis.md"
+      "top_result": "experiments/automation_loop/optimized_accelerator/analysis_002/diagnosis.md"
     },
     {
       "id": "fanout_path_diagnosis",
       "status": "PASS",
       "top_chunk_id": "chunk-f46925e7960a8e88b75db3df",
-      "top_result": "experiments/automation_loop/optimized_accelerator/review_20260908/diagnosis.md"
+      "top_result": "experiments/automation_loop/optimized_accelerator/analysis_002/diagnosis.md"
     },
     {
       "id": "mux_pipeline_diagnosis",
       "status": "PASS",
       "top_chunk_id": "chunk-2bf01f0a4f651b0396ef7e4b",
-      "top_result": "experiments/automation_loop/optimized_accelerator/review_20260908/diagnosis.md"
+      "top_result": "experiments/automation_loop/optimized_accelerator/analysis_002/diagnosis.md"
     },
     {
       "id": "physical_weight_memory_mapping",
       "status": "PASS",
       "top_chunk_id": "chunk-e33abd45332c63bb456e5793",
-      "top_result": "experiments/automation_loop/optimized_accelerator/review_20260908/diagnosis.md"
+      "top_result": "experiments/automation_loop/optimized_accelerator/analysis_002/diagnosis.md"
     }
   ],
   "chunk_count": 171,
