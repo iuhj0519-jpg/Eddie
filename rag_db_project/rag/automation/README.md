@@ -1,5 +1,11 @@
 # 승인 기반 RTL Automation Loop
 
+## 최종 실행 Gate 요약
+
+[탐지 범위·자동 판단·개발자 승인 표](../../experiments/automation_loop/ppa_summary/FINAL_GATE_SUMMARY.md)를 시작점으로 사용한다.
+PPA 분석은 종료했으며 Gate는 미승인이다. 현재 Agent의 승인 후 패치 작성 및 수동 Post-Route/SAIF 수집을 포함하는 승인 기반 Loop다.
+완전 무인 End-to-End 구현이나 최신 증거 재바인딩 완료를 뜻하지 않는다. 실제 최적화는 최신 증거 재분석과 명시적 SPEC/실행 승인 후 진행한다.
+
 ## SAIF 전력 회귀와 개발자 Gate
 
 [최종 PPA 계산 및 Gate 모니터링 표](../../experiments/automation_loop/ppa_summary/SAIF_GATE_REVIEW.md)를 확인한다.
