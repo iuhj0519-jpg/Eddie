@@ -2,7 +2,20 @@
 
 This is an additive overlay; baseline SPEC is not replaced or weakened.
 
-Proposal digest: `63b0d7702749dbd1ab606ad7ea7ab01f780bc10beebd0ea2bb1c7f55bc25463b`
+Proposal digest: `3849cd8facb8c77b075bfb56b863061868e35f2b3dd1bac42b5c94d07d535180`
+
+## REQ-LOOP-REGRESSION-TOTAL-ON-CHIP-POWER-W
+
+- Type: optimization
+- Findings: REGRESSION-TOTAL-ON-CHIP-POWER-W
+- Before/evidence: {"evidence": "experiments/automation_loop/ppa_summary/SAIF_GATE_REVIEW.md", "systolic_power_w": 0.544, "optimized_power_w": 0.607, "systolic_duration_ns": 1837345, "optimized_duration_ns": 1617525, "comparison_status": "manual_report_comparison_pending_source_binding"}
+- Required change: Developer must select average_power, energy_per_workload or balanced priority and approve explicit power and energy limits. Compare equivalent workloads and SAIF conditions. Review both limits before final acceptance; preserve functional and timing contracts.
+- Acceptance: [{"metric": "review.REQ-LOOP-REGRESSION-TOTAL-ON-CHIP-POWER-W", "op": "eq", "value": true}]
+- Verification: Review paired routed power reports, SAIF durations, activity coverage, source/workload hashes, P*t calculation and approved power_tradeoff limits. Rebind fresh evidence before any execution approval.
+- Benefit: Prevent automatic acceptance of an average-power regression based on a small uncertain energy reduction.
+- Risk: Medium confidence and low direct SAIF coverage; energy is estimated and target timing is not closed. PPA analysis closure is not design acceptance.
+
+- Developer power/energy decision: {"priority": null, "max_average_power_w": null, "max_energy_per_workload_uj": null, "rationale": null}
 
 ## REQ-LOOP-PPA-DSP-001
 

@@ -1,4 +1,11 @@
-# 자동화 Loop 최종 승인 전 정리 — 2026-09-08
+# 자동화 Loop 최종 승인 전 정리
+
+## 최신 SAIF 보완 및 Gate 위치
+
+[SAIF_GATE_REVIEW.md](SAIF_GATE_REVIEW.md)에 ns 단위 계산, 전력 회귀와 Gate 모니터링 항목을 정리했다.
+전력은 0.544 W → 0.607 W로 증가했다. 아래 과거 분석의 Low-confidence 전력 수치는 최종 전력 비교로 사용하지 않는다.
+보완 초안은 `../optimized_accelerator/analysis_003/requirements.yaml`이며, 개발자의 전력/에너지 우선순위와 상한은 미정이다.
+아래 analysis_002 안내는 과거 기록이다. analysis_003도 최신 증거를 재바인딩하기 전에는 승인/실행 대상이 아니다.
 
 상태: pending_human_approval. Run is not approved for patch generation.
 최신 기계 판독 결과는 ../optimized_accelerator/analysis_002/findings.yaml,

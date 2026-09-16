@@ -1,0 +1,31 @@
+{
+  "state": "manual_comparison_pending_source_binding",
+  "finding_id": "REGRESSION-TOTAL-ON-CHIP-POWER-W",
+  "gate": "not_approved",
+  "priority": null,
+  "formula": "energy_uj = total_on_chip_power_w * duration_ns / 1000",
+  "systolic_prototype": {
+    "report": "systolic_power_saif.rpt",
+    "report_sha256": "51ead5a8067b6ced6aeb68b96f8ccc7ebb29e43eaac1cfbf16f9039dbb14a725",
+    "saif_path": "C:/intelFPGA/18.1/dnn_optimization_project/vivado_ppa_compare/workspace_systolic/power_activity/mnist_100.saif",
+    "saif_sha256": "7ea6e2efeb6d2de260350bd694a625f0bda67923d4406b61dd93af6db8e2356d",
+    "timescale_ps": 1,
+    "duration_ticks": 1837345000,
+    "duration_ns": 1837345,
+    "total_on_chip_power_w": 0.544,
+    "energy_uj": 999.515680,
+    "source_binding_verified": false
+  },
+  "optimized_accelerator": {
+    "report": "optimized_power_saif.rpt",
+    "report_sha256": "156b8688c999395376d1e43a0e5a41549c71524f3b3e9f0a697464f7949828d9",
+    "saif_path": "C:/intelFPGA/18.1/dnn_optimization_project/vivado_ppa_compare/workspace_optimized/power_activity/mnist_100.saif",
+    "saif_sha256": "962e46ea01bd1eb7804f90072b94aec117d5ac03daab3e01e78329caa4d2e658",
+    "timescale_ps": 1,
+    "duration_ticks": 1617525000,
+    "duration_ns": 1617525,
+    "total_on_chip_power_w": 0.607,
+    "energy_uj": 981.837675,
+    "source_binding_verified": false
+  }
+}

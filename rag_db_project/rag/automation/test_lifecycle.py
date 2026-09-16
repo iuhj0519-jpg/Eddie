@@ -33,6 +33,30 @@ class LifecycleTests(unittest.TestCase):
         doc = self.draft()
         return lc.approve_spec(self.root, self.target, self.run, "fixture-reviewer", lc.digest(doc))
 
+    def test_power_priority_is_not_automatically_selected(self):
+        row = lc.requirement("REGRESSION-TOTAL-ON-CHIP-POWER-W", {"before": .544, "after": .607}, 0)
+        with self.assertRaisesRegex(SystemExit, "priority required"):
+            lc.validate_power_tradeoff(row)
+
+    def test_power_choice_requires_limits_and_review(self):
+        row = lc.requirement("REGRESSION-TOTAL-ON-CHIP-POWER-W", {}, 0)
+        row["power_tradeoff"] = {"priority": "energy_per_workload", "rationale": "fixture only"}
+        with self.assertRaisesRegex(SystemExit, "limits required"):
+            lc.validate_power_tradeoff(row)
+        row["power_tradeoff"].update(max_average_power_w=0.7, max_energy_per_workload_uj=1000)
+        lc.validate_power_tradeoff(row)
+        row["acceptance"] = []
+        with self.assertRaisesRegex(SystemExit, "evidence review required"):
+            lc.validate_power_tradeoff(row)
+
+    def test_power_pending_blocks_spec_approval(self):
+        lc.propose(self.root, self.run, self.target,
+                   [{"finding_id": "REGRESSION-TOTAL-ON-CHIP-POWER-W", "evidence": {"before": .544, "after": .607}}])
+        doc = lc.read(self.run / "requirements.yaml")
+        with self.assertRaisesRegex(SystemExit, "priority required"):
+            lc.approve_spec(self.root, self.target, self.run, "fixture-reviewer", lc.digest(doc))
+        self.assertFalse((self.run.parent / "spec_versions").exists())
+
     def test_every_finding_gets_contract(self):
         doc = self.draft()
         self.assertEqual(len(doc["requirements"]), 2)

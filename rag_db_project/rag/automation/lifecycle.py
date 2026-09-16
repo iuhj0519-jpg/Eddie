@@ -2,6 +2,7 @@
 import argparse
 import hashlib
 import json
+import math
 import re
 import subprocess
 import sys
@@ -95,6 +96,9 @@ def requirement(fid, evidence, index):
     elif fid.startswith("REGRESSION-"):
         kind = "optimization"
         action = "Compare the parent and candidate under identical stage, clock, workload and activity assumptions; quantify the benefit/cost tradeoff before accepting regression."
+        if fid == "REGRESSION-TOTAL-ON-CHIP-POWER-W":
+            action = "Developer must choose average_power, energy_per_workload or balanced priority and record power_tradeoff with max_average_power_w, max_energy_per_workload_uj and rationale before SPEC approval. Preserve correctness and timing requirements. Verify both limits from comparable SAIF reports and matching workload durations before final acceptance."
+            risk = "SAIF power and P*t energy are estimates; low direct annotation and timing failure prohibit claims of measured energy efficiency. No automatic priority or regression waiver."
     rid = "REQ-LOOP-" + re.sub(r"[^A-Z0-9]", "-", fid.upper())
     # Review evidence is required even when a numeric condition exists.
     check.append(condition("review." + rid, "eq", True))
@@ -118,6 +122,8 @@ def render(folder, proposal):
                   "- Acceptance: " + json.dumps(row["acceptance"], ensure_ascii=False),
                   "- Verification: " + row["verification"], "- Benefit: " + row["expected_benefit"],
                   "- Risk: " + row["risk"], ""]
+        if "power_tradeoff" in row:
+            lines += ["- Developer power/energy decision: " + json.dumps(row["power_tradeoff"], ensure_ascii=False), ""]
     (folder / "spec_change_proposal.md").write_text("\n".join(lines), encoding="utf-8")
 
 
@@ -186,6 +192,24 @@ def get_revision(root, target, revision):
     return document
 
 
+def validate_power_tradeoff(row):
+    if "REGRESSION-TOTAL-ON-CHIP-POWER-W" not in row.get("finding_ids", []):
+        return
+    decision = row.get("power_tradeoff") or {}
+    if not isinstance(decision, dict) or decision.get("priority") not in (
+            "average_power", "energy_per_workload", "balanced"):
+        raise SystemExit("Developer power/energy priority required before SPEC approval")
+    if not isinstance(decision.get("rationale"), str) or not decision["rationale"].strip():
+        raise SystemExit("Developer power/energy rationale required")
+    for key in ("max_average_power_w", "max_energy_per_workload_uj"):
+        value = decision.get(key)
+        if isinstance(value, bool) or not isinstance(value, (int, float)) or not math.isfinite(value) or value <= 0:
+            raise SystemExit("Positive finite power/energy limits required")
+    rid = row["requirement_id"]
+    if condition("review." + rid, "eq", True) not in row.get("acceptance", []):
+        raise SystemExit("Power/energy evidence review required before final acceptance")
+
+
 def approve_spec(root, target, folder, reviewer, expected):
     folder = folder.resolve()
     if not folder.is_relative_to(target_root(root, target).resolve()):
@@ -197,6 +221,7 @@ def approve_spec(root, target, folder, reviewer, expected):
     if not rows or len({r["requirement_id"] for r in rows}) != len(rows):
         raise SystemExit("Requirements must be nonempty and unique")
     for row in rows:
+        validate_power_tradeoff(row)
         if not all(row.get(k) for k in ("after", "verification", "risk", "acceptance")):
             raise SystemExit("Define acceptance and verification before SPEC approval")
         for c in row["acceptance"]:

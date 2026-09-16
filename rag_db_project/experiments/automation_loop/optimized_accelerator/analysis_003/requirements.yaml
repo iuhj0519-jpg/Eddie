@@ -4,6 +4,38 @@ parent_revision: null
 state: draft
 origin: analysis_003
 requirements:
+- requirement_id: REQ-LOOP-REGRESSION-TOTAL-ON-CHIP-POWER-W
+  finding_ids:
+  - REGRESSION-TOTAL-ON-CHIP-POWER-W
+  kind: optimization
+  before:
+    evidence: experiments/automation_loop/ppa_summary/SAIF_GATE_REVIEW.md
+    systolic_power_w: 0.544
+    optimized_power_w: 0.607
+    systolic_duration_ns: 1837345
+    optimized_duration_ns: 1617525
+    comparison_status: manual_report_comparison_pending_source_binding
+  after: Developer must select average_power, energy_per_workload or balanced priority
+    and approve explicit power and energy limits. Compare equivalent workloads and
+    SAIF conditions. Review both limits before final acceptance; preserve functional
+    and timing contracts.
+  power_tradeoff:
+    priority: null
+    max_average_power_w: null
+    max_energy_per_workload_uj: null
+    rationale: null
+  acceptance:
+  - metric: review.REQ-LOOP-REGRESSION-TOTAL-ON-CHIP-POWER-W
+    op: eq
+    value: true
+  verification: Review paired routed power reports, SAIF durations, activity coverage,
+    source/workload hashes, P*t calculation and approved power_tradeoff limits. Rebind
+    fresh evidence before any execution approval.
+  expected_benefit: Prevent automatic acceptance of an average-power regression based
+    on a small uncertain energy reduction.
+  risk: Medium confidence and low direct SAIF coverage; energy is estimated and target
+    timing is not closed. PPA analysis closure is not design acceptance.
+  status: proposed
 - requirement_id: REQ-LOOP-PPA-DSP-001
   finding_ids:
   - PPA-DSP-001

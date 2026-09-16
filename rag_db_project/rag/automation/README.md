@@ -1,5 +1,16 @@
 # 승인 기반 RTL Automation Loop
 
+## SAIF 전력 회귀와 개발자 Gate
+
+[최종 PPA 계산 및 Gate 모니터링 표](../../experiments/automation_loop/ppa_summary/SAIF_GATE_REVIEW.md)를 확인한다.
+평균 전력은 0.544 W에서 0.607 W로 증가했다. 작업당 에너지의 작은 추정 감소를 근거로 자동 승인하지 않는다.
+`analysis_003/requirements.yaml`의 `REQ-LOOP-REGRESSION-TOTAL-ON-CHIP-POWER-W`는 미승인 보완안이다.
+개발자가 power_tradeoff의 priority, 두 상한과 rationale을 선택해야 approve-spec이 진행된다.
+선택지는 average_power / energy_per_workload / balanced이며 기본 선택은 없다.
+상한 준수와 에너지 계산은 해시로 연결된 증거를 사람이 검토한다. 현재 에너지 자동 측정/수치 검증을 구현했다고 주장하지 않는다.
+기존 생성된 분석은 역사적 결과다. 새 증거·코드에 맞춘 재분석/바인딩 후 SPEC 승인과 실행 승인을 별도로 진행한다.
+PPA 분석 종료는 Timing 통과나 최종 설계 수락이 아니며, Run is not approved for patch generation.
+
 ## 현재 이름 정책
 
 [디렉터리 정책](DIRECTORY_POLICY.md)을 따른다. 날짜형 review는 analysis_NNN으로 변경했다.
