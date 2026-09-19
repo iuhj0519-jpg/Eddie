@@ -128,6 +128,25 @@ class Tests(unittest.TestCase):
         self.assertEqual(result["state"], "pending_human_review")
         self.assertFalse(result["promoted"])
 
+    def test_five_stage_flow_preserves_pending_gate(self):
+        stages = ['compile', 'simulation', 'synthesis', 'implementation', 'power']
+        self.config['loop']['required_stages'] = stages
+        self.config['commands']['optimized_accelerator'] = [{'stage': s, 'tool': __file__} for s in stages]
+        loop.analyze(self.args, self.config)
+        self.approve_all()
+        run = loop.safe_run(self.args.target, self.args.run_id)
+        (run / 'proposed_patch.diff').write_text('--- a/rtl/top.sv\n+++ b/rtl/top.sv\n@@ -1 +1 @@\n-module top; endmodule\n+module top; wire a; endmodule\n')
+        loop.dump_yaml(run / 'patch_trace.yaml', {'changes': [{'finding_id': 'EVIDENCE-COVERAGE-001', 'requirement_id': 'TEST-ONLY-001', 'files': ['rtl/top.sv'], 'explanation': 'fixture'}]})
+        with patch.object(loop, 'run_command', return_value=0), patch.object(loop.tool_flow, 'run', return_value=0) as flow:
+            loop.resume(self.args, self.config)
+        self.assertEqual([call.args[0] for call in flow.call_args_list], stages)
+        result = json.loads((run / 'revalidation_result.json').read_text())
+        self.assertTrue(result['all_tools_passed'])
+        self.assertFalse(result['promoted'])
+        self.assertEqual(result['post_route_revalidation'], 'executed_check_timing_and_drc')
+        self.assertTrue((self.root / 'artifacts/implementation/optimized_accelerator/run_002/execution_result.json').exists())
+        self.assertFalse((self.root / 'artifacts/automation_loop').exists())
+
     def test_config_change_invalidates_approval(self):
         loop.analyze(self.args, self.config)
         self.config["thresholds"]["minimum_wns_ns"] = -99

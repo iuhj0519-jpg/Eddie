@@ -214,6 +214,7 @@ def detect(metrics: dict[str, Any], policy: dict[str, Any]) -> list[dict[str, An
     previous = metrics.get("previous_metrics") or {}
     for group, key, lower_worse in (("timing", "wns_ns", True), ("utilization", "lut", False),
             ("utilization", "ff", False), ("power", "total_on_chip_power_w", False),
+            ("power", "energy_per_workload_uj", False),
             ("verification", "total_inference_cycles", False)):
         before, after = previous.get(group, {}).get(key), metrics.get(group, {}).get(key)
         if before is not None and after is not None and (after < before if lower_worse else after > before):

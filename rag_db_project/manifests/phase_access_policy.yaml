@@ -126,6 +126,8 @@ phases:
       - workspace/*/rtl/*.svh
       - artifacts/implementation/**/*.rpt
       - artifacts/implementation/**/*.yaml
+      - artifacts/implementation/**/*.json
+      - artifacts/implementation/**/*.log
       - artifacts/automation_loop/**/*.rpt
       - artifacts/automation_loop/**/*.log
       - artifacts/automation_loop/**/*.json

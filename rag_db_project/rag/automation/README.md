@@ -1,128 +1,89 @@
-# 승인 기반 RTL Automation Loop
+# 승인 기반 RTL 자동화 Loop
 
-## 최종 실행 Gate 요약
+## 개발자가 볼 두 문서
 
-[탐지 범위·자동 판단·개발자 승인 표](../../experiments/automation_loop/ppa_summary/FINAL_GATE_SUMMARY.md)를 시작점으로 사용한다.
-PPA 분석은 종료했으며 Gate는 미승인이다. 현재 Agent의 승인 후 패치 작성 및 수동 Post-Route/SAIF 수집을 포함하는 승인 기반 Loop다.
-완전 무인 End-to-End 구현이나 최신 증거 재바인딩 완료를 뜻하지 않는다. 실제 최적화는 최신 증거 재분석과 명시적 SPEC/실행 승인 후 진행한다.
+- [탐지 결과·PPA 최종 표](../../experiments/automation_loop/ppa_summary/diagnosis.md)
+- [다음 Gate 최적화 범위·수치 제안](../../experiments/automation_loop/ppa_summary/spec_change_proposal.md)
 
-## SAIF 전력 회귀와 개발자 Gate
+실행별 보완안은 `experiments/automation_loop/<target>/analysis_NNN/spec_change_proposal.md` 또는 `run_NNN/spec_change_proposal.md`에 한국어 표로 자동 생성한다.
+JSON/YAML은 기계 판정·출처·승인 digest용이므로 키와 도구 식별자는 영문을 유지한다.
 
-[최종 PPA 계산 및 Gate 모니터링 표](../../experiments/automation_loop/ppa_summary/SAIF_GATE_REVIEW.md)를 확인한다.
-평균 전력은 0.544 W에서 0.607 W로 증가했다. 작업당 에너지의 작은 추정 감소를 근거로 자동 승인하지 않는다.
-`analysis_003/requirements.yaml`의 `REQ-LOOP-REGRESSION-TOTAL-ON-CHIP-POWER-W`는 미승인 보완안이다.
-개발자가 power_tradeoff의 priority, 두 상한과 rationale을 선택해야 approve-spec이 진행된다.
-선택지는 average_power / energy_per_workload / balanced이며 기본 선택은 없다.
-상한 준수와 에너지 계산은 해시로 연결된 증거를 사람이 검토한다. 현재 에너지 자동 측정/수치 검증을 구현했다고 주장하지 않는다.
-기존 생성된 분석은 역사적 결과다. 새 증거·코드에 맞춘 재분석/바인딩 후 SPEC 승인과 실행 승인을 별도로 진행한다.
-PPA 분석 종료는 Timing 통과나 최종 설계 수락이 아니며, Run is not approved for patch generation.
+## 동작 방식
 
-## 현재 이름 정책
+SPEC md 접수 → 현재 Agent의 정책 허용 로컬 DB 검색 → 요구사항/근거 ID와 보완안 → 개발자 모니터링/Gate 승인 → 현재 Agent의 RTL 패치 → 격리 검증 → 회귀 탐지/보완안 → 재승인.
 
-[디렉터리 정책](DIRECTORY_POLICY.md)을 따른다. 날짜형 review는 analysis_NNN으로 변경했다.
-analysis는 기존 증거의 재분석이며, run은 앞으로 승인된 패치의 실행 결과에 사용한다.
-이름/코드 변경 뒤 과거 분석의 hash binding은 자동 재승인하지 않는다. 아래 이전 승인 대상 안내는 이력이며,
-다음 실제 승인 전에 재분석이 필요하다. 설명/열람만으로 새로운 analysis 폴더를 만들지 않는다.
+외부 LLM API 호출, 외부 웹 정보의 RTL 설계 근거 사용, historical_baselines의 디버깅 근거 사용은 금지한다.
+현재 대화 Agent가 문서 해석·설계·패치 작성을 담당한다. Python은 LLM이 아니며 코드만 실행해서 새로운 Agent 세션을 스스로 시작하지 않는다.
+Agent가 활성화된 승인 작업 중에는 waiting_for_agent_patch를 확인하고 승인된 범위의 패치와 trace를 작성한 뒤 resume을 이어간다. 개발자가 패치를 수동 작성할 필요는 없다.
+현재 세션이 종료되면 자동 백그라운드 설계가 계속된다고 주장하지 않는다. 외부 LLM/API 없는 독립 상주 RTL 생성 서비스는 포함하지 않는다.
 
-## 요구사항/SPEC 반복 Loop (2026-09-13)
+## 자동 Vivado 실행
 
-최신 기능과 명령은 [LIFECYCLE.md](LIFECYCLE.md)를 기준으로 한다.
-`intake → SPEC 초안 → approve-spec → bind-spec → Finding approve → resume → 다음 Run/SPEC 초안`을 연결했다.
-현재 `analysis_003`은 미승인 초안이며, 실제 SPEC/Finding 승인이나 RTL Debugging은 실행하지 않았다.
-모든 Finding을 제안으로 변환하며 `requirements_result.json`과 `optimization_assessment.json`으로
-기존 SPEC 충족 여부와 추가 개선 후보를 구분한다. 승인된 Requirement ID의 실제 존재와 Finding 연결을 검사한다.
-이전 review는 Runtime/Policy 변경 전 기록이므로 현재 승인 대상으로 사용하지 않는다.
-Vivado 오류 원인과 출력 위치는 [SIMULATION_DIAGNOSIS.md](SIMULATION_DIAGNOSIS.md)에 정리했다.
+`run_loop.py resume`의 승인 검증을 통과한 격리 복사본에서 다음 순서로 실행한다.
 
-## 이전 승인 대상 기록 (2026-09-08, 현재는 superseded)
-
-현재 검토 대상은 `analysis_002`이다. 아래의 2026-09-07 명령 예제는 이전 기록이며,
-실제 승인/resume 시 `--run-id analysis_002`을 사용한다. 기존 run_001/run_002와 이전 review는 보존한다.
-최종 테이블과 Power 절차: [최종 정리](../../experiments/automation_loop/ppa_summary/diagnosis.md).
-
-`PPA-MEMORY-MAPPING-001`은 SRAM이라는 모듈 이름과 실제 FPGA Block RAM 매핑을 구분한다.
-설정에서 block_ram이 요청된 Weight 계층의 RAMB18/RAMB36이 0이면 LUT hotspot 비율과 무관하게 검출한다.
-기존 SRAM 5-bank 요구(REQ-SYS-009)와 물리 BRAM 필수 매핑 보완안(REQ-OPT-MEM-026)은 구분하며,
-후자는 아직 승인 대기다. BRAM 하나의 존재만으로 전체 저장 구조/5-lane 공급이 검증되는 것은 아니다.
-
-## 탐지 범위
-
-기존 PPA-DSP/WEIGHT/TIMING/POWER 4개 Finding은 탐지 범위의 제한 목록이 아니다.
-모든 허용된 실행 증거를 검토하고 기능·Protocol·성능·자원·메모리·Timing·Power·DRC·Reset 및
-이전 실행 대비 회귀까지 개선 후보를 기록한다. 규칙만으로 모든 설계 결함을 발견한다고 보장하지 않는다.
-보고서/계측이 없는 항목은 UNKNOWN으로 coverage.json에 기록한다. 원본의 미분류 경고도 Agent와 사람이 검토한다.
-
-현재 Post-Route 근거에 따른 우선 검토 대상은 **Weight 메모리 접근 구조, 주소 계산, 큰 선택 회로,
-파이프라인 및 Fanout**이다. 대상은 Weight 블록으로 제한하지 않고 실패 경로와 자원 집중 블록 전체에 적용한다.
-
-| 분석 대상 | 입력 증거 | Finding / 확인 사항 |
+| 단계 | 자동 처리 | 보관 위치 |
 |---|---|---|
-| Weight/다른 메모리 접근 | 계층별 자원, RAM, critical paths | BRAM 추론, LUT 집중, 접근 지연 |
-| 주소 계산 | 실패 경로의 주소/제어 Net | PPA-ADDRESS-001; 폭·연산·주소 파이프라인 가설 |
-| 큰 선택 회로 | 실패 경로 MUXF 및 논리 단계 | PPA-MUX-001; 선택 회로 재구성 검토 |
-| 파이프라인 | Logic Levels, DSP/BRAM DRC | PPA-PIPELINE-001; Valid/주소/Scheduler 정렬 필수 |
-| Fanout/배선 | high_fanout_nets, critical_paths | PPA-FANOUT-001, PPA-ROUTE-DELAY-001 |
-| Setup/Hold/Pulse | min_max timing summary | 각각 독립 판정; Hold 없는 보고서는 Hold 통과 증거가 아님 |
-| DSP/PE | 계층별 DSP, cycle-level PE 계측 | DSP 개수는 PE Utilization이 아님 |
-| DRC | 모든 요약 Rule | DRC-<Rule>; Reset/IO/출력레지스터 경고 포함 |
-| 증거 부족 | coverage.json | EVIDENCE-COVERAGE-001; 누락을 PASS로 처리하지 않음 |
+| compile | Vivado XPR 생성, RTL/헤더/TB·Top 지정, XSim compile | artifacts/verification/<target>/run_NNN |
+| simulation | memory/testdata 상대경로 자동 배치, XSim 시작, SAIF 수집, Golden 결과 검사 | 같은 verification 폴더 |
+| synthesis | 동일 소스 합성, 자원/RAM/Timing/DRC/Power 보고서, DCP | artifacts/synthesis/<target>/run_NNN |
+| implementation | 동일 합성 DCP에서 opt/place/phys_opt/route, 최종 보고서와 DCP | artifacts/implementation/<target>/run_NNN |
+| power | 동일 Routed DCP에 SAIF 적용, 매칭 보고서·전력·에너지 계산 | 같은 implementation 폴더 |
 
-## 알고리즘 및 파일 역할
+프로젝트와 임시 도구 상태는 기존 `.automation_debug`의 격리 workspace 내부 `.vivado_flow`에 둔다. 원본 workspace를 덮어쓰지 않는다.
+보고서 분석용 묶음도 implementation에 둔다. 앞으로 `artifacts/automation_loop` 또는 `artifacts/power` 같은 새 분류를 만들지 않는다.
+합성 직후 결과와 Post-Route 결과는 별도 폴더에 보존하고 전력 분석은 power_post_route.rpt를 우선 사용한다.
+오류/Timeout/입력 누락/Golden 실패 시 후속 단계를 중지한다. 도구 종료 코드 0은 Timing/DRC 합격을 뜻하지 않는다.
+Bitstream 생성과 보드 프로그래밍은 실행하지 않는다. 보드 pin/IOSTANDARD/I/O delay를 임의 생성해 경고를 숨기지 않는다.
+현재 기본 part=xc7z020clg400-1, clock=10 ns이며 승인된 constraints/*.xdc가 있으면 함께 사용/해시한다.
+SAIF는 Behavioral 활동 기반 추정이다. 실측이나 100% 내부 활동 매칭으로 표현하지 않는다.
 
-`SPEC Requirement ID → 실패 증거 → 승인된 수정 내용 → 재검증 결과`
+## 승인 경계
 
-1. analyze: artifacts를 파싱하고 원본 해시, Workspace RTL/TB/Memory/Scripts 해시, 설정 해시를 고정한다.
-2. diagnosis.md, findings.yaml, coverage.json, spec_change_proposal.md를 사람이 검토한다.
-3. approve: Finding마다 승인/거절 및 승인 SPEC Requirement ID를 연결한다. 승인 전 RTL/SPEC을 변경하지 않는다.
-4. resume: 승인과 증거 바인딩을 확인한다. Agent는 허용된 로컬 RAG 근거만 사용해 proposed_patch.diff와
-   patch_trace.yaml을 작성한다. 외부 LLM/API·Web·Historical Baseline은 사용하지 않는다.
-5. 격리 복사본에 기존 RTL 파일만 패치한다. TB, Golden, Memory, SPEC 변경은 이 실행 경로에서 금지한다.
-6. ModelSim Compile → Simulation → Vivado Synthesis를 실제 실행한다. 실패/Timeout이면 후속 도구는 건너뛴다.
-7. 성공/실패 모두 원본 로그를 수집하고 다음 run_###을 자동 생성·분석한다. 다음 Run은 새 승인 대기 상태다.
-8. 동일 Finding 반복/횟수 상한에서는 재계획을 요청한다. 패치를 원래 Workspace로 자동 승격하거나 Push하지 않는다.
+1. SPEC 보완안을 개발자가 승인하면 immutable SPEC 버전과 digest를 확정한다.
+2. 현재 소스/입력/도구/증거/정책에 연결된 모든 Finding에 승인 또는 거절 결정을 기록한다.
+3. Agent는 승인 Finding→SPEC ID→수정 파일→검증의 patch_trace를 작성한다.
+4. 재검증에서 새 문제가 생기면 다음 Run의 보완안을 작성하고 다시 승인을 기다린다.
+5. 최종 accept는 기능·Timing·DRC·coverage·동일 소스 실행 출처·SPEC 조건을 요구한다. 사용자 승인만으로 UNKNOWN/FAIL을 PASS로 바꾸지 않는다.
 
-Python은 도구 실행·파싱·승인 Gate를 담당한다. 수정안 생성은 현재 작업 Agent의 단계이며 Python만으로
-임의의 RTL 수정안을 생성하는 외부 서비스는 없다. Agent는 pending_human_approval에서 반드시 멈춘다.
+전력 회귀는 개발자의 `average_power / energy_per_workload / balanced` 선택, 전력·에너지 상한과 근거를 요구한다. 수치 제안은 별도 문서이며 미승인 상태다.
+승인된 power_tradeoff의 두 상한은 자동 평가한다. 한 지표의 개선으로 다른 지표의 초과를 면제하지 않으며 값이 없으면 UNKNOWN이다. 증거 품질에 대한 최종 Gate 검토는 유지한다.
+계측되지 않은 PE 동시 동작·protocol·interrupt 조건은 UNKNOWN이다. 필요한 계측 추가도 승인 범위에 명시해야 한다.
 
-| 파일 | 역할 |
-|---|---|
-| __init__.py | Python 패키지 표시; 합성 영향 없음 |
-| parsers.py / detectors.py | 요약 및 경로·Fanout·DRC 정규화와 탐지 |
-| run_loop.py | 분석/승인/격리 적용/실행/후속 Run 생성 |
-| tool_flow.py / synthesis.tcl | 로컬 ModelSim/Vivado 어댑터; 100 MHz, xc7z020clg400-1 |
-| test_automation.py | 임시 Fixture를 쓰는 안전성·회귀 테스트; DUT 검증과 구분 |
-| smoke_tools.py | 미수정 Workspace 복사본으로 실제 도구 어댑터 검증 |
+## 기존 계층 유지
 
-## 실행 예
+`artifacts/{verification,synthesis,implementation}` / `experiments/{prototype_generation,optimization_generation,automation_loop,comparative_evaluation,verification_generation}` / `manifests` / `rag/{automation,config}` / `workspace/<target>/{rtl,tb,memory,scripts,reports}`를 유지한다.
+analysis_NNN은 분석 결과이며 실제 패치 실행이 아니다. run_NNN은 실행 이력을 구분한다. 기존 run_001/002의 생성 당시 의미는 과거 manifest가 기준이다.
+요청 접수·승인 SPEC 버전 폴더는 해당 이벤트가 발생할 때만 필요한 기록이다. 날짜 폴더나 중복 리뷰 폴더를 만들지 않는다.
+기존 증거와 승인 이력은 삭제하지 않는다. 변경된 해시로 과거 승인을 다시 유효화하지 않는다.
+`__init__.py`는 Python 패키지 파일이며 유지한다. `tool_flow.py`, `vivado_flow.tcl`, `lifecycle.py`, 테스트 파일은 자동 실행에 필요하므로 유지한다.
 
-프로젝트 루트에서 `python rag/automation/run_loop.py analyze --target optimized_accelerator --artifact-root artifacts/implementation/optimized_accelerator/run_001 --run-id analysis_001`
+## Agent 내부 명령 흐름
 
-review_YYYYMMDD는 승인 전 근거 분석용이며 run_003 등 Debugging 실행 번호를 소비하지 않는다.
-과거 run_001/run_002는 불변 이력으로 유지한다. 바인딩이 없는 과거 Run 승인은 차단되며 새 review를 승인해야 한다.
+개발자가 직접 명령을 입력하는 대신 Agent가 단계별 상태를 확인해 실행한다. 승인 명령은 실제 사용자 승인 이후에만 사용한다.
 
-사용자 명시 승인 뒤에만:
-
-`python rag/automation/run_loop.py approve --target optimized_accelerator --run-id analysis_001 --finding-id <ID> --decision approved --requirement-id <승인된-SPEC-ID>`
-
-모든 항목 검토 후 `python rag/automation/run_loop.py resume --target optimized_accelerator --run-id analysis_001`.
-패치가 없으면 patch_request.json 생성 후 Agent를 기다린다. Agent가 패치·추적 문서를 작성한 뒤 resume로 실행한다.
-
-```yaml
-changes:
-  - finding_id: PPA-ADDRESS-001
-    requirement_id: <승인된-SPEC-ID>
-    files: [rtl/weight_sram.sv]
-    explanation: <근거와 변경 내용; 실제 승인 범위만 포함>
+```text
+intake → sync → analyze → (개발자 검토)
+approve-spec → bind-spec → approve → resume
+waiting_for_agent_patch → 승인된 패치/trace 작성 → resume
+새 run의 diagnosis/spec_change_proposal → (개발자 재검토)
+review-requirement → accept
 ```
 
-## 원본과 후속 Run
+실제 인자는 `run_loop.py --help`와 각 서브명령의 `--help`를 사용한다. 원문 요구와 조건을 임의로 승인하지 않는다.
+approval.yaml, gate_status.json, run_manifest.yaml이 승인·출처 기준이며 requirements_result.json과 optimization_assessment.json이 충족/회귀 기록이다.
+RAG 갱신은 refresh_automation_inventory.ps1과 build_index.py를 통해 로컬에서 수행한다. 실패 시 숨기지 않고 중지한다.
 
-- artifacts/verification/<target>/<child_run>: compile.log, simulation.log, protocol_assertions.log, verification_result.json
-- artifacts/synthesis/<target>/<child_run>: synthesis.log, utilization/timing/power/ram/critical_paths/high_fanout/drc 보고서
-- artifacts/automation_loop/<target>/<child_run>: 위 원본의 분석용 복사본, execution_result.json
-- experiments/automation_loop/<target>/<run>: diagnosis/findings/coverage/approval/gate/progress/patch_trace/revalidation_result
-- .automation_debug/<target>/<parent_run>: 패치된 격리 복사본과 별도 로컬 Git; 원본 및 main/Project_Git 불변
+## 통합된 시뮬레이션 진단
 
-기존 TB가 출력하지 않는 PE 활동/Protocol coverage를 성공값으로 만들어 넣지 않는다. 전체 샘플 예측은
-가능할 때 이전 실행과 비교하며 근거가 없으면 UNKNOWN이다. 합성 어댑터 성공도 Post-Route/실측 Power
-및 전체 Protocol 회귀 통과와 다르다. 최종 승격은 이를 별도로 검증하고 사람이 수락해야 한다.
+과거 expected=x/파일 열기 실패는 `$readmemb` 상대경로가 XSim 실행 폴더와 달라서 발생했다. 자동 어댑터가 같은 구조로 memory와 testdata를 복사한다.
+Design Top=zyNet, Simulation Top=top_sim을 자동 지정하여 테스트벤치가 합성되는 문제를 방지한다.
+SAIF 객체는 `/top_sim/device_under_test/*`이며 없으면 실패 처리한다. read_saif strip_path는 선행 / 없이 사용한다.
+reset_switching_activity/report_switching_activity는 명시적인 객체 목록을 전달한다.
+수동 해결책 설명은 이 절로 통합했으므로 SIMULATION_DIAGNOSIS.md는 삭제한다. 과거 내용은 Git 이력으로 복구할 수 있다.
+
+## 검증 및 현재 상태
+
+실제 가속기 RTL 최적화는 미승인이다. 자동화 프로그램 테스트와 실제 회로 최적화 성공을 구분한다.
+작은 독립 테스트 회로에서 Vivado 전체 흐름을 검증하고 결과를 기존 system_validation_002에 기록한다.
+최신 Gate 전 증거 재분석/해시 바인딩이 필요하다. 기존 분석이 현재 코드에 이미 승인된 것으로 처리하지 않는다.
+**Run is not approved for patch generation.**

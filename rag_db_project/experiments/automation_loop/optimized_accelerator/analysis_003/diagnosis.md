@@ -1,211 +1,32 @@
-# optimized_accelerator analysis_003 Diagnosis
+# optimized_accelerator analysis_003 탐지 결과
 
-이 문서는 도구가 수집한 원본 증거에서 자동 생성되었습니다.
+원본 증거에서 자동 생성한 검토 표입니다. 관측과 원인 가설을 구분하며 승인 전 수정하지 않습니다.
 
-## PPA-DSP-001
+| 탐지 ID | 심각도 | 검토/수정 방향 | 근거 파일 |
+|---|---|---|---|
+| PPA-DSP-001 | 높음 | 25개 PE 각각의 DSP MAC 매핑과 병렬 동작 검증. 총 DSP 개수만으로 성공 판정하지 않음. | utilization_hierarchical.rpt |
+| PPA-WEIGHT-001 | 높음 | Weight 자원 집중 완화: 메모리 접근과 큰 선택 회로를 줄이며 5-lane 공급 보존. | utilization_hierarchical.rpt |
+| PPA-TIMING-001 | 심각 | 목표 클록을 유지하고 Post-Route Setup/Hold/Pulse 조건 충족. | timing_summary.rpt |
+| PPA-POWER-001 | 중간 | 같은 입력의 SAIF 매칭률과 환경 확인. 전력 추정치를 실측으로 표현하지 않음. | power.rpt |
+| IMPL-DRC-001 | 심각 | DRC 원본 규칙과 보드·클록·reset 계약을 검토하고 수정 범위 승인. | drc.rpt |
+| PPA-MEMORY-MAPPING-001 | 높음 | Weight를 물리 BRAM으로 매핑. 뱅크·용량·초기화·동기 읽기 정합성 검증. | utilization_hierarchical.rpt |
+| PPA-ADDRESS-001 | 높음 | 주소 폭·산술·decode와 메모리 읽기 지연을 함께 검토. | findings.yaml 참조 |
+| PPA-MUX-001 | 높음 | 임계 경로 선택 회로 깊이 축소 및 RAM 추론 확인. | findings.yaml 참조 |
+| PPA-PIPELINE-001 | 높음 | 연산 단계 분할 및 데이터·valid·스케줄러 지연 정렬. | findings.yaml 참조 |
+| PPA-ROUTE-DELAY-001 | 높음 | 배치·부하 분산으로 배선 지연 개선, 추가 자원 비용 비교. | findings.yaml 참조 |
+| PPA-FANOUT-001 | 높음 | 고부하 주소·제어 신호 분산/복제 검토. 원인 가설을 추가 검증. | findings.yaml 참조 |
+| DRC-NSTD-1 | 심각 | DRC 원본 규칙과 보드·클록·reset 계약을 검토하고 수정 범위 승인. | drc.rpt |
+| DRC-UCIO-1 | 심각 | DRC 원본 규칙과 보드·클록·reset 계약을 검토하고 수정 범위 승인. | drc.rpt |
+| DRC-CHECK-3 | 중간 | DRC 원본 규칙과 보드·클록·reset 계약을 검토하고 수정 범위 승인. | drc.rpt |
+| DRC-DPIP-1 | 중간 | DRC 원본 규칙과 보드·클록·reset 계약을 검토하고 수정 범위 승인. | drc.rpt |
+| DRC-DPOP-1 | 중간 | DRC 원본 규칙과 보드·클록·reset 계약을 검토하고 수정 범위 승인. | drc.rpt |
+| DRC-DPOP-2 | 중간 | DRC 원본 규칙과 보드·클록·reset 계약을 검토하고 수정 범위 승인. | drc.rpt |
+| DRC-RBOR-1 | 중간 | DRC 원본 규칙과 보드·클록·reset 계약을 검토하고 수정 범위 승인. | drc.rpt |
+| DRC-REQP-1840 | 중간 | DRC 원본 규칙과 보드·클록·reset 계약을 검토하고 수정 범위 승인. | drc.rpt |
+| DRC-ZPS7-1 | 중간 | DRC 원본 규칙과 보드·클록·reset 계약을 검토하고 수정 범위 승인. | drc.rpt |
+| PPA-CONSTRAINT-001 | 높음 | 실제 외부 인터페이스 지연 조건 확정. 임의 핀/제약으로 경고 숨김 금지. | findings.yaml 참조 |
+| EVIDENCE-PROVENANCE-001 | 중간 | 같은 소스·입력·도구의 해시 연결. 과거 출처 추측 금지. | run_manifest.yaml |
+| EVIDENCE-COVERAGE-001 | 중간 | 누락 보고서·계측 수집. UNKNOWN을 PASS로 처리하지 않음. | findings.yaml 참조 |
 
-- Category: `architecture_parallelism`
-- Severity: `high`
-- State: `detected_pending_human_approval`
-- Summary: The report does not demonstrate one independently mapped DSP MAC per PE; confirm with cycle-level PE activity before changing RTL.
-- Evidence: `{"expected_concurrent_pe_count": 25, "observed_dsp48_count": 5.0, "artifact_path": "utilization_hierarchical.rpt"}`
-- Required chain: `SPEC Requirement ID → 실패 증거 → 수정 내용 → 재검증 결과`
-
-## PPA-WEIGHT-001
-
-- Category: `hierarchical_lut_hotspot`
-- Severity: `high`
-- State: `detected_pending_human_approval`
-- Summary: One hierarchy consumes more than the configured share of total LUT resources.
-- Evidence: `{"instance": "zyNet/weight_sram_instance", "instance_lut": 13955.0, "total_lut": 18060.0, "lut_ratio": 0.7727, "ramb18": 0.0, "artifact_path": "utilization_hierarchical.rpt"}`
-- Required chain: `SPEC Requirement ID → 실패 증거 → 수정 내용 → 재검증 결과`
-
-## PPA-TIMING-001
-
-- Category: `setup_timing`
-- Severity: `critical`
-- State: `detected_pending_human_approval`
-- Summary: Setup timing constraints are not met; implementation timing must be rechecked after an approved pipeline or memory-path change.
-- Evidence: `{"wns_ns": -5.362, "tns_ns": -252.171, "setup_failing_endpoints": 104.0, "setup_total_endpoints": 3043.0, "whs_ns": 0.113, "ths_ns": 0.0, "hold_failing_endpoints": 0.0, "hold_total_endpoints": 3043.0, "wpws_ns": 4.5, "tpws_ns": 0.0, "pulse_failing_endpoints": 0.0, "pulse_total_endpoints": 1466.0, "artifact_path": "timing_summary.rpt"}`
-- Required chain: `SPEC Requirement ID → 실패 증거 → 수정 내용 → 재검증 결과`
-
-## PPA-POWER-001
-
-- Category: `power_evidence_quality`
-- Severity: `medium`
-- State: `detected_pending_human_approval`
-- Summary: Power confidence is low, so the value is directional and requires activity-based analysis before acceptance.
-- Evidence: `{"total_on_chip_power_w": 0.332, "confidence": "Low", "dynamic_power_w": 0.224, "static_power_w": 0.108, "artifact_path": "power.rpt"}`
-- Required chain: `SPEC Requirement ID → 실패 증거 → 수정 내용 → 재검증 결과`
-
-## IMPL-DRC-001
-
-- Category: `implementation_drc`
-- Severity: `critical`
-- State: `detected_pending_human_approval`
-- Summary: Post-Route DRC contains violations or critical warnings.
-- Evidence: `{"drc_violations": 0, "critical_warnings": 4, "unrouted_nets": 0, "routing_errors": 0, "artifact_path": "drc.rpt"}`
-- Required chain: `SPEC Requirement ID → 실패 증거 → 수정 내용 → 재검증 결과`
-
-## PPA-MEMORY-MAPPING-001
-
-- Category: `physical_memory_mapping`
-- Severity: `high`
-- State: `detected_pending_human_approval`
-- Summary: Requested block-memory mapping is absent. An SRAM module name or synchronous output register does not prove BRAM inference. Review banked storage/ROM inference and address selection, independently of the LUT hotspot threshold.
-- Evidence: `{"module": "weight_sram", "storage": "block_ram", "requirement_id": "REQ-OPT-MEM-026", "requirement_state": "proposed_pending_final_approval", "instance": "zyNet/weight_sram_instance", "logic_lut": 13955.0, "lutram": 0.0, "ramb18": 0.0, "ramb36": 0.0, "artifact_path": "utilization_hierarchical.rpt"}`
-- Required chain: `SPEC Requirement ID → 실패 증거 → 수정 내용 → 재검증 결과`
-
-## PPA-ADDRESS-001
-
-- Category: `address_generation_path`
-- Severity: `high`
-- State: `detected_pending_human_approval`
-- Summary: Failing path includes address/control generation. Review widths, arithmetic and memory access latency; cause remains a hypothesis until RTL/netlist review.
-- Evidence: `{"paths": [{"slack_ns": -5.362, "artifact_path": "critical_paths.rpt", "line": 14, "source": "systolic_controller_instance/cycle_count_reg[5]/C", "destination": "weight_sram_instance/read_data_reg[24]/D", "logic_levels": 17.0, "delay_ns": 15.216, "logic_ns": 5.506, "route_ns": 9.71, "mux_present": true, "address_path": true, "dsp_present": true}, {"slack_ns": -5.286, "artifact_path": "critical_paths.rpt", "line": 107, "source": "systolic_controller_instance/cycle_count_reg[5]/C", "destination": "weight_sram_instance/read_data_reg[31]/D", "logic_levels": 15.0, "delay_ns": 15.143, "logic_ns": 5.249, "route_ns": 9.894, "mux_present": true, "address_path": true, "dsp_present": true}, {"slack_ns": -5.284, "artifact_path": "critical_paths.rpt", "line": 196, "source": "systolic_controller_instance/cycle_count_reg[5]/C", "destination": "weight_sram_instance/read_data_reg[30]/D", "logic_levels": 15.0, "delay_ns": 15.142, "logic_ns": 5.249, "route_ns": 9.893, "mux_present": true, "address_path": true, "dsp_present": true}, {"slack_ns": -5.28, "artifact_path": "critical_paths.rpt", "line": 285, "source": "systolic_controller_instance/cycle_count_reg[5]/C", "destination": "weight_sram_instance/read_data_reg[26]/D", "logic_levels": 17.0, "delay_ns": 15.142, "logic_ns": 5.472, "route_ns": 9.67, "mux_present": true, "address_path": true, "dsp_present": true}, {"slack_ns": -5.251, "artifact_path": "critical_paths.rpt", "line": 378, "source": "systolic_controller_instance/cycle_count_reg[5]/C", "destination": "weight_sram_instance/read_data_reg[29]/D", "logic_levels": 17.0, "delay_ns": 15.202, "logic_ns": 5.496, "route_ns": 9.706, "mux_present": true, "address_path": true, "dsp_present": true}, {"slack_ns": -5.229, "artifact_path": "critical_paths.rpt", "line": 471, "source": "systolic_controller_instance/cycle_count_reg[4]/C", "destination": "weight_sram_instance/read_data_reg[15]/D", "logic_levels": 18.0, "delay_ns": 15.187, "logic_ns": 5.671, "route_ns": 9.516, "mux_present": true, "address_path": true, "dsp_present": true}, {"slack_ns": -5.221, "artifact_path": "critical_paths.rpt", "line": 566, "source": "systolic_controller_instance/cycle_count_reg[5]/C", "destination": "weight_sram_instance/read_data_reg[27]/D", "logic_levels": 16.0, "delay_ns": 15.141, "logic_ns": 5.066, "route_ns": 10.075, "mux_present": true, "address_path": true, "dsp_present": true}, {"slack_ns": -5.198, "artifact_path": "critical_paths.rpt", "line": 657, "source": "systolic_controller_instance/cycle_count_reg[5]/C", "destination": "weight_sram_instance/read_data_reg[28]/D", "logic_levels": 15.0, "delay_ns": 15.068, "logic_ns": 5.285, "route_ns": 9.783, "mux_present": true, "address_path": true, "dsp_present": true}, {"slack_ns": -5.194, "artifact_path": "critical_paths.rpt", "line": 746, "source": "systolic_controller_instance/cycle_count_reg[5]/C", "destination": "weight_sram_instance/read_data_reg[25]/D", "logic_levels": 16.0, "delay_ns": 15.059, "logic_ns": 5.352, "route_ns": 9.707, "mux_present": true, "address_path": true, "dsp_present": true}, {"slack_ns": -5.086, "artifact_path": "critical_paths.rpt", "line": 837, "source": "systolic_controller_instance/cycle_count_reg[4]/C", "destination": "weight_sram_instance/read_data_reg[9]/D", "logic_levels": 17.0, "delay_ns": 15.027, "logic_ns": 5.532, "route_ns": 9.495, "mux_present": true, "address_path": true, "dsp_present": true}, {"slack_ns": -5.083, "artifact_path": "critical_paths.rpt", "line": 930, "source": "systolic_controller_instance/cycle_count_reg[4]/C", "destination": "weight_sram_instance/read_data_reg[33]/D", "logic_levels": 16.0, "delay_ns": 15.034, "logic_ns": 5.181, "route_ns": 9.853, "mux_present": true, "address_path": true, "dsp_present": true}, {"slack_ns": -5.033, "artifact_path": "critical_paths.rpt", "line": 1021, "source": "systolic_controller_instance/cycle_count_reg[4]/C", "destination": "weight_sram_instance/read_data_reg[10]/D", "logic_levels": 17.0, "delay_ns": 14.972, "logic_ns": 5.55, "route_ns": 9.422, "mux_present": true, "address_path": true, "dsp_present": true}, {"slack_ns": -5.011, "artifact_path": "critical_paths.rpt", "line": 1114, "source": "systolic_controller_instance/cycle_count_reg[4]/C", "destination": "weight_sram_instance/read_data_reg[12]/D", "logic_levels": 18.0, "delay_ns": 14.957, "logic_ns": 5.632, "route_ns": 9.325, "mux_present": true, "address_path": true, "dsp_present": true}, {"slack_ns": -4.962, "artifact_path": "critical_paths.rpt", "line": 1209, "source": "systolic_controller_instance/cycle_count_reg[4]/C", "destination": "weight_sram_instance/read_data_reg[13]/D", "logic_levels": 18.0, "delay_ns": 14.915, "logic_ns": 5.671, "route_ns": 9.244, "mux_present": true, "address_path": true, "dsp_present": true}, {"slack_ns": -4.953, "artifact_path": "critical_paths.rpt", "line": 1304, "source": "systolic_controller_instance/cycle_count_reg[4]/C", "destination": "weight_sram_instance/read_data_reg[34]/D", "logic_levels": 16.0, "delay_ns": 14.949, "logic_ns": 5.43, "route_ns": 9.519, "mux_present": true, "address_path": true, "dsp_present": true}, {"slack_ns": -4.951, "artifact_path": "critical_paths.rpt", "line": 1395, "source": "systolic_controller_instance/cycle_count_reg[4]/C", "destination": "weight_sram_instance/read_data_reg[11]/D", "logic_levels": 17.0, "delay_ns": 14.894, "logic_ns": 5.553, "route_ns": 9.341, "mux_present": true, "address_path": true, "dsp_present": true}, {"slack_ns": -4.94, "artifact_path": "critical_paths.rpt", "line": 1488, "source": "systolic_controller_instance/cycle_count_reg[4]/C", "destination": "weight_sram_instance/read_data_reg[14]/D", "logic_levels": 18.0, "delay_ns": 14.889, "logic_ns": 5.671, "route_ns": 9.218, "mux_present": true, "address_path": true, "dsp_present": true}, {"slack_ns": -4.913, "artifact_path": "critical_paths.rpt", "line": 1583, "source": "systolic_controller_instance/cycle_count_reg[5]/C", "destination": "weight_sram_instance/read_data_reg[18]/D", "logic_levels": 16.0, "delay_ns": 14.857, "logic_ns": 5.302, "route_ns": 9.555, "mux_present": true, "address_path": true, "dsp_present": true}, {"slack_ns": -4.912, "artifact_path": "critical_paths.rpt", "line": 1674, "source": "systolic_controller_instance/cycle_count_reg[4]/C", "destination": "weight_sram_instance/read_data_reg[37]/D", "logic_levels": 16.0, "delay_ns": 14.996, "logic_ns": 5.433, "route_ns": 9.563, "mux_present": true, "address_path": true, "dsp_present": true}, {"slack_ns": -4.912, "artifact_path": "critical_paths.rpt", "line": 1765, "source": "systolic_controller_instance/cycle_count_reg[4]/C", "destination": "weight_sram_instance/read_data_reg[36]/D", "logic_levels": 16.0, "delay_ns": 14.93, "logic_ns": 5.453, "route_ns": 9.477, "mux_present": true, "address_path": true, "dsp_present": true}]}`
-- Required chain: `SPEC Requirement ID → 실패 증거 → 수정 내용 → 재검증 결과`
-
-## PPA-MUX-001
-
-- Category: `large_selection_path`
-- Severity: `high`
-- State: `detected_pending_human_approval`
-- Summary: Failing path traverses dedicated MUX resources. Review selection depth and BRAM inference without assuming a specific fix.
-- Evidence: `{"paths": [{"slack_ns": -5.362, "artifact_path": "critical_paths.rpt", "line": 14, "source": "systolic_controller_instance/cycle_count_reg[5]/C", "destination": "weight_sram_instance/read_data_reg[24]/D", "logic_levels": 17.0, "delay_ns": 15.216, "logic_ns": 5.506, "route_ns": 9.71, "mux_present": true, "address_path": true, "dsp_present": true}, {"slack_ns": -5.286, "artifact_path": "critical_paths.rpt", "line": 107, "source": "systolic_controller_instance/cycle_count_reg[5]/C", "destination": "weight_sram_instance/read_data_reg[31]/D", "logic_levels": 15.0, "delay_ns": 15.143, "logic_ns": 5.249, "route_ns": 9.894, "mux_present": true, "address_path": true, "dsp_present": true}, {"slack_ns": -5.284, "artifact_path": "critical_paths.rpt", "line": 196, "source": "systolic_controller_instance/cycle_count_reg[5]/C", "destination": "weight_sram_instance/read_data_reg[30]/D", "logic_levels": 15.0, "delay_ns": 15.142, "logic_ns": 5.249, "route_ns": 9.893, "mux_present": true, "address_path": true, "dsp_present": true}, {"slack_ns": -5.28, "artifact_path": "critical_paths.rpt", "line": 285, "source": "systolic_controller_instance/cycle_count_reg[5]/C", "destination": "weight_sram_instance/read_data_reg[26]/D", "logic_levels": 17.0, "delay_ns": 15.142, "logic_ns": 5.472, "route_ns": 9.67, "mux_present": true, "address_path": true, "dsp_present": true}, {"slack_ns": -5.251, "artifact_path": "critical_paths.rpt", "line": 378, "source": "systolic_controller_instance/cycle_count_reg[5]/C", "destination": "weight_sram_instance/read_data_reg[29]/D", "logic_levels": 17.0, "delay_ns": 15.202, "logic_ns": 5.496, "route_ns": 9.706, "mux_present": true, "address_path": true, "dsp_present": true}, {"slack_ns": -5.229, "artifact_path": "critical_paths.rpt", "line": 471, "source": "systolic_controller_instance/cycle_count_reg[4]/C", "destination": "weight_sram_instance/read_data_reg[15]/D", "logic_levels": 18.0, "delay_ns": 15.187, "logic_ns": 5.671, "route_ns": 9.516, "mux_present": true, "address_path": true, "dsp_present": true}, {"slack_ns": -5.221, "artifact_path": "critical_paths.rpt", "line": 566, "source": "systolic_controller_instance/cycle_count_reg[5]/C", "destination": "weight_sram_instance/read_data_reg[27]/D", "logic_levels": 16.0, "delay_ns": 15.141, "logic_ns": 5.066, "route_ns": 10.075, "mux_present": true, "address_path": true, "dsp_present": true}, {"slack_ns": -5.198, "artifact_path": "critical_paths.rpt", "line": 657, "source": "systolic_controller_instance/cycle_count_reg[5]/C", "destination": "weight_sram_instance/read_data_reg[28]/D", "logic_levels": 15.0, "delay_ns": 15.068, "logic_ns": 5.285, "route_ns": 9.783, "mux_present": true, "address_path": true, "dsp_present": true}, {"slack_ns": -5.194, "artifact_path": "critical_paths.rpt", "line": 746, "source": "systolic_controller_instance/cycle_count_reg[5]/C", "destination": "weight_sram_instance/read_data_reg[25]/D", "logic_levels": 16.0, "delay_ns": 15.059, "logic_ns": 5.352, "route_ns": 9.707, "mux_present": true, "address_path": true, "dsp_present": true}, {"slack_ns": -5.086, "artifact_path": "critical_paths.rpt", "line": 837, "source": "systolic_controller_instance/cycle_count_reg[4]/C", "destination": "weight_sram_instance/read_data_reg[9]/D", "logic_levels": 17.0, "delay_ns": 15.027, "logic_ns": 5.532, "route_ns": 9.495, "mux_present": true, "address_path": true, "dsp_present": true}, {"slack_ns": -5.083, "artifact_path": "critical_paths.rpt", "line": 930, "source": "systolic_controller_instance/cycle_count_reg[4]/C", "destination": "weight_sram_instance/read_data_reg[33]/D", "logic_levels": 16.0, "delay_ns": 15.034, "logic_ns": 5.181, "route_ns": 9.853, "mux_present": true, "address_path": true, "dsp_present": true}, {"slack_ns": -5.033, "artifact_path": "critical_paths.rpt", "line": 1021, "source": "systolic_controller_instance/cycle_count_reg[4]/C", "destination": "weight_sram_instance/read_data_reg[10]/D", "logic_levels": 17.0, "delay_ns": 14.972, "logic_ns": 5.55, "route_ns": 9.422, "mux_present": true, "address_path": true, "dsp_present": true}, {"slack_ns": -5.011, "artifact_path": "critical_paths.rpt", "line": 1114, "source": "systolic_controller_instance/cycle_count_reg[4]/C", "destination": "weight_sram_instance/read_data_reg[12]/D", "logic_levels": 18.0, "delay_ns": 14.957, "logic_ns": 5.632, "route_ns": 9.325, "mux_present": true, "address_path": true, "dsp_present": true}, {"slack_ns": -4.962, "artifact_path": "critical_paths.rpt", "line": 1209, "source": "systolic_controller_instance/cycle_count_reg[4]/C", "destination": "weight_sram_instance/read_data_reg[13]/D", "logic_levels": 18.0, "delay_ns": 14.915, "logic_ns": 5.671, "route_ns": 9.244, "mux_present": true, "address_path": true, "dsp_present": true}, {"slack_ns": -4.953, "artifact_path": "critical_paths.rpt", "line": 1304, "source": "systolic_controller_instance/cycle_count_reg[4]/C", "destination": "weight_sram_instance/read_data_reg[34]/D", "logic_levels": 16.0, "delay_ns": 14.949, "logic_ns": 5.43, "route_ns": 9.519, "mux_present": true, "address_path": true, "dsp_present": true}, {"slack_ns": -4.951, "artifact_path": "critical_paths.rpt", "line": 1395, "source": "systolic_controller_instance/cycle_count_reg[4]/C", "destination": "weight_sram_instance/read_data_reg[11]/D", "logic_levels": 17.0, "delay_ns": 14.894, "logic_ns": 5.553, "route_ns": 9.341, "mux_present": true, "address_path": true, "dsp_present": true}, {"slack_ns": -4.94, "artifact_path": "critical_paths.rpt", "line": 1488, "source": "systolic_controller_instance/cycle_count_reg[4]/C", "destination": "weight_sram_instance/read_data_reg[14]/D", "logic_levels": 18.0, "delay_ns": 14.889, "logic_ns": 5.671, "route_ns": 9.218, "mux_present": true, "address_path": true, "dsp_present": true}, {"slack_ns": -4.913, "artifact_path": "critical_paths.rpt", "line": 1583, "source": "systolic_controller_instance/cycle_count_reg[5]/C", "destination": "weight_sram_instance/read_data_reg[18]/D", "logic_levels": 16.0, "delay_ns": 14.857, "logic_ns": 5.302, "route_ns": 9.555, "mux_present": true, "address_path": true, "dsp_present": true}, {"slack_ns": -4.912, "artifact_path": "critical_paths.rpt", "line": 1674, "source": "systolic_controller_instance/cycle_count_reg[4]/C", "destination": "weight_sram_instance/read_data_reg[37]/D", "logic_levels": 16.0, "delay_ns": 14.996, "logic_ns": 5.433, "route_ns": 9.563, "mux_present": true, "address_path": true, "dsp_present": true}, {"slack_ns": -4.912, "artifact_path": "critical_paths.rpt", "line": 1765, "source": "systolic_controller_instance/cycle_count_reg[4]/C", "destination": "weight_sram_instance/read_data_reg[36]/D", "logic_levels": 16.0, "delay_ns": 14.93, "logic_ns": 5.453, "route_ns": 9.477, "mux_present": true, "address_path": true, "dsp_present": true}]}`
-- Required chain: `SPEC Requirement ID → 실패 증거 → 수정 내용 → 재검증 결과`
-
-## PPA-PIPELINE-001
-
-- Category: `pipeline_depth`
-- Severity: `high`
-- State: `detected_pending_human_approval`
-- Summary: Deep failing combinational paths require pipeline review including valid, address and scheduler alignment.
-- Evidence: `{"paths": [{"slack_ns": -5.362, "artifact_path": "critical_paths.rpt", "line": 14, "source": "systolic_controller_instance/cycle_count_reg[5]/C", "destination": "weight_sram_instance/read_data_reg[24]/D", "logic_levels": 17.0, "delay_ns": 15.216, "logic_ns": 5.506, "route_ns": 9.71, "mux_present": true, "address_path": true, "dsp_present": true}, {"slack_ns": -5.286, "artifact_path": "critical_paths.rpt", "line": 107, "source": "systolic_controller_instance/cycle_count_reg[5]/C", "destination": "weight_sram_instance/read_data_reg[31]/D", "logic_levels": 15.0, "delay_ns": 15.143, "logic_ns": 5.249, "route_ns": 9.894, "mux_present": true, "address_path": true, "dsp_present": true}, {"slack_ns": -5.284, "artifact_path": "critical_paths.rpt", "line": 196, "source": "systolic_controller_instance/cycle_count_reg[5]/C", "destination": "weight_sram_instance/read_data_reg[30]/D", "logic_levels": 15.0, "delay_ns": 15.142, "logic_ns": 5.249, "route_ns": 9.893, "mux_present": true, "address_path": true, "dsp_present": true}, {"slack_ns": -5.28, "artifact_path": "critical_paths.rpt", "line": 285, "source": "systolic_controller_instance/cycle_count_reg[5]/C", "destination": "weight_sram_instance/read_data_reg[26]/D", "logic_levels": 17.0, "delay_ns": 15.142, "logic_ns": 5.472, "route_ns": 9.67, "mux_present": true, "address_path": true, "dsp_present": true}, {"slack_ns": -5.251, "artifact_path": "critical_paths.rpt", "line": 378, "source": "systolic_controller_instance/cycle_count_reg[5]/C", "destination": "weight_sram_instance/read_data_reg[29]/D", "logic_levels": 17.0, "delay_ns": 15.202, "logic_ns": 5.496, "route_ns": 9.706, "mux_present": true, "address_path": true, "dsp_present": true}, {"slack_ns": -5.229, "artifact_path": "critical_paths.rpt", "line": 471, "source": "systolic_controller_instance/cycle_count_reg[4]/C", "destination": "weight_sram_instance/read_data_reg[15]/D", "logic_levels": 18.0, "delay_ns": 15.187, "logic_ns": 5.671, "route_ns": 9.516, "mux_present": true, "address_path": true, "dsp_present": true}, {"slack_ns": -5.221, "artifact_path": "critical_paths.rpt", "line": 566, "source": "systolic_controller_instance/cycle_count_reg[5]/C", "destination": "weight_sram_instance/read_data_reg[27]/D", "logic_levels": 16.0, "delay_ns": 15.141, "logic_ns": 5.066, "route_ns": 10.075, "mux_present": true, "address_path": true, "dsp_present": true}, {"slack_ns": -5.198, "artifact_path": "critical_paths.rpt", "line": 657, "source": "systolic_controller_instance/cycle_count_reg[5]/C", "destination": "weight_sram_instance/read_data_reg[28]/D", "logic_levels": 15.0, "delay_ns": 15.068, "logic_ns": 5.285, "route_ns": 9.783, "mux_present": true, "address_path": true, "dsp_present": true}, {"slack_ns": -5.194, "artifact_path": "critical_paths.rpt", "line": 746, "source": "systolic_controller_instance/cycle_count_reg[5]/C", "destination": "weight_sram_instance/read_data_reg[25]/D", "logic_levels": 16.0, "delay_ns": 15.059, "logic_ns": 5.352, "route_ns": 9.707, "mux_present": true, "address_path": true, "dsp_present": true}, {"slack_ns": -5.086, "artifact_path": "critical_paths.rpt", "line": 837, "source": "systolic_controller_instance/cycle_count_reg[4]/C", "destination": "weight_sram_instance/read_data_reg[9]/D", "logic_levels": 17.0, "delay_ns": 15.027, "logic_ns": 5.532, "route_ns": 9.495, "mux_present": true, "address_path": true, "dsp_present": true}, {"slack_ns": -5.083, "artifact_path": "critical_paths.rpt", "line": 930, "source": "systolic_controller_instance/cycle_count_reg[4]/C", "destination": "weight_sram_instance/read_data_reg[33]/D", "logic_levels": 16.0, "delay_ns": 15.034, "logic_ns": 5.181, "route_ns": 9.853, "mux_present": true, "address_path": true, "dsp_present": true}, {"slack_ns": -5.033, "artifact_path": "critical_paths.rpt", "line": 1021, "source": "systolic_controller_instance/cycle_count_reg[4]/C", "destination": "weight_sram_instance/read_data_reg[10]/D", "logic_levels": 17.0, "delay_ns": 14.972, "logic_ns": 5.55, "route_ns": 9.422, "mux_present": true, "address_path": true, "dsp_present": true}, {"slack_ns": -5.011, "artifact_path": "critical_paths.rpt", "line": 1114, "source": "systolic_controller_instance/cycle_count_reg[4]/C", "destination": "weight_sram_instance/read_data_reg[12]/D", "logic_levels": 18.0, "delay_ns": 14.957, "logic_ns": 5.632, "route_ns": 9.325, "mux_present": true, "address_path": true, "dsp_present": true}, {"slack_ns": -4.962, "artifact_path": "critical_paths.rpt", "line": 1209, "source": "systolic_controller_instance/cycle_count_reg[4]/C", "destination": "weight_sram_instance/read_data_reg[13]/D", "logic_levels": 18.0, "delay_ns": 14.915, "logic_ns": 5.671, "route_ns": 9.244, "mux_present": true, "address_path": true, "dsp_present": true}, {"slack_ns": -4.953, "artifact_path": "critical_paths.rpt", "line": 1304, "source": "systolic_controller_instance/cycle_count_reg[4]/C", "destination": "weight_sram_instance/read_data_reg[34]/D", "logic_levels": 16.0, "delay_ns": 14.949, "logic_ns": 5.43, "route_ns": 9.519, "mux_present": true, "address_path": true, "dsp_present": true}, {"slack_ns": -4.951, "artifact_path": "critical_paths.rpt", "line": 1395, "source": "systolic_controller_instance/cycle_count_reg[4]/C", "destination": "weight_sram_instance/read_data_reg[11]/D", "logic_levels": 17.0, "delay_ns": 14.894, "logic_ns": 5.553, "route_ns": 9.341, "mux_present": true, "address_path": true, "dsp_present": true}, {"slack_ns": -4.94, "artifact_path": "critical_paths.rpt", "line": 1488, "source": "systolic_controller_instance/cycle_count_reg[4]/C", "destination": "weight_sram_instance/read_data_reg[14]/D", "logic_levels": 18.0, "delay_ns": 14.889, "logic_ns": 5.671, "route_ns": 9.218, "mux_present": true, "address_path": true, "dsp_present": true}, {"slack_ns": -4.913, "artifact_path": "critical_paths.rpt", "line": 1583, "source": "systolic_controller_instance/cycle_count_reg[5]/C", "destination": "weight_sram_instance/read_data_reg[18]/D", "logic_levels": 16.0, "delay_ns": 14.857, "logic_ns": 5.302, "route_ns": 9.555, "mux_present": true, "address_path": true, "dsp_present": true}, {"slack_ns": -4.912, "artifact_path": "critical_paths.rpt", "line": 1674, "source": "systolic_controller_instance/cycle_count_reg[4]/C", "destination": "weight_sram_instance/read_data_reg[37]/D", "logic_levels": 16.0, "delay_ns": 14.996, "logic_ns": 5.433, "route_ns": 9.563, "mux_present": true, "address_path": true, "dsp_present": true}, {"slack_ns": -4.912, "artifact_path": "critical_paths.rpt", "line": 1765, "source": "systolic_controller_instance/cycle_count_reg[4]/C", "destination": "weight_sram_instance/read_data_reg[36]/D", "logic_levels": 16.0, "delay_ns": 14.93, "logic_ns": 5.453, "route_ns": 9.477, "mux_present": true, "address_path": true, "dsp_present": true}]}`
-- Required chain: `SPEC Requirement ID → 실패 증거 → 수정 내용 → 재검증 결과`
-
-## PPA-ROUTE-DELAY-001
-
-- Category: `route_delay_dominance`
-- Severity: `high`
-- State: `detected_pending_human_approval`
-- Summary: Routing dominates a failing path. Review fanout and placement with logic changes; this is not proof of congestion.
-- Evidence: `{"paths": [{"slack_ns": -5.362, "artifact_path": "critical_paths.rpt", "line": 14, "source": "systolic_controller_instance/cycle_count_reg[5]/C", "destination": "weight_sram_instance/read_data_reg[24]/D", "logic_levels": 17.0, "delay_ns": 15.216, "logic_ns": 5.506, "route_ns": 9.71, "mux_present": true, "address_path": true, "dsp_present": true}, {"slack_ns": -5.286, "artifact_path": "critical_paths.rpt", "line": 107, "source": "systolic_controller_instance/cycle_count_reg[5]/C", "destination": "weight_sram_instance/read_data_reg[31]/D", "logic_levels": 15.0, "delay_ns": 15.143, "logic_ns": 5.249, "route_ns": 9.894, "mux_present": true, "address_path": true, "dsp_present": true}, {"slack_ns": -5.284, "artifact_path": "critical_paths.rpt", "line": 196, "source": "systolic_controller_instance/cycle_count_reg[5]/C", "destination": "weight_sram_instance/read_data_reg[30]/D", "logic_levels": 15.0, "delay_ns": 15.142, "logic_ns": 5.249, "route_ns": 9.893, "mux_present": true, "address_path": true, "dsp_present": true}, {"slack_ns": -5.28, "artifact_path": "critical_paths.rpt", "line": 285, "source": "systolic_controller_instance/cycle_count_reg[5]/C", "destination": "weight_sram_instance/read_data_reg[26]/D", "logic_levels": 17.0, "delay_ns": 15.142, "logic_ns": 5.472, "route_ns": 9.67, "mux_present": true, "address_path": true, "dsp_present": true}, {"slack_ns": -5.251, "artifact_path": "critical_paths.rpt", "line": 378, "source": "systolic_controller_instance/cycle_count_reg[5]/C", "destination": "weight_sram_instance/read_data_reg[29]/D", "logic_levels": 17.0, "delay_ns": 15.202, "logic_ns": 5.496, "route_ns": 9.706, "mux_present": true, "address_path": true, "dsp_present": true}, {"slack_ns": -5.229, "artifact_path": "critical_paths.rpt", "line": 471, "source": "systolic_controller_instance/cycle_count_reg[4]/C", "destination": "weight_sram_instance/read_data_reg[15]/D", "logic_levels": 18.0, "delay_ns": 15.187, "logic_ns": 5.671, "route_ns": 9.516, "mux_present": true, "address_path": true, "dsp_present": true}, {"slack_ns": -5.221, "artifact_path": "critical_paths.rpt", "line": 566, "source": "systolic_controller_instance/cycle_count_reg[5]/C", "destination": "weight_sram_instance/read_data_reg[27]/D", "logic_levels": 16.0, "delay_ns": 15.141, "logic_ns": 5.066, "route_ns": 10.075, "mux_present": true, "address_path": true, "dsp_present": true}, {"slack_ns": -5.198, "artifact_path": "critical_paths.rpt", "line": 657, "source": "systolic_controller_instance/cycle_count_reg[5]/C", "destination": "weight_sram_instance/read_data_reg[28]/D", "logic_levels": 15.0, "delay_ns": 15.068, "logic_ns": 5.285, "route_ns": 9.783, "mux_present": true, "address_path": true, "dsp_present": true}, {"slack_ns": -5.194, "artifact_path": "critical_paths.rpt", "line": 746, "source": "systolic_controller_instance/cycle_count_reg[5]/C", "destination": "weight_sram_instance/read_data_reg[25]/D", "logic_levels": 16.0, "delay_ns": 15.059, "logic_ns": 5.352, "route_ns": 9.707, "mux_present": true, "address_path": true, "dsp_present": true}, {"slack_ns": -5.086, "artifact_path": "critical_paths.rpt", "line": 837, "source": "systolic_controller_instance/cycle_count_reg[4]/C", "destination": "weight_sram_instance/read_data_reg[9]/D", "logic_levels": 17.0, "delay_ns": 15.027, "logic_ns": 5.532, "route_ns": 9.495, "mux_present": true, "address_path": true, "dsp_present": true}, {"slack_ns": -5.083, "artifact_path": "critical_paths.rpt", "line": 930, "source": "systolic_controller_instance/cycle_count_reg[4]/C", "destination": "weight_sram_instance/read_data_reg[33]/D", "logic_levels": 16.0, "delay_ns": 15.034, "logic_ns": 5.181, "route_ns": 9.853, "mux_present": true, "address_path": true, "dsp_present": true}, {"slack_ns": -5.033, "artifact_path": "critical_paths.rpt", "line": 1021, "source": "systolic_controller_instance/cycle_count_reg[4]/C", "destination": "weight_sram_instance/read_data_reg[10]/D", "logic_levels": 17.0, "delay_ns": 14.972, "logic_ns": 5.55, "route_ns": 9.422, "mux_present": true, "address_path": true, "dsp_present": true}, {"slack_ns": -5.011, "artifact_path": "critical_paths.rpt", "line": 1114, "source": "systolic_controller_instance/cycle_count_reg[4]/C", "destination": "weight_sram_instance/read_data_reg[12]/D", "logic_levels": 18.0, "delay_ns": 14.957, "logic_ns": 5.632, "route_ns": 9.325, "mux_present": true, "address_path": true, "dsp_present": true}, {"slack_ns": -4.962, "artifact_path": "critical_paths.rpt", "line": 1209, "source": "systolic_controller_instance/cycle_count_reg[4]/C", "destination": "weight_sram_instance/read_data_reg[13]/D", "logic_levels": 18.0, "delay_ns": 14.915, "logic_ns": 5.671, "route_ns": 9.244, "mux_present": true, "address_path": true, "dsp_present": true}, {"slack_ns": -4.953, "artifact_path": "critical_paths.rpt", "line": 1304, "source": "systolic_controller_instance/cycle_count_reg[4]/C", "destination": "weight_sram_instance/read_data_reg[34]/D", "logic_levels": 16.0, "delay_ns": 14.949, "logic_ns": 5.43, "route_ns": 9.519, "mux_present": true, "address_path": true, "dsp_present": true}, {"slack_ns": -4.951, "artifact_path": "critical_paths.rpt", "line": 1395, "source": "systolic_controller_instance/cycle_count_reg[4]/C", "destination": "weight_sram_instance/read_data_reg[11]/D", "logic_levels": 17.0, "delay_ns": 14.894, "logic_ns": 5.553, "route_ns": 9.341, "mux_present": true, "address_path": true, "dsp_present": true}, {"slack_ns": -4.94, "artifact_path": "critical_paths.rpt", "line": 1488, "source": "systolic_controller_instance/cycle_count_reg[4]/C", "destination": "weight_sram_instance/read_data_reg[14]/D", "logic_levels": 18.0, "delay_ns": 14.889, "logic_ns": 5.671, "route_ns": 9.218, "mux_present": true, "address_path": true, "dsp_present": true}, {"slack_ns": -4.913, "artifact_path": "critical_paths.rpt", "line": 1583, "source": "systolic_controller_instance/cycle_count_reg[5]/C", "destination": "weight_sram_instance/read_data_reg[18]/D", "logic_levels": 16.0, "delay_ns": 14.857, "logic_ns": 5.302, "route_ns": 9.555, "mux_present": true, "address_path": true, "dsp_present": true}, {"slack_ns": -4.912, "artifact_path": "critical_paths.rpt", "line": 1674, "source": "systolic_controller_instance/cycle_count_reg[4]/C", "destination": "weight_sram_instance/read_data_reg[37]/D", "logic_levels": 16.0, "delay_ns": 14.996, "logic_ns": 5.433, "route_ns": 9.563, "mux_present": true, "address_path": true, "dsp_present": true}, {"slack_ns": -4.912, "artifact_path": "critical_paths.rpt", "line": 1765, "source": "systolic_controller_instance/cycle_count_reg[4]/C", "destination": "weight_sram_instance/read_data_reg[36]/D", "logic_levels": 16.0, "delay_ns": 14.93, "logic_ns": 5.453, "route_ns": 9.477, "mux_present": true, "address_path": true, "dsp_present": true}]}`
-- Required chain: `SPEC Requirement ID → 실패 증거 → 수정 내용 → 재검증 결과`
-
-## PPA-FANOUT-001
-
-- Category: `high_fanout`
-- Severity: `high`
-- State: `detected_pending_human_approval`
-- Summary: High-fanout drivers require load distribution and timing review.
-- Evidence: `{"nets": [{"net": "weight_sram_instance/read_data1__0_n_100", "fanout": 2415, "driver": "DSP48E1", "slack": "-4.908", "artifact_path": "high_fanout_nets.rpt", "line": 19}, {"net": "weight_sram_instance/read_data1__0_n_101", "fanout": 2415, "driver": "DSP48E1", "slack": "-5.033", "artifact_path": "high_fanout_nets.rpt", "line": 20}, {"net": "weight_sram_instance/read_data1__0_n_102", "fanout": 2415, "driver": "DSP48E1", "slack": "-5.099", "artifact_path": "high_fanout_nets.rpt", "line": 21}, {"net": "weight_sram_instance/read_data1__1_n_100", "fanout": 2415, "driver": "DSP48E1", "slack": "-4.823", "artifact_path": "high_fanout_nets.rpt", "line": 22}, {"net": "weight_sram_instance/read_data1__1_n_101", "fanout": 2415, "driver": "DSP48E1", "slack": "-4.702", "artifact_path": "high_fanout_nets.rpt", "line": 23}, {"net": "weight_sram_instance/read_data1__1_n_102", "fanout": 2415, "driver": "DSP48E1", "slack": "-4.886", "artifact_path": "high_fanout_nets.rpt", "line": 24}, {"net": "weight_sram_instance/read_data1__2_n_100", "fanout": 2415, "driver": "DSP48E1", "slack": "-5.056", "artifact_path": "high_fanout_nets.rpt", "line": 25}, {"net": "weight_sram_instance/read_data1__2_n_101", "fanout": 2415, "driver": "DSP48E1", "slack": "-5.219", "artifact_path": "high_fanout_nets.rpt", "line": 26}, {"net": "weight_sram_instance/read_data1__2_n_102", "fanout": 2415, "driver": "DSP48E1", "slack": "-5.308", "artifact_path": "high_fanout_nets.rpt", "line": 27}, {"net": "weight_sram_instance/read_data1__3_n_100", "fanout": 2415, "driver": "DSP48E1", "slack": "-4.688", "artifact_path": "high_fanout_nets.rpt", "line": 28}, {"net": "weight_sram_instance/read_data1__3_n_101", "fanout": 2415, "driver": "DSP48E1", "slack": "-4.880", "artifact_path": "high_fanout_nets.rpt", "line": 29}, {"net": "weight_sram_instance/read_data1__3_n_102", "fanout": 2415, "driver": "DSP48E1", "slack": "-4.872", "artifact_path": "high_fanout_nets.rpt", "line": 30}, {"net": "weight_sram_instance/read_data1_n_100", "fanout": 2415, "driver": "DSP48E1", "slack": "-4.641", "artifact_path": "high_fanout_nets.rpt", "line": 31}, {"net": "weight_sram_instance/read_data1_n_101", "fanout": 2415, "driver": "DSP48E1", "slack": "-4.758", "artifact_path": "high_fanout_nets.rpt", "line": 32}, {"net": "weight_sram_instance/read_data1_n_102", "fanout": 2415, "driver": "DSP48E1", "slack": "-4.774", "artifact_path": "high_fanout_nets.rpt", "line": 33}, {"net": "weight_sram_instance/read_data1__0_n_103", "fanout": 2410, "driver": "DSP48E1", "slack": "-5.018", "artifact_path": "high_fanout_nets.rpt", "line": 34}, {"net": "weight_sram_instance/read_data1__1_n_103", "fanout": 2410, "driver": "DSP48E1", "slack": "-4.828", "artifact_path": "high_fanout_nets.rpt", "line": 35}, {"net": "weight_sram_instance/read_data1__2_n_103", "fanout": 2410, "driver": "DSP48E1", "slack": "-5.291", "artifact_path": "high_fanout_nets.rpt", "line": 36}, {"net": "weight_sram_instance/read_data1__3_n_103", "fanout": 2410, "driver": "DSP48E1", "slack": "-4.931", "artifact_path": "high_fanout_nets.rpt", "line": 37}, {"net": "weight_sram_instance/read_data1_n_103", "fanout": 2410, "driver": "DSP48E1", "slack": "-4.797", "artifact_path": "high_fanout_nets.rpt", "line": 38}, {"net": "weight_sram_instance/read_data1__0_n_105", "fanout": 2401, "driver": "DSP48E1", "slack": "-5.154", "artifact_path": "high_fanout_nets.rpt", "line": 39}, {"net": "weight_sram_instance/read_data1__1_n_105", "fanout": 2401, "driver": "DSP48E1", "slack": "-4.913", "artifact_path": "high_fanout_nets.rpt", "line": 40}, {"net": "weight_sram_instance/read_data1__2_n_105", "fanout": 2401, "driver": "DSP48E1", "slack": "-5.362", "artifact_path": "high_fanout_nets.rpt", "line": 41}, {"net": "weight_sram_instance/read_data1__3_n_105", "fanout": 2401, "driver": "DSP48E1", "slack": "-5.083", "artifact_path": "high_fanout_nets.rpt", "line": 42}, {"net": "weight_sram_instance/read_data1_n_105", "fanout": 2401, "driver": "DSP48E1", "slack": "-4.604", "artifact_path": "high_fanout_nets.rpt", "line": 43}, {"net": "weight_sram_instance/read_data1__0_n_104", "fanout": 2400, "driver": "DSP48E1", "slack": "-5.229", "artifact_path": "high_fanout_nets.rpt", "line": 44}, {"net": "weight_sram_instance/read_data1__1_n_104", "fanout": 2400, "driver": "DSP48E1", "slack": "-4.907", "artifact_path": "high_fanout_nets.rpt", "line": 45}, {"net": "weight_sram_instance/read_data1__2_n_104", "fanout": 2400, "driver": "DSP48E1", "slack": "-5.259", "artifact_path": "high_fanout_nets.rpt", "line": 46}, {"net": "weight_sram_instance/read_data1__3_n_104", "fanout": 2400, "driver": "DSP48E1", "slack": "-5.061", "artifact_path": "high_fanout_nets.rpt", "line": 47}, {"net": "weight_sram_instance/read_data1_n_104", "fanout": 2400, "driver": "DSP48E1", "slack": "-4.826", "artifact_path": "high_fanout_nets.rpt", "line": 48}, {"net": "weight_sram_instance/read_data1__0_n_99", "fanout": 1269, "driver": "DSP48E1", "slack": "-4.669", "artifact_path": "high_fanout_nets.rpt", "line": 49}, {"net": "weight_sram_instance/read_data1__1_n_99", "fanout": 1269, "driver": "DSP48E1", "slack": "-4.450", "artifact_path": "high_fanout_nets.rpt", "line": 50}, {"net": "weight_sram_instance/read_data1__2_n_99", "fanout": 1269, "driver": "DSP48E1", "slack": "-4.921", "artifact_path": "high_fanout_nets.rpt", "line": 51}, {"net": "weight_sram_instance/read_data1__3_n_99", "fanout": 1269, "driver": "DSP48E1", "slack": "-4.476", "artifact_path": "high_fanout_nets.rpt", "line": 52}, {"net": "weight_sram_instance/read_data1_n_99", "fanout": 1269, "driver": "DSP48E1", "slack": "-4.330", "artifact_path": "high_fanout_nets.rpt", "line": 53}, {"net": "systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[4].ARRAY_COLUMNS[4].pe_systolic_cell_instance/mac_pe_instance/s_axi_aresetn", "fanout": 1262, "driver": "LUT1", "slack": "inf", "artifact_path": "high_fanout_nets.rpt", "line": 54}, {"net": "weight_sram_instance/read_data1__0_n_98", "fanout": 554, "driver": "DSP48E1", "slack": "-4.541", "artifact_path": "high_fanout_nets.rpt", "line": 55}, {"net": "weight_sram_instance/read_data1__1_n_98", "fanout": 554, "driver": "DSP48E1", "slack": "-4.427", "artifact_path": "high_fanout_nets.rpt", "line": 56}, {"net": "weight_sram_instance/read_data1__2_n_98", "fanout": 554, "driver": "DSP48E1", "slack": "-4.737", "artifact_path": "high_fanout_nets.rpt", "line": 57}, {"net": "weight_sram_instance/read_data1__3_n_98", "fanout": 554, "driver": "DSP48E1", "slack": "-4.272", "artifact_path": "high_fanout_nets.rpt", "line": 58}, {"net": "weight_sram_instance/read_data1_n_98", "fanout": 554, "driver": "DSP48E1", "slack": "-4.252", "artifact_path": "high_fanout_nets.rpt", "line": 59}]}`
-- Required chain: `SPEC Requirement ID → 실패 증거 → 수정 내용 → 재검증 결과`
-
-## DRC-NSTD-1
-
-- Category: `drc_rule`
-- Severity: `critical`
-- State: `detected_pending_human_approval`
-- Summary: Review reported DRC rule before approval; pipeline/reset/I/O recommendations must not be applied blindly.
-- Evidence: `{"rule": "NSTD-1", "severity": "Critical Warning", "count": 1, "line": 31, "artifact_path": "drc.rpt"}`
-- Required chain: `SPEC Requirement ID → 실패 증거 → 수정 내용 → 재검증 결과`
-
-## DRC-UCIO-1
-
-- Category: `drc_rule`
-- Severity: `critical`
-- State: `detected_pending_human_approval`
-- Summary: Review reported DRC rule before approval; pipeline/reset/I/O recommendations must not be applied blindly.
-- Evidence: `{"rule": "UCIO-1", "severity": "Critical Warning", "count": 1, "line": 32, "artifact_path": "drc.rpt"}`
-- Required chain: `SPEC Requirement ID → 실패 증거 → 수정 내용 → 재검증 결과`
-
-## DRC-CHECK-3
-
-- Category: `drc_rule`
-- Severity: `medium`
-- State: `detected_pending_human_approval`
-- Summary: Review reported DRC rule before approval; pipeline/reset/I/O recommendations must not be applied blindly.
-- Evidence: `{"rule": "CHECK-3", "severity": "Warning", "count": 1, "line": 33, "artifact_path": "drc.rpt"}`
-- Required chain: `SPEC Requirement ID → 실패 증거 → 수정 내용 → 재검증 결과`
-
-## DRC-DPIP-1
-
-- Category: `drc_rule`
-- Severity: `medium`
-- State: `detected_pending_human_approval`
-- Summary: Review reported DRC rule before approval; pipeline/reset/I/O recommendations must not be applied blindly.
-- Evidence: `{"rule": "DPIP-1", "severity": "Warning", "count": 10, "line": 34, "artifact_path": "drc.rpt"}`
-- Required chain: `SPEC Requirement ID → 실패 증거 → 수정 내용 → 재검증 결과`
-
-## DRC-DPOP-1
-
-- Category: `drc_rule`
-- Severity: `medium`
-- State: `detected_pending_human_approval`
-- Summary: Review reported DRC rule before approval; pipeline/reset/I/O recommendations must not be applied blindly.
-- Evidence: `{"rule": "DPOP-1", "severity": "Warning", "count": 5, "line": 35, "artifact_path": "drc.rpt"}`
-- Required chain: `SPEC Requirement ID → 실패 증거 → 수정 내용 → 재검증 결과`
-
-## DRC-DPOP-2
-
-- Category: `drc_rule`
-- Severity: `medium`
-- State: `detected_pending_human_approval`
-- Summary: Review reported DRC rule before approval; pipeline/reset/I/O recommendations must not be applied blindly.
-- Evidence: `{"rule": "DPOP-2", "severity": "Warning", "count": 5, "line": 36, "artifact_path": "drc.rpt"}`
-- Required chain: `SPEC Requirement ID → 실패 증거 → 수정 내용 → 재검증 결과`
-
-## DRC-RBOR-1
-
-- Category: `drc_rule`
-- Severity: `medium`
-- State: `detected_pending_human_approval`
-- Summary: Review reported DRC rule before approval; pipeline/reset/I/O recommendations must not be applied blindly.
-- Evidence: `{"rule": "RBOR-1", "severity": "Warning", "count": 5, "line": 37, "artifact_path": "drc.rpt"}`
-- Required chain: `SPEC Requirement ID → 실패 증거 → 수정 내용 → 재검증 결과`
-
-## DRC-REQP-1840
-
-- Category: `drc_rule`
-- Severity: `medium`
-- State: `detected_pending_human_approval`
-- Summary: Review reported DRC rule before approval; pipeline/reset/I/O recommendations must not be applied blindly.
-- Evidence: `{"rule": "REQP-1840", "severity": "Warning", "count": 20, "line": 38, "artifact_path": "drc.rpt"}`
-- Required chain: `SPEC Requirement ID → 실패 증거 → 수정 내용 → 재검증 결과`
-
-## DRC-ZPS7-1
-
-- Category: `drc_rule`
-- Severity: `medium`
-- State: `detected_pending_human_approval`
-- Summary: Review reported DRC rule before approval; pipeline/reset/I/O recommendations must not be applied blindly.
-- Evidence: `{"rule": "ZPS7-1", "severity": "Warning", "count": 1, "line": 39, "artifact_path": "drc.rpt"}`
-- Required chain: `SPEC Requirement ID → 실패 증거 → 수정 내용 → 재검증 결과`
-
-## PPA-CONSTRAINT-001
-
-- Category: `io_timing_coverage`
-- Severity: `high`
-- State: `detected_pending_human_approval`
-- Summary: External I/O delays are missing; timing coverage is incomplete.
-- Evidence: `{"no_input_delay": 20, "no_output_delay": 11}`
-- Required chain: `SPEC Requirement ID → 실패 증거 → 수정 내용 → 재검증 결과`
-
-## EVIDENCE-PROVENANCE-001
-
-- Category: `checkpoint_source_binding`
-- Severity: `medium`
-- State: `detected_pending_human_approval`
-- Summary: Checkpoint identity is hashed, but its original RTL source hash was not recorded. Do not infer source equivalence from the model name.
-- Evidence: `{"artifact_path": "run_manifest.yaml"}`
-- Required chain: `SPEC Requirement ID → 실패 증거 → 수정 내용 → 재검증 결과`
-
-## EVIDENCE-COVERAGE-001
-
-- Category: `missing_evidence`
-- Severity: `medium`
-- State: `detected_pending_human_approval`
-- Summary: Missing/unparsed evidence is UNKNOWN, never a pass. Collect evidence or request a human decision.
-- Evidence: `{"unknown": ["interrupt_count_per_batch", "peak_active_pe_count", "protocol_errors", "ram", "utilization", "verification"]}`
-- Required chain: `SPEC Requirement ID → 실패 증거 → 수정 내용 → 재검증 결과`
-
+정확한 수치·원본 줄 번호·상태는 같은 폴더의 findings.yaml에 보존합니다.
+연결: SPEC 요구 ID → 실패 증거 → 수정 내용 → 재검증 결과. 사용자 승인 대기.

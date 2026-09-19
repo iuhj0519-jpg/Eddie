@@ -3,7 +3,7 @@
 ## 현재 디렉터리 정책
 
 `analysis_NNN`은 기존 증거 분석, `run_NNN`은 승인된 패치 실행과 재검증이다.
-날짜형 review 폴더를 사용하지 않는다. [정책 문서](../../rag/automation/DIRECTORY_POLICY.md)를 따른다.
+날짜형 review 폴더를 사용하지 않는다. [정책 문서](../../rag/automation/README.md)를 따른다.
 아래 최신/승인 대상이라는 표현은 이전 구축 이력이다. 이름/Runtime 변경 후 기존 binding은 역사적 기록이며
 다음 실제 승인 전에 재분석해야 한다. 이번 이름 정리에서는 추가 Run/분석을 생성하지 않았다.
 

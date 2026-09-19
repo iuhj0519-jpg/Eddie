@@ -156,7 +156,7 @@ class LifecycleTests(unittest.TestCase):
         evidence.write_text("fixture only")
         binding = {"source_hashes": {"rtl/top.sv": "fixture"}}
         lc.write(artifact / "execution_result.json", {"source_hashes": binding["source_hashes"],
-            "stages": [{"stage": s, "exit_code": 0} for s in ("compile", "simulation", "synthesis", "implementation")]})
+            "stages": [{"stage": s, "exit_code": 0} for s in ("compile", "simulation", "synthesis", "implementation", "power")]})
         lc.write(self.run / "run_manifest.yaml", {"spec_revision": rev, "source": {"artifact_root": "artifacts/fixture"}})
         metrics = {"timing": {"wns_ns": 0, "tns_ns": 0, "whs_ns": 0, "wpws_ns": 0},
             "coverage": {"fixture": {"state": "observed"}}, "implementation": {"unrouted_nets": 0, "routing_errors": 0},

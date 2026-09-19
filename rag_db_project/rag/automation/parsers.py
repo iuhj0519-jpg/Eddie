@@ -186,6 +186,7 @@ def collect_metrics(artifact_root: Path) -> dict[str, Any]:
     if not path.is_file():
         path = select("timing_summary")
     metrics["paths"] = parse_paths(path)
+    metrics['power'].update(parse_json(artifact_root / 'activity_metrics.json'))
     metrics["fanout"] = parse_fanout(artifact_root / "high_fanout_nets.rpt")
     drc = _read(select("drc"))
     rules = []

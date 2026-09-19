@@ -1,25 +1,25 @@
-# SPEC Lifecycle 시스템 검증 — 2026-09-13
+# 자동화 시스템 검증 기록
 
-상태: 시스템 기능 구현/fixture 검증 완료. 실제 설계 SPEC/Finding 승인은 미실행.
-최신 대상: optimized_accelerator/analysis_003. Run is not approved for patch generation.
+이 문서는 DUT 최적화 결과가 아니라 자동화 프로그램 검증이다. 실제 Gate/승인 SPEC은 변경하지 않았고 run_003을 생성하지 않았다.
 
-- 요구사항 intake: 이번 요청을 requests/request_001에 보존. 이 요청은 자동화 구축/진단 지시이며 RTL 설계 제약으로 자동 승인하지 않았다.
-- 보고서 분석: 기존 Post-Route 원본에서 23개 Finding 및 상세 요구사항 23개를 생성했다. 신규 simulation 결과를 만들지 않았다.
-- 각 요구사항: 변경 전 증거, 변경 목표, acceptance, 검증 방법, 효과, 위험을 기록한다.
-- SPEC 개정: baseline을 보존하는 승인된 versioned overlay. 실제 승인 버전은 아직 생성하지 않았다.
-- 승인/실행: 실제 Requirement ID/Finding 연결, source/spec/runtime/evidence hash, fresh human decision을 요구한다.
-- 반복: 부모 SPEC/격리 소스 승계, 재검증, 새 초안 생성, 재승인. 조건이 다른 PPA 비교는 확정 개선으로 보지 않는다.
-- 최종 수락: 같은 소스의 compile/simulation/synthesis/implementation 및 실제 증거가 필요하다. 자동 승격 안 함.
-- 테스트: 설치본 unittest 42개 PASS. 기존 RAG 검색 6개 PASS, 금지 출처 Chunk 0.
-- 시스템 테스트의 승인/수락은 TemporaryDirectory fixture 내부에서만 이루어졌다. 생산 RTL의 승인/run_003가 아니다.
+| 검사 | 결과 | 범위 |
+|---|---|---|
+| Python 회귀 테스트 | 56개 PASS | 승인 차단, 오래된 hash, 실패 중단, 5단계 실행 연결, 미승인 자식 Run, SAIF 단위·에너지 계산, 에너지 회귀/승인 상한, XSim 입력 경로 |
+| 실제 Vivado 프로젝트/compile | 종료 코드 0 | 독립 8-bit 테스트 회로, XPR/Top/include 생성 |
+| 실제 XSim + SAIF | 종료 코드 0 | 테스트 회로 100회 연산, 메모리/입력 상대경로 로딩 확인, SAIF 파일 생성 |
+| 실제 Vivado synthesis | 종료 코드 0 | 동일 fixture의 DCP/보고서 생성 |
+| 실제 Vivado implementation | 종료 코드 0 | opt/place/phys_opt/route 및 DCP/route 보고서 생성 |
+| 실제 SAIF power | 종료 코드 0 | Routed DCP에 activity 적용 및 전력/에너지 보고서 생성 |
 
-검증 원본: artifacts/automation_system_tests/lifecycle_validation_001/unittest.log 및 verification_result.json.
-초기 작업 중 RAG가 아직 없는 승인 문서 패턴을 필수로 취급해 실패했다. 명시적인 optional allowlist로 해결했으며
-없는 승인/성공 문서를 가짜로 만들지 않았다. initial_draft/second_draft는 작업 중간 스냅샷으로 보존하며 RAG 검색에서 제외된다.
+원본 로그: `artifacts/automation_system_tests/run_002/vivado_<stage>.log`.
+실행 결과: 같은 폴더 `vivado_flow_result.json`, `vivado_activity_metrics.json`.
+소스 fixture: 같은 폴더 `vivado_fixture_rtl.sv`, `vivado_fixture_tb.sv`.
+가속기 전체의 물리 구현 결과나 성능 통과가 아니다. 가속기 실제 최적화·5단계 실행은 다음 Gate 이후 수행한다.
+테스트 회로는 보드 I/O 제약 미지정 경고가 있을 수 있으며 도구 실행 성공과 DRC 최종 합격을 구분한다.
 
-Vivado: XPR이 Git optimized 대신 작업폴더 루트 소스를 참조하고 Design Top=top_sim이었다.
-첫 오류는 Weight_SRAM.sv:39 string 선언. 실행 Tcl은 run 1000ns; simulate.log는 0 byte.
-올바른 source/top으로 실행한 Console/Simulation 로그가 오면 별도 증거로 수집해야 한다.
+## 기존 검증 이력
 
-사용 매뉴얼: rag/automation/LIFECYCLE.md, rag/automation/SIMULATION_DIAGNOSIS.md.
-외부 Web/LLM/API 및 Historical Baseline을 디버깅 근거로 사용하지 않았다.
+기존 Lifecycle 42개/47개 회귀 테스트와 6개 RAG 검색 검증은 과거 검증 기록이며 원본은 기존 artifacts/automation_system_tests에 보존한다.
+예전 expected=x 및 잘못된 top/source 문제는 새 자동 입력 배치와 project 생성으로 재발 방지 경로를 추가했다.
+외부 웹은 사용자가 요청한 블로그 계층 확인에만 접근을 시도했으며, 실제 RTL 설계/디버깅 근거로 사용하지 않았다.
+현재 Agent는 로컬 정책/DB와 승인된 SPEC만으로 설계한다. 추가 외부 LLM API를 호출하지 않는다.

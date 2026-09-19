@@ -9,7 +9,7 @@ requirements:
   - REGRESSION-TOTAL-ON-CHIP-POWER-W
   kind: optimization
   before:
-    evidence: experiments/automation_loop/ppa_summary/SAIF_GATE_REVIEW.md
+    evidence: experiments/automation_loop/ppa_summary/diagnosis.md
     systolic_power_w: 0.544
     optimized_power_w: 0.607
     systolic_duration_ns: 1837345

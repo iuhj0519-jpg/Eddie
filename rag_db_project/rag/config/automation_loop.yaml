@@ -35,14 +35,19 @@ thresholds:
 commands:
   systolic_prototype: &local_flow
     - stage: compile
-      tool: C:/intelFPGA/18.1/modelsim_ase/win32aloem/vlog.exe
+      tool: C:/Xilinx/Vivado/2022.1/bin/vivado.bat
     - stage: simulation
-      tool: C:/intelFPGA/18.1/modelsim_ase/win32aloem/vsim.exe
+      tool: C:/Xilinx/Vivado/2022.1/bin/vivado.bat
     - stage: synthesis
+      tool: C:/Xilinx/Vivado/2022.1/bin/vivado.bat
+    - stage: implementation
+      tool: C:/Xilinx/Vivado/2022.1/bin/vivado.bat
+    - stage: power
       tool: C:/Xilinx/Vivado/2022.1/bin/vivado.bat
   optimized_accelerator: *local_flow
 
 loop:
+  required_stages: [compile, simulation, synthesis, implementation, power]
   max_iterations: 5
   stop_on_repeated_fingerprint: 2
   patch_generation_owner: ai_agent_after_human_approval

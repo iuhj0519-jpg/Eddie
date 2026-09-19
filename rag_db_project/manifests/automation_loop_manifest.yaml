@@ -26,6 +26,9 @@ retrieval_sources:
     - experiments/automation_loop/**/gate_status.json
     - experiments/automation_loop/**/revalidation_result.json
   artifact_metadata:
+    - artifacts/implementation/**/execution_result.json
+    - artifacts/implementation/**/comparison_context.json
+    - artifacts/implementation/**/activity_metrics.json
     - artifacts/implementation/**/run_manifest.yaml
     - artifacts/automation_loop/**/execution_result.json
     - artifacts/synthesis/**/run_manifest.yaml
@@ -34,6 +37,8 @@ retrieval_sources:
     - artifacts/verification/**/run_summary.yaml
 
 direct_evidence_sources:
+  - artifacts/implementation/**/*.json
+  - artifacts/implementation/**/*.log
   - artifacts/implementation/**/*.rpt
   - artifacts/automation_loop/**/*.rpt
   - artifacts/automation_loop/**/*.log

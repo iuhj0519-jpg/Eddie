@@ -62,7 +62,7 @@ def fingerprint(value) -> str:
 
 def source_hashes(workspace: Path) -> dict:
     result = {}
-    for folder in ("rtl", "tb", "memory", "scripts"):
+    for folder in ("rtl", "tb", "memory", "scripts", "constraints"):
         for path in sorted((workspace / folder).rglob("*")):
             if path.is_symlink():
                 raise SystemExit("Symlink inputs are forbidden")
@@ -121,19 +121,15 @@ def run_command(command: list[str], cwd: Path, log_path: Path) -> int:
 
 
 def write_diagnosis(path: Path, target: str, run_id: str, findings: list[dict[str, Any]]) -> None:
-    lines = [f"# {target} {run_id} Diagnosis", "", "이 문서는 도구가 수집한 원본 증거에서 자동 생성되었습니다.", ""]
+    lines = [f"# {target} {run_id} 탐지 결과", "", "원본 증거에서 자동 생성한 검토 표입니다. 관측과 원인 가설을 구분하며 승인 전 수정하지 않습니다.", "", '| 탐지 ID | 심각도 | 검토/수정 방향 | 근거 파일 |', '|---|---|---|---|']
     if not findings:
         lines.extend(["## Result", "", "설정된 탐지 규칙에서 Finding이 발견되지 않았습니다."])
     for finding in findings:
-        lines.extend([
-            f"## {finding['finding_id']}", "",
-            f"- Category: `{finding['category']}`",
-            f"- Severity: `{finding['severity']}`",
-            f"- State: `{finding['state']}`",
-            f"- Summary: {finding['summary']}",
-            f"- Evidence: `{json.dumps(finding['evidence'], ensure_ascii=False)}`",
-            "- Required chain: `SPEC Requirement ID → 실패 증거 → 수정 내용 → 재검증 결과`", "",
-        ])
+        fid = finding['finding_id']
+        severity = {'critical':'심각', 'high':'높음', 'medium':'중간', 'low':'낮음'}.get(finding['severity'], finding['severity'])
+        evidence = finding['evidence'].get('artifact_path', 'findings.yaml 참조')
+        lines.append(f'| {fid} | {severity} | {lifecycle.korean_scope(fid)} | {evidence} |')
+    lines += ['', '정확한 수치·원본 줄 번호·상태는 같은 폴더의 findings.yaml에 보존합니다.', '연결: SPEC 요구 ID → 실패 증거 → 수정 내용 → 재검증 결과. 사용자 승인 대기.']
     path.write_text("\n".join(lines) + "\n", encoding="utf-8")
 
 
@@ -321,7 +317,8 @@ def resume(args: argparse.Namespace, config: dict[str, Any]) -> int:
     if manifest.get("iteration", 0) >= config["loop"]["max_iterations"] or manifest.get("stop_reason"):
         raise SystemExit("Iteration stop condition reached")
     commands = config.get("commands", {}).get(args.target, [])
-    if [c.get("stage") for c in commands] != ["compile", "simulation", "synthesis"]:
+    required_stages = config.get('loop', {}).get('required_stages', ['compile', 'simulation', 'synthesis'])
+    if [c.get("stage") for c in commands] != required_stages:
         raise SystemExit("Compile/simulation/synthesis commands must all be configured")
     if any(not Path(c["tool"]).is_file() for c in commands):
         raise SystemExit("Configured tool is missing")
@@ -348,7 +345,9 @@ def resume(args: argparse.Namespace, config: dict[str, Any]) -> int:
         raise SystemExit("Debug workspace already exists; inspect prior execution instead of overwriting")
     baseline = ROOT / binding["workspace"]
     debug.mkdir(parents=True)
-    for folder in ("rtl", "tb", "memory", "scripts"):
+    for folder in ("rtl", "tb", "memory", "scripts", "constraints"):
+        if not (baseline / folder).is_dir():
+            continue
         shutil.copytree(baseline / folder, debug / folder)
     data_out = isolation / "project/inputs/reference_model/testdata"
     data_out.mkdir(parents=True)
@@ -366,12 +365,12 @@ def resume(args: argparse.Namespace, config: dict[str, Any]) -> int:
             dump_json(run_root / "gate_status.json", {"status": "patch_failed", "promoted": False})
             return 4
     child = next_run_id(run_root.parent)
-    combined = ROOT / "artifacts" / "automation_loop" / args.target / child
+    combined = ROOT / "artifacts" / "implementation" / args.target / child
     combined.mkdir(parents=True, exist_ok=False)
     stages = []
     for command in commands:
         stage = command["stage"]
-        kind = "synthesis" if stage == "synthesis" else "verification"
+        kind = 'implementation' if stage in ('implementation', 'power') else 'synthesis' if stage == 'synthesis' else 'verification'
         out = ROOT / "artifacts" / kind / args.target / child
         out.mkdir(parents=True, exist_ok=True)
         dump_json(run_root / "progress.json", {"stage": stage, "child_run": child, "state": "running"})
@@ -382,12 +381,12 @@ def resume(args: argparse.Namespace, config: dict[str, Any]) -> int:
             code = 1
         stages.append({"stage": stage, "exit_code": code, "tool": command["tool"], "artifact_root": out.relative_to(ROOT).as_posix()})
         for file in out.iterdir():
-            if file.is_file() and file.suffix in (".log", ".rpt", ".json"):
+            if file.is_file() and file.suffix in (".log", ".rpt", ".json") and file.parent != combined:
                 shutil.copy2(file, combined / file.name)
         if code:
             break
     result = {"parent_run": args.run_id, "child_run": child, "stages": stages, "patch_sha256": sha256(patch),
-        "source_hashes": source_hashes(debug), "all_tools_passed": len(stages) == 3 and all(s["exit_code"] == 0 for s in stages), "promoted": False}
+        "source_hashes": source_hashes(debug), "all_tools_passed": len(stages) == len(required_stages) and all(s["exit_code"] == 0 for s in stages), "promoted": False}
     dump_json(combined / "execution_result.json", result)
     analyze(argparse.Namespace(target=args.target, run_id=child, artifact_root=combined.relative_to(ROOT).as_posix(),
         source_workspace=debug, parent_run=args.run_id, iteration=manifest.get("iteration", 0) + 1,
@@ -413,7 +412,7 @@ def resume(args: argparse.Namespace, config: dict[str, Any]) -> int:
     before_samples = old_metrics.get("verification", {}).get("sample_results")
     after_samples = new_metrics.get("verification", {}).get("sample_results")
     result["sample_regression"] = "unknown" if not before_samples or not after_samples else ("pass" if before_samples == after_samples else "fail")
-    result["post_route_revalidation"] = "not_run_pending_implementation"
+    result["post_route_revalidation"] = 'executed_check_timing_and_drc' if any(s['stage'] == 'implementation' and s['exit_code'] == 0 for s in stages) else 'not_run_pending_implementation'
     result["state"] = child_manifest["status"]
     dump_json(child_root / "revalidation_result.json", result)
     dump_json(run_root / "revalidation_result.json", result)

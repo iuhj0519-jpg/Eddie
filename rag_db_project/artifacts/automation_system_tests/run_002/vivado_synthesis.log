@@ -1,0 +1,294 @@
+COMMAND ["cmd.exe", "/d", "/c", "C:/Xilinx/Vivado/2022.1/bin/vivado.bat", "-mode", "batch", "-source", "C:\\intelFPGA\\18.1\\dnn_optimization_project\\.codex_full_flow_stage\\vivado_flow.tcl", "-tclargs", "synthesis", "C:\\intelFPGA\\18.1\\dnn_optimization_project\\.codex_full_flow_stage\\smoke\\synthesis"]
+
+****** Vivado v2022.1 (64-bit)
+  **** SW Build 3526262 on Mon Apr 18 15:48:16 MDT 2022
+  **** IP Build 3524634 on Mon Apr 18 20:55:01 MDT 2022
+    ** Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+
+source {C:\intelFPGA\18.1\dnn_optimization_project\.codex_full_flow_stage\vivado_flow.tcl}
+# proc reports {out} {
+#     report_utilization -file "$out/utilization.rpt"
+#     report_utilization -hierarchical -file "$out/utilization_hierarchical.rpt"
+#     report_ram_utilization -file "$out/ram_utilization.rpt"
+#     report_timing_summary -delay_type min_max -max_paths 20 -file "$out/timing_summary.rpt"
+#     report_timing -delay_type max -max_paths 20 -file "$out/critical_paths.rpt"
+#     report_high_fanout_nets -timing -max_nets 50 -file "$out/high_fanout_nets.rpt"
+#     report_drc -file "$out/drc.rpt"
+# }
+# proc main {stage out} {
+#     set work [pwd]
+#     set flow "$work/.vivado_flow"
+#     file mkdir $flow $out
+#     set project "$flow/project/accelerator.xpr"
+#     set_param general.maxThreads 4
+#     if {$stage eq "compile"} {
+#         if {[file exists $project]} { error "Fresh isolated project required" }
+#         create_project accelerator "$flow/project" -part xc7z020clg400-1
+#         add_files -norecurse [glob "$work/rtl/*.sv"]
+#         set headers [glob -nocomplain "$work/rtl/*.svh"]
+#         if {[llength $headers]} { add_files -norecurse $headers }
+#         add_files -fileset sim_1 -norecurse "$work/tb/top_sim.sv"
+#         set_property top zyNet [get_filesets sources_1]
+#         set_property top top_sim [get_filesets sim_1]
+#         set_property include_dirs [list "$work/rtl"] [get_filesets sources_1]
+#         set_property include_dirs [list "$work/rtl"] [get_filesets sim_1]
+#         set_property used_in_synthesis false [get_files *top_sim.sv]
+#         set_property target_simulator XSim [current_project]
+#         set_property xsim.simulate.runtime 0ns [get_filesets sim_1]
+#         update_compile_order -fileset sources_1
+#         update_compile_order -fileset sim_1
+#         launch_simulation -step compile
+#         close_project
+#     } elseif {$stage eq "simulation"} {
+#         open_project $project
+#         launch_simulation -noclean_dir
+#         restart
+#         set observed [get_objects -r /top_sim/device_under_test/*]
+#         if {![llength $observed]} { error "DUT scope missing" }
+#         open_saif "$flow/activity.saif"
+#         log_saif $observed
+#         run all
+#         close_saif
+#         close_sim
+#         close_project
+#         file copy -force "$flow/activity.saif" "$out/activity.saif"
+#     } elseif {$stage eq "synthesis"} {
+#         create_project -in_memory -part xc7z020clg400-1
+#         set_property include_dirs [list "$work/rtl"] [current_fileset]
+#         read_verilog -sv [glob "$work/rtl/*.sv"]
+#         # Board/I/O constraints are used only when present in approved source.
+#         foreach xdc [glob -nocomplain "$work/constraints/*.xdc"] { read_xdc $xdc }
+#         synth_design -top zyNet -part xc7z020clg400-1
+#         if {![llength [get_clocks -quiet -of_objects [get_ports s_axi_aclk]]]} {
+#             create_clock -name s_axi_aclk -period 10.000 [get_ports s_axi_aclk]
+#         }
+#         reports $out
+#         report_power -file "$out/power.rpt"
+#         write_checkpoint "$flow/post_synthesis.dcp"
+#         file copy "$flow/post_synthesis.dcp" "$out/post_synthesis.dcp"
+#     } elseif {$stage eq "implementation"} {
+#         open_checkpoint "$flow/post_synthesis.dcp"
+#         opt_design
+#         place_design
+#         phys_opt_design
+#         route_design
+#         reports $out
+#         report_route_status -file "$out/route_status.rpt"
+#         report_clocks -file "$out/clocks.rpt"
+#         write_checkpoint "$flow/post_route.dcp"
+#         file copy "$flow/post_route.dcp" "$out/post_route.dcp"
+#         # Timing/DRC failures are findings, not hidden by successful route execution.
+#     } elseif {$stage eq "power"} {
+#         open_checkpoint "$flow/post_route.dcp"
+#         reset_switching_activity [get_nets -hierarchical]
+#         if {[llength [get_ports]]} { reset_switching_activity [get_ports] }
+#         read_saif -strip_path top_sim/device_under_test -out_file "$out/saif_mapping.rpt" "$flow/activity.saif"
+#         report_power -name power_saif -file "$out/power_post_route.rpt"
+#         report_switching_activity -signal_rate -static_probability -file "$out/switching_activity.rpt" [get_nets -hierarchical]
+#     } else { error "Unsupported stage: $stage" }
+# }
+# if {[catch {main [lindex $argv 0] [file normalize [lindex $argv 1]]} problem]} {
+#     puts stderr "AUTOMATION_STAGE_FAILED: $problem"
+#     exit 1
+# }
+create_project: Time (s): cpu = 00:00:08 ; elapsed = 00:00:11 . Memory (MB): peak = 1283.516 ; gain = 0.000
+Command: synth_design -top zyNet -part xc7z020clg400-1
+Starting synth_design
+Attempting to get a license for feature 'Synthesis' and/or device 'xc7z020'
+INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7z020'
+INFO: [Synth 8-7079] Multithreading enabled for synth_design using a maximum of 4 processes.
+INFO: [Synth 8-7078] Launching helper process for spawning children vivado processes
+INFO: [Synth 8-7075] Helper process launched with PID 24744
+---------------------------------------------------------------------------------
+Starting Synthesize : Time (s): cpu = 00:00:06 ; elapsed = 00:00:08 . Memory (MB): peak = 1283.516 ; gain = 0.000
+---------------------------------------------------------------------------------
+INFO: [Synth 8-6157] synthesizing module 'zyNet' [C:/intelFPGA/18.1/dnn_optimization_project/.codex_full_flow_stage/smoke/project/workspace/fixture/rtl/zyNet.sv:1]
+INFO: [Synth 8-6155] done synthesizing module 'zyNet' (0#1) [C:/intelFPGA/18.1/dnn_optimization_project/.codex_full_flow_stage/smoke/project/workspace/fixture/rtl/zyNet.sv:1]
+---------------------------------------------------------------------------------
+Finished Synthesize : Time (s): cpu = 00:00:09 ; elapsed = 00:00:13 . Memory (MB): peak = 1283.516 ; gain = 0.000
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Constraint Validation : Time (s): cpu = 00:00:10 ; elapsed = 00:00:15 . Memory (MB): peak = 1283.516 ; gain = 0.000
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Loading Part and Timing Information
+---------------------------------------------------------------------------------
+Loading part: xc7z020clg400-1
+---------------------------------------------------------------------------------
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:10 ; elapsed = 00:00:15 . Memory (MB): peak = 1283.516 ; gain = 0.000
+---------------------------------------------------------------------------------
+INFO: [Device 21-403] Loading part xc7z020clg400-1
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:10 ; elapsed = 00:00:15 . Memory (MB): peak = 1283.516 ; gain = 0.000
+---------------------------------------------------------------------------------
+No constraint files found.
+---------------------------------------------------------------------------------
+Start RTL Component Statistics 
+---------------------------------------------------------------------------------
+Detailed RTL Component Info : 
++---Adders : 
+	   2 Input    8 Bit       Adders := 1     
++---Registers : 
+	                8 Bit    Registers := 1     
+---------------------------------------------------------------------------------
+Finished RTL Component Statistics 
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Part Resource Summary
+---------------------------------------------------------------------------------
+Part Resources:
+DSPs: 220 (col length:60)
+BRAMs: 280 (col length: RAMB18 60 RAMB36 30)
+---------------------------------------------------------------------------------
+Finished Part Resource Summary
+---------------------------------------------------------------------------------
+No constraint files found.
+---------------------------------------------------------------------------------
+Start Cross Boundary and Area Optimization
+---------------------------------------------------------------------------------
+WARNING: [Synth 8-7080] Parallel synthesis criteria is not met
+---------------------------------------------------------------------------------
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:21 ; elapsed = 00:00:57 . Memory (MB): peak = 1283.516 ; gain = 0.000
+---------------------------------------------------------------------------------
+No constraint files found.
+---------------------------------------------------------------------------------
+Start Timing Optimization
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Timing Optimization : Time (s): cpu = 00:00:21 ; elapsed = 00:00:57 . Memory (MB): peak = 1283.516 ; gain = 0.000
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Technology Mapping
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Technology Mapping : Time (s): cpu = 00:00:21 ; elapsed = 00:00:57 . Memory (MB): peak = 1283.516 ; gain = 0.000
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished IO Insertion : Time (s): cpu = 00:00:31 ; elapsed = 00:01:10 . Memory (MB): peak = 1283.516 ; gain = 0.000
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Instances
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Instances : Time (s): cpu = 00:00:31 ; elapsed = 00:01:10 . Memory (MB): peak = 1283.516 ; gain = 0.000
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Rebuilding User Hierarchy
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:31 ; elapsed = 00:01:10 . Memory (MB): peak = 1283.516 ; gain = 0.000
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Ports
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Ports : Time (s): cpu = 00:00:31 ; elapsed = 00:01:10 . Memory (MB): peak = 1283.516 ; gain = 0.000
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:31 ; elapsed = 00:01:10 . Memory (MB): peak = 1283.516 ; gain = 0.000
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Nets
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Nets : Time (s): cpu = 00:00:31 ; elapsed = 00:01:10 . Memory (MB): peak = 1283.516 ; gain = 0.000
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Writing Synthesis Report
+---------------------------------------------------------------------------------
+
+Report BlackBoxes: 
++-+--------------+----------+
+| |BlackBox name |Instances |
++-+--------------+----------+
++-+--------------+----------+
+
+Report Cell Usage: 
++------+-----+------+
+|      |Cell |Count |
++------+-----+------+
+|1     |BUFG |     1|
+|2     |LUT1 |     2|
+|3     |LUT2 |     2|
+|4     |LUT3 |     2|
+|5     |LUT4 |     1|
+|6     |LUT5 |     1|
+|7     |LUT6 |     2|
+|8     |FDRE |     8|
+|9     |IBUF |    10|
+|10    |OBUF |     8|
++------+-----+------+
+
+Report Instance Areas: 
++------+---------+-------+------+
+|      |Instance |Module |Cells |
++------+---------+-------+------+
+|1     |top      |       |    37|
++------+---------+-------+------+
+---------------------------------------------------------------------------------
+Finished Writing Synthesis Report : Time (s): cpu = 00:00:31 ; elapsed = 00:01:10 . Memory (MB): peak = 1283.516 ; gain = 0.000
+---------------------------------------------------------------------------------
+Synthesis finished with 0 errors, 0 critical warnings and 1 warnings.
+Synthesis Optimization Runtime : Time (s): cpu = 00:00:31 ; elapsed = 00:01:10 . Memory (MB): peak = 1283.516 ; gain = 0.000
+Synthesis Optimization Complete : Time (s): cpu = 00:00:31 ; elapsed = 00:01:10 . Memory (MB): peak = 1283.516 ; gain = 0.000
+INFO: [Project 1-571] Translating synthesized netlist
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1283.516 ; gain = 0.000
+INFO: [Project 1-570] Preparing netlist for logic optimization
+INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1283.516 ; gain = 0.000
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+Synth Design complete, checksum: 390e0914
+INFO: [Common 17-83] Releasing license: Synthesis
+12 Infos, 1 Warnings, 0 Critical Warnings and 0 Errors encountered.
+synth_design completed successfully
+synth_design: Time (s): cpu = 00:00:36 ; elapsed = 00:01:18 . Memory (MB): peak = 1283.516 ; gain = 0.000
+INFO: [Common 17-600] The following parameters have non-default value.
+general.maxThreads
+report_ram_utilization: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1524.840 ; gain = 0.000
+INFO: [Timing 38-91] UpdateTimingParams: Speed grade: -1, Delay Type: min_max.
+INFO: [Timing 38-191] Multithreading enabled for timing update using a maximum of 4 CPUs
+INFO: [Timing 38-91] UpdateTimingParams: Speed grade: -1, Delay Type: max.
+INFO: [Timing 38-191] Multithreading enabled for timing update using a maximum of 4 CPUs
+INFO: [Timing 38-78] ReportTimingParams: -max_paths 20 -nworst 1 -delay_type max -sort_by slack.
+INFO: [Timing 38-91] UpdateTimingParams: Speed grade: -1, Delay Type: max.
+INFO: [Timing 38-191] Multithreading enabled for timing update using a maximum of 4 CPUs
+INFO: [Timing 38-78] ReportTimingParams: -max_paths 10 -nworst 1 -delay_type max -sort_by slack.
+report_high_fanout_nets: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.014 . Memory (MB): peak = 1524.840 ; gain = 0.000
+Command: report_drc -file C:/intelFPGA/18.1/dnn_optimization_project/.codex_full_flow_stage/smoke/synthesis/drc.rpt
+INFO: [IP_Flow 19-234] Refreshing IP repositories
+INFO: [IP_Flow 19-1704] No user IP repositories specified
+INFO: [IP_Flow 19-2313] Loaded Vivado IP repository 'C:/Xilinx/Vivado/2022.1/data/ip'.
+INFO: [DRC 23-27] Running DRC with 4 threads
+INFO: [Vivado_Tcl 2-168] The results of DRC are in file C:/intelFPGA/18.1/dnn_optimization_project/.codex_full_flow_stage/smoke/synthesis/drc.rpt.
+report_drc completed successfully
+report_drc: Time (s): cpu = 00:00:05 ; elapsed = 00:00:05 . Memory (MB): peak = 1600.074 ; gain = 75.234
+Command: report_power -file C:/intelFPGA/18.1/dnn_optimization_project/.codex_full_flow_stage/smoke/synthesis/power.rpt
+Running Vector-less Activity Propagation...
+
+Finished Running Vector-less Activity Propagation
+26 Infos, 1 Warnings, 0 Critical Warnings and 0 Errors encountered.
+report_power completed successfully
+INFO: [Timing 38-480] Writing timing data to binary archive.
+INFO: [Common 17-1381] The checkpoint 'C:/intelFPGA/18.1/dnn_optimization_project/.codex_full_flow_stage/smoke/project/workspace/fixture/.vivado_flow/post_synthesis.dcp' has been generated.
+# exit 0
+INFO: [Common 17-206] Exiting Vivado at Sat Sep 19 15:59:50 2026...
