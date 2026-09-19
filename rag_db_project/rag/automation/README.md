@@ -1,5 +1,50 @@
 # 승인 기반 RTL 자동화 Loop
 
+## 디버깅 전 구축 상태 확인
+
+승인 기반 반자동 실행 경로는 구현되어 있다. 다만 독립 상주 Agent 서비스, 가속기 전체의 승인 후 실증, 최종 코드 자동 배포까지 완료했다는 뜻은 아니다. 프로그램 자동 처리와 활성 Agent의 설계 판단, 개발자 승인을 구분한다.
+
+| 순서 | 알고리즘 단계 | 자동화 구분 | 실제 구현과 한계 |
+|---|---|---|---|
+| 1 | 개발자 요구사항 입력 | 개발자 | SPEC/목표와 변경 범위를 제공한다. |
+| 2 | 원문 보존·ID·Chunking·RAG 등록 | 프로그램 자동 + Agent 검토 | intake/sync가 문서·인덱스를 생성한다. 의미 해석과 검증 조건 구체화는 Agent가 수행한다. |
+| 3 | 실행 증거 분석·Finding 문서화 | 프로그램 자동 | parsers/detectors가 지원 보고서를 분석한다. 누락은 UNKNOWN이며 모든 RTL 결함을 증명하는 것은 아니다. |
+| 4 | 구체적인 SPEC 변경안 | 자동 초안 + Agent | 유형별 제안/표는 자동 생성한다. 구조 선택과 실현 가능한 수치 설계는 Agent가 검토한다. |
+| 5 | 개발자 SPEC 승인 | 개발자 | 자동 승인하지 않는다. 전력/에너지 우선순위와 상한도 승인 대상이다. |
+| 6 | 승인 SPEC 버전 확정·Run 연결 | 프로그램 자동 | approve-spec/bind-spec에서 버전·digest·요구사항을 연결한다. 명령 호출은 승인 후 Agent가 담당한다. |
+| 7 | 수정할 Finding 승인 | 개발자 + 자동 검사 | 각 Finding 결정과 승인 SPEC 연결, 최신 hash를 검사한다. |
+| 8 | Agent 패치 작성 | 활성 Agent | resume는 패치가 없으면 waiting_for_agent_patch로 멈춘다. Python이 Agent를 자체 호출하지 않는다. |
+| 9 | 격리 소스에 적용 | 프로그램 자동 | 패치 범위·trace 검증 후 격리 복사본에 적용한다. 현재 허용 범위는 기존 RTL 파일 변경이다. |
+| 10 | Compile | 프로그램 자동 | Vivado 프로젝트·Design/Simulation Top 및 파일 목록을 구성한다. |
+| 11 | Simulation·SAIF 수집 | 프로그램 자동 | 입력 데이터 배치, XSim 실행, Golden 결과 확인과 SAIF 수집. 미계측 검증 항목은 UNKNOWN이다. |
+| 12 | Synthesis | 프로그램 자동 | 자원/RAM/Timing/DRC 보고서와 합성 DCP를 생성한다. |
+| 13 | Implementation·Post-Route | 프로그램 자동 | 배치·배선 및 보고서를 생성한다. 종료 코드 0만으로 타이밍 합격 처리하지 않는다. |
+| 14 | SAIF 적용·Power/Energy | 프로그램 자동 | Routed DCP에 SAIF를 적용하고 전력 및 구간 에너지를 추정한다. 실측 전력이 아니다. |
+| 15 | 요구사항 충족·PPA 회귀 분석 | 프로그램 자동 + Agent/개발자 판단 | 비교 조건 및 수치 상한을 검사한다. PPA 절충 선택과 미확정 조건 결정은 자동화하지 않는다. |
+| 16 | 개선 필요: 다음 Run·SPEC 초안 | 프로그램 자동 → 재승인 대기 | 후속 분석을 생성하되 새로운 디버깅 권한을 자동 부여하지 않는다. |
+| 17 | 충분함: 최종 증거 확인·수락 | 자동 검사 + 개발자 수락 | accept가 동일 소스 실행, 기능/Timing/DRC/coverage/SPEC 조건을 검사한다. FAIL/UNKNOWN은 수락할 수 없다. |
+| 18 | 결과 코드 공개 | 자동 배포 미구현 | 현재 promoted=False다. 번호별 결과 폴더는 준비하며 실제 코드 게시와 출처 연결은 승인 작업에서 Agent가 수행해야 한다. |
+
+### 구축 구성요소와 검증 범위
+
+| 구성 | 구체적인 역할 | 코드/기록 |
+|---|---|---|
+| 증거 분리 | 원본 도구 로그와 분석·승인 기록을 구분한다. | artifacts/{verification,synthesis,implementation}, experiments/automation_loop |
+| 탐지 확장 | 자원·Timing·메모리 매핑·주소/MUX·Fanout·DRC·증거 누락·SAIF 전력/에너지 회귀를 검사한다. 원인 가설과 입증된 수치를 구분한다. | parsers.py, detectors.py, lifecycle.py |
+| 추적 연결 | Requirement/Finding/패치 trace/재검증 및 소스·입력·정책·도구 hash를 연결한다. | run_loop.py, lifecycle.py, run_manifest.yaml |
+| 승인 보호 | 승인 없는 패치, 오래된 바인딩, 허용 밖 파일 변경을 차단한다. 원본 workspace에 바로 적용하지 않는다. | approval.yaml, gate_status.json, validate_patch |
+| 실행 연결 | Vivado compile/simulation/synthesis/implementation/power 5단계를 실행하고 실패·Timeout 시 중단한다. | tool_flow.py, vivado_flow.tcl, rag/config/automation_loop.yaml |
+| 반복 구성 | 재검증을 다음 분석·제안으로 연결하고 재승인을 기다린다. 반복 한도와 동일 문제 반복을 검사한다. | run_loop.py, lifecycle.py |
+| 경험 검색 | 허용된 로컬 문서와 실패/수정/검증 이력을 인덱스에 반영한다. 외부 LLM API 및 historical_baselines 근거를 사용하지 않는다. | manifests, rag/config/automation_loop_index.yaml |
+| 시스템 검증 | 56개 Python 테스트 및 독립 소형 회로의 실제 Vivado 5단계 성공 기록이 있다. 가속기 전체 최적화 성공 증거와는 다르다. | experiments/automation_loop/system_validation_002/diagnosis.md |
+
+### 번호별 디버깅 결과 폴더
+
+`workspace/rag_debug_output_001/{rtl,tb,memory,scripts,reports}`는 승인 후 결과를 담을 빈 예약 폴더다. 원본 `optimized_accelerator`의 직접 하위 폴더 구성과 같다.
+현재 실행기는 logical target인 optimized_accelerator와 격리 workspace를 사용한다. 새 폴더를 독립 실행 target으로 등록하거나 자동 export를 구현한 것은 아니다.
+다음 승인에 따른 별도 디버깅 결과는 002, 003 순서로 보존하며 기존 결과를 덮어쓰지 않는다. output 번호와 analysis/run 번호는 별개다.
+게시 시 reports에 원본 target·승인 SPEC·Finding·실행 Run·소스 hash·검증 상태를 연결해야 한다. 실패한 결과도 성공으로 표시하지 않는다.
+
 ## 개발자가 볼 두 문서
 
 - [탐지 결과·PPA 최종 표](../../experiments/automation_loop/ppa_summary/diagnosis.md)
