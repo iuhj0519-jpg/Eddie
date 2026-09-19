@@ -1,5 +1,16 @@
 # 자동화 Loop 탐지 결과 및 PPA 최종 정리
 
+## 승인된 디버깅 결과 안내
+
+이 문서 아래의 표는 디버깅 전 PPA 종료 기록으로 보존한다. 최신 실행은 `../optimized_accelerator/run_004/`이며 검토용 소스와 결과는 `../../../workspace/rag_debug_output_001/README.md`에 있다.
+기존 수치 제안은 개발자의 request_002 및 별도 TB 승인으로 spec_001에 반영되었고, request_003의 재시도 승인은 spec_002에 연결되었다. 승인 문서의 원래 스냅샷은 수정하지 않는다.
+run_004의 5단계 실행은 완료했으며 DSP 25개, Post-Route LUT 1,199 / FF 714 / WNS +0.120 ns, SAIF 전력 0.169 W와 에너지 273.361725 µJ를 관측했다. 100개 예측과 추론 161,735 Cycle은 원본과 동일하다.
+잔여 DRC/외부 I/O 제약, reset Fanout 및 추가 검증은 후속 보완안에서 다룬다. 디버깅 완료와 설계 최종 수락/Project_Git 통합은 구분한다.
+
+동일 조건으로 재실행한 원본과의 비교: LUT 18,094 → 1,199(93.37% 감소), FF 1,536 → 714(53.52% 감소), WNS −4.576 → +0.120 ns, 전력 0.614 → 0.169 W(72.48% 감소), 에너지 993.16035 → 273.361725 µJ. 과거 화면의 0.607 W와 섞지 않는다. [최종 비교·해석 제한](../../../workspace/rag_debug_output_001/reports/diagnosis.md), [다음 미승인 SPEC 보완안](../optimized_accelerator/analysis_006/spec_change_proposal.md)을 확인한다.
+
+## 아래는 디버깅 전 승인 대기 기록
+
 **상태: 사용자 승인 대기. Run is not approved for patch generation.**
 이 표는 기존 analysis_003의 자동 진단과 SAIF 수동 보완 증거를 구분해 정리한 것이다. 최신 자동 재분석 완료를 뜻하지 않는다.
 [다음 Gate 수치 제안](spec_change_proposal.md)과 [자동 실행 설명](../../../rag/automation/README.md)을 함께 검토한다.

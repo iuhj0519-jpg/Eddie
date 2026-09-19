@@ -1,4 +1,5 @@
 # FPGA simulation output
+.automation_debug/
 **/work/
 **/transcript
 **/modelsim.ini

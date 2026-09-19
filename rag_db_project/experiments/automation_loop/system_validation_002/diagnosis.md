@@ -1,5 +1,15 @@
 # 자동화 시스템 검증 기록
 
+## 승인된 가속기 디버깅 후 추가 검증
+
+- TB 한 파일의 명시적 승인 범위만 허용하고 다른 경로를 차단하는 테스트를 추가했다. 회귀 테스트 57개 PASS: `artifacts/automation_system_tests/run_002/tb_scope_tests.log`.
+- 실제 가속기 run_004에서 Compile/Simulation/Synthesis/Implementation/SAIF Power가 모두 종료 코드 0으로 완료됐다. 원본과 후보의 100개 예측이 동일하다.
+- run_003의 Agent TB 중복 삽입 Compile 실패는 삭제하지 않고 명시적 재승인으로 수정했다. 실패 중단 및 재승인 경로도 실제로 작동했다.
+- 원본 테스트벤치 누락이라는 초기 진단은 잘못된 확인이었으며 원본 Compile/Simulation 재실행으로 정상임을 확인했다.
+- 실행 성공이 최종 DRC/외부 I/O 제약 완결이나 개발자 최종 수락은 아니다. 결과는 workspace/rag_debug_output_001/README.md를 참조한다.
+
+아래는 디버깅 승인 전 시스템 검증 이력이다.
+
 이 문서는 DUT 최적화 결과가 아니라 자동화 프로그램 검증이다. 실제 Gate/승인 SPEC은 변경하지 않았고 run_003을 생성하지 않았다.
 
 | 검사 | 결과 | 범위 |

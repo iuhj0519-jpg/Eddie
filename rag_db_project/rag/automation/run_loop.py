@@ -282,14 +282,15 @@ def verify_binding(run_root, config):
     return binding
 
 
-def validate_patch(path):
+def validate_patch(path, extra_paths=()):
     text = path.read_text(encoding="utf-8")
     headers = re.findall(r"(?m)^(?:---|\+\+\+) ([^\t\r\n]+)", text)
     if not headers or len(headers) % 2 or re.search(r"(?m)^(?:rename |copy |old mode|new mode|new file mode|deleted file mode|GIT binary)", text):
         raise SystemExit("Only text modifications of existing RTL files are permitted")
     touched = []
     for name in headers:
-        if not re.fullmatch(r"[ab]/rtl/[A-Za-z0-9_]+\.svh?", name):
+        if not re.fullmatch(r"[ab]/rtl/[A-Za-z0-9_]+\.svh?", name) and not (
+                name[:2] in ('a/', 'b/') and name[2:] == 'tb/top_sim.sv' and name[2:] in extra_paths):
             raise SystemExit("Patch path is outside the authorized RTL scope")
         touched.append(name[2:])
     for a, b in zip(touched[::2], touched[1::2]):
@@ -329,7 +330,8 @@ def resume(args: argparse.Namespace, config: dict[str, Any]) -> int:
             "binding_sha256": fingerprint(binding), "required_patch_trace": "patch_trace.yaml: finding_id -> requirement_id -> files -> explanation",
             "external_llm_api": False, "historical_baselines": False})
         return 3
-    touched = validate_patch(patch)
+    approved_spec = lifecycle.get_revision(ROOT, args.target, manifest.get('spec_revision'))
+    touched = validate_patch(patch, approved_spec.get('patch_scope', {}).get('additional_existing_files', []))
     trace = load_yaml(run_root / "patch_trace.yaml")
     authorized_files = set()
     for item in trace.get("changes", []):

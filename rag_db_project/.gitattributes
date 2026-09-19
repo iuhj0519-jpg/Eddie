@@ -28,3 +28,26 @@ inputs/systolic_controller/rtl/*.sv                -text
 *.pdf   binary
 *.wlf   binary
 *.vcd   binary
+
+# Executed source and raw evidence snapshots have byte-level provenance hashes.
+workspace/rag_debug_output_001/rtl/**             -text
+workspace/rag_debug_output_001/tb/**              -text
+workspace/rag_debug_output_001/memory/**          -text
+workspace/rag_debug_output_001/scripts/**         -text
+artifacts/**/optimized_accelerator/run_003/**     -text
+artifacts/**/optimized_accelerator/run_004/**     -text
+artifacts/**/optimized_accelerator/baseline_001/** -text
+experiments/automation_loop/optimized_accelerator/analysis_004/*.diff -text
+experiments/automation_loop/optimized_accelerator/analysis_005/*.diff -text
+
+# Keep newly frozen approval/run metadata consistent with its provenance inventory.
+experiments/automation_loop/optimized_accelerator/analysis_004/** -text
+experiments/automation_loop/optimized_accelerator/analysis_005/** -text
+experiments/automation_loop/optimized_accelerator/analysis_006/** -text
+experiments/automation_loop/optimized_accelerator/run_003/** -text
+experiments/automation_loop/optimized_accelerator/run_004/** -text
+experiments/automation_loop/optimized_accelerator/requests/request_002/** -text
+experiments/automation_loop/optimized_accelerator/requests/request_003/** -text
+experiments/automation_loop/optimized_accelerator/spec_versions/spec_001/** -text
+experiments/automation_loop/optimized_accelerator/spec_versions/spec_002/** -text
+workspace/rag_debug_output_001/reports/** -text

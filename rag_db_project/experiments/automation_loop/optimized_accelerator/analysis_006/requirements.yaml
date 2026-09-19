@@ -1,0 +1,1524 @@
+schema_version: '2.0'
+target: optimized_accelerator
+parent_revision: spec_002
+state: draft
+origin: analysis_006
+requirements:
+- requirement_id: REQ-LOOP-PPA-DSP-001
+  finding_ids:
+  - PPA-DSP-001
+  kind: compliance
+  before:
+    expected_concurrent_pe_count: 25
+    observed_dsp48_count: 5.0
+    artifact_path: utilization_hierarchical.rpt
+  after: 25 PE 각각 DSP48 MAC 1개. PE 계층별 매핑과 signed 26-bit 누산 결과 보존, 더미 DSP 금지.
+  acceptance:
+  - metric: utilization.dsp
+    op: eq
+    value: 25
+  - metric: verification.peak_active_pe_count
+    op: eq
+    value: 25
+  - metric: review.REQ-LOOP-PPA-DSP-001
+    op: eq
+    value: true
+  verification: Compile/simulation Golden regression plus relevant same-source post-route
+    report; attach reviewed evidence for this requirement.
+  expected_benefit: Remove the cited violation or demonstrate a justified PPA improvement.
+  risk: Count alone cannot prove PE mapping. Confirm DSP instance ownership and numeric
+    equivalence.
+  status: approved
+- requirement_id: REQ-LOOP-PPA-WEIGHT-001
+  finding_ids:
+  - PPA-WEIGHT-001
+  kind: optimization
+  before:
+    instance: zyNet/weight_sram_instance
+    instance_lut: 13955.0
+    total_lut: 18060.0
+    lut_ratio: 0.7727
+    ramb18: 0.0
+    artifact_path: utilization_hierarchical.rpt
+  after: Reduce Weight logic/selection overhead using banked storage; retain five-lane
+    throughput and complete weight contents.
+  acceptance:
+  - metric: review.REQ-LOOP-PPA-WEIGHT-001
+    op: eq
+    value: true
+  - metric: utilization.lut
+    op: le
+    value: 12642
+  - metric: utilization.ff
+    op: le
+    value: 2000
+  verification: Compile/simulation Golden regression plus relevant same-source post-route
+    report; attach reviewed evidence for this requirement.
+  expected_benefit: Remove the cited violation or demonstrate a justified PPA improvement.
+  risk: Do not suppress a warning or relax a requirement merely to obtain PASS.
+  status: approved
+- requirement_id: REQ-LOOP-PPA-TIMING-001
+  finding_ids:
+  - PPA-TIMING-001
+  kind: compliance
+  before:
+    wns_ns: -5.362
+    tns_ns: -252.171
+    setup_failing_endpoints: 104.0
+    setup_total_endpoints: 3043.0
+    whs_ns: 0.113
+    ths_ns: 0.0
+    hold_failing_endpoints: 0.0
+    hold_total_endpoints: 3043.0
+    wpws_ns: 4.5
+    tpws_ns: 0.0
+    pulse_failing_endpoints: 0.0
+    pulse_total_endpoints: 1466.0
+    artifact_path: timing_summary.rpt
+  after: Meet setup timing at the approved clock after routing; retain I/O and clock
+    constraints.
+  acceptance:
+  - metric: timing.wns_ns
+    op: ge
+    value: 0
+  - metric: timing.tns_ns
+    op: ge
+    value: 0
+  - metric: review.REQ-LOOP-PPA-TIMING-001
+    op: eq
+    value: true
+  - metric: timing.whs_ns
+    op: ge
+    value: 0
+  - metric: timing.wpws_ns
+    op: ge
+    value: 0
+  verification: Compile/simulation Golden regression plus relevant same-source post-route
+    report; attach reviewed evidence for this requirement.
+  expected_benefit: Remove the cited violation or demonstrate a justified PPA improvement.
+  risk: Do not suppress a warning or relax a requirement merely to obtain PASS.
+  status: approved
+- requirement_id: REQ-LOOP-PPA-POWER-001
+  finding_ids:
+  - PPA-POWER-001
+  kind: compliance
+  before:
+    total_on_chip_power_w: 0.332
+    confidence: Low
+    dynamic_power_w: 0.224
+    static_power_w: 0.108
+    artifact_path: power.rpt
+  after: Collect representative activity, mapping coverage and identical environment
+    settings; report activity-based power with limitations.
+  acceptance:
+  - metric: review.REQ-LOOP-PPA-POWER-001
+    op: eq
+    value: true
+  verification: Compile/simulation Golden regression plus relevant same-source post-route
+    report; attach reviewed evidence for this requirement.
+  expected_benefit: Remove the cited violation or demonstrate a justified PPA improvement.
+  risk: No arbitrary toggle-rate changes; power confidence is evidence quality, not
+    a power budget.
+  status: approved
+- requirement_id: REQ-LOOP-IMPL-DRC-001
+  finding_ids:
+  - IMPL-DRC-001
+  kind: compliance
+  before:
+    drc_violations: 0
+    critical_warnings: 4
+    unrouted_nets: 0
+    routing_errors: 0
+    artifact_path: drc.rpt
+  after: Resolve or explicitly disposition IMPL-DRC-001 using the full DRC evidence
+    and actual board/clock/reset contract.
+  acceptance:
+  - metric: review.REQ-LOOP-IMPL-DRC-001
+    op: eq
+    value: true
+  verification: Compile/simulation Golden regression plus relevant same-source post-route
+    report; attach reviewed evidence for this requirement.
+  expected_benefit: Remove the cited violation or demonstrate a justified PPA improvement.
+  risk: Do not suppress a warning or relax a requirement merely to obtain PASS.
+  status: approved
+- requirement_id: REQ-LOOP-PPA-MEMORY-MAPPING-001
+  finding_ids:
+  - PPA-MEMORY-MAPPING-001
+  kind: compliance
+  before:
+    module: weight_sram
+    storage: block_ram
+    requirement_id: REQ-OPT-MEM-026
+    requirement_state: proposed_pending_final_approval
+    instance: zyNet/weight_sram_instance
+    logic_lut: 13955.0
+    lutram: 0.0
+    ramb18: 0.0
+    ramb36: 0.0
+    artifact_path: utilization_hierarchical.rpt
+  after: Implement Weight storage in physical block memory with five-lane supply,
+    correct initialization, capacity and synchronous read alignment.
+  acceptance:
+  - metric: ram.weight_block_count
+    op: gt
+    value: 0
+  - metric: review.REQ-LOOP-PPA-MEMORY-MAPPING-001
+    op: eq
+    value: true
+  verification: Compile/simulation Golden regression plus relevant same-source post-route
+    report; attach reviewed evidence for this requirement.
+  expected_benefit: Remove the cited violation or demonstrate a justified PPA improvement.
+  risk: BRAM presence alone does not prove all weights are stored or five reads are
+    supplied; verify bank coverage and data.
+  status: approved
+- requirement_id: REQ-LOOP-PPA-ADDRESS-001
+  finding_ids:
+  - PPA-ADDRESS-001
+  kind: optimization
+  before:
+    paths:
+    - &id001
+      slack_ns: -5.362
+      artifact_path: critical_paths.rpt
+      line: 14
+      source: systolic_controller_instance/cycle_count_reg[5]/C
+      destination: weight_sram_instance/read_data_reg[24]/D
+      logic_levels: 17.0
+      delay_ns: 15.216
+      logic_ns: 5.506
+      route_ns: 9.71
+      mux_present: true
+      address_path: true
+      dsp_present: true
+    - &id002
+      slack_ns: -5.286
+      artifact_path: critical_paths.rpt
+      line: 107
+      source: systolic_controller_instance/cycle_count_reg[5]/C
+      destination: weight_sram_instance/read_data_reg[31]/D
+      logic_levels: 15.0
+      delay_ns: 15.143
+      logic_ns: 5.249
+      route_ns: 9.894
+      mux_present: true
+      address_path: true
+      dsp_present: true
+    - &id003
+      slack_ns: -5.284
+      artifact_path: critical_paths.rpt
+      line: 196
+      source: systolic_controller_instance/cycle_count_reg[5]/C
+      destination: weight_sram_instance/read_data_reg[30]/D
+      logic_levels: 15.0
+      delay_ns: 15.142
+      logic_ns: 5.249
+      route_ns: 9.893
+      mux_present: true
+      address_path: true
+      dsp_present: true
+    - &id004
+      slack_ns: -5.28
+      artifact_path: critical_paths.rpt
+      line: 285
+      source: systolic_controller_instance/cycle_count_reg[5]/C
+      destination: weight_sram_instance/read_data_reg[26]/D
+      logic_levels: 17.0
+      delay_ns: 15.142
+      logic_ns: 5.472
+      route_ns: 9.67
+      mux_present: true
+      address_path: true
+      dsp_present: true
+    - &id005
+      slack_ns: -5.251
+      artifact_path: critical_paths.rpt
+      line: 378
+      source: systolic_controller_instance/cycle_count_reg[5]/C
+      destination: weight_sram_instance/read_data_reg[29]/D
+      logic_levels: 17.0
+      delay_ns: 15.202
+      logic_ns: 5.496
+      route_ns: 9.706
+      mux_present: true
+      address_path: true
+      dsp_present: true
+    - &id006
+      slack_ns: -5.229
+      artifact_path: critical_paths.rpt
+      line: 471
+      source: systolic_controller_instance/cycle_count_reg[4]/C
+      destination: weight_sram_instance/read_data_reg[15]/D
+      logic_levels: 18.0
+      delay_ns: 15.187
+      logic_ns: 5.671
+      route_ns: 9.516
+      mux_present: true
+      address_path: true
+      dsp_present: true
+    - &id007
+      slack_ns: -5.221
+      artifact_path: critical_paths.rpt
+      line: 566
+      source: systolic_controller_instance/cycle_count_reg[5]/C
+      destination: weight_sram_instance/read_data_reg[27]/D
+      logic_levels: 16.0
+      delay_ns: 15.141
+      logic_ns: 5.066
+      route_ns: 10.075
+      mux_present: true
+      address_path: true
+      dsp_present: true
+    - &id008
+      slack_ns: -5.198
+      artifact_path: critical_paths.rpt
+      line: 657
+      source: systolic_controller_instance/cycle_count_reg[5]/C
+      destination: weight_sram_instance/read_data_reg[28]/D
+      logic_levels: 15.0
+      delay_ns: 15.068
+      logic_ns: 5.285
+      route_ns: 9.783
+      mux_present: true
+      address_path: true
+      dsp_present: true
+    - &id009
+      slack_ns: -5.194
+      artifact_path: critical_paths.rpt
+      line: 746
+      source: systolic_controller_instance/cycle_count_reg[5]/C
+      destination: weight_sram_instance/read_data_reg[25]/D
+      logic_levels: 16.0
+      delay_ns: 15.059
+      logic_ns: 5.352
+      route_ns: 9.707
+      mux_present: true
+      address_path: true
+      dsp_present: true
+    - &id010
+      slack_ns: -5.086
+      artifact_path: critical_paths.rpt
+      line: 837
+      source: systolic_controller_instance/cycle_count_reg[4]/C
+      destination: weight_sram_instance/read_data_reg[9]/D
+      logic_levels: 17.0
+      delay_ns: 15.027
+      logic_ns: 5.532
+      route_ns: 9.495
+      mux_present: true
+      address_path: true
+      dsp_present: true
+    - &id011
+      slack_ns: -5.083
+      artifact_path: critical_paths.rpt
+      line: 930
+      source: systolic_controller_instance/cycle_count_reg[4]/C
+      destination: weight_sram_instance/read_data_reg[33]/D
+      logic_levels: 16.0
+      delay_ns: 15.034
+      logic_ns: 5.181
+      route_ns: 9.853
+      mux_present: true
+      address_path: true
+      dsp_present: true
+    - &id012
+      slack_ns: -5.033
+      artifact_path: critical_paths.rpt
+      line: 1021
+      source: systolic_controller_instance/cycle_count_reg[4]/C
+      destination: weight_sram_instance/read_data_reg[10]/D
+      logic_levels: 17.0
+      delay_ns: 14.972
+      logic_ns: 5.55
+      route_ns: 9.422
+      mux_present: true
+      address_path: true
+      dsp_present: true
+    - &id013
+      slack_ns: -5.011
+      artifact_path: critical_paths.rpt
+      line: 1114
+      source: systolic_controller_instance/cycle_count_reg[4]/C
+      destination: weight_sram_instance/read_data_reg[12]/D
+      logic_levels: 18.0
+      delay_ns: 14.957
+      logic_ns: 5.632
+      route_ns: 9.325
+      mux_present: true
+      address_path: true
+      dsp_present: true
+    - &id014
+      slack_ns: -4.962
+      artifact_path: critical_paths.rpt
+      line: 1209
+      source: systolic_controller_instance/cycle_count_reg[4]/C
+      destination: weight_sram_instance/read_data_reg[13]/D
+      logic_levels: 18.0
+      delay_ns: 14.915
+      logic_ns: 5.671
+      route_ns: 9.244
+      mux_present: true
+      address_path: true
+      dsp_present: true
+    - &id015
+      slack_ns: -4.953
+      artifact_path: critical_paths.rpt
+      line: 1304
+      source: systolic_controller_instance/cycle_count_reg[4]/C
+      destination: weight_sram_instance/read_data_reg[34]/D
+      logic_levels: 16.0
+      delay_ns: 14.949
+      logic_ns: 5.43
+      route_ns: 9.519
+      mux_present: true
+      address_path: true
+      dsp_present: true
+    - &id016
+      slack_ns: -4.951
+      artifact_path: critical_paths.rpt
+      line: 1395
+      source: systolic_controller_instance/cycle_count_reg[4]/C
+      destination: weight_sram_instance/read_data_reg[11]/D
+      logic_levels: 17.0
+      delay_ns: 14.894
+      logic_ns: 5.553
+      route_ns: 9.341
+      mux_present: true
+      address_path: true
+      dsp_present: true
+    - &id017
+      slack_ns: -4.94
+      artifact_path: critical_paths.rpt
+      line: 1488
+      source: systolic_controller_instance/cycle_count_reg[4]/C
+      destination: weight_sram_instance/read_data_reg[14]/D
+      logic_levels: 18.0
+      delay_ns: 14.889
+      logic_ns: 5.671
+      route_ns: 9.218
+      mux_present: true
+      address_path: true
+      dsp_present: true
+    - &id018
+      slack_ns: -4.913
+      artifact_path: critical_paths.rpt
+      line: 1583
+      source: systolic_controller_instance/cycle_count_reg[5]/C
+      destination: weight_sram_instance/read_data_reg[18]/D
+      logic_levels: 16.0
+      delay_ns: 14.857
+      logic_ns: 5.302
+      route_ns: 9.555
+      mux_present: true
+      address_path: true
+      dsp_present: true
+    - &id019
+      slack_ns: -4.912
+      artifact_path: critical_paths.rpt
+      line: 1674
+      source: systolic_controller_instance/cycle_count_reg[4]/C
+      destination: weight_sram_instance/read_data_reg[37]/D
+      logic_levels: 16.0
+      delay_ns: 14.996
+      logic_ns: 5.433
+      route_ns: 9.563
+      mux_present: true
+      address_path: true
+      dsp_present: true
+    - &id020
+      slack_ns: -4.912
+      artifact_path: critical_paths.rpt
+      line: 1765
+      source: systolic_controller_instance/cycle_count_reg[4]/C
+      destination: weight_sram_instance/read_data_reg[36]/D
+      logic_levels: 16.0
+      delay_ns: 14.93
+      logic_ns: 5.453
+      route_ns: 9.477
+      mux_present: true
+      address_path: true
+      dsp_present: true
+  after: Restructure critical address arithmetic and bank decode with correct address/data/valid
+    latency.
+  acceptance:
+  - metric: review.REQ-LOOP-PPA-ADDRESS-001
+    op: eq
+    value: true
+  verification: Compile/simulation Golden regression plus relevant same-source post-route
+    report; attach reviewed evidence for this requirement.
+  expected_benefit: Remove the cited violation or demonstrate a justified PPA improvement.
+  risk: Extra registers, latency or area may be justified only by measured benefit
+    under comparable workloads.
+  status: approved
+- requirement_id: REQ-LOOP-PPA-MUX-001
+  finding_ids:
+  - PPA-MUX-001
+  kind: optimization
+  before:
+    paths:
+    - *id001
+    - *id002
+    - *id003
+    - *id004
+    - *id005
+    - *id006
+    - *id007
+    - *id008
+    - *id009
+    - *id010
+    - *id011
+    - *id012
+    - *id013
+    - *id014
+    - *id015
+    - *id016
+    - *id017
+    - *id018
+    - *id019
+    - *id020
+  after: Reduce critical selection depth and check memory inference rather than hiding
+    selection in equivalent logic.
+  acceptance:
+  - metric: review.REQ-LOOP-PPA-MUX-001
+    op: eq
+    value: true
+  verification: Compile/simulation Golden regression plus relevant same-source post-route
+    report; attach reviewed evidence for this requirement.
+  expected_benefit: Remove the cited violation or demonstrate a justified PPA improvement.
+  risk: Extra registers, latency or area may be justified only by measured benefit
+    under comparable workloads.
+  status: approved
+- requirement_id: REQ-LOOP-PPA-PIPELINE-001
+  finding_ids:
+  - PPA-PIPELINE-001
+  kind: optimization
+  before:
+    paths:
+    - *id001
+    - *id002
+    - *id003
+    - *id004
+    - *id005
+    - *id006
+    - *id007
+    - *id008
+    - *id009
+    - *id010
+    - *id011
+    - *id012
+    - *id013
+    - *id014
+    - *id015
+    - *id016
+    - *id017
+    - *id018
+    - *id019
+    - *id020
+  after: Partition the critical combinational path and align scheduler, valid and
+    memory latency.
+  acceptance:
+  - metric: review.REQ-LOOP-PPA-PIPELINE-001
+    op: eq
+    value: true
+  verification: Compile/simulation Golden regression plus relevant same-source post-route
+    report; attach reviewed evidence for this requirement.
+  expected_benefit: Remove the cited violation or demonstrate a justified PPA improvement.
+  risk: Extra registers, latency or area may be justified only by measured benefit
+    under comparable workloads.
+  status: approved
+- requirement_id: REQ-LOOP-PPA-ROUTE-DELAY-001
+  finding_ids:
+  - PPA-ROUTE-DELAY-001
+  kind: optimization
+  before:
+    paths:
+    - *id001
+    - *id002
+    - *id003
+    - *id004
+    - *id005
+    - *id006
+    - *id007
+    - *id008
+    - *id009
+    - *id010
+    - *id011
+    - *id012
+    - *id013
+    - *id014
+    - *id015
+    - *id016
+    - *id017
+    - *id018
+    - *id019
+    - *id020
+  after: Reduce critical routing delay, checking placement and load distribution against
+    the same constraints.
+  acceptance:
+  - metric: review.REQ-LOOP-PPA-ROUTE-DELAY-001
+    op: eq
+    value: true
+  verification: Compile/simulation Golden regression plus relevant same-source post-route
+    report; attach reviewed evidence for this requirement.
+  expected_benefit: Remove the cited violation or demonstrate a justified PPA improvement.
+  risk: Extra registers, latency or area may be justified only by measured benefit
+    under comparable workloads.
+  status: approved
+- requirement_id: REQ-LOOP-PPA-FANOUT-001
+  finding_ids:
+  - PPA-FANOUT-001
+  kind: optimization
+  before:
+    nets:
+    - net: weight_sram_instance/read_data1__0_n_100
+      fanout: 2415
+      driver: DSP48E1
+      slack: '-4.908'
+      artifact_path: high_fanout_nets.rpt
+      line: 19
+    - net: weight_sram_instance/read_data1__0_n_101
+      fanout: 2415
+      driver: DSP48E1
+      slack: '-5.033'
+      artifact_path: high_fanout_nets.rpt
+      line: 20
+    - net: weight_sram_instance/read_data1__0_n_102
+      fanout: 2415
+      driver: DSP48E1
+      slack: '-5.099'
+      artifact_path: high_fanout_nets.rpt
+      line: 21
+    - net: weight_sram_instance/read_data1__1_n_100
+      fanout: 2415
+      driver: DSP48E1
+      slack: '-4.823'
+      artifact_path: high_fanout_nets.rpt
+      line: 22
+    - net: weight_sram_instance/read_data1__1_n_101
+      fanout: 2415
+      driver: DSP48E1
+      slack: '-4.702'
+      artifact_path: high_fanout_nets.rpt
+      line: 23
+    - net: weight_sram_instance/read_data1__1_n_102
+      fanout: 2415
+      driver: DSP48E1
+      slack: '-4.886'
+      artifact_path: high_fanout_nets.rpt
+      line: 24
+    - net: weight_sram_instance/read_data1__2_n_100
+      fanout: 2415
+      driver: DSP48E1
+      slack: '-5.056'
+      artifact_path: high_fanout_nets.rpt
+      line: 25
+    - net: weight_sram_instance/read_data1__2_n_101
+      fanout: 2415
+      driver: DSP48E1
+      slack: '-5.219'
+      artifact_path: high_fanout_nets.rpt
+      line: 26
+    - net: weight_sram_instance/read_data1__2_n_102
+      fanout: 2415
+      driver: DSP48E1
+      slack: '-5.308'
+      artifact_path: high_fanout_nets.rpt
+      line: 27
+    - net: weight_sram_instance/read_data1__3_n_100
+      fanout: 2415
+      driver: DSP48E1
+      slack: '-4.688'
+      artifact_path: high_fanout_nets.rpt
+      line: 28
+    - net: weight_sram_instance/read_data1__3_n_101
+      fanout: 2415
+      driver: DSP48E1
+      slack: '-4.880'
+      artifact_path: high_fanout_nets.rpt
+      line: 29
+    - net: weight_sram_instance/read_data1__3_n_102
+      fanout: 2415
+      driver: DSP48E1
+      slack: '-4.872'
+      artifact_path: high_fanout_nets.rpt
+      line: 30
+    - net: weight_sram_instance/read_data1_n_100
+      fanout: 2415
+      driver: DSP48E1
+      slack: '-4.641'
+      artifact_path: high_fanout_nets.rpt
+      line: 31
+    - net: weight_sram_instance/read_data1_n_101
+      fanout: 2415
+      driver: DSP48E1
+      slack: '-4.758'
+      artifact_path: high_fanout_nets.rpt
+      line: 32
+    - net: weight_sram_instance/read_data1_n_102
+      fanout: 2415
+      driver: DSP48E1
+      slack: '-4.774'
+      artifact_path: high_fanout_nets.rpt
+      line: 33
+    - net: weight_sram_instance/read_data1__0_n_103
+      fanout: 2410
+      driver: DSP48E1
+      slack: '-5.018'
+      artifact_path: high_fanout_nets.rpt
+      line: 34
+    - net: weight_sram_instance/read_data1__1_n_103
+      fanout: 2410
+      driver: DSP48E1
+      slack: '-4.828'
+      artifact_path: high_fanout_nets.rpt
+      line: 35
+    - net: weight_sram_instance/read_data1__2_n_103
+      fanout: 2410
+      driver: DSP48E1
+      slack: '-5.291'
+      artifact_path: high_fanout_nets.rpt
+      line: 36
+    - net: weight_sram_instance/read_data1__3_n_103
+      fanout: 2410
+      driver: DSP48E1
+      slack: '-4.931'
+      artifact_path: high_fanout_nets.rpt
+      line: 37
+    - net: weight_sram_instance/read_data1_n_103
+      fanout: 2410
+      driver: DSP48E1
+      slack: '-4.797'
+      artifact_path: high_fanout_nets.rpt
+      line: 38
+    - net: weight_sram_instance/read_data1__0_n_105
+      fanout: 2401
+      driver: DSP48E1
+      slack: '-5.154'
+      artifact_path: high_fanout_nets.rpt
+      line: 39
+    - net: weight_sram_instance/read_data1__1_n_105
+      fanout: 2401
+      driver: DSP48E1
+      slack: '-4.913'
+      artifact_path: high_fanout_nets.rpt
+      line: 40
+    - net: weight_sram_instance/read_data1__2_n_105
+      fanout: 2401
+      driver: DSP48E1
+      slack: '-5.362'
+      artifact_path: high_fanout_nets.rpt
+      line: 41
+    - net: weight_sram_instance/read_data1__3_n_105
+      fanout: 2401
+      driver: DSP48E1
+      slack: '-5.083'
+      artifact_path: high_fanout_nets.rpt
+      line: 42
+    - net: weight_sram_instance/read_data1_n_105
+      fanout: 2401
+      driver: DSP48E1
+      slack: '-4.604'
+      artifact_path: high_fanout_nets.rpt
+      line: 43
+    - net: weight_sram_instance/read_data1__0_n_104
+      fanout: 2400
+      driver: DSP48E1
+      slack: '-5.229'
+      artifact_path: high_fanout_nets.rpt
+      line: 44
+    - net: weight_sram_instance/read_data1__1_n_104
+      fanout: 2400
+      driver: DSP48E1
+      slack: '-4.907'
+      artifact_path: high_fanout_nets.rpt
+      line: 45
+    - net: weight_sram_instance/read_data1__2_n_104
+      fanout: 2400
+      driver: DSP48E1
+      slack: '-5.259'
+      artifact_path: high_fanout_nets.rpt
+      line: 46
+    - net: weight_sram_instance/read_data1__3_n_104
+      fanout: 2400
+      driver: DSP48E1
+      slack: '-5.061'
+      artifact_path: high_fanout_nets.rpt
+      line: 47
+    - net: weight_sram_instance/read_data1_n_104
+      fanout: 2400
+      driver: DSP48E1
+      slack: '-4.826'
+      artifact_path: high_fanout_nets.rpt
+      line: 48
+    - net: weight_sram_instance/read_data1__0_n_99
+      fanout: 1269
+      driver: DSP48E1
+      slack: '-4.669'
+      artifact_path: high_fanout_nets.rpt
+      line: 49
+    - net: weight_sram_instance/read_data1__1_n_99
+      fanout: 1269
+      driver: DSP48E1
+      slack: '-4.450'
+      artifact_path: high_fanout_nets.rpt
+      line: 50
+    - net: weight_sram_instance/read_data1__2_n_99
+      fanout: 1269
+      driver: DSP48E1
+      slack: '-4.921'
+      artifact_path: high_fanout_nets.rpt
+      line: 51
+    - net: weight_sram_instance/read_data1__3_n_99
+      fanout: 1269
+      driver: DSP48E1
+      slack: '-4.476'
+      artifact_path: high_fanout_nets.rpt
+      line: 52
+    - net: weight_sram_instance/read_data1_n_99
+      fanout: 1269
+      driver: DSP48E1
+      slack: '-4.330'
+      artifact_path: high_fanout_nets.rpt
+      line: 53
+    - net: systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[4].ARRAY_COLUMNS[4].pe_systolic_cell_instance/mac_pe_instance/s_axi_aresetn
+      fanout: 1262
+      driver: LUT1
+      slack: inf
+      artifact_path: high_fanout_nets.rpt
+      line: 54
+    - net: weight_sram_instance/read_data1__0_n_98
+      fanout: 554
+      driver: DSP48E1
+      slack: '-4.541'
+      artifact_path: high_fanout_nets.rpt
+      line: 55
+    - net: weight_sram_instance/read_data1__1_n_98
+      fanout: 554
+      driver: DSP48E1
+      slack: '-4.427'
+      artifact_path: high_fanout_nets.rpt
+      line: 56
+    - net: weight_sram_instance/read_data1__2_n_98
+      fanout: 554
+      driver: DSP48E1
+      slack: '-4.737'
+      artifact_path: high_fanout_nets.rpt
+      line: 57
+    - net: weight_sram_instance/read_data1__3_n_98
+      fanout: 554
+      driver: DSP48E1
+      slack: '-4.272'
+      artifact_path: high_fanout_nets.rpt
+      line: 58
+    - net: weight_sram_instance/read_data1_n_98
+      fanout: 554
+      driver: DSP48E1
+      slack: '-4.252'
+      artifact_path: high_fanout_nets.rpt
+      line: 59
+  after: Reduce high-fanout timing impact by reviewing replicated/local control and
+    address distribution.
+  acceptance:
+  - metric: review.REQ-LOOP-PPA-FANOUT-001
+    op: eq
+    value: true
+  verification: Compile/simulation Golden regression plus relevant same-source post-route
+    report; attach reviewed evidence for this requirement.
+  expected_benefit: Remove the cited violation or demonstrate a justified PPA improvement.
+  risk: Extra registers, latency or area may be justified only by measured benefit
+    under comparable workloads.
+  status: approved
+- requirement_id: REQ-LOOP-DRC-NSTD-1
+  finding_ids:
+  - DRC-NSTD-1
+  kind: compliance
+  before:
+    rule: NSTD-1
+    severity: Critical Warning
+    count: 1
+    line: 31
+    artifact_path: drc.rpt
+  after: Resolve or explicitly disposition DRC-NSTD-1 using the full DRC evidence
+    and actual board/clock/reset contract.
+  acceptance:
+  - metric: review.REQ-LOOP-DRC-NSTD-1
+    op: eq
+    value: true
+  verification: Compile/simulation Golden regression plus relevant same-source post-route
+    report; attach reviewed evidence for this requirement.
+  expected_benefit: Remove the cited violation or demonstrate a justified PPA improvement.
+  risk: Do not suppress a warning or relax a requirement merely to obtain PASS.
+  status: approved
+- requirement_id: REQ-LOOP-DRC-UCIO-1
+  finding_ids:
+  - DRC-UCIO-1
+  kind: compliance
+  before:
+    rule: UCIO-1
+    severity: Critical Warning
+    count: 1
+    line: 32
+    artifact_path: drc.rpt
+  after: Resolve or explicitly disposition DRC-UCIO-1 using the full DRC evidence
+    and actual board/clock/reset contract.
+  acceptance:
+  - metric: review.REQ-LOOP-DRC-UCIO-1
+    op: eq
+    value: true
+  verification: Compile/simulation Golden regression plus relevant same-source post-route
+    report; attach reviewed evidence for this requirement.
+  expected_benefit: Remove the cited violation or demonstrate a justified PPA improvement.
+  risk: Do not suppress a warning or relax a requirement merely to obtain PASS.
+  status: approved
+- requirement_id: REQ-LOOP-DRC-CHECK-3
+  finding_ids:
+  - DRC-CHECK-3
+  kind: compliance
+  before:
+    rule: CHECK-3
+    severity: Warning
+    count: 1
+    line: 33
+    artifact_path: drc.rpt
+  after: Resolve or explicitly disposition DRC-CHECK-3 using the full DRC evidence
+    and actual board/clock/reset contract.
+  acceptance:
+  - metric: review.REQ-LOOP-DRC-CHECK-3
+    op: eq
+    value: true
+  verification: Compile/simulation Golden regression plus relevant same-source post-route
+    report; attach reviewed evidence for this requirement.
+  expected_benefit: Remove the cited violation or demonstrate a justified PPA improvement.
+  risk: Do not suppress a warning or relax a requirement merely to obtain PASS.
+  status: approved
+- requirement_id: REQ-LOOP-DRC-DPIP-1
+  finding_ids:
+  - DRC-DPIP-1
+  kind: compliance
+  before:
+    rule: DPIP-1
+    severity: Warning
+    count: 10
+    line: 34
+    artifact_path: drc.rpt
+  after: Resolve or explicitly disposition DRC-DPIP-1 using the full DRC evidence
+    and actual board/clock/reset contract.
+  acceptance:
+  - metric: review.REQ-LOOP-DRC-DPIP-1
+    op: eq
+    value: true
+  verification: Compile/simulation Golden regression plus relevant same-source post-route
+    report; attach reviewed evidence for this requirement.
+  expected_benefit: Remove the cited violation or demonstrate a justified PPA improvement.
+  risk: Do not suppress a warning or relax a requirement merely to obtain PASS.
+  status: approved
+- requirement_id: REQ-LOOP-DRC-DPOP-1
+  finding_ids:
+  - DRC-DPOP-1
+  kind: compliance
+  before:
+    rule: DPOP-1
+    severity: Warning
+    count: 5
+    line: 35
+    artifact_path: drc.rpt
+  after: Resolve or explicitly disposition DRC-DPOP-1 using the full DRC evidence
+    and actual board/clock/reset contract.
+  acceptance:
+  - metric: review.REQ-LOOP-DRC-DPOP-1
+    op: eq
+    value: true
+  verification: Compile/simulation Golden regression plus relevant same-source post-route
+    report; attach reviewed evidence for this requirement.
+  expected_benefit: Remove the cited violation or demonstrate a justified PPA improvement.
+  risk: Do not suppress a warning or relax a requirement merely to obtain PASS.
+  status: approved
+- requirement_id: REQ-LOOP-DRC-DPOP-2
+  finding_ids:
+  - DRC-DPOP-2
+  kind: compliance
+  before:
+    rule: DPOP-2
+    severity: Warning
+    count: 5
+    line: 36
+    artifact_path: drc.rpt
+  after: Resolve or explicitly disposition DRC-DPOP-2 using the full DRC evidence
+    and actual board/clock/reset contract.
+  acceptance:
+  - metric: review.REQ-LOOP-DRC-DPOP-2
+    op: eq
+    value: true
+  verification: Compile/simulation Golden regression plus relevant same-source post-route
+    report; attach reviewed evidence for this requirement.
+  expected_benefit: Remove the cited violation or demonstrate a justified PPA improvement.
+  risk: Do not suppress a warning or relax a requirement merely to obtain PASS.
+  status: approved
+- requirement_id: REQ-LOOP-DRC-RBOR-1
+  finding_ids:
+  - DRC-RBOR-1
+  kind: compliance
+  before:
+    rule: RBOR-1
+    severity: Warning
+    count: 5
+    line: 37
+    artifact_path: drc.rpt
+  after: Resolve or explicitly disposition DRC-RBOR-1 using the full DRC evidence
+    and actual board/clock/reset contract.
+  acceptance:
+  - metric: review.REQ-LOOP-DRC-RBOR-1
+    op: eq
+    value: true
+  verification: Compile/simulation Golden regression plus relevant same-source post-route
+    report; attach reviewed evidence for this requirement.
+  expected_benefit: Remove the cited violation or demonstrate a justified PPA improvement.
+  risk: Do not suppress a warning or relax a requirement merely to obtain PASS.
+  status: approved
+- requirement_id: REQ-LOOP-DRC-REQP-1840
+  finding_ids:
+  - DRC-REQP-1840
+  kind: compliance
+  before:
+    rule: REQP-1840
+    severity: Warning
+    count: 20
+    line: 38
+    artifact_path: drc.rpt
+  after: Resolve or explicitly disposition DRC-REQP-1840 using the full DRC evidence
+    and actual board/clock/reset contract.
+  acceptance:
+  - metric: review.REQ-LOOP-DRC-REQP-1840
+    op: eq
+    value: true
+  verification: Compile/simulation Golden regression plus relevant same-source post-route
+    report; attach reviewed evidence for this requirement.
+  expected_benefit: Remove the cited violation or demonstrate a justified PPA improvement.
+  risk: Do not suppress a warning or relax a requirement merely to obtain PASS.
+  status: approved
+- requirement_id: REQ-LOOP-DRC-ZPS7-1
+  finding_ids:
+  - DRC-ZPS7-1
+  kind: compliance
+  before:
+    rule: ZPS7-1
+    severity: Warning
+    count: 1
+    line: 39
+    artifact_path: drc.rpt
+  after: Resolve or explicitly disposition DRC-ZPS7-1 using the full DRC evidence
+    and actual board/clock/reset contract.
+  acceptance:
+  - metric: review.REQ-LOOP-DRC-ZPS7-1
+    op: eq
+    value: true
+  verification: Compile/simulation Golden regression plus relevant same-source post-route
+    report; attach reviewed evidence for this requirement.
+  expected_benefit: Remove the cited violation or demonstrate a justified PPA improvement.
+  risk: Do not suppress a warning or relax a requirement merely to obtain PASS.
+  status: approved
+- requirement_id: REQ-LOOP-PPA-CONSTRAINT-001
+  finding_ids:
+  - PPA-CONSTRAINT-001
+  kind: evidence
+  before:
+    no_input_delay: 20
+    no_output_delay: 11
+  after: Collect missing evidence/constraints and bind it to the exact source and
+    run; UNKNOWN must not be treated as PASS.
+  acceptance:
+  - metric: review.REQ-LOOP-PPA-CONSTRAINT-001
+    op: eq
+    value: true
+  verification: Compile/simulation Golden regression plus relevant same-source post-route
+    report; attach reviewed evidence for this requirement.
+  expected_benefit: Remove the cited violation or demonstrate a justified PPA improvement.
+  risk: Do not suppress a warning or relax a requirement merely to obtain PASS.
+  status: approved
+- requirement_id: REQ-LOOP-EVIDENCE-PROVENANCE-001
+  finding_ids:
+  - EVIDENCE-PROVENANCE-001
+  kind: evidence
+  before:
+    artifact_path: run_manifest.yaml
+  after: Collect missing evidence/constraints and bind it to the exact source and
+    run; UNKNOWN must not be treated as PASS.
+  acceptance:
+  - metric: review.REQ-LOOP-EVIDENCE-PROVENANCE-001
+    op: eq
+    value: true
+  verification: Compile/simulation Golden regression plus relevant same-source post-route
+    report; attach reviewed evidence for this requirement.
+  expected_benefit: Remove the cited violation or demonstrate a justified PPA improvement.
+  risk: Do not suppress a warning or relax a requirement merely to obtain PASS.
+  status: approved
+- requirement_id: REQ-LOOP-EVIDENCE-COVERAGE-001
+  finding_ids:
+  - EVIDENCE-COVERAGE-001
+  kind: evidence
+  before:
+    unknown:
+    - interrupt_count_per_batch
+    - peak_active_pe_count
+    - protocol_errors
+    - ram
+    - utilization
+    - verification
+  after: Collect missing evidence/constraints and bind it to the exact source and
+    run; UNKNOWN must not be treated as PASS.
+  acceptance:
+  - metric: review.REQ-LOOP-EVIDENCE-COVERAGE-001
+    op: eq
+    value: true
+  verification: Compile/simulation Golden regression plus relevant same-source post-route
+    report; attach reviewed evidence for this requirement.
+  expected_benefit: Remove the cited violation or demonstrate a justified PPA improvement.
+  risk: Do not suppress a warning or relax a requirement merely to obtain PASS.
+  status: approved
+- requirement_id: REQ-LOOP-APPROVED-CYCLE-001
+  finding_ids:
+  - APPROVED-CYCLE-001
+  kind: optimization
+  before:
+    source: ppa_summary/spec_change_proposal.md
+  after: 동일 100개 입력의 추론 Cycle 161735 이하, 그룹 797/43/33 및 기존 overlap 보존.
+  acceptance:
+  - metric: verification.total_inference_cycles
+    op: le
+    value: 161735
+  - metric: review.REQ-LOOP-APPROVED-CYCLE-001
+    op: eq
+    value: true
+  verification: Compile/simulation Golden regression plus relevant same-source post-route
+    report; attach reviewed evidence for this requirement.
+  expected_benefit: Remove the cited violation or demonstrate a justified PPA improvement.
+  risk: Do not suppress a warning or relax a requirement merely to obtain PASS.
+  status: approved
+- requirement_id: REQ-LOOP-APPROVED-FUNCTION-001
+  finding_ids:
+  - APPROVED-FUNCTION-001
+  kind: compliance
+  before:
+    source: ppa_summary/spec_change_proposal.md
+  after: 100 sample 99 PASS/1 FAIL와 샘플별 Golden 보존. 계측 TB 복구 및 protocol/PE/interrupt
+    측정. 미계측은 UNKNOWN.
+  acceptance:
+  - metric: verification.image_count
+    op: eq
+    value: 100
+  - metric: verification.failure_count
+    op: eq
+    value: 1
+  - metric: verification.protocol_errors
+    op: eq
+    value: 0
+  - metric: verification.interrupt_count_per_batch
+    op: eq
+    value: 1
+  - metric: review.REQ-LOOP-APPROVED-FUNCTION-001
+    op: eq
+    value: true
+  verification: Compile/simulation Golden regression plus relevant same-source post-route
+    report; attach reviewed evidence for this requirement.
+  expected_benefit: Remove the cited violation or demonstrate a justified PPA improvement.
+  risk: Do not suppress a warning or relax a requirement merely to obtain PASS.
+  status: approved
+- requirement_id: REQ-LOOP-REGRESSION-TOTAL-ON-CHIP-POWER-W
+  finding_ids:
+  - REGRESSION-TOTAL-ON-CHIP-POWER-W
+  kind: optimization
+  before:
+    source: ppa_summary/spec_change_proposal.md
+  after: DSP 25-PE 최우선이며 균형형 PPA를 적용한다. 동일 SAIF 조건에서 평균 전력 0.544 W 이하 및 100 sample
+    에너지 900 uJ 이하. 추정치 한계 및 최종 사람 검토 유지.
+  acceptance:
+  - metric: review.REQ-LOOP-REGRESSION-TOTAL-ON-CHIP-POWER-W
+    op: eq
+    value: true
+  verification: Compile/simulation Golden regression plus relevant same-source post-route
+    report; attach reviewed evidence for this requirement.
+  expected_benefit: Remove the cited violation or demonstrate a justified PPA improvement.
+  risk: SAIF power and P*t energy are estimates; low direct annotation and timing
+    failure prohibit claims of measured energy efficiency. No automatic priority or
+    regression waiver.
+  status: approved
+  power_tradeoff:
+    priority: balanced
+    max_average_power_w: 0.544
+    max_energy_per_workload_uj: 900.0
+    rationale: Developer approved all targets in committed proposal; prioritize real
+      25-PE DSP mapping without waiving either power or energy limit.
+- requirement_id: REQ-LOOP-VERIFY-COMPILE-001
+  finding_ids:
+  - VERIFY-COMPILE-001
+  kind: compliance
+  before:
+    error_count: 21
+    artifact_paths:
+    - C:/Users/iuhj0/Eddie/rag_db_project/artifacts/implementation/optimized_accelerator/run_003/compile.log
+  after: Investigate the cited evidence, preserve functional contracts, and resolve
+    or document the finding.
+  acceptance:
+  - metric: review.REQ-LOOP-VERIFY-COMPILE-001
+    op: eq
+    value: true
+  verification: Compile/simulation Golden regression plus relevant same-source post-route
+    report; attach reviewed evidence for this requirement.
+  expected_benefit: Remove the cited violation or demonstrate a justified PPA improvement.
+  risk: Do not suppress a warning or relax a requirement merely to obtain PASS.
+  status: approved
+- requirement_id: REQ-LOOP-EVIDENCE-MEMORY-MAPPING-001
+  finding_ids:
+  - EVIDENCE-MEMORY-MAPPING-001
+  kind: evidence
+  before:
+    module: weight_sram
+    storage: block_ram
+    requirement_id: REQ-OPT-MEM-026
+    requirement_state: proposed_pending_final_approval
+  after: Collect missing evidence/constraints and bind it to the exact source and
+    run; UNKNOWN must not be treated as PASS.
+  acceptance:
+  - metric: review.REQ-LOOP-EVIDENCE-MEMORY-MAPPING-001
+    op: eq
+    value: true
+  verification: Compile/simulation Golden regression plus relevant same-source post-route
+    report; attach reviewed evidence for this requirement.
+  expected_benefit: Remove the cited violation or demonstrate a justified PPA improvement.
+  risk: Do not suppress a warning or relax a requirement merely to obtain PASS.
+  status: approved
+- requirement_id: REQ-LOOP-TOOL-WARNING-001
+  finding_ids:
+  - TOOL-WARNING-001
+  kind: compliance
+  before:
+    logs:
+    - path: C:/Users/iuhj0/Eddie/rag_db_project/artifacts/implementation/optimized_accelerator/run_003/compile.log
+      error_count: 21
+      warning_count: 2
+      error_records:
+      - 'ERROR: [VRFC 10-4982] syntax error near ''wire'' [C:/Users/iuhj0/Eddie/rag_db_project/.automation_debug/optimized_accelerator/analysis_004/project/workspace/optimized_accelerator/tb/top_sim.sv:161]'
+      - 'ERROR: [VRFC 10-8549] SystemVerilog keyword ''wire'' used in incorrect context
+        [C:/Users/iuhj0/Eddie/rag_db_project/.automation_debug/optimized_accelerator/analysis_004/project/workspace/optimized_accelerator/tb/top_sim.sv:161]'
+      - 'ERROR: [VRFC 10-4982] syntax error near ''<='' [C:/Users/iuhj0/Eddie/rag_db_project/.automation_debug/optimized_accelerator/analysis_004/project/workspace/optimized_accelerator/tb/top_sim.sv:210]'
+      - 'ERROR: [VRFC 10-4982] syntax error near ''<='' [C:/Users/iuhj0/Eddie/rag_db_project/.automation_debug/optimized_accelerator/analysis_004/project/workspace/optimized_accelerator/tb/top_sim.sv:212]'
+      - 'ERROR: [VRFC 10-4982] syntax error near ''<='' [C:/Users/iuhj0/Eddie/rag_db_project/.automation_debug/optimized_accelerator/analysis_004/project/workspace/optimized_accelerator/tb/top_sim.sv:216]'
+      - 'ERROR: [VRFC 10-4982] syntax error near ''<='' [C:/Users/iuhj0/Eddie/rag_db_project/.automation_debug/optimized_accelerator/analysis_004/project/workspace/optimized_accelerator/tb/top_sim.sv:218]'
+      - 'ERROR: [VRFC 10-4982] syntax error near ''<='' [C:/Users/iuhj0/Eddie/rag_db_project/.automation_debug/optimized_accelerator/analysis_004/project/workspace/optimized_accelerator/tb/top_sim.sv:221]'
+      - 'ERROR: [VRFC 10-4982] syntax error near ''<='' [C:/Users/iuhj0/Eddie/rag_db_project/.automation_debug/optimized_accelerator/analysis_004/project/workspace/optimized_accelerator/tb/top_sim.sv:224]'
+      - 'ERROR: [VRFC 10-4982] syntax error near ''<='' [C:/Users/iuhj0/Eddie/rag_db_project/.automation_debug/optimized_accelerator/analysis_004/project/workspace/optimized_accelerator/tb/top_sim.sv:225]'
+      - 'ERROR: [VRFC 10-4982] syntax error near ''<='' [C:/Users/iuhj0/Eddie/rag_db_project/.automation_debug/optimized_accelerator/analysis_004/project/workspace/optimized_accelerator/tb/top_sim.sv:226]'
+      - 'ERROR: [VRFC 10-4982] syntax error near ''<='' [C:/Users/iuhj0/Eddie/rag_db_project/.automation_debug/optimized_accelerator/analysis_004/project/workspace/optimized_accelerator/tb/top_sim.sv:229]'
+      - 'ERROR: [VRFC 10-4982] syntax error near ''<='' [C:/Users/iuhj0/Eddie/rag_db_project/.automation_debug/optimized_accelerator/analysis_004/project/workspace/optimized_accelerator/tb/top_sim.sv:233]'
+      - 'ERROR: [VRFC 10-4982] syntax error near ''end'' [C:/Users/iuhj0/Eddie/rag_db_project/.automation_debug/optimized_accelerator/analysis_004/project/workspace/optimized_accelerator/tb/top_sim.sv:237]'
+      - 'ERROR: [VRFC 10-8549] SystemVerilog keyword ''end'' used in incorrect context
+        [C:/Users/iuhj0/Eddie/rag_db_project/.automation_debug/optimized_accelerator/analysis_004/project/workspace/optimized_accelerator/tb/top_sim.sv:237]'
+      - 'ERROR: [VRFC 10-2934] ''device_under_test'' is already declared [C:/Users/iuhj0/Eddie/rag_db_project/.automation_debug/optimized_accelerator/analysis_004/project/workspace/optimized_accelerator/tb/top_sim.sv:239]'
+      - 'ERROR: [VRFC 10-2969] ''previous_intr'' is not a type [C:/Users/iuhj0/Eddie/rag_db_project/.automation_debug/optimized_accelerator/analysis_004/project/workspace/optimized_accelerator/tb/top_sim.sv:199]'
+      - 'ERROR: [VRFC 10-2969] ''controller_elapsed_cycles'' is not a type [C:/Users/iuhj0/Eddie/rag_db_project/.automation_debug/optimized_accelerator/analysis_004/project/workspace/optimized_accelerator/tb/top_sim.sv:200]'
+      - 'ERROR: [VRFC 10-2969] ''controller_expected_cycles'' is not a type [C:/Users/iuhj0/Eddie/rag_db_project/.automation_debug/optimized_accelerator/analysis_004/project/workspace/optimized_accelerator/tb/top_sim.sv:201]'
+      - 'ERROR: [VRFC 10-2969] ''controller_measurement_active'' is not a type [C:/Users/iuhj0/Eddie/rag_db_project/.automation_debug/optimized_accelerator/analysis_004/project/workspace/optimized_accelerator/tb/top_sim.sv:202]'
+      - 'ERROR: [USF-XSim-62] ''compile'' step failed with error(s). Please check
+        the Tcl console output or ''C:/Users/iuhj0/Eddie/rag_db_project/.automation_debug/optimized_accelerator/analysis_004/project/workspace/optimized_accelerator/.vivado_flow/project/accelerator.sim/sim_1/behav/xsim/xvlog.log''
+        file for more information.'
+      - 'ERROR: [Vivado 12-4473] Detected error while running simulation. Please correct
+        the issue and retry this operation.'
+      assertion_failure_count: 0
+      timeout_detected: false
+  after: Investigate the cited evidence, preserve functional contracts, and resolve
+    or document the finding.
+  acceptance:
+  - metric: review.REQ-LOOP-TOOL-WARNING-001
+    op: eq
+    value: true
+  verification: Compile/simulation Golden regression plus relevant same-source post-route
+    report; attach reviewed evidence for this requirement.
+  expected_benefit: Remove the cited violation or demonstrate a justified PPA improvement.
+  risk: Do not suppress a warning or relax a requirement merely to obtain PASS.
+  status: approved
+- requirement_id: REQ-LOOP-VERIFY-EXECUTION-001
+  finding_ids:
+  - VERIFY-EXECUTION-001
+  kind: compliance
+  before:
+    parent_run: analysis_004
+    child_run: run_003
+    stages:
+    - stage: compile
+      exit_code: 1
+      tool: C:/Xilinx/Vivado/2022.1/bin/vivado.bat
+      artifact_root: artifacts/verification/optimized_accelerator/run_003
+    patch_sha256: 3f08dd987239dfd1d2ce936fe9f49809a5d6674c3c718f4b8f536880387200ca
+    source_hashes:
+      rtl/.gitkeep: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+      rtl/activation_unit.sv: 53bd357ee548321b889c852b8e51f215657d1b055c6d6ecad5c3ab514f39605b
+      rtl/axi_lite_wrapper.sv: 4d0b1292fbf81b5322f5cfe38fc78e49c279c12f01fbb8644c6ebf60cc0abafc
+      rtl/bias_sram.sv: df1c09d9031314869e74b74d28888373cb15b40345789bcf957428cd6e392c99
+      rtl/dnn_scheduler.sv: 6e8449664dea0e93f9319c93f22bb80961baa75da4d1302dc4d18edc3980252e
+      rtl/mac_pe.sv: 016a236c441e21fe4fe1363712a30d1484dec7724a687ea14242ce39f103a65d
+      rtl/maxFinder.sv: 099d44fd1a3a8d25dc3fbbf1b91f3a450d8278faaa8f562c1e0e54e67501b753
+      rtl/pe_systolic_cell.sv: 492f6bf979beba89b1cfb6532db50744adc25533ec37cff4e896fb0c5328337f
+      rtl/systolic_array_2d.sv: 031ea9602457fc1a3cdc6b945e0d14a63ed670dd46f76d9a6c7fd29c8113e789
+      rtl/systolic_controller.sv: b513cfe579263e15b05a05bb2a16c2613ddc73ebc5f83a70cf41c1d7f8ae9bf3
+      rtl/systolic_parameters.svh: 427885f4c843ad079c54a04f4a3b6c48d7d5648eebd8f0ceff7386ffae69856d
+      rtl/unified_buffer.sv: 393c2f6a3d3a2b67f3558aaad965bacd5b58c4a84522ef2a392891d4d8ada7a1
+      rtl/weight_sram.sv: 8457973d9cc1b652cae5f2d1f163a65a5a765eb20cbc408c95ffdab55f5d1bb6
+      rtl/zynet.sv: 0c4e839d99de9d78e5570c4569787a6125bfd607e180209ab84b1409ded521a9
+      tb/.gitkeep: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+      tb/top_sim.sv: f93aa847d6c0969fbe643a3dd9d98649e7c8265e1aaa812a136abc264055176d
+      memory/.gitkeep: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+      memory/b_1_0.mif: f6e0a1e2ac41945a9aa7ff8a8aaa0cebc12a3bcc981a929ad5cf810a090e11ae
+      memory/b_1_1.mif: 2743dac64d9b769f3308834c1cb3d1bfc9cb0533f62e2ddc98af1822c62adfe5
+      memory/b_1_10.mif: 6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b
+      memory/b_1_11.mif: 3b0556cb9030f74640d3156fe6c7370412fd32e8727dc03f6f1852d8dd533c94
+      memory/b_1_12.mif: 16dc368a89b428b2485484313ba67a3912ca03f2b2b42429174a4f8b3dc84e44
+      memory/b_1_13.mif: ce8e85c9de6ad62d7443085e42b8f73dabdbac62a1a5e3eddd5c97b3b44c1e24
+      memory/b_1_14.mif: ee79976c9380d5e337fc1c095ece8c8f22f91f306ceeb161fa51fecede2c4ba1
+      memory/b_1_15.mif: 4a44dc15364204a80fe80e9039455cc1608281820fe2b24f1e5233ade6af1dd5
+      memory/b_1_16.mif: a052c5de761ada49d9d072c9dc9881b0f0e79e525a7764ebaba417c394322397
+      memory/b_1_17.mif: ce8e85c9de6ad62d7443085e42b8f73dabdbac62a1a5e3eddd5c97b3b44c1e24
+      memory/b_1_18.mif: dc0726fe0989fe9cd9f6a6b9d90f7e5c65ce000ea39e44a1b7f56997e2d1524e
+      memory/b_1_19.mif: 7a5df5ffa0dec2228d90b8d0a0f1b0767b748b0a41314c123075b8289e4e053f
+      memory/b_1_2.mif: e340c1744b3570aa58c6112d647481bfe501ba4c5cfae53a8d9096bc34fa0073
+      memory/b_1_20.mif: 712676e20276bc69b183272f3db0bc8aa37c63e9a30166e38e97fe193d023688
+      memory/b_1_21.mif: 4fc82b26aecb47d2868c4efbe3581732a3e7cbcc6c2efb32062c08170a05eeb8
+      memory/b_1_22.mif: 002058ac937f7446da62ca8497f3c46b19986eb8f164a45578dce297fa6cd5b1
+      memory/b_1_23.mif: ce8e85c9de6ad62d7443085e42b8f73dabdbac62a1a5e3eddd5c97b3b44c1e24
+      memory/b_1_24.mif: e340c1744b3570aa58c6112d647481bfe501ba4c5cfae53a8d9096bc34fa0073
+      memory/b_1_25.mif: 7a5df5ffa0dec2228d90b8d0a0f1b0767b748b0a41314c123075b8289e4e053f
+      memory/b_1_26.mif: 9b0e12164232d5cd6b708534cfb93cd1fe0c1f5833329d567fee7b8fdbed9868
+      memory/b_1_27.mif: d5d91a6f270ae7d779717e9517fe8a247818bb2fdef48907d7d14d06e56cfdd9
+      memory/b_1_28.mif: 6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b
+      memory/b_1_29.mif: 16dc368a89b428b2485484313ba67a3912ca03f2b2b42429174a4f8b3dc84e44
+      memory/b_1_3.mif: f6e0a1e2ac41945a9aa7ff8a8aaa0cebc12a3bcc981a929ad5cf810a090e11ae
+      memory/b_1_4.mif: 5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9
+      memory/b_1_5.mif: 4bfa1a09ac70d3b9342ebd344d5548ddcf1435475ec86a8b045988b8303eb0ae
+      memory/b_1_6.mif: 49d6d81bf43b4039095a4ba7ba087ebb2c4cc05a738e7413cf35795ef3d33a00
+      memory/b_1_7.mif: 9b0e12164232d5cd6b708534cfb93cd1fe0c1f5833329d567fee7b8fdbed9868
+      memory/b_1_8.mif: 055f78940c07630352676197ab7c3ed8d5bb204d406e5c6ff101f870bc9b7dd7
+      memory/b_1_9.mif: 16dc368a89b428b2485484313ba67a3912ca03f2b2b42429174a4f8b3dc84e44
+      memory/b_2_0.mif: 4bf521bed206918eb6ddb366249020058e68398cd5cd891bbbdbb8b1bfc8ad87
+      memory/b_2_1.mif: ad57366865126e55649ecb23ae1d48887544976efea46a48eb5d85a6eeb4d306
+      memory/b_2_10.mif: 3b0556cb9030f74640d3156fe6c7370412fd32e8727dc03f6f1852d8dd533c94
+      memory/b_2_11.mif: 39e5b4830d4d9c14db7368a95b65d5463ea3d09520373723430c03a5a453b5df
+      memory/b_2_12.mif: 002058ac937f7446da62ca8497f3c46b19986eb8f164a45578dce297fa6cd5b1
+      memory/b_2_13.mif: 002058ac937f7446da62ca8497f3c46b19986eb8f164a45578dce297fa6cd5b1
+      memory/b_2_14.mif: 3dd9c0995d54c0abd51a90f1d57b1ce77bc885fc8a7cea52dcad3c2540dda5ee
+      memory/b_2_15.mif: dc0726fe0989fe9cd9f6a6b9d90f7e5c65ce000ea39e44a1b7f56997e2d1524e
+      memory/b_2_16.mif: 4a44dc15364204a80fe80e9039455cc1608281820fe2b24f1e5233ade6af1dd5
+      memory/b_2_17.mif: 4a44dc15364204a80fe80e9039455cc1608281820fe2b24f1e5233ade6af1dd5
+      memory/b_2_18.mif: e340c1744b3570aa58c6112d647481bfe501ba4c5cfae53a8d9096bc34fa0073
+      memory/b_2_19.mif: e340c1744b3570aa58c6112d647481bfe501ba4c5cfae53a8d9096bc34fa0073
+      memory/b_2_2.mif: ee79976c9380d5e337fc1c095ece8c8f22f91f306ceeb161fa51fecede2c4ba1
+      memory/b_2_3.mif: 391129c952673b00d68c2ed2531816b10023ff5aa439eb6f1c8d4c51f62c080f
+      memory/b_2_4.mif: ee79976c9380d5e337fc1c095ece8c8f22f91f306ceeb161fa51fecede2c4ba1
+      memory/b_2_5.mif: ce8e85c9de6ad62d7443085e42b8f73dabdbac62a1a5e3eddd5c97b3b44c1e24
+      memory/b_2_6.mif: 5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9
+      memory/b_2_7.mif: 5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9
+      memory/b_2_8.mif: e340c1744b3570aa58c6112d647481bfe501ba4c5cfae53a8d9096bc34fa0073
+      memory/b_2_9.mif: 9bdb2af6799204a299c603994b8e400e4b1fd625efdb74066cc869fee42c9df3
+      memory/b_3_0.mif: c32c4c935a2a9ddc656132ac9436a966d1d0ff34c1f5de6309cdc09501036768
+      memory/b_3_1.mif: a0021577aae4ff6e91c973c0b2100b094b98184dd07572928776e52440c99fbc
+      memory/b_3_2.mif: 69f89b5bbf9e1129f627943a80be22d97c2b036b45f6f30ca6acb3ce5064fc64
+      memory/b_3_3.mif: d5d91a6f270ae7d779717e9517fe8a247818bb2fdef48907d7d14d06e56cfdd9
+      memory/b_3_4.mif: bb679851217460d3c2ccc54af1c01b20960ed4313729625ea8d57266a2710d5e
+      memory/b_3_5.mif: c9edf4cbe8e6daf5ae028e6403176266319f8732a8e847a6e74838fc57cfe1d8
+      memory/b_3_6.mif: e340c1744b3570aa58c6112d647481bfe501ba4c5cfae53a8d9096bc34fa0073
+      memory/b_3_7.mif: 97066e386dda1244dafafc118ee21a1453b79542be970dea37499e8bef828f36
+      memory/b_3_8.mif: fa15e858186cf5bde28aa44bc093f3d232da10032a14eaa953ee6f1e4dc2d61e
+      memory/b_3_9.mif: fa15e858186cf5bde28aa44bc093f3d232da10032a14eaa953ee6f1e4dc2d61e
+      memory/sigContent.mif: d2744b48ff738078c801b10c323e255d80367beab4333eb307f5b49b2dced8d9
+      memory/w_1_0.mif: bf36d731781b6394a707750d93cb52ec77bc165026623735c7910eb7ce6157fe
+      memory/w_1_1.mif: 7b4653ba151f2bf9d499bec5a5d9053b7df50c46abbbe40441f56317e10add3b
+      memory/w_1_10.mif: a3da20c421dd72d3e2c4a0fee3e301de75b3ce0f32da5ba990cc82b63cd65819
+      memory/w_1_11.mif: beba247a8905cf539bb7cafb84c512ff6865471ccb09690e3860436e2a62faf3
+      memory/w_1_12.mif: d719885284cc0d327e92b8ecd8a7222461a6e7e6e9e35596525ee7595e6d23d7
+      memory/w_1_13.mif: 321876da109590ba0c67405197a100c0790f0653dfe7046c21b6bb1d7e5e35ef
+      memory/w_1_14.mif: f79337e438f70cd9f778895abc3c707569f839846e8becad35914fb51187c6dd
+      memory/w_1_15.mif: 767d9543097b598b1f24bd5c003084071f8136ec3e6c68b4dbe98d2f943b1afc
+      memory/w_1_16.mif: 0b256517418ea881b8c920f634463a7b80da8601de7bcf567d28ab23b8c0edf2
+      memory/w_1_17.mif: 0146d8e231241845565515e8f65fdfa9c44dd9a51ce0f4d00663ddb7aef86dd3
+      memory/w_1_18.mif: 8f0a7ab05ca3de96f3092ab9078a1f047217b31ed5c1193cf62000da2ca9cbd0
+      memory/w_1_19.mif: 9bf919002eab8680324a87f7704c8e33e474804399977507eb7f727a3d09b79d
+      memory/w_1_2.mif: 251f4e214a68c7ba8d77ccc4f66de9883152d0cd415aad397badfc4aa169f5dc
+      memory/w_1_20.mif: a2ebd9f826e81d808898553ade4e8ee3c07e53d7cc8750ba3ef172b9cc344aff
+      memory/w_1_21.mif: f9ea75655ace5b5e1a7b1447970580f03988445a82ae697f0ae50546933fd911
+      memory/w_1_22.mif: 462dfa9ac98c1b154e0e810eea0cb7aa3b36a9c600813d1ae896ac5ec691223d
+      memory/w_1_23.mif: ba4f8325f121c4f77d264e381da4f7bef9e91a8847eea2460c228c654c18a874
+      memory/w_1_24.mif: 15e1a7ca3724a73743e5bc409604a91e6d78b1140a64ab68cf5fb83a0e1b6d16
+      memory/w_1_25.mif: fcfe907ba646b9c71568e345cfd3dafed2aa1722fb1bef0f74eaafb9ecb1f1af
+      memory/w_1_26.mif: aa942bb654886b2227c8de2b2f95b09ee1413faee5f2bad8cc2386d9cf8fb95b
+      memory/w_1_27.mif: b636f26c2ab48ca66c60c75fdfb27ed1127871a09da897323e48685bc865701a
+      memory/w_1_28.mif: c07534a2108fa81daf6e590d67b46f0f5ca41de3d38014b2e1efb275ba7e9786
+      memory/w_1_29.mif: 730222b64389268e12a5a9369669b47baebdae8387bdcff79b47abbdda0c4d52
+      memory/w_1_3.mif: 8ee21db1c1763834f5ff94352f7bd8e8c1bedf017c5dbc7af6388233a58741e7
+      memory/w_1_4.mif: 3965f34106ed84bde30867fcb9c1255a5dc173fdc18dac156855806351ca36a6
+      memory/w_1_5.mif: 45149615a32cf8e2b9ff94c48fa117168a8aa0059e9befe8b03a5181fa72eee1
+      memory/w_1_6.mif: c2d61639ee2e5fbc4590f836dc1556e0dfbe37f67d07f6fc8d13ae4c230e1222
+      memory/w_1_7.mif: 6682caac1c723f39db41d4a1454db655f6db83ade5e7b8579bf7dc2706a2cc2f
+      memory/w_1_8.mif: a75c413b919d262227bedf55c09c2999254fce8640ebb3bfd3050418c64d168c
+      memory/w_1_9.mif: 15f938d3c7994769136e75e24474ea0286fb6b89d4cecad27524c587840ed3fc
+      memory/w_2_0.mif: e177de11f29d82d0b5ac5d3da02ca351fee3813537b55d6b1e6197385ce7d151
+      memory/w_2_1.mif: 364eb228315cf522cf4880dea7225874b00d85e2bf54d29745c9d5458bef23dc
+      memory/w_2_10.mif: 99e6408378aafa1742dee4fb7638712525d7baabaa7ca268a85541f7f514e845
+      memory/w_2_11.mif: 72d28983d03989db6b9e61e87aed93deb67a59bf237ffbaa86938120ec80514d
+      memory/w_2_12.mif: 36990bbc47bab4afc9b408ae7dac300f9d223810a77385590f70e685f3a7dbd6
+      memory/w_2_13.mif: d68bbad0bf94965622e20891883a1f14bbeb5092a8738a88b62181be41a1ae8d
+      memory/w_2_14.mif: f891cd50d5b970bb4bb410ad311ebf7c5c582863632ddf61eed2498de800db47
+      memory/w_2_15.mif: df3bd7c9df15df92b956bb21d36aa254246aae35c27c0234ea029476420d30d2
+      memory/w_2_16.mif: d6e9fd9d7f15d5d87211abffab3821ce8ecf4e4e81f05c0df42e0f0986033887
+      memory/w_2_17.mif: 5bd448a866a4b54fac6e3856ee540496a5860310e0c4fac1cfb103d0617e629e
+      memory/w_2_18.mif: d4e84016aaa7e3f6ecde52fd18298d72ea80eb37d29b3c80e89e06b1ba13f4c0
+      memory/w_2_19.mif: 71da376dc2ddc2834892f6a02b7419b35250c4332e609d260c009f79f3ebc350
+      memory/w_2_2.mif: d6a4a31c86043061bc3903080bef26822a06ee7412e395955da6e618f498849f
+      memory/w_2_3.mif: bb9dbf49d868ddb30c4fc3504d0325647a6bbf61f42d95ac80dc13823a217476
+      memory/w_2_4.mif: 752ffa4a53969e52ab1d1d332468c9b290199766453e40dc8bdc8af1844d61be
+      memory/w_2_5.mif: 85968adccbf467848f689392a0f4189513a6d435eccf6e253cc59d7b9b840e71
+      memory/w_2_6.mif: b1c957f3a6310432f88210ba28c10e8ad3fb9205dff7e1bfb11e02111ac66e83
+      memory/w_2_7.mif: 7047b376b13c3afc9192cd0717775373b6b19f37d839610456c30f309314cba1
+      memory/w_2_8.mif: 5118aa5d608d688f1f76f2d46289616634a6944c1417e27316dc5db99d9e2bbf
+      memory/w_2_9.mif: 89b0b62f1316d5186eb6028dd009c2fda2130fd0611eb454a7223b86109ca8ef
+      memory/w_3_0.mif: 06fcc7d5047fdbb6e700a34394321c28daf4a3b75b0659dfa7ba5e638bd46a8e
+      memory/w_3_1.mif: 43083f33868b18343c36b92d8c9303466645c74fbc00f111661fd4763e214e82
+      memory/w_3_2.mif: b5fc159f76c77cea34ed9098b9c1aee243b2892afd1b891af89affa347e7fc36
+      memory/w_3_3.mif: 0a1e600c8db8ec487ff85770b998ac955c71517a078449f802b2ef404b30dd4a
+      memory/w_3_4.mif: e0a32bec5ef8c497648fb7d91c88dab2ecc1a18dfdad9eb1b7611ac504c04496
+      memory/w_3_5.mif: 69b8ef30bf81a9da80ac268ec341aa779095601b41aa68581708a696b7bc91c8
+      memory/w_3_6.mif: f7c660299c24926c27acba9e80a959629651a6c407e9b5a1b892dccfd3d58802
+      memory/w_3_7.mif: 491d3c7b34eead6a3d02fc81359d462ea43c33197984c595700e188aeac21700
+      memory/w_3_8.mif: 4efc37ab0dc5cf642aace2a677e57fb1466ccd16a9d79fe5c5e179be1628af1e
+      memory/w_3_9.mif: 590786accb65b4455f0bad8c812ac5c37bf0b9c5219094bdee37f1b1bb1f4aca
+      scripts/.gitkeep: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+      scripts/run_modelsim.do: 99213864b3e0c6a0ef06d67103ef40f7239c446c023ee7a50a73c06254649e9e
+      scripts/run_modelsim.sh: 685919148b845d4de126eeb6d5422914cb11398cd1b144af5bd2e8a8201c9a32
+    all_tools_passed: false
+    promoted: false
+  after: Investigate the cited evidence, preserve functional contracts, and resolve
+    or document the finding.
+  acceptance:
+  - metric: review.REQ-LOOP-VERIFY-EXECUTION-001
+    op: eq
+    value: true
+  verification: Compile/simulation Golden regression plus relevant same-source post-route
+    report; attach reviewed evidence for this requirement.
+  expected_benefit: Remove the cited violation or demonstrate a justified PPA improvement.
+  risk: Do not suppress a warning or relax a requirement merely to obtain PASS.
+  status: approved
+- requirement_id: REQ-LOOP-PPA-HOTSPOT-001
+  finding_ids:
+  - PPA-HOTSPOT-001
+  kind: compliance
+  before:
+    instance: zyNet/systolic_controller_instance
+    instance_lut: 664.0
+    total_lut: 1199.0
+    lut_ratio: 0.5538
+    ramb18: 0.0
+    artifact_path: utilization_hierarchical.rpt
+  after: Investigate the cited evidence, preserve functional contracts, and resolve
+    or document the finding.
+  acceptance:
+  - metric: review.REQ-LOOP-PPA-HOTSPOT-001
+    op: eq
+    value: true
+  verification: Compile/simulation Golden regression plus relevant same-source post-route
+    report; attach reviewed evidence for this requirement.
+  expected_benefit: Remove the cited violation or demonstrate a justified PPA improvement.
+  risk: Do not suppress a warning or relax a requirement merely to obtain PASS.
+  status: proposed
+- requirement_id: REQ-LOOP-DRC-REQP-1839
+  finding_ids:
+  - DRC-REQP-1839
+  kind: compliance
+  before:
+    rule: REQP-1839
+    severity: Warning
+    count: 20
+    line: 37
+    artifact_path: drc.rpt
+  after: Resolve or explicitly disposition DRC-REQP-1839 using the full DRC evidence
+    and actual board/clock/reset contract.
+  acceptance:
+  - metric: review.REQ-LOOP-DRC-REQP-1839
+    op: eq
+    value: true
+  verification: Compile/simulation Golden regression plus relevant same-source post-route
+    report; attach reviewed evidence for this requirement.
+  expected_benefit: Remove the cited violation or demonstrate a justified PPA improvement.
+  risk: Do not suppress a warning or relax a requirement merely to obtain PASS.
+  status: proposed
+- requirement_id: REQ-LOOP-FOLLOWUP-IO-CONTRACT-001
+  finding_ids:
+  - PPA-CONSTRAINT-001
+  - DRC-NSTD-1
+  - DRC-UCIO-1
+  kind: compliance
+  before:
+    artifact_root: artifacts\implementation\optimized_accelerator\run_004
+    source_run: run_004
+  after: 보드/PS 통합 담당자가 pin, IOSTANDARD, 입력·출력 지연과 reset 계약을 제공한 뒤 제약을 적용한다. 현재 no_input_delay=20,
+    no_output_delay=11 및 NSTD-1/UCIO-1을 해소하며 임의 false-path/경고 억제는 금지한다.
+  acceptance:
+  - metric: review.REQ-LOOP-FOLLOWUP-IO-CONTRACT-001
+    op: eq
+    value: true
+  verification: 관련 원본 보고서/검증 로그 및 동일 소스 해시를 연결하고 개발자 검토를 받는다. 기존 승인 수치 조건은 유지한다.
+  expected_benefit: Remove the cited violation or demonstrate a justified PPA improvement.
+  risk: Do not suppress a warning or relax a requirement merely to obtain PASS.
+  status: proposed
+- requirement_id: REQ-LOOP-FOLLOWUP-RESET-PIPELINE-001
+  finding_ids:
+  - PPA-FANOUT-001
+  - DRC-DPIP-1
+  - DRC-DPOP-2
+  - DRC-RBOR-1
+  - DRC-REQP-1839
+  - DRC-REQP-1840
+  kind: compliance
+  before:
+    artifact_root: artifacts\implementation\optimized_accelerator\run_004
+    source_run: run_004
+  after: Fanout 561의 reset 경로와 BRAM async-control, DSP input/MREG 및 BRAM output-register
+    경고를 실제 클록/reset 계약에 따라 검토한다. 797/43/33 및 추론 161735 Cycle 계약을 보존하는 안을 우선하고 Cycle
+    변경은 별도 승인한다.
+  acceptance:
+  - metric: review.REQ-LOOP-FOLLOWUP-RESET-PIPELINE-001
+    op: eq
+    value: true
+  verification: 관련 원본 보고서/검증 로그 및 동일 소스 해시를 연결하고 개발자 검토를 받는다. 기존 승인 수치 조건은 유지한다.
+  expected_benefit: Remove the cited violation or demonstrate a justified PPA improvement.
+  risk: Do not suppress a warning or relax a requirement merely to obtain PASS.
+  status: proposed
+- requirement_id: REQ-LOOP-FOLLOWUP-VERIFICATION-COVERAGE-001
+  finding_ids:
+  - SPEC-CHECK-REQ-LOOP-EVIDENCE-COVERAGE-001
+  kind: compliance
+  before:
+    artifact_root: artifacts\implementation\optimized_accelerator\run_004
+    source_run: run_004
+  after: 이번 100개 샘플의 예측 완전 일치와 MAC/Weight 검증을 유지하며 무작위 source stall, AXI read 지연,
+    reset 경계 등 미수집 검증을 보완한다. 계측한 protocol 오류 0을 모든 시나리오 검증으로 확대 해석하지 않는다.
+  acceptance:
+  - metric: review.REQ-LOOP-FOLLOWUP-VERIFICATION-COVERAGE-001
+    op: eq
+    value: true
+  verification: 관련 원본 보고서/검증 로그 및 동일 소스 해시를 연결하고 개발자 검토를 받는다. 기존 승인 수치 조건은 유지한다.
+  expected_benefit: Remove the cited violation or demonstrate a justified PPA improvement.
+  risk: Do not suppress a warning or relax a requirement merely to obtain PASS.
+  status: proposed
+- requirement_id: REQ-LOOP-FOLLOWUP-POWER-EVIDENCE-001
+  finding_ids:
+  - SPEC-CHECK-REQ-LOOP-PPA-POWER-001
+  kind: compliance
+  before:
+    artifact_root: artifacts\implementation\optimized_accelerator\run_004
+    source_run: run_004
+  after: 동일 조건 SAIF 비교 및 현재 전력/에너지 상한을 유지한다. 직접 annotation 부족은 별도 근거 품질 항목으로 관리하고
+    필요시 post-implementation simulation 활동으로 교차 검증한다. 추정치를 실측으로 표시하지 않는다.
+  acceptance:
+  - metric: review.REQ-LOOP-FOLLOWUP-POWER-EVIDENCE-001
+    op: eq
+    value: true
+  verification: 관련 원본 보고서/검증 로그 및 동일 소스 해시를 연결하고 개발자 검토를 받는다. 기존 승인 수치 조건은 유지한다.
+  expected_benefit: Remove the cited violation or demonstrate a justified PPA improvement.
+  risk: Do not suppress a warning or relax a requirement merely to obtain PASS.
+  status: proposed

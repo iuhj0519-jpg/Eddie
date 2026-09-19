@@ -1,0 +1,10 @@
+{
+  "reference": "artifacts\\verification\\optimized_accelerator\\baseline_001\\verification_result.json",
+  "candidate": "artifacts/verification/optimized_accelerator/run_004/verification_result.json",
+  "reference_completed": true,
+  "candidate_completed": true,
+  "reference_count": 100,
+  "candidate_count": 100,
+  "all_100_sample_predictions_identical": true,
+  "differences": []
+}

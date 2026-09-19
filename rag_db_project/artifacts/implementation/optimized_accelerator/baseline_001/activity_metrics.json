@@ -1,0 +1,6 @@
+{
+  "duration_ns": 1617525.0,
+  "energy_per_workload_uj": 993.16035,
+  "method": "SAIF_average_power_times_collection_duration_estimate",
+  "saif_sha256": "245f96673f6b8f4494b7a186b6ea4fbc7ff0e839b244b3f3543d01b0b07b4f9a"
+}

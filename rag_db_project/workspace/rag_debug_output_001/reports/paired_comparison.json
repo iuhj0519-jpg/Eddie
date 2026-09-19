@@ -1,0 +1,1191 @@
+{
+  "before_source": "workspace/optimized_accelerator",
+  "after_source": "workspace/rag_debug_output_001",
+  "before_artifacts": "artifacts\\implementation\\optimized_accelerator\\baseline_001",
+  "after_artifacts": "artifacts\\implementation\\optimized_accelerator\\run_004",
+  "before": {
+    "utilization": {
+      "lut": 18094.0,
+      "lut_logic": 18094.0,
+      "lut_memory": 0.0,
+      "ff": 1536.0,
+      "bram_tile": 2.5,
+      "ramb18": 5.0,
+      "dsp": 5.0,
+      "io": 64.0
+    },
+    "timing": {
+      "wns_ns": -4.576,
+      "tns_ns": -208.111,
+      "setup_failing_endpoints": 79.0,
+      "setup_total_endpoints": 3124.0,
+      "whs_ns": 0.121,
+      "ths_ns": 0.0,
+      "hold_failing_endpoints": 0.0,
+      "hold_total_endpoints": 3124.0,
+      "wpws_ns": 4.5,
+      "tpws_ns": 0.0,
+      "pulse_failing_endpoints": 0.0,
+      "pulse_total_endpoints": 1547.0
+    },
+    "power": {
+      "total_on_chip_power_w": 0.614,
+      "confidence": "Medium",
+      "dynamic_power_w": 0.501,
+      "static_power_w": 0.113,
+      "duration_ns": 1617525.0,
+      "energy_per_workload_uj": 993.16035,
+      "method": "SAIF_average_power_times_collection_duration_estimate",
+      "saif_sha256": "245f96673f6b8f4494b7a186b6ea4fbc7ff0e839b244b3f3543d01b0b07b4f9a"
+    },
+    "ram": {
+      "ramb18_instances": 5,
+      "minimum_bram_bit_efficiency_percent": 44.44
+    },
+    "verification": {
+      "completed": true,
+      "sample_results": [
+        [
+          "0",
+          "7",
+          "7"
+        ],
+        [
+          "1",
+          "2",
+          "2"
+        ],
+        [
+          "2",
+          "1",
+          "1"
+        ],
+        [
+          "3",
+          "0",
+          "0"
+        ],
+        [
+          "4",
+          "4",
+          "4"
+        ],
+        [
+          "5",
+          "1",
+          "1"
+        ],
+        [
+          "6",
+          "4",
+          "4"
+        ],
+        [
+          "7",
+          "9",
+          "9"
+        ],
+        [
+          "8",
+          "5",
+          "5"
+        ],
+        [
+          "9",
+          "9",
+          "9"
+        ],
+        [
+          "10",
+          "0",
+          "0"
+        ],
+        [
+          "11",
+          "6",
+          "6"
+        ],
+        [
+          "12",
+          "9",
+          "9"
+        ],
+        [
+          "13",
+          "0",
+          "0"
+        ],
+        [
+          "14",
+          "1",
+          "1"
+        ],
+        [
+          "15",
+          "5",
+          "5"
+        ],
+        [
+          "16",
+          "9",
+          "9"
+        ],
+        [
+          "17",
+          "7",
+          "7"
+        ],
+        [
+          "18",
+          "8",
+          "3"
+        ],
+        [
+          "19",
+          "4",
+          "4"
+        ],
+        [
+          "20",
+          "9",
+          "9"
+        ],
+        [
+          "21",
+          "6",
+          "6"
+        ],
+        [
+          "22",
+          "6",
+          "6"
+        ],
+        [
+          "23",
+          "5",
+          "5"
+        ],
+        [
+          "24",
+          "4",
+          "4"
+        ],
+        [
+          "25",
+          "0",
+          "0"
+        ],
+        [
+          "26",
+          "7",
+          "7"
+        ],
+        [
+          "27",
+          "4",
+          "4"
+        ],
+        [
+          "28",
+          "0",
+          "0"
+        ],
+        [
+          "29",
+          "1",
+          "1"
+        ],
+        [
+          "30",
+          "3",
+          "3"
+        ],
+        [
+          "31",
+          "1",
+          "1"
+        ],
+        [
+          "32",
+          "3",
+          "3"
+        ],
+        [
+          "33",
+          "4",
+          "4"
+        ],
+        [
+          "34",
+          "7",
+          "7"
+        ],
+        [
+          "35",
+          "2",
+          "2"
+        ],
+        [
+          "36",
+          "7",
+          "7"
+        ],
+        [
+          "37",
+          "1",
+          "1"
+        ],
+        [
+          "38",
+          "2",
+          "2"
+        ],
+        [
+          "39",
+          "1",
+          "1"
+        ],
+        [
+          "40",
+          "1",
+          "1"
+        ],
+        [
+          "41",
+          "7",
+          "7"
+        ],
+        [
+          "42",
+          "4",
+          "4"
+        ],
+        [
+          "43",
+          "2",
+          "2"
+        ],
+        [
+          "44",
+          "3",
+          "3"
+        ],
+        [
+          "45",
+          "5",
+          "5"
+        ],
+        [
+          "46",
+          "1",
+          "1"
+        ],
+        [
+          "47",
+          "2",
+          "2"
+        ],
+        [
+          "48",
+          "4",
+          "4"
+        ],
+        [
+          "49",
+          "4",
+          "4"
+        ],
+        [
+          "50",
+          "6",
+          "6"
+        ],
+        [
+          "51",
+          "3",
+          "3"
+        ],
+        [
+          "52",
+          "5",
+          "5"
+        ],
+        [
+          "53",
+          "5",
+          "5"
+        ],
+        [
+          "54",
+          "6",
+          "6"
+        ],
+        [
+          "55",
+          "0",
+          "0"
+        ],
+        [
+          "56",
+          "4",
+          "4"
+        ],
+        [
+          "57",
+          "1",
+          "1"
+        ],
+        [
+          "58",
+          "9",
+          "9"
+        ],
+        [
+          "59",
+          "5",
+          "5"
+        ],
+        [
+          "60",
+          "7",
+          "7"
+        ],
+        [
+          "61",
+          "8",
+          "8"
+        ],
+        [
+          "62",
+          "9",
+          "9"
+        ],
+        [
+          "63",
+          "3",
+          "3"
+        ],
+        [
+          "64",
+          "7",
+          "7"
+        ],
+        [
+          "65",
+          "4",
+          "4"
+        ],
+        [
+          "66",
+          "6",
+          "6"
+        ],
+        [
+          "67",
+          "4",
+          "4"
+        ],
+        [
+          "68",
+          "3",
+          "3"
+        ],
+        [
+          "69",
+          "0",
+          "0"
+        ],
+        [
+          "70",
+          "7",
+          "7"
+        ],
+        [
+          "71",
+          "0",
+          "0"
+        ],
+        [
+          "72",
+          "2",
+          "2"
+        ],
+        [
+          "73",
+          "9",
+          "9"
+        ],
+        [
+          "74",
+          "1",
+          "1"
+        ],
+        [
+          "75",
+          "7",
+          "7"
+        ],
+        [
+          "76",
+          "3",
+          "3"
+        ],
+        [
+          "77",
+          "2",
+          "2"
+        ],
+        [
+          "78",
+          "9",
+          "9"
+        ],
+        [
+          "79",
+          "7",
+          "7"
+        ],
+        [
+          "80",
+          "7",
+          "7"
+        ],
+        [
+          "81",
+          "6",
+          "6"
+        ],
+        [
+          "82",
+          "2",
+          "2"
+        ],
+        [
+          "83",
+          "7",
+          "7"
+        ],
+        [
+          "84",
+          "8",
+          "8"
+        ],
+        [
+          "85",
+          "4",
+          "4"
+        ],
+        [
+          "86",
+          "7",
+          "7"
+        ],
+        [
+          "87",
+          "3",
+          "3"
+        ],
+        [
+          "88",
+          "6",
+          "6"
+        ],
+        [
+          "89",
+          "1",
+          "1"
+        ],
+        [
+          "90",
+          "3",
+          "3"
+        ],
+        [
+          "91",
+          "6",
+          "6"
+        ],
+        [
+          "92",
+          "9",
+          "9"
+        ],
+        [
+          "93",
+          "3",
+          "3"
+        ],
+        [
+          "94",
+          "1",
+          "1"
+        ],
+        [
+          "95",
+          "4",
+          "4"
+        ],
+        [
+          "96",
+          "1",
+          "1"
+        ],
+        [
+          "97",
+          "7",
+          "7"
+        ],
+        [
+          "98",
+          "6",
+          "6"
+        ],
+        [
+          "99",
+          "9",
+          "9"
+        ]
+      ],
+      "protocol_errors": null,
+      "peak_active_pe_count": null,
+      "interrupt_count_per_batch": null,
+      "measurement_note": "Uninstrumented metrics remain unknown; golden completion is not a substitute for protocol coverage.",
+      "pass_count": 99,
+      "failure_count": 1,
+      "accuracy_percent": 99.0,
+      "image_count": 100,
+      "total_inference_cycles": 161735,
+      "axi_backpressure_cycles": 77977
+    },
+    "comparison_context": {
+      "stage": "post_route",
+      "clock_period_ns": 10.0,
+      "activity_kind": "behavioral_saif_full_workload",
+      "workload_sha256": "9f8bf6a6377a55d06f4b241751d876bd4a0fb8b35e60c261e5f1a4efcb1d30bd"
+    }
+  },
+  "after": {
+    "utilization": {
+      "lut": 1199.0,
+      "lut_logic": 1199.0,
+      "lut_memory": 0.0,
+      "ff": 714.0,
+      "bram_tile": 12.5,
+      "ramb18": 5.0,
+      "dsp": 25.0,
+      "io": 64.0
+    },
+    "timing": {
+      "wns_ns": 0.12,
+      "tns_ns": 0.0,
+      "setup_failing_endpoints": 0.0,
+      "setup_total_endpoints": 2992.0,
+      "whs_ns": 0.027,
+      "ths_ns": 0.0,
+      "hold_failing_endpoints": 0.0,
+      "hold_total_endpoints": 2992.0,
+      "wpws_ns": 4.5,
+      "tpws_ns": 0.0,
+      "pulse_failing_endpoints": 0.0,
+      "pulse_total_endpoints": 760.0
+    },
+    "power": {
+      "total_on_chip_power_w": 0.169,
+      "confidence": "Medium",
+      "dynamic_power_w": 0.063,
+      "static_power_w": 0.106,
+      "duration_ns": 1617525.0,
+      "energy_per_workload_uj": 273.36172500000004,
+      "method": "SAIF_average_power_times_collection_duration_estimate",
+      "saif_sha256": "940bb9077503cffd70af98a1188a9775b89b4578793a65604d00f18f2df469e4"
+    },
+    "ram": {
+      "ramb18_instances": 5,
+      "minimum_bram_bit_efficiency_percent": 44.44,
+      "weight_block_count": 10.0
+    },
+    "verification": {
+      "completed": true,
+      "sample_results": [
+        [
+          "0",
+          "7",
+          "7"
+        ],
+        [
+          "1",
+          "2",
+          "2"
+        ],
+        [
+          "2",
+          "1",
+          "1"
+        ],
+        [
+          "3",
+          "0",
+          "0"
+        ],
+        [
+          "4",
+          "4",
+          "4"
+        ],
+        [
+          "5",
+          "1",
+          "1"
+        ],
+        [
+          "6",
+          "4",
+          "4"
+        ],
+        [
+          "7",
+          "9",
+          "9"
+        ],
+        [
+          "8",
+          "5",
+          "5"
+        ],
+        [
+          "9",
+          "9",
+          "9"
+        ],
+        [
+          "10",
+          "0",
+          "0"
+        ],
+        [
+          "11",
+          "6",
+          "6"
+        ],
+        [
+          "12",
+          "9",
+          "9"
+        ],
+        [
+          "13",
+          "0",
+          "0"
+        ],
+        [
+          "14",
+          "1",
+          "1"
+        ],
+        [
+          "15",
+          "5",
+          "5"
+        ],
+        [
+          "16",
+          "9",
+          "9"
+        ],
+        [
+          "17",
+          "7",
+          "7"
+        ],
+        [
+          "18",
+          "8",
+          "3"
+        ],
+        [
+          "19",
+          "4",
+          "4"
+        ],
+        [
+          "20",
+          "9",
+          "9"
+        ],
+        [
+          "21",
+          "6",
+          "6"
+        ],
+        [
+          "22",
+          "6",
+          "6"
+        ],
+        [
+          "23",
+          "5",
+          "5"
+        ],
+        [
+          "24",
+          "4",
+          "4"
+        ],
+        [
+          "25",
+          "0",
+          "0"
+        ],
+        [
+          "26",
+          "7",
+          "7"
+        ],
+        [
+          "27",
+          "4",
+          "4"
+        ],
+        [
+          "28",
+          "0",
+          "0"
+        ],
+        [
+          "29",
+          "1",
+          "1"
+        ],
+        [
+          "30",
+          "3",
+          "3"
+        ],
+        [
+          "31",
+          "1",
+          "1"
+        ],
+        [
+          "32",
+          "3",
+          "3"
+        ],
+        [
+          "33",
+          "4",
+          "4"
+        ],
+        [
+          "34",
+          "7",
+          "7"
+        ],
+        [
+          "35",
+          "2",
+          "2"
+        ],
+        [
+          "36",
+          "7",
+          "7"
+        ],
+        [
+          "37",
+          "1",
+          "1"
+        ],
+        [
+          "38",
+          "2",
+          "2"
+        ],
+        [
+          "39",
+          "1",
+          "1"
+        ],
+        [
+          "40",
+          "1",
+          "1"
+        ],
+        [
+          "41",
+          "7",
+          "7"
+        ],
+        [
+          "42",
+          "4",
+          "4"
+        ],
+        [
+          "43",
+          "2",
+          "2"
+        ],
+        [
+          "44",
+          "3",
+          "3"
+        ],
+        [
+          "45",
+          "5",
+          "5"
+        ],
+        [
+          "46",
+          "1",
+          "1"
+        ],
+        [
+          "47",
+          "2",
+          "2"
+        ],
+        [
+          "48",
+          "4",
+          "4"
+        ],
+        [
+          "49",
+          "4",
+          "4"
+        ],
+        [
+          "50",
+          "6",
+          "6"
+        ],
+        [
+          "51",
+          "3",
+          "3"
+        ],
+        [
+          "52",
+          "5",
+          "5"
+        ],
+        [
+          "53",
+          "5",
+          "5"
+        ],
+        [
+          "54",
+          "6",
+          "6"
+        ],
+        [
+          "55",
+          "0",
+          "0"
+        ],
+        [
+          "56",
+          "4",
+          "4"
+        ],
+        [
+          "57",
+          "1",
+          "1"
+        ],
+        [
+          "58",
+          "9",
+          "9"
+        ],
+        [
+          "59",
+          "5",
+          "5"
+        ],
+        [
+          "60",
+          "7",
+          "7"
+        ],
+        [
+          "61",
+          "8",
+          "8"
+        ],
+        [
+          "62",
+          "9",
+          "9"
+        ],
+        [
+          "63",
+          "3",
+          "3"
+        ],
+        [
+          "64",
+          "7",
+          "7"
+        ],
+        [
+          "65",
+          "4",
+          "4"
+        ],
+        [
+          "66",
+          "6",
+          "6"
+        ],
+        [
+          "67",
+          "4",
+          "4"
+        ],
+        [
+          "68",
+          "3",
+          "3"
+        ],
+        [
+          "69",
+          "0",
+          "0"
+        ],
+        [
+          "70",
+          "7",
+          "7"
+        ],
+        [
+          "71",
+          "0",
+          "0"
+        ],
+        [
+          "72",
+          "2",
+          "2"
+        ],
+        [
+          "73",
+          "9",
+          "9"
+        ],
+        [
+          "74",
+          "1",
+          "1"
+        ],
+        [
+          "75",
+          "7",
+          "7"
+        ],
+        [
+          "76",
+          "3",
+          "3"
+        ],
+        [
+          "77",
+          "2",
+          "2"
+        ],
+        [
+          "78",
+          "9",
+          "9"
+        ],
+        [
+          "79",
+          "7",
+          "7"
+        ],
+        [
+          "80",
+          "7",
+          "7"
+        ],
+        [
+          "81",
+          "6",
+          "6"
+        ],
+        [
+          "82",
+          "2",
+          "2"
+        ],
+        [
+          "83",
+          "7",
+          "7"
+        ],
+        [
+          "84",
+          "8",
+          "8"
+        ],
+        [
+          "85",
+          "4",
+          "4"
+        ],
+        [
+          "86",
+          "7",
+          "7"
+        ],
+        [
+          "87",
+          "3",
+          "3"
+        ],
+        [
+          "88",
+          "6",
+          "6"
+        ],
+        [
+          "89",
+          "1",
+          "1"
+        ],
+        [
+          "90",
+          "3",
+          "3"
+        ],
+        [
+          "91",
+          "6",
+          "6"
+        ],
+        [
+          "92",
+          "9",
+          "9"
+        ],
+        [
+          "93",
+          "3",
+          "3"
+        ],
+        [
+          "94",
+          "1",
+          "1"
+        ],
+        [
+          "95",
+          "4",
+          "4"
+        ],
+        [
+          "96",
+          "1",
+          "1"
+        ],
+        [
+          "97",
+          "7",
+          "7"
+        ],
+        [
+          "98",
+          "6",
+          "6"
+        ],
+        [
+          "99",
+          "9",
+          "9"
+        ]
+      ],
+      "protocol_errors": 0,
+      "peak_active_pe_count": 25,
+      "interrupt_count_per_batch": 1,
+      "measurement_note": "Uninstrumented metrics remain unknown; golden completion is not a substitute for protocol coverage.",
+      "pass_count": 99,
+      "failure_count": 1,
+      "accuracy_percent": 99.0,
+      "image_count": 100,
+      "total_inference_cycles": 161735,
+      "axi_backpressure_cycles": 77977
+    },
+    "comparison_context": {
+      "stage": "post_route",
+      "clock_period_ns": 10.0,
+      "activity_kind": "behavioral_saif_full_workload",
+      "workload_sha256": "9f8bf6a6377a55d06f4b241751d876bd4a0fb8b35e60c261e5f1a4efcb1d30bd"
+    }
+  },
+  "automated_comparison": {
+    "metrics": [
+      {
+        "metric": "timing.wns_ns",
+        "before": -4.576,
+        "after": 0.12,
+        "comparison_validated": true,
+        "delta": 4.696,
+        "direction": "better"
+      },
+      {
+        "metric": "utilization.lut",
+        "before": 18094.0,
+        "after": 1199.0,
+        "comparison_validated": true,
+        "delta": -16895.0,
+        "direction": "better"
+      },
+      {
+        "metric": "utilization.ff",
+        "before": 1536.0,
+        "after": 714.0,
+        "comparison_validated": true,
+        "delta": -822.0,
+        "direction": "better"
+      },
+      {
+        "metric": "power.total_on_chip_power_w",
+        "before": 0.614,
+        "after": 0.169,
+        "comparison_validated": true,
+        "delta": -0.44499999999999995,
+        "direction": "better"
+      },
+      {
+        "metric": "power.energy_per_workload_uj",
+        "before": 993.16035,
+        "after": 273.36172500000004,
+        "comparison_validated": true,
+        "delta": -719.7986249999999,
+        "direction": "better"
+      },
+      {
+        "metric": "verification.total_inference_cycles",
+        "before": 161735,
+        "after": 161735,
+        "comparison_validated": true,
+        "delta": 0,
+        "direction": "unchanged"
+      }
+    ],
+    "comparison_context_validated": true,
+    "decision": "human_tradeoff_review",
+    "note": "Raw deltas do not prove an improvement when stage/clock/workload/activity differ or are missing."
+  },
+  "limitations": [
+    "Behavioral SAIF estimate, not board measurement.",
+    "I/O pin, standard and external delays are unresolved.",
+    "Direct SAIF annotation is incomplete."
+  ],
+  "all_sample_predictions_equal": true,
+  "environment_report_sections_equal": true
+}

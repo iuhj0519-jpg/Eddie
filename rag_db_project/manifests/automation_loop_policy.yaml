@@ -90,7 +90,9 @@ runtime_contract:
   four_existing_findings_are_not_an_allowlist: true
   every_iteration_requires_fresh_human_decisions: true
   approval_binding: [source_hashes, evidence_hashes, findings_sha256, config_sha256]
-  patch_scope: existing_rtl_sv_svh_only
+  patch_scope: existing_rtl_sv_svh_and_exact_approved_spec_tb_allowlist
+  additional_patch_scope_limit: tb/top_sim.sv
+  additional_patch_scope_requires: immutable_approved_spec_patch_scope_and_finding_trace
   patch_trace_required: true
   tb_memory_spec_and_expectation_changes_require_separate_scope_approval: true
   empty_tool_commands_action: fail_closed

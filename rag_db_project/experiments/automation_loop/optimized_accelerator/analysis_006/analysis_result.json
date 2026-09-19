@@ -1,0 +1,4544 @@
+{
+  "schema_version": "1.0",
+  "target": "optimized_accelerator",
+  "run_id": "analysis_006",
+  "status": "findings_detected_pending_human_approval",
+  "artifact_root": "artifacts/implementation/optimized_accelerator/run_004",
+  "metrics": {
+    "utilization": {
+      "lut": 1199.0,
+      "lut_logic": 1199.0,
+      "lut_memory": 0.0,
+      "ff": 714.0,
+      "bram_tile": 12.5,
+      "ramb18": 5.0,
+      "dsp": 25.0,
+      "io": 64.0
+    },
+    "hierarchy": {
+      "zyNet": {
+        "module": "(top)",
+        "total_lut": 1199.0,
+        "logic_lut": 1199.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 714.0,
+        "ramb36": 10.0,
+        "ramb18": 5.0,
+        "dsp": 25.0
+      },
+      "zyNet/activation_unit_instance": {
+        "module": "activation_unit",
+        "total_lut": 283.0,
+        "logic_lut": 283.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 36.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 0.0
+      },
+      "zyNet/axi_lite_wrapper_instance": {
+        "module": "axi_lite_wrapper",
+        "total_lut": 13.0,
+        "logic_lut": 13.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 15.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 0.0
+      },
+      "zyNet/bias_sram_instance": {
+        "module": "bias_sram",
+        "total_lut": 7.0,
+        "logic_lut": 7.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 35.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 0.0
+      },
+      "zyNet/dnn_scheduler_instance": {
+        "module": "dnn_scheduler",
+        "total_lut": 185.0,
+        "logic_lut": 185.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 31.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 0.0
+      },
+      "zyNet/maxFinder_instance": {
+        "module": "maxFinder",
+        "total_lut": 27.0,
+        "logic_lut": 27.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 56.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 0.0
+      },
+      "zyNet/systolic_controller_instance": {
+        "module": "systolic_controller",
+        "total_lut": 664.0,
+        "logic_lut": 664.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 458.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 25.0
+      },
+      "zyNet/systolic_controller_instance/systolic_array_2d_instance": {
+        "module": "systolic_array_2d",
+        "total_lut": 420.0,
+        "logic_lut": 420.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 440.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 25.0
+      },
+      "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[0].ARRAY_COLUMNS[0].pe_systolic_cell_instance": {
+        "module": "pe_systolic_cell",
+        "total_lut": 6.0,
+        "logic_lut": 6.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 17.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 1.0
+      },
+      "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[0].ARRAY_COLUMNS[0].pe_systolic_cell_instance/mac_pe_instance": {
+        "module": "mac_pe_47",
+        "total_lut": 1.0,
+        "logic_lut": 1.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 0.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 1.0
+      },
+      "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[0].ARRAY_COLUMNS[1].pe_systolic_cell_instance": {
+        "module": "pe_systolic_cell_0",
+        "total_lut": 5.0,
+        "logic_lut": 5.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 17.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 1.0
+      },
+      "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[0].ARRAY_COLUMNS[1].pe_systolic_cell_instance/mac_pe_instance": {
+        "module": "mac_pe_46",
+        "total_lut": 1.0,
+        "logic_lut": 1.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 0.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 1.0
+      },
+      "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[0].ARRAY_COLUMNS[2].pe_systolic_cell_instance": {
+        "module": "pe_systolic_cell_1",
+        "total_lut": 5.0,
+        "logic_lut": 5.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 18.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 1.0
+      },
+      "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[0].ARRAY_COLUMNS[2].pe_systolic_cell_instance/mac_pe_instance": {
+        "module": "mac_pe_45",
+        "total_lut": 1.0,
+        "logic_lut": 1.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 0.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 1.0
+      },
+      "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[0].ARRAY_COLUMNS[3].pe_systolic_cell_instance": {
+        "module": "pe_systolic_cell_2",
+        "total_lut": 45.0,
+        "logic_lut": 45.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 18.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 1.0
+      },
+      "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[0].ARRAY_COLUMNS[3].pe_systolic_cell_instance/mac_pe_instance": {
+        "module": "mac_pe_44",
+        "total_lut": 41.0,
+        "logic_lut": 41.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 0.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 1.0
+      },
+      "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[0].ARRAY_COLUMNS[4].pe_systolic_cell_instance": {
+        "module": "pe_systolic_cell_3",
+        "total_lut": 4.0,
+        "logic_lut": 4.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 18.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 1.0
+      },
+      "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[0].ARRAY_COLUMNS[4].pe_systolic_cell_instance/mac_pe_instance": {
+        "module": "mac_pe_43",
+        "total_lut": 1.0,
+        "logic_lut": 1.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 0.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 1.0
+      },
+      "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[1].ARRAY_COLUMNS[0].pe_systolic_cell_instance": {
+        "module": "pe_systolic_cell_4",
+        "total_lut": 5.0,
+        "logic_lut": 5.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 17.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 1.0
+      },
+      "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[1].ARRAY_COLUMNS[0].pe_systolic_cell_instance/mac_pe_instance": {
+        "module": "mac_pe_42",
+        "total_lut": 1.0,
+        "logic_lut": 1.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 0.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 1.0
+      },
+      "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[1].ARRAY_COLUMNS[1].pe_systolic_cell_instance": {
+        "module": "pe_systolic_cell_5",
+        "total_lut": 3.0,
+        "logic_lut": 3.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 17.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 1.0
+      },
+      "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[1].ARRAY_COLUMNS[1].pe_systolic_cell_instance/mac_pe_instance": {
+        "module": "mac_pe_41",
+        "total_lut": 1.0,
+        "logic_lut": 1.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 0.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 1.0
+      },
+      "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[1].ARRAY_COLUMNS[2].pe_systolic_cell_instance": {
+        "module": "pe_systolic_cell_6",
+        "total_lut": 47.0,
+        "logic_lut": 47.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 18.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 1.0
+      },
+      "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[1].ARRAY_COLUMNS[2].pe_systolic_cell_instance/mac_pe_instance": {
+        "module": "mac_pe_40",
+        "total_lut": 45.0,
+        "logic_lut": 45.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 0.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 1.0
+      },
+      "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[1].ARRAY_COLUMNS[3].pe_systolic_cell_instance": {
+        "module": "pe_systolic_cell_7",
+        "total_lut": 42.0,
+        "logic_lut": 42.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 18.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 1.0
+      },
+      "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[1].ARRAY_COLUMNS[3].pe_systolic_cell_instance/mac_pe_instance": {
+        "module": "mac_pe_39",
+        "total_lut": 40.0,
+        "logic_lut": 40.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 0.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 1.0
+      },
+      "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[1].ARRAY_COLUMNS[4].pe_systolic_cell_instance": {
+        "module": "pe_systolic_cell_8",
+        "total_lut": 2.0,
+        "logic_lut": 2.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 18.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 1.0
+      },
+      "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[1].ARRAY_COLUMNS[4].pe_systolic_cell_instance/mac_pe_instance": {
+        "module": "mac_pe_38",
+        "total_lut": 1.0,
+        "logic_lut": 1.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 0.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 1.0
+      },
+      "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[2].ARRAY_COLUMNS[0].pe_systolic_cell_instance": {
+        "module": "pe_systolic_cell_9",
+        "total_lut": 5.0,
+        "logic_lut": 5.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 17.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 1.0
+      },
+      "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[2].ARRAY_COLUMNS[0].pe_systolic_cell_instance/mac_pe_instance": {
+        "module": "mac_pe_37",
+        "total_lut": 1.0,
+        "logic_lut": 1.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 0.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 1.0
+      },
+      "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[2].ARRAY_COLUMNS[1].pe_systolic_cell_instance": {
+        "module": "pe_systolic_cell_10",
+        "total_lut": 3.0,
+        "logic_lut": 3.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 17.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 1.0
+      },
+      "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[2].ARRAY_COLUMNS[1].pe_systolic_cell_instance/mac_pe_instance": {
+        "module": "mac_pe_36",
+        "total_lut": 1.0,
+        "logic_lut": 1.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 0.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 1.0
+      },
+      "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[2].ARRAY_COLUMNS[2].pe_systolic_cell_instance": {
+        "module": "pe_systolic_cell_11",
+        "total_lut": 47.0,
+        "logic_lut": 47.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 18.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 1.0
+      },
+      "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[2].ARRAY_COLUMNS[2].pe_systolic_cell_instance/mac_pe_instance": {
+        "module": "mac_pe_35",
+        "total_lut": 45.0,
+        "logic_lut": 45.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 0.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 1.0
+      },
+      "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[2].ARRAY_COLUMNS[3].pe_systolic_cell_instance": {
+        "module": "pe_systolic_cell_12",
+        "total_lut": 41.0,
+        "logic_lut": 41.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 18.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 1.0
+      },
+      "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[2].ARRAY_COLUMNS[3].pe_systolic_cell_instance/mac_pe_instance": {
+        "module": "mac_pe_34",
+        "total_lut": 39.0,
+        "logic_lut": 39.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 0.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 1.0
+      },
+      "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[2].ARRAY_COLUMNS[4].pe_systolic_cell_instance": {
+        "module": "pe_systolic_cell_13",
+        "total_lut": 2.0,
+        "logic_lut": 2.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 18.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 1.0
+      },
+      "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[2].ARRAY_COLUMNS[4].pe_systolic_cell_instance/mac_pe_instance": {
+        "module": "mac_pe_33",
+        "total_lut": 1.0,
+        "logic_lut": 1.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 0.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 1.0
+      },
+      "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[3].ARRAY_COLUMNS[0].pe_systolic_cell_instance": {
+        "module": "pe_systolic_cell_14",
+        "total_lut": 5.0,
+        "logic_lut": 5.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 17.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 1.0
+      },
+      "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[3].ARRAY_COLUMNS[0].pe_systolic_cell_instance/mac_pe_instance": {
+        "module": "mac_pe_32",
+        "total_lut": 1.0,
+        "logic_lut": 1.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 0.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 1.0
+      },
+      "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[3].ARRAY_COLUMNS[1].pe_systolic_cell_instance": {
+        "module": "pe_systolic_cell_15",
+        "total_lut": 3.0,
+        "logic_lut": 3.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 17.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 1.0
+      },
+      "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[3].ARRAY_COLUMNS[1].pe_systolic_cell_instance/mac_pe_instance": {
+        "module": "mac_pe_31",
+        "total_lut": 1.0,
+        "logic_lut": 1.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 0.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 1.0
+      },
+      "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[3].ARRAY_COLUMNS[2].pe_systolic_cell_instance": {
+        "module": "pe_systolic_cell_16",
+        "total_lut": 47.0,
+        "logic_lut": 47.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 18.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 1.0
+      },
+      "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[3].ARRAY_COLUMNS[2].pe_systolic_cell_instance/mac_pe_instance": {
+        "module": "mac_pe_30",
+        "total_lut": 45.0,
+        "logic_lut": 45.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 0.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 1.0
+      },
+      "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[3].ARRAY_COLUMNS[3].pe_systolic_cell_instance": {
+        "module": "pe_systolic_cell_17",
+        "total_lut": 41.0,
+        "logic_lut": 41.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 18.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 1.0
+      },
+      "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[3].ARRAY_COLUMNS[3].pe_systolic_cell_instance/mac_pe_instance": {
+        "module": "mac_pe_29",
+        "total_lut": 39.0,
+        "logic_lut": 39.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 0.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 1.0
+      },
+      "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[3].ARRAY_COLUMNS[4].pe_systolic_cell_instance": {
+        "module": "pe_systolic_cell_18",
+        "total_lut": 2.0,
+        "logic_lut": 2.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 18.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 1.0
+      },
+      "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[3].ARRAY_COLUMNS[4].pe_systolic_cell_instance/mac_pe_instance": {
+        "module": "mac_pe_28",
+        "total_lut": 1.0,
+        "logic_lut": 1.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 0.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 1.0
+      },
+      "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[4].ARRAY_COLUMNS[0].pe_systolic_cell_instance": {
+        "module": "pe_systolic_cell_19",
+        "total_lut": 4.0,
+        "logic_lut": 4.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 17.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 1.0
+      },
+      "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[4].ARRAY_COLUMNS[0].pe_systolic_cell_instance/mac_pe_instance": {
+        "module": "mac_pe_27",
+        "total_lut": 1.0,
+        "logic_lut": 1.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 0.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 1.0
+      },
+      "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[4].ARRAY_COLUMNS[1].pe_systolic_cell_instance": {
+        "module": "pe_systolic_cell_20",
+        "total_lut": 2.0,
+        "logic_lut": 2.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 17.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 1.0
+      },
+      "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[4].ARRAY_COLUMNS[1].pe_systolic_cell_instance/mac_pe_instance": {
+        "module": "mac_pe_26",
+        "total_lut": 1.0,
+        "logic_lut": 1.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 0.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 1.0
+      },
+      "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[4].ARRAY_COLUMNS[2].pe_systolic_cell_instance": {
+        "module": "pe_systolic_cell_21",
+        "total_lut": 46.0,
+        "logic_lut": 46.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 18.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 1.0
+      },
+      "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[4].ARRAY_COLUMNS[2].pe_systolic_cell_instance/mac_pe_instance": {
+        "module": "mac_pe_25",
+        "total_lut": 45.0,
+        "logic_lut": 45.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 0.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 1.0
+      },
+      "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[4].ARRAY_COLUMNS[3].pe_systolic_cell_instance": {
+        "module": "pe_systolic_cell_22",
+        "total_lut": 28.0,
+        "logic_lut": 28.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 18.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 1.0
+      },
+      "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[4].ARRAY_COLUMNS[3].pe_systolic_cell_instance/mac_pe_instance": {
+        "module": "mac_pe_24",
+        "total_lut": 27.0,
+        "logic_lut": 27.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 0.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 1.0
+      },
+      "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[4].ARRAY_COLUMNS[4].pe_systolic_cell_instance": {
+        "module": "pe_systolic_cell_23",
+        "total_lut": 4.0,
+        "logic_lut": 4.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 18.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 1.0
+      },
+      "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[4].ARRAY_COLUMNS[4].pe_systolic_cell_instance/mac_pe_instance": {
+        "module": "mac_pe",
+        "total_lut": 2.0,
+        "logic_lut": 2.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 0.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 1.0
+      },
+      "zyNet/unified_buffer_instance": {
+        "module": "unified_buffer",
+        "total_lut": 69.0,
+        "logic_lut": 69.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 75.0,
+        "ramb36": 0.0,
+        "ramb18": 5.0,
+        "dsp": 0.0
+      },
+      "zyNet/weight_sram_instance": {
+        "module": "weight_sram",
+        "total_lut": 0.0,
+        "logic_lut": 0.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 5.0,
+        "ramb36": 10.0,
+        "ramb18": 0.0,
+        "dsp": 0.0
+      }
+    },
+    "timing": {
+      "wns_ns": 0.12,
+      "tns_ns": 0.0,
+      "setup_failing_endpoints": 0.0,
+      "setup_total_endpoints": 2992.0,
+      "whs_ns": 0.027,
+      "ths_ns": 0.0,
+      "hold_failing_endpoints": 0.0,
+      "hold_total_endpoints": 2992.0,
+      "wpws_ns": 4.5,
+      "tpws_ns": 0.0,
+      "pulse_failing_endpoints": 0.0,
+      "pulse_total_endpoints": 760.0
+    },
+    "power": {
+      "total_on_chip_power_w": 0.169,
+      "confidence": "Medium",
+      "dynamic_power_w": 0.063,
+      "static_power_w": 0.106,
+      "duration_ns": 1617525.0,
+      "energy_per_workload_uj": 273.36172500000004,
+      "method": "SAIF_average_power_times_collection_duration_estimate",
+      "saif_sha256": "940bb9077503cffd70af98a1188a9775b89b4578793a65604d00f18f2df469e4"
+    },
+    "ram": {
+      "ramb18_instances": 5,
+      "minimum_bram_bit_efficiency_percent": 44.44,
+      "weight_block_count": 10.0
+    },
+    "verification": {
+      "completed": true,
+      "sample_results": [
+        [
+          "0",
+          "7",
+          "7"
+        ],
+        [
+          "1",
+          "2",
+          "2"
+        ],
+        [
+          "2",
+          "1",
+          "1"
+        ],
+        [
+          "3",
+          "0",
+          "0"
+        ],
+        [
+          "4",
+          "4",
+          "4"
+        ],
+        [
+          "5",
+          "1",
+          "1"
+        ],
+        [
+          "6",
+          "4",
+          "4"
+        ],
+        [
+          "7",
+          "9",
+          "9"
+        ],
+        [
+          "8",
+          "5",
+          "5"
+        ],
+        [
+          "9",
+          "9",
+          "9"
+        ],
+        [
+          "10",
+          "0",
+          "0"
+        ],
+        [
+          "11",
+          "6",
+          "6"
+        ],
+        [
+          "12",
+          "9",
+          "9"
+        ],
+        [
+          "13",
+          "0",
+          "0"
+        ],
+        [
+          "14",
+          "1",
+          "1"
+        ],
+        [
+          "15",
+          "5",
+          "5"
+        ],
+        [
+          "16",
+          "9",
+          "9"
+        ],
+        [
+          "17",
+          "7",
+          "7"
+        ],
+        [
+          "18",
+          "8",
+          "3"
+        ],
+        [
+          "19",
+          "4",
+          "4"
+        ],
+        [
+          "20",
+          "9",
+          "9"
+        ],
+        [
+          "21",
+          "6",
+          "6"
+        ],
+        [
+          "22",
+          "6",
+          "6"
+        ],
+        [
+          "23",
+          "5",
+          "5"
+        ],
+        [
+          "24",
+          "4",
+          "4"
+        ],
+        [
+          "25",
+          "0",
+          "0"
+        ],
+        [
+          "26",
+          "7",
+          "7"
+        ],
+        [
+          "27",
+          "4",
+          "4"
+        ],
+        [
+          "28",
+          "0",
+          "0"
+        ],
+        [
+          "29",
+          "1",
+          "1"
+        ],
+        [
+          "30",
+          "3",
+          "3"
+        ],
+        [
+          "31",
+          "1",
+          "1"
+        ],
+        [
+          "32",
+          "3",
+          "3"
+        ],
+        [
+          "33",
+          "4",
+          "4"
+        ],
+        [
+          "34",
+          "7",
+          "7"
+        ],
+        [
+          "35",
+          "2",
+          "2"
+        ],
+        [
+          "36",
+          "7",
+          "7"
+        ],
+        [
+          "37",
+          "1",
+          "1"
+        ],
+        [
+          "38",
+          "2",
+          "2"
+        ],
+        [
+          "39",
+          "1",
+          "1"
+        ],
+        [
+          "40",
+          "1",
+          "1"
+        ],
+        [
+          "41",
+          "7",
+          "7"
+        ],
+        [
+          "42",
+          "4",
+          "4"
+        ],
+        [
+          "43",
+          "2",
+          "2"
+        ],
+        [
+          "44",
+          "3",
+          "3"
+        ],
+        [
+          "45",
+          "5",
+          "5"
+        ],
+        [
+          "46",
+          "1",
+          "1"
+        ],
+        [
+          "47",
+          "2",
+          "2"
+        ],
+        [
+          "48",
+          "4",
+          "4"
+        ],
+        [
+          "49",
+          "4",
+          "4"
+        ],
+        [
+          "50",
+          "6",
+          "6"
+        ],
+        [
+          "51",
+          "3",
+          "3"
+        ],
+        [
+          "52",
+          "5",
+          "5"
+        ],
+        [
+          "53",
+          "5",
+          "5"
+        ],
+        [
+          "54",
+          "6",
+          "6"
+        ],
+        [
+          "55",
+          "0",
+          "0"
+        ],
+        [
+          "56",
+          "4",
+          "4"
+        ],
+        [
+          "57",
+          "1",
+          "1"
+        ],
+        [
+          "58",
+          "9",
+          "9"
+        ],
+        [
+          "59",
+          "5",
+          "5"
+        ],
+        [
+          "60",
+          "7",
+          "7"
+        ],
+        [
+          "61",
+          "8",
+          "8"
+        ],
+        [
+          "62",
+          "9",
+          "9"
+        ],
+        [
+          "63",
+          "3",
+          "3"
+        ],
+        [
+          "64",
+          "7",
+          "7"
+        ],
+        [
+          "65",
+          "4",
+          "4"
+        ],
+        [
+          "66",
+          "6",
+          "6"
+        ],
+        [
+          "67",
+          "4",
+          "4"
+        ],
+        [
+          "68",
+          "3",
+          "3"
+        ],
+        [
+          "69",
+          "0",
+          "0"
+        ],
+        [
+          "70",
+          "7",
+          "7"
+        ],
+        [
+          "71",
+          "0",
+          "0"
+        ],
+        [
+          "72",
+          "2",
+          "2"
+        ],
+        [
+          "73",
+          "9",
+          "9"
+        ],
+        [
+          "74",
+          "1",
+          "1"
+        ],
+        [
+          "75",
+          "7",
+          "7"
+        ],
+        [
+          "76",
+          "3",
+          "3"
+        ],
+        [
+          "77",
+          "2",
+          "2"
+        ],
+        [
+          "78",
+          "9",
+          "9"
+        ],
+        [
+          "79",
+          "7",
+          "7"
+        ],
+        [
+          "80",
+          "7",
+          "7"
+        ],
+        [
+          "81",
+          "6",
+          "6"
+        ],
+        [
+          "82",
+          "2",
+          "2"
+        ],
+        [
+          "83",
+          "7",
+          "7"
+        ],
+        [
+          "84",
+          "8",
+          "8"
+        ],
+        [
+          "85",
+          "4",
+          "4"
+        ],
+        [
+          "86",
+          "7",
+          "7"
+        ],
+        [
+          "87",
+          "3",
+          "3"
+        ],
+        [
+          "88",
+          "6",
+          "6"
+        ],
+        [
+          "89",
+          "1",
+          "1"
+        ],
+        [
+          "90",
+          "3",
+          "3"
+        ],
+        [
+          "91",
+          "6",
+          "6"
+        ],
+        [
+          "92",
+          "9",
+          "9"
+        ],
+        [
+          "93",
+          "3",
+          "3"
+        ],
+        [
+          "94",
+          "1",
+          "1"
+        ],
+        [
+          "95",
+          "4",
+          "4"
+        ],
+        [
+          "96",
+          "1",
+          "1"
+        ],
+        [
+          "97",
+          "7",
+          "7"
+        ],
+        [
+          "98",
+          "6",
+          "6"
+        ],
+        [
+          "99",
+          "9",
+          "9"
+        ]
+      ],
+      "protocol_errors": 0,
+      "peak_active_pe_count": 25,
+      "interrupt_count_per_batch": 1,
+      "measurement_note": "Uninstrumented metrics remain unknown; golden completion is not a substitute for protocol coverage.",
+      "pass_count": 99,
+      "failure_count": 1,
+      "accuracy_percent": 99.0,
+      "image_count": 100,
+      "total_inference_cycles": 161735,
+      "axi_backpressure_cycles": 77977
+    },
+    "execution": {
+      "parent_run": "analysis_005",
+      "child_run": "run_004",
+      "stages": [
+        {
+          "stage": "compile",
+          "exit_code": 0,
+          "tool": "C:/Xilinx/Vivado/2022.1/bin/vivado.bat",
+          "artifact_root": "artifacts/verification/optimized_accelerator/run_004"
+        },
+        {
+          "stage": "simulation",
+          "exit_code": 0,
+          "tool": "C:/Xilinx/Vivado/2022.1/bin/vivado.bat",
+          "artifact_root": "artifacts/verification/optimized_accelerator/run_004"
+        },
+        {
+          "stage": "synthesis",
+          "exit_code": 0,
+          "tool": "C:/Xilinx/Vivado/2022.1/bin/vivado.bat",
+          "artifact_root": "artifacts/synthesis/optimized_accelerator/run_004"
+        },
+        {
+          "stage": "implementation",
+          "exit_code": 0,
+          "tool": "C:/Xilinx/Vivado/2022.1/bin/vivado.bat",
+          "artifact_root": "artifacts/implementation/optimized_accelerator/run_004"
+        },
+        {
+          "stage": "power",
+          "exit_code": 0,
+          "tool": "C:/Xilinx/Vivado/2022.1/bin/vivado.bat",
+          "artifact_root": "artifacts/implementation/optimized_accelerator/run_004"
+        }
+      ],
+      "patch_sha256": "ae851bd4cd6e61af507acd718b9bb1467acf052127abffb351ba1ef51ed426a1",
+      "source_hashes": {
+        "rtl/.gitkeep": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "rtl/activation_unit.sv": "53bd357ee548321b889c852b8e51f215657d1b055c6d6ecad5c3ab514f39605b",
+        "rtl/axi_lite_wrapper.sv": "4d0b1292fbf81b5322f5cfe38fc78e49c279c12f01fbb8644c6ebf60cc0abafc",
+        "rtl/bias_sram.sv": "df1c09d9031314869e74b74d28888373cb15b40345789bcf957428cd6e392c99",
+        "rtl/dnn_scheduler.sv": "6e8449664dea0e93f9319c93f22bb80961baa75da4d1302dc4d18edc3980252e",
+        "rtl/mac_pe.sv": "016a236c441e21fe4fe1363712a30d1484dec7724a687ea14242ce39f103a65d",
+        "rtl/maxFinder.sv": "099d44fd1a3a8d25dc3fbbf1b91f3a450d8278faaa8f562c1e0e54e67501b753",
+        "rtl/pe_systolic_cell.sv": "492f6bf979beba89b1cfb6532db50744adc25533ec37cff4e896fb0c5328337f",
+        "rtl/systolic_array_2d.sv": "031ea9602457fc1a3cdc6b945e0d14a63ed670dd46f76d9a6c7fd29c8113e789",
+        "rtl/systolic_controller.sv": "b513cfe579263e15b05a05bb2a16c2613ddc73ebc5f83a70cf41c1d7f8ae9bf3",
+        "rtl/systolic_parameters.svh": "427885f4c843ad079c54a04f4a3b6c48d7d5648eebd8f0ceff7386ffae69856d",
+        "rtl/unified_buffer.sv": "393c2f6a3d3a2b67f3558aaad965bacd5b58c4a84522ef2a392891d4d8ada7a1",
+        "rtl/weight_sram.sv": "8457973d9cc1b652cae5f2d1f163a65a5a765eb20cbc408c95ffdab55f5d1bb6",
+        "rtl/zynet.sv": "0c4e839d99de9d78e5570c4569787a6125bfd607e180209ab84b1409ded521a9",
+        "tb/.gitkeep": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "tb/top_sim.sv": "fae9953a5128dcd7acf202b7e256967f1751f3783ae89056e223fb25e8983fc4",
+        "memory/.gitkeep": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "memory/b_1_0.mif": "f6e0a1e2ac41945a9aa7ff8a8aaa0cebc12a3bcc981a929ad5cf810a090e11ae",
+        "memory/b_1_1.mif": "2743dac64d9b769f3308834c1cb3d1bfc9cb0533f62e2ddc98af1822c62adfe5",
+        "memory/b_1_10.mif": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b",
+        "memory/b_1_11.mif": "3b0556cb9030f74640d3156fe6c7370412fd32e8727dc03f6f1852d8dd533c94",
+        "memory/b_1_12.mif": "16dc368a89b428b2485484313ba67a3912ca03f2b2b42429174a4f8b3dc84e44",
+        "memory/b_1_13.mif": "ce8e85c9de6ad62d7443085e42b8f73dabdbac62a1a5e3eddd5c97b3b44c1e24",
+        "memory/b_1_14.mif": "ee79976c9380d5e337fc1c095ece8c8f22f91f306ceeb161fa51fecede2c4ba1",
+        "memory/b_1_15.mif": "4a44dc15364204a80fe80e9039455cc1608281820fe2b24f1e5233ade6af1dd5",
+        "memory/b_1_16.mif": "a052c5de761ada49d9d072c9dc9881b0f0e79e525a7764ebaba417c394322397",
+        "memory/b_1_17.mif": "ce8e85c9de6ad62d7443085e42b8f73dabdbac62a1a5e3eddd5c97b3b44c1e24",
+        "memory/b_1_18.mif": "dc0726fe0989fe9cd9f6a6b9d90f7e5c65ce000ea39e44a1b7f56997e2d1524e",
+        "memory/b_1_19.mif": "7a5df5ffa0dec2228d90b8d0a0f1b0767b748b0a41314c123075b8289e4e053f",
+        "memory/b_1_2.mif": "e340c1744b3570aa58c6112d647481bfe501ba4c5cfae53a8d9096bc34fa0073",
+        "memory/b_1_20.mif": "712676e20276bc69b183272f3db0bc8aa37c63e9a30166e38e97fe193d023688",
+        "memory/b_1_21.mif": "4fc82b26aecb47d2868c4efbe3581732a3e7cbcc6c2efb32062c08170a05eeb8",
+        "memory/b_1_22.mif": "002058ac937f7446da62ca8497f3c46b19986eb8f164a45578dce297fa6cd5b1",
+        "memory/b_1_23.mif": "ce8e85c9de6ad62d7443085e42b8f73dabdbac62a1a5e3eddd5c97b3b44c1e24",
+        "memory/b_1_24.mif": "e340c1744b3570aa58c6112d647481bfe501ba4c5cfae53a8d9096bc34fa0073",
+        "memory/b_1_25.mif": "7a5df5ffa0dec2228d90b8d0a0f1b0767b748b0a41314c123075b8289e4e053f",
+        "memory/b_1_26.mif": "9b0e12164232d5cd6b708534cfb93cd1fe0c1f5833329d567fee7b8fdbed9868",
+        "memory/b_1_27.mif": "d5d91a6f270ae7d779717e9517fe8a247818bb2fdef48907d7d14d06e56cfdd9",
+        "memory/b_1_28.mif": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b",
+        "memory/b_1_29.mif": "16dc368a89b428b2485484313ba67a3912ca03f2b2b42429174a4f8b3dc84e44",
+        "memory/b_1_3.mif": "f6e0a1e2ac41945a9aa7ff8a8aaa0cebc12a3bcc981a929ad5cf810a090e11ae",
+        "memory/b_1_4.mif": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9",
+        "memory/b_1_5.mif": "4bfa1a09ac70d3b9342ebd344d5548ddcf1435475ec86a8b045988b8303eb0ae",
+        "memory/b_1_6.mif": "49d6d81bf43b4039095a4ba7ba087ebb2c4cc05a738e7413cf35795ef3d33a00",
+        "memory/b_1_7.mif": "9b0e12164232d5cd6b708534cfb93cd1fe0c1f5833329d567fee7b8fdbed9868",
+        "memory/b_1_8.mif": "055f78940c07630352676197ab7c3ed8d5bb204d406e5c6ff101f870bc9b7dd7",
+        "memory/b_1_9.mif": "16dc368a89b428b2485484313ba67a3912ca03f2b2b42429174a4f8b3dc84e44",
+        "memory/b_2_0.mif": "4bf521bed206918eb6ddb366249020058e68398cd5cd891bbbdbb8b1bfc8ad87",
+        "memory/b_2_1.mif": "ad57366865126e55649ecb23ae1d48887544976efea46a48eb5d85a6eeb4d306",
+        "memory/b_2_10.mif": "3b0556cb9030f74640d3156fe6c7370412fd32e8727dc03f6f1852d8dd533c94",
+        "memory/b_2_11.mif": "39e5b4830d4d9c14db7368a95b65d5463ea3d09520373723430c03a5a453b5df",
+        "memory/b_2_12.mif": "002058ac937f7446da62ca8497f3c46b19986eb8f164a45578dce297fa6cd5b1",
+        "memory/b_2_13.mif": "002058ac937f7446da62ca8497f3c46b19986eb8f164a45578dce297fa6cd5b1",
+        "memory/b_2_14.mif": "3dd9c0995d54c0abd51a90f1d57b1ce77bc885fc8a7cea52dcad3c2540dda5ee",
+        "memory/b_2_15.mif": "dc0726fe0989fe9cd9f6a6b9d90f7e5c65ce000ea39e44a1b7f56997e2d1524e",
+        "memory/b_2_16.mif": "4a44dc15364204a80fe80e9039455cc1608281820fe2b24f1e5233ade6af1dd5",
+        "memory/b_2_17.mif": "4a44dc15364204a80fe80e9039455cc1608281820fe2b24f1e5233ade6af1dd5",
+        "memory/b_2_18.mif": "e340c1744b3570aa58c6112d647481bfe501ba4c5cfae53a8d9096bc34fa0073",
+        "memory/b_2_19.mif": "e340c1744b3570aa58c6112d647481bfe501ba4c5cfae53a8d9096bc34fa0073",
+        "memory/b_2_2.mif": "ee79976c9380d5e337fc1c095ece8c8f22f91f306ceeb161fa51fecede2c4ba1",
+        "memory/b_2_3.mif": "391129c952673b00d68c2ed2531816b10023ff5aa439eb6f1c8d4c51f62c080f",
+        "memory/b_2_4.mif": "ee79976c9380d5e337fc1c095ece8c8f22f91f306ceeb161fa51fecede2c4ba1",
+        "memory/b_2_5.mif": "ce8e85c9de6ad62d7443085e42b8f73dabdbac62a1a5e3eddd5c97b3b44c1e24",
+        "memory/b_2_6.mif": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9",
+        "memory/b_2_7.mif": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9",
+        "memory/b_2_8.mif": "e340c1744b3570aa58c6112d647481bfe501ba4c5cfae53a8d9096bc34fa0073",
+        "memory/b_2_9.mif": "9bdb2af6799204a299c603994b8e400e4b1fd625efdb74066cc869fee42c9df3",
+        "memory/b_3_0.mif": "c32c4c935a2a9ddc656132ac9436a966d1d0ff34c1f5de6309cdc09501036768",
+        "memory/b_3_1.mif": "a0021577aae4ff6e91c973c0b2100b094b98184dd07572928776e52440c99fbc",
+        "memory/b_3_2.mif": "69f89b5bbf9e1129f627943a80be22d97c2b036b45f6f30ca6acb3ce5064fc64",
+        "memory/b_3_3.mif": "d5d91a6f270ae7d779717e9517fe8a247818bb2fdef48907d7d14d06e56cfdd9",
+        "memory/b_3_4.mif": "bb679851217460d3c2ccc54af1c01b20960ed4313729625ea8d57266a2710d5e",
+        "memory/b_3_5.mif": "c9edf4cbe8e6daf5ae028e6403176266319f8732a8e847a6e74838fc57cfe1d8",
+        "memory/b_3_6.mif": "e340c1744b3570aa58c6112d647481bfe501ba4c5cfae53a8d9096bc34fa0073",
+        "memory/b_3_7.mif": "97066e386dda1244dafafc118ee21a1453b79542be970dea37499e8bef828f36",
+        "memory/b_3_8.mif": "fa15e858186cf5bde28aa44bc093f3d232da10032a14eaa953ee6f1e4dc2d61e",
+        "memory/b_3_9.mif": "fa15e858186cf5bde28aa44bc093f3d232da10032a14eaa953ee6f1e4dc2d61e",
+        "memory/sigContent.mif": "d2744b48ff738078c801b10c323e255d80367beab4333eb307f5b49b2dced8d9",
+        "memory/w_1_0.mif": "bf36d731781b6394a707750d93cb52ec77bc165026623735c7910eb7ce6157fe",
+        "memory/w_1_1.mif": "7b4653ba151f2bf9d499bec5a5d9053b7df50c46abbbe40441f56317e10add3b",
+        "memory/w_1_10.mif": "a3da20c421dd72d3e2c4a0fee3e301de75b3ce0f32da5ba990cc82b63cd65819",
+        "memory/w_1_11.mif": "beba247a8905cf539bb7cafb84c512ff6865471ccb09690e3860436e2a62faf3",
+        "memory/w_1_12.mif": "d719885284cc0d327e92b8ecd8a7222461a6e7e6e9e35596525ee7595e6d23d7",
+        "memory/w_1_13.mif": "321876da109590ba0c67405197a100c0790f0653dfe7046c21b6bb1d7e5e35ef",
+        "memory/w_1_14.mif": "f79337e438f70cd9f778895abc3c707569f839846e8becad35914fb51187c6dd",
+        "memory/w_1_15.mif": "767d9543097b598b1f24bd5c003084071f8136ec3e6c68b4dbe98d2f943b1afc",
+        "memory/w_1_16.mif": "0b256517418ea881b8c920f634463a7b80da8601de7bcf567d28ab23b8c0edf2",
+        "memory/w_1_17.mif": "0146d8e231241845565515e8f65fdfa9c44dd9a51ce0f4d00663ddb7aef86dd3",
+        "memory/w_1_18.mif": "8f0a7ab05ca3de96f3092ab9078a1f047217b31ed5c1193cf62000da2ca9cbd0",
+        "memory/w_1_19.mif": "9bf919002eab8680324a87f7704c8e33e474804399977507eb7f727a3d09b79d",
+        "memory/w_1_2.mif": "251f4e214a68c7ba8d77ccc4f66de9883152d0cd415aad397badfc4aa169f5dc",
+        "memory/w_1_20.mif": "a2ebd9f826e81d808898553ade4e8ee3c07e53d7cc8750ba3ef172b9cc344aff",
+        "memory/w_1_21.mif": "f9ea75655ace5b5e1a7b1447970580f03988445a82ae697f0ae50546933fd911",
+        "memory/w_1_22.mif": "462dfa9ac98c1b154e0e810eea0cb7aa3b36a9c600813d1ae896ac5ec691223d",
+        "memory/w_1_23.mif": "ba4f8325f121c4f77d264e381da4f7bef9e91a8847eea2460c228c654c18a874",
+        "memory/w_1_24.mif": "15e1a7ca3724a73743e5bc409604a91e6d78b1140a64ab68cf5fb83a0e1b6d16",
+        "memory/w_1_25.mif": "fcfe907ba646b9c71568e345cfd3dafed2aa1722fb1bef0f74eaafb9ecb1f1af",
+        "memory/w_1_26.mif": "aa942bb654886b2227c8de2b2f95b09ee1413faee5f2bad8cc2386d9cf8fb95b",
+        "memory/w_1_27.mif": "b636f26c2ab48ca66c60c75fdfb27ed1127871a09da897323e48685bc865701a",
+        "memory/w_1_28.mif": "c07534a2108fa81daf6e590d67b46f0f5ca41de3d38014b2e1efb275ba7e9786",
+        "memory/w_1_29.mif": "730222b64389268e12a5a9369669b47baebdae8387bdcff79b47abbdda0c4d52",
+        "memory/w_1_3.mif": "8ee21db1c1763834f5ff94352f7bd8e8c1bedf017c5dbc7af6388233a58741e7",
+        "memory/w_1_4.mif": "3965f34106ed84bde30867fcb9c1255a5dc173fdc18dac156855806351ca36a6",
+        "memory/w_1_5.mif": "45149615a32cf8e2b9ff94c48fa117168a8aa0059e9befe8b03a5181fa72eee1",
+        "memory/w_1_6.mif": "c2d61639ee2e5fbc4590f836dc1556e0dfbe37f67d07f6fc8d13ae4c230e1222",
+        "memory/w_1_7.mif": "6682caac1c723f39db41d4a1454db655f6db83ade5e7b8579bf7dc2706a2cc2f",
+        "memory/w_1_8.mif": "a75c413b919d262227bedf55c09c2999254fce8640ebb3bfd3050418c64d168c",
+        "memory/w_1_9.mif": "15f938d3c7994769136e75e24474ea0286fb6b89d4cecad27524c587840ed3fc",
+        "memory/w_2_0.mif": "e177de11f29d82d0b5ac5d3da02ca351fee3813537b55d6b1e6197385ce7d151",
+        "memory/w_2_1.mif": "364eb228315cf522cf4880dea7225874b00d85e2bf54d29745c9d5458bef23dc",
+        "memory/w_2_10.mif": "99e6408378aafa1742dee4fb7638712525d7baabaa7ca268a85541f7f514e845",
+        "memory/w_2_11.mif": "72d28983d03989db6b9e61e87aed93deb67a59bf237ffbaa86938120ec80514d",
+        "memory/w_2_12.mif": "36990bbc47bab4afc9b408ae7dac300f9d223810a77385590f70e685f3a7dbd6",
+        "memory/w_2_13.mif": "d68bbad0bf94965622e20891883a1f14bbeb5092a8738a88b62181be41a1ae8d",
+        "memory/w_2_14.mif": "f891cd50d5b970bb4bb410ad311ebf7c5c582863632ddf61eed2498de800db47",
+        "memory/w_2_15.mif": "df3bd7c9df15df92b956bb21d36aa254246aae35c27c0234ea029476420d30d2",
+        "memory/w_2_16.mif": "d6e9fd9d7f15d5d87211abffab3821ce8ecf4e4e81f05c0df42e0f0986033887",
+        "memory/w_2_17.mif": "5bd448a866a4b54fac6e3856ee540496a5860310e0c4fac1cfb103d0617e629e",
+        "memory/w_2_18.mif": "d4e84016aaa7e3f6ecde52fd18298d72ea80eb37d29b3c80e89e06b1ba13f4c0",
+        "memory/w_2_19.mif": "71da376dc2ddc2834892f6a02b7419b35250c4332e609d260c009f79f3ebc350",
+        "memory/w_2_2.mif": "d6a4a31c86043061bc3903080bef26822a06ee7412e395955da6e618f498849f",
+        "memory/w_2_3.mif": "bb9dbf49d868ddb30c4fc3504d0325647a6bbf61f42d95ac80dc13823a217476",
+        "memory/w_2_4.mif": "752ffa4a53969e52ab1d1d332468c9b290199766453e40dc8bdc8af1844d61be",
+        "memory/w_2_5.mif": "85968adccbf467848f689392a0f4189513a6d435eccf6e253cc59d7b9b840e71",
+        "memory/w_2_6.mif": "b1c957f3a6310432f88210ba28c10e8ad3fb9205dff7e1bfb11e02111ac66e83",
+        "memory/w_2_7.mif": "7047b376b13c3afc9192cd0717775373b6b19f37d839610456c30f309314cba1",
+        "memory/w_2_8.mif": "5118aa5d608d688f1f76f2d46289616634a6944c1417e27316dc5db99d9e2bbf",
+        "memory/w_2_9.mif": "89b0b62f1316d5186eb6028dd009c2fda2130fd0611eb454a7223b86109ca8ef",
+        "memory/w_3_0.mif": "06fcc7d5047fdbb6e700a34394321c28daf4a3b75b0659dfa7ba5e638bd46a8e",
+        "memory/w_3_1.mif": "43083f33868b18343c36b92d8c9303466645c74fbc00f111661fd4763e214e82",
+        "memory/w_3_2.mif": "b5fc159f76c77cea34ed9098b9c1aee243b2892afd1b891af89affa347e7fc36",
+        "memory/w_3_3.mif": "0a1e600c8db8ec487ff85770b998ac955c71517a078449f802b2ef404b30dd4a",
+        "memory/w_3_4.mif": "e0a32bec5ef8c497648fb7d91c88dab2ecc1a18dfdad9eb1b7611ac504c04496",
+        "memory/w_3_5.mif": "69b8ef30bf81a9da80ac268ec341aa779095601b41aa68581708a696b7bc91c8",
+        "memory/w_3_6.mif": "f7c660299c24926c27acba9e80a959629651a6c407e9b5a1b892dccfd3d58802",
+        "memory/w_3_7.mif": "491d3c7b34eead6a3d02fc81359d462ea43c33197984c595700e188aeac21700",
+        "memory/w_3_8.mif": "4efc37ab0dc5cf642aace2a677e57fb1466ccd16a9d79fe5c5e179be1628af1e",
+        "memory/w_3_9.mif": "590786accb65b4455f0bad8c812ac5c37bf0b9c5219094bdee37f1b1bb1f4aca",
+        "scripts/.gitkeep": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "scripts/run_modelsim.do": "99213864b3e0c6a0ef06d67103ef40f7239c446c023ee7a50a73c06254649e9e",
+        "scripts/run_modelsim.sh": "685919148b845d4de126eeb6d5422914cb11398cd1b144af5bd2e8a8201c9a32"
+      },
+      "all_tools_passed": true,
+      "promoted": false
+    },
+    "implementation": {
+      "drc_violations": 0,
+      "critical_warnings": 4,
+      "unrouted_nets": 0,
+      "routing_errors": 0
+    },
+    "logs": [
+      {
+        "path": "C:/Users/iuhj0/Eddie/rag_db_project/artifacts/implementation/optimized_accelerator/run_004/compile.log",
+        "error_count": 0,
+        "warning_count": 2,
+        "error_records": [],
+        "assertion_failure_count": 0,
+        "timeout_detected": false
+      },
+      {
+        "path": "C:/Users/iuhj0/Eddie/rag_db_project/artifacts/implementation/optimized_accelerator/run_004/implementation.log",
+        "error_count": 0,
+        "warning_count": 0,
+        "error_records": [],
+        "assertion_failure_count": 0,
+        "timeout_detected": false
+      },
+      {
+        "path": "C:/Users/iuhj0/Eddie/rag_db_project/artifacts/implementation/optimized_accelerator/run_004/power.log",
+        "error_count": 0,
+        "warning_count": 49,
+        "error_records": [],
+        "assertion_failure_count": 0,
+        "timeout_detected": false
+      },
+      {
+        "path": "C:/Users/iuhj0/Eddie/rag_db_project/artifacts/implementation/optimized_accelerator/run_004/protocol_assertions.log",
+        "error_count": 0,
+        "warning_count": 0,
+        "error_records": [],
+        "assertion_failure_count": 0,
+        "timeout_detected": false
+      },
+      {
+        "path": "C:/Users/iuhj0/Eddie/rag_db_project/artifacts/implementation/optimized_accelerator/run_004/simulation.log",
+        "error_count": 0,
+        "warning_count": 2,
+        "error_records": [],
+        "assertion_failure_count": 0,
+        "timeout_detected": false
+      },
+      {
+        "path": "C:/Users/iuhj0/Eddie/rag_db_project/artifacts/implementation/optimized_accelerator/run_004/synthesis.log",
+        "error_count": 0,
+        "warning_count": 103,
+        "error_records": [],
+        "assertion_failure_count": 0,
+        "timeout_detected": false
+      }
+    ],
+    "sources": {
+      "utilization": "utilization.rpt",
+      "utilization_hierarchical": "utilization_hierarchical.rpt",
+      "timing_summary": "timing_summary.rpt",
+      "power": "power_post_route.rpt"
+    },
+    "paths": [
+      {
+        "slack_ns": 0.12,
+        "artifact_path": "critical_paths.rpt",
+        "line": 14,
+        "source": "dnn_scheduler_instance/activation_column_reg[1]_rep/C",
+        "destination": "activation_unit_instance/activation_data_reg[32]/D",
+        "logic_levels": 12.0,
+        "delay_ns": 9.892,
+        "logic_ns": 3.576,
+        "route_ns": 6.316,
+        "mux_present": true,
+        "address_path": false,
+        "dsp_present": false
+      },
+      {
+        "slack_ns": 0.22,
+        "artifact_path": "critical_paths.rpt",
+        "line": 98,
+        "source": "dnn_scheduler_instance/activation_column_reg[1]_rep/C",
+        "destination": "activation_unit_instance/activation_data_reg[26]/D",
+        "logic_levels": 12.0,
+        "delay_ns": 9.71,
+        "logic_ns": 3.7,
+        "route_ns": 6.01,
+        "mux_present": true,
+        "address_path": false,
+        "dsp_present": false
+      },
+      {
+        "slack_ns": 0.226,
+        "artifact_path": "critical_paths.rpt",
+        "line": 181,
+        "source": "dnn_scheduler_instance/activation_column_reg[1]_rep/C",
+        "destination": "activation_unit_instance/activation_data_reg[34]/D",
+        "logic_levels": 12.0,
+        "delay_ns": 9.703,
+        "logic_ns": 3.749,
+        "route_ns": 5.954,
+        "mux_present": true,
+        "address_path": false,
+        "dsp_present": false
+      },
+      {
+        "slack_ns": 0.235,
+        "artifact_path": "critical_paths.rpt",
+        "line": 265,
+        "source": "systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[1].ARRAY_COLUMNS[2].pe_systolic_cell_instance/mac_pe_instance/acc_sum_reg/CLK",
+        "destination": "activation_unit_instance/activation_data_reg[8]/D",
+        "logic_levels": 13.0,
+        "delay_ns": 9.592,
+        "logic_ns": 3.572,
+        "route_ns": 6.02,
+        "mux_present": true,
+        "address_path": false,
+        "dsp_present": true
+      },
+      {
+        "slack_ns": 0.254,
+        "artifact_path": "critical_paths.rpt",
+        "line": 353,
+        "source": "systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[1].ARRAY_COLUMNS[1].pe_systolic_cell_instance/mac_pe_instance/acc_sum_reg/CLK",
+        "destination": "activation_unit_instance/activation_data_reg[0]/D",
+        "logic_levels": 13.0,
+        "delay_ns": 9.526,
+        "logic_ns": 3.5,
+        "route_ns": 6.026,
+        "mux_present": true,
+        "address_path": false,
+        "dsp_present": true
+      },
+      {
+        "slack_ns": 0.321,
+        "artifact_path": "critical_paths.rpt",
+        "line": 441,
+        "source": "systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[1].ARRAY_COLUMNS[1].pe_systolic_cell_instance/mac_pe_instance/acc_sum_reg/CLK",
+        "destination": "activation_unit_instance/activation_data_reg[1]/D",
+        "logic_levels": 13.0,
+        "delay_ns": 9.507,
+        "logic_ns": 3.492,
+        "route_ns": 6.015,
+        "mux_present": true,
+        "address_path": false,
+        "dsp_present": true
+      },
+      {
+        "slack_ns": 0.355,
+        "artifact_path": "critical_paths.rpt",
+        "line": 529,
+        "source": "systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[1].ARRAY_COLUMNS[1].pe_systolic_cell_instance/mac_pe_instance/acc_sum_reg/CLK",
+        "destination": "activation_unit_instance/activation_data_reg[3]/D",
+        "logic_levels": 13.0,
+        "delay_ns": 9.391,
+        "logic_ns": 3.759,
+        "route_ns": 5.632,
+        "mux_present": true,
+        "address_path": false,
+        "dsp_present": true
+      },
+      {
+        "slack_ns": 0.362,
+        "artifact_path": "critical_paths.rpt",
+        "line": 617,
+        "source": "dnn_scheduler_instance/activation_column_reg[1]_rep/C",
+        "destination": "activation_unit_instance/activation_data_reg[35]/D",
+        "logic_levels": 12.0,
+        "delay_ns": 9.568,
+        "logic_ns": 3.754,
+        "route_ns": 5.814,
+        "mux_present": true,
+        "address_path": false,
+        "dsp_present": false
+      },
+      {
+        "slack_ns": 0.383,
+        "artifact_path": "critical_paths.rpt",
+        "line": 701,
+        "source": "systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[1].ARRAY_COLUMNS[2].pe_systolic_cell_instance/mac_pe_instance/acc_sum_reg/CLK",
+        "destination": "activation_unit_instance/activation_data_reg[11]/D",
+        "logic_levels": 13.0,
+        "delay_ns": 9.41,
+        "logic_ns": 3.589,
+        "route_ns": 5.821,
+        "mux_present": true,
+        "address_path": false,
+        "dsp_present": true
+      },
+      {
+        "slack_ns": 0.389,
+        "artifact_path": "critical_paths.rpt",
+        "line": 789,
+        "source": "dnn_scheduler_instance/activation_column_reg[1]_rep/C",
+        "destination": "activation_unit_instance/activation_data_reg[33]/D",
+        "logic_levels": 12.0,
+        "delay_ns": 9.624,
+        "logic_ns": 3.581,
+        "route_ns": 6.043,
+        "mux_present": true,
+        "address_path": false,
+        "dsp_present": false
+      },
+      {
+        "slack_ns": 0.405,
+        "artifact_path": "critical_paths.rpt",
+        "line": 873,
+        "source": "dnn_scheduler_instance/activation_column_reg[1]_rep/C",
+        "destination": "activation_unit_instance/activation_data_reg[17]/D",
+        "logic_levels": 13.0,
+        "delay_ns": 9.498,
+        "logic_ns": 3.514,
+        "route_ns": 5.984,
+        "mux_present": true,
+        "address_path": false,
+        "dsp_present": false
+      },
+      {
+        "slack_ns": 0.415,
+        "artifact_path": "critical_paths.rpt",
+        "line": 959,
+        "source": "dnn_scheduler_instance/activation_column_reg[1]_rep/C",
+        "destination": "activation_unit_instance/activation_data_reg[27]/D",
+        "logic_levels": 13.0,
+        "delay_ns": 9.515,
+        "logic_ns": 3.784,
+        "route_ns": 5.731,
+        "mux_present": true,
+        "address_path": false,
+        "dsp_present": false
+      },
+      {
+        "slack_ns": 0.431,
+        "artifact_path": "critical_paths.rpt",
+        "line": 1045,
+        "source": "systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[1].ARRAY_COLUMNS[2].pe_systolic_cell_instance/mac_pe_instance/acc_sum_reg/CLK",
+        "destination": "activation_unit_instance/activation_data_reg[9]/D",
+        "logic_levels": 13.0,
+        "delay_ns": 9.346,
+        "logic_ns": 3.57,
+        "route_ns": 5.776,
+        "mux_present": true,
+        "address_path": false,
+        "dsp_present": true
+      },
+      {
+        "slack_ns": 0.432,
+        "artifact_path": "critical_paths.rpt",
+        "line": 1133,
+        "source": "systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[1].ARRAY_COLUMNS[2].pe_systolic_cell_instance/mac_pe_instance/acc_sum_reg/CLK",
+        "destination": "activation_unit_instance/activation_data_reg[10]/D",
+        "logic_levels": 13.0,
+        "delay_ns": 9.312,
+        "logic_ns": 3.517,
+        "route_ns": 5.795,
+        "mux_present": true,
+        "address_path": false,
+        "dsp_present": true
+      },
+      {
+        "slack_ns": 0.449,
+        "artifact_path": "critical_paths.rpt",
+        "line": 1221,
+        "source": "systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[1].ARRAY_COLUMNS[1].pe_systolic_cell_instance/mac_pe_instance/acc_sum_reg/CLK",
+        "destination": "activation_unit_instance/activation_data_reg[2]/D",
+        "logic_levels": 13.0,
+        "delay_ns": 9.345,
+        "logic_ns": 3.754,
+        "route_ns": 5.591,
+        "mux_present": true,
+        "address_path": false,
+        "dsp_present": true
+      },
+      {
+        "slack_ns": 0.46,
+        "artifact_path": "critical_paths.rpt",
+        "line": 1309,
+        "source": "dnn_scheduler_instance/activation_column_reg[1]_rep/C",
+        "destination": "activation_unit_instance/activation_data_reg[24]/D",
+        "logic_levels": 12.0,
+        "delay_ns": 9.589,
+        "logic_ns": 3.495,
+        "route_ns": 6.094,
+        "mux_present": true,
+        "address_path": false,
+        "dsp_present": false
+      },
+      {
+        "slack_ns": 0.475,
+        "artifact_path": "critical_paths.rpt",
+        "line": 1392,
+        "source": "dnn_scheduler_instance/activation_column_reg[1]_rep/C",
+        "destination": "activation_unit_instance/activation_data_reg[18]/D",
+        "logic_levels": 13.0,
+        "delay_ns": 9.395,
+        "logic_ns": 3.684,
+        "route_ns": 5.711,
+        "mux_present": true,
+        "address_path": false,
+        "dsp_present": false
+      },
+      {
+        "slack_ns": 0.51,
+        "artifact_path": "critical_paths.rpt",
+        "line": 1478,
+        "source": "dnn_scheduler_instance/activation_column_reg[1]_rep/C",
+        "destination": "activation_unit_instance/activation_data_reg[25]/D",
+        "logic_levels": 12.0,
+        "delay_ns": 9.538,
+        "logic_ns": 3.49,
+        "route_ns": 6.048,
+        "mux_present": true,
+        "address_path": false,
+        "dsp_present": false
+      },
+      {
+        "slack_ns": 0.582,
+        "artifact_path": "critical_paths.rpt",
+        "line": 1561,
+        "source": "dnn_scheduler_instance/activation_column_reg[1]_rep/C",
+        "destination": "activation_unit_instance/activation_data_reg[28]/D",
+        "logic_levels": 11.0,
+        "delay_ns": 9.346,
+        "logic_ns": 3.281,
+        "route_ns": 6.065,
+        "mux_present": false,
+        "address_path": false,
+        "dsp_present": false
+      },
+      {
+        "slack_ns": 0.586,
+        "artifact_path": "critical_paths.rpt",
+        "line": 1642,
+        "source": "dnn_scheduler_instance/activation_column_reg[1]_rep/C",
+        "destination": "activation_unit_instance/activation_data_reg[16]/D",
+        "logic_levels": 13.0,
+        "delay_ns": 9.318,
+        "logic_ns": 3.509,
+        "route_ns": 5.809,
+        "mux_present": true,
+        "address_path": false,
+        "dsp_present": false
+      }
+    ],
+    "fanout": [
+      {
+        "net": "systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[4].ARRAY_COLUMNS[4].pe_systolic_cell_instance/s_axi_aresetn",
+        "fanout": 561,
+        "driver": "LUT1",
+        "slack": "inf",
+        "artifact_path": "high_fanout_nets.rpt",
+        "line": 19
+      },
+      {
+        "net": "dnn_scheduler_instance/activation_column[0]",
+        "fanout": 302,
+        "driver": "FDRE",
+        "slack": "0.388",
+        "artifact_path": "high_fanout_nets.rpt",
+        "line": 20
+      },
+      {
+        "net": "systolic_controller_instance/FSM_onehot_state_reg[3]_1",
+        "fanout": 191,
+        "driver": "FDCE",
+        "slack": "3.214",
+        "artifact_path": "high_fanout_nets.rpt",
+        "line": 21
+      },
+      {
+        "net": "dnn_scheduler_instance/activation_column_reg[2]_rep_1",
+        "fanout": 159,
+        "driver": "FDRE",
+        "slack": "0.783",
+        "artifact_path": "high_fanout_nets.rpt",
+        "line": 22
+      },
+      {
+        "net": "dnn_scheduler_instance/layer_index[0]",
+        "fanout": 138,
+        "driver": "FDSE",
+        "slack": "1.695",
+        "artifact_path": "high_fanout_nets.rpt",
+        "line": 23
+      },
+      {
+        "net": "dnn_scheduler_instance/layer_index[1]",
+        "fanout": 133,
+        "driver": "FDRE",
+        "slack": "1.745",
+        "artifact_path": "high_fanout_nets.rpt",
+        "line": 24
+      },
+      {
+        "net": "systolic_controller_instance/Q[1]",
+        "fanout": 112,
+        "driver": "FDCE",
+        "slack": "1.773",
+        "artifact_path": "high_fanout_nets.rpt",
+        "line": 25
+      },
+      {
+        "net": "dnn_scheduler_instance/controller_start",
+        "fanout": 106,
+        "driver": "FDRE",
+        "slack": "3.586",
+        "artifact_path": "high_fanout_nets.rpt",
+        "line": 26
+      },
+      {
+        "net": "systolic_controller_instance/p_0_in",
+        "fanout": 106,
+        "driver": "FDPE",
+        "slack": "4.602",
+        "artifact_path": "high_fanout_nets.rpt",
+        "line": 27
+      },
+      {
+        "net": "dnn_scheduler_instance/SR[0]",
+        "fanout": 90,
+        "driver": "LUT2",
+        "slack": "4.914",
+        "artifact_path": "high_fanout_nets.rpt",
+        "line": 28
+      },
+      {
+        "net": "systolic_controller_instance/Q[0]",
+        "fanout": 88,
+        "driver": "FDCE",
+        "slack": "1.667",
+        "artifact_path": "high_fanout_nets.rpt",
+        "line": 29
+      },
+      {
+        "net": "dnn_scheduler_instance/activation_column_reg[1]_rep_0",
+        "fanout": 87,
+        "driver": "FDRE",
+        "slack": "0.120",
+        "artifact_path": "high_fanout_nets.rpt",
+        "line": 30
+      },
+      {
+        "net": "dnn_scheduler_instance/activation_column_reg[1]_rep__0_0",
+        "fanout": 87,
+        "driver": "FDRE",
+        "slack": "0.322",
+        "artifact_path": "high_fanout_nets.rpt",
+        "line": 31
+      },
+      {
+        "net": "dnn_scheduler_instance/activation_column_reg[1]_rep__1_0",
+        "fanout": 87,
+        "driver": "FDRE",
+        "slack": "0.321",
+        "artifact_path": "high_fanout_nets.rpt",
+        "line": 32
+      },
+      {
+        "net": "dnn_scheduler_instance/activation_column[2]",
+        "fanout": 70,
+        "driver": "FDRE",
+        "slack": "1.075",
+        "artifact_path": "high_fanout_nets.rpt",
+        "line": 33
+      },
+      {
+        "net": "dnn_scheduler_instance/group_index[0]",
+        "fanout": 70,
+        "driver": "FDRE",
+        "slack": "5.139",
+        "artifact_path": "high_fanout_nets.rpt",
+        "line": 34
+      },
+      {
+        "net": "systolic_controller_instance/Q[8]",
+        "fanout": 67,
+        "driver": "FDCE",
+        "slack": "2.129",
+        "artifact_path": "high_fanout_nets.rpt",
+        "line": 35
+      },
+      {
+        "net": "systolic_controller_instance/Q[9]",
+        "fanout": 64,
+        "driver": "FDCE",
+        "slack": "1.721",
+        "artifact_path": "high_fanout_nets.rpt",
+        "line": 36
+      },
+      {
+        "net": "dnn_scheduler_instance/group_index[1]",
+        "fanout": 61,
+        "driver": "FDRE",
+        "slack": "3.305",
+        "artifact_path": "high_fanout_nets.rpt",
+        "line": 37
+      },
+      {
+        "net": "dnn_scheduler_instance/group_index[2]",
+        "fanout": 61,
+        "driver": "FDRE",
+        "slack": "3.675",
+        "artifact_path": "high_fanout_nets.rpt",
+        "line": 38
+      },
+      {
+        "net": "dnn_scheduler_instance/global_write_enable",
+        "fanout": 59,
+        "driver": "FDRE",
+        "slack": "5.056",
+        "artifact_path": "high_fanout_nets.rpt",
+        "line": 39
+      },
+      {
+        "net": "systolic_controller_instance/Q[2]",
+        "fanout": 52,
+        "driver": "FDCE",
+        "slack": "1.410",
+        "artifact_path": "high_fanout_nets.rpt",
+        "line": 40
+      },
+      {
+        "net": "systolic_controller_instance/Q[3]",
+        "fanout": 51,
+        "driver": "FDCE",
+        "slack": "1.039",
+        "artifact_path": "high_fanout_nets.rpt",
+        "line": 41
+      },
+      {
+        "net": "systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[4].ARRAY_COLUMNS[4].pe_systolic_cell_instance/b_valid_register",
+        "fanout": 50,
+        "driver": "LUT3",
+        "slack": "4.602",
+        "artifact_path": "high_fanout_nets.rpt",
+        "line": 42
+      },
+      {
+        "net": "dnn_scheduler_instance/CO[0]",
+        "fanout": 49,
+        "driver": "CARRY4",
+        "slack": "2.392",
+        "artifact_path": "high_fanout_nets.rpt",
+        "line": 43
+      },
+      {
+        "net": "systolic_controller_instance/Q[4]",
+        "fanout": 42,
+        "driver": "FDCE",
+        "slack": "1.222",
+        "artifact_path": "high_fanout_nets.rpt",
+        "line": 44
+      },
+      {
+        "net": "dnn_scheduler_instance/activation_column[1]",
+        "fanout": 41,
+        "driver": "FDRE",
+        "slack": "2.041",
+        "artifact_path": "high_fanout_nets.rpt",
+        "line": 45
+      },
+      {
+        "net": "systolic_controller_instance/Q[5]",
+        "fanout": 40,
+        "driver": "FDCE",
+        "slack": "1.081",
+        "artifact_path": "high_fanout_nets.rpt",
+        "line": 46
+      },
+      {
+        "net": "systolic_controller_instance/consumed_feature_count_4[10]_i_7_n_0",
+        "fanout": 40,
+        "driver": "LUT6",
+        "slack": "1.039",
+        "artifact_path": "high_fanout_nets.rpt",
+        "line": 47
+      },
+      {
+        "net": "dnn_scheduler_instance/E[0]",
+        "fanout": 39,
+        "driver": "FDRE",
+        "slack": "5.759",
+        "artifact_path": "high_fanout_nets.rpt",
+        "line": 48
+      },
+      {
+        "net": "systolic_controller_instance/Q[6]",
+        "fanout": 38,
+        "driver": "FDCE",
+        "slack": "1.595",
+        "artifact_path": "high_fanout_nets.rpt",
+        "line": 49
+      },
+      {
+        "net": "systolic_controller_instance/consumed_feature_count_4[3]_i_2_n_0",
+        "fanout": 38,
+        "driver": "LUT3",
+        "slack": "2.252",
+        "artifact_path": "high_fanout_nets.rpt",
+        "line": 50
+      },
+      {
+        "net": "systolic_controller_instance/Q[7]",
+        "fanout": 37,
+        "driver": "FDCE",
+        "slack": "1.576",
+        "artifact_path": "high_fanout_nets.rpt",
+        "line": 51
+      },
+      {
+        "net": "unified_buffer_instance/stream_image_index_reg_n_0_[2]",
+        "fanout": 36,
+        "driver": "FDRE",
+        "slack": "3.265",
+        "artifact_path": "high_fanout_nets.rpt",
+        "line": 52
+      },
+      {
+        "net": "dnn_scheduler_instance/activation_column_reg[0]_0",
+        "fanout": 25,
+        "driver": "LUT5",
+        "slack": "0.308",
+        "artifact_path": "high_fanout_nets.rpt",
+        "line": 53
+      },
+      {
+        "net": "s_axi_aresetn_IBUF",
+        "fanout": 25,
+        "driver": "IBUF",
+        "slack": "inf",
+        "artifact_path": "high_fanout_nets.rpt",
+        "line": 54
+      },
+      {
+        "net": "systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[4].ARRAY_COLUMNS[4].pe_systolic_cell_instance/mac_pe_instance/FSM_onehot_state_reg[0]",
+        "fanout": 25,
+        "driver": "LUT3",
+        "slack": "4.923",
+        "artifact_path": "high_fanout_nets.rpt",
+        "line": 55
+      },
+      {
+        "net": "systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[0].ARRAY_COLUMNS[0].pe_systolic_cell_instance/a_register_reg[7]_0[7]",
+        "fanout": 24,
+        "driver": "FDCE",
+        "slack": "4.502",
+        "artifact_path": "high_fanout_nets.rpt",
+        "line": 56
+      },
+      {
+        "net": "systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[0].ARRAY_COLUMNS[1].pe_systolic_cell_instance/a_register_reg[7]_0[7]",
+        "fanout": 24,
+        "driver": "FDCE",
+        "slack": "4.477",
+        "artifact_path": "high_fanout_nets.rpt",
+        "line": 57
+      },
+      {
+        "net": "systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[0].ARRAY_COLUMNS[2].pe_systolic_cell_instance/a_register_reg[7]_0[7]",
+        "fanout": 24,
+        "driver": "FDCE",
+        "slack": "4.007",
+        "artifact_path": "high_fanout_nets.rpt",
+        "line": 58
+      },
+      {
+        "net": "systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[0].ARRAY_COLUMNS[3].pe_systolic_cell_instance/a_register_reg[7]_0[7]",
+        "fanout": 24,
+        "driver": "FDCE",
+        "slack": "4.471",
+        "artifact_path": "high_fanout_nets.rpt",
+        "line": 59
+      },
+      {
+        "net": "systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[1].ARRAY_COLUMNS[0].pe_systolic_cell_instance/a_register_reg[7]_0[7]",
+        "fanout": 24,
+        "driver": "FDCE",
+        "slack": "4.183",
+        "artifact_path": "high_fanout_nets.rpt",
+        "line": 60
+      },
+      {
+        "net": "systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[1].ARRAY_COLUMNS[1].pe_systolic_cell_instance/a_register_reg[7]_0[7]",
+        "fanout": 24,
+        "driver": "FDCE",
+        "slack": "4.322",
+        "artifact_path": "high_fanout_nets.rpt",
+        "line": 61
+      },
+      {
+        "net": "systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[1].ARRAY_COLUMNS[2].pe_systolic_cell_instance/a_register_reg[7]_0[7]",
+        "fanout": 24,
+        "driver": "FDCE",
+        "slack": "3.735",
+        "artifact_path": "high_fanout_nets.rpt",
+        "line": 62
+      },
+      {
+        "net": "systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[1].ARRAY_COLUMNS[3].pe_systolic_cell_instance/a_register_reg[7]_0[7]",
+        "fanout": 24,
+        "driver": "FDCE",
+        "slack": "4.663",
+        "artifact_path": "high_fanout_nets.rpt",
+        "line": 63
+      },
+      {
+        "net": "systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[2].ARRAY_COLUMNS[0].pe_systolic_cell_instance/a_register_reg[7]_0[7]",
+        "fanout": 24,
+        "driver": "FDCE",
+        "slack": "4.501",
+        "artifact_path": "high_fanout_nets.rpt",
+        "line": 64
+      },
+      {
+        "net": "systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[2].ARRAY_COLUMNS[1].pe_systolic_cell_instance/a_register_reg[7]_0[7]",
+        "fanout": 24,
+        "driver": "FDCE",
+        "slack": "4.023",
+        "artifact_path": "high_fanout_nets.rpt",
+        "line": 65
+      },
+      {
+        "net": "systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[2].ARRAY_COLUMNS[2].pe_systolic_cell_instance/a_register_reg[7]_0[7]",
+        "fanout": 24,
+        "driver": "FDCE",
+        "slack": "4.203",
+        "artifact_path": "high_fanout_nets.rpt",
+        "line": 66
+      },
+      {
+        "net": "systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[2].ARRAY_COLUMNS[3].pe_systolic_cell_instance/a_register_reg[7]_0[7]",
+        "fanout": 24,
+        "driver": "FDCE",
+        "slack": "4.441",
+        "artifact_path": "high_fanout_nets.rpt",
+        "line": 67
+      },
+      {
+        "net": "systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[3].ARRAY_COLUMNS[0].pe_systolic_cell_instance/a_register_reg[7]_0[7]",
+        "fanout": 24,
+        "driver": "FDCE",
+        "slack": "4.388",
+        "artifact_path": "high_fanout_nets.rpt",
+        "line": 68
+      }
+    ],
+    "drc_rules": [
+      {
+        "rule": "NSTD-1",
+        "severity": "Critical Warning",
+        "count": 1,
+        "line": 31,
+        "artifact_path": "drc.rpt"
+      },
+      {
+        "rule": "UCIO-1",
+        "severity": "Critical Warning",
+        "count": 1,
+        "line": 32,
+        "artifact_path": "drc.rpt"
+      },
+      {
+        "rule": "CHECK-3",
+        "severity": "Warning",
+        "count": 2,
+        "line": 33,
+        "artifact_path": "drc.rpt"
+      },
+      {
+        "rule": "DPIP-1",
+        "severity": "Warning",
+        "count": 50,
+        "line": 34,
+        "artifact_path": "drc.rpt"
+      },
+      {
+        "rule": "DPOP-2",
+        "severity": "Warning",
+        "count": 25,
+        "line": 35,
+        "artifact_path": "drc.rpt"
+      },
+      {
+        "rule": "RBOR-1",
+        "severity": "Warning",
+        "count": 15,
+        "line": 36,
+        "artifact_path": "drc.rpt"
+      },
+      {
+        "rule": "REQP-1839",
+        "severity": "Warning",
+        "count": 20,
+        "line": 37,
+        "artifact_path": "drc.rpt"
+      },
+      {
+        "rule": "REQP-1840",
+        "severity": "Warning",
+        "count": 20,
+        "line": 38,
+        "artifact_path": "drc.rpt"
+      },
+      {
+        "rule": "ZPS7-1",
+        "severity": "Warning",
+        "count": 1,
+        "line": 39,
+        "artifact_path": "drc.rpt"
+      }
+    ],
+    "unconstrained_io": {
+      "no_input_delay": 20,
+      "no_output_delay": 11
+    },
+    "unbound_checkpoint_source": false,
+    "coverage": {
+      "critical_paths": {
+        "state": "observed",
+        "artifact_path": "critical_paths.rpt"
+      },
+      "fanout": {
+        "state": "observed",
+        "artifact_path": "high_fanout_nets.rpt"
+      },
+      "drc": {
+        "state": "observed",
+        "artifact_path": "drc.rpt"
+      },
+      "ram": {
+        "state": "observed",
+        "artifact_path": "ram_utilization.rpt"
+      },
+      "verification": {
+        "state": "observed",
+        "artifact_path": "verification_result.json"
+      },
+      "utilization": {
+        "state": "observed",
+        "artifact_path": "utilization.rpt"
+      },
+      "utilization_hierarchical": {
+        "state": "observed",
+        "artifact_path": "utilization_hierarchical.rpt"
+      },
+      "timing_summary": {
+        "state": "observed",
+        "artifact_path": "timing_summary.rpt"
+      },
+      "power": {
+        "state": "observed",
+        "artifact_path": "power_post_route.rpt"
+      }
+    },
+    "comparison_context": {
+      "stage": "post_route",
+      "clock_period_ns": 10.0,
+      "activity_kind": "behavioral_saif_full_workload",
+      "workload_sha256": "9f8bf6a6377a55d06f4b241751d876bd4a0fb8b35e60c261e5f1a4efcb1d30bd"
+    },
+    "previous_metrics": {
+      "utilization": {
+        "lut": 18094.0,
+        "lut_logic": 18094.0,
+        "lut_memory": 0.0,
+        "ff": 1536.0,
+        "bram_tile": 2.5,
+        "ramb18": 5.0,
+        "dsp": 5.0,
+        "io": 64.0
+      },
+      "hierarchy": {
+        "zyNet": {
+          "module": "(top)",
+          "total_lut": 18094.0,
+          "logic_lut": 18094.0,
+          "lutram": 0.0,
+          "srl": 0.0,
+          "ff": 1536.0,
+          "ramb36": 0.0,
+          "ramb18": 5.0,
+          "dsp": 5.0
+        },
+        "zyNet/activation_unit_instance": {
+          "module": "activation_unit",
+          "total_lut": 342.0,
+          "logic_lut": 342.0,
+          "lutram": 0.0,
+          "srl": 0.0,
+          "ff": 36.0,
+          "ramb36": 0.0,
+          "ramb18": 0.0,
+          "dsp": 0.0
+        },
+        "zyNet/axi_lite_wrapper_instance": {
+          "module": "axi_lite_wrapper",
+          "total_lut": 18.0,
+          "logic_lut": 18.0,
+          "lutram": 0.0,
+          "srl": 0.0,
+          "ff": 15.0,
+          "ramb36": 0.0,
+          "ramb18": 0.0,
+          "dsp": 0.0
+        },
+        "zyNet/bias_sram_instance": {
+          "module": "bias_sram",
+          "total_lut": 7.0,
+          "logic_lut": 7.0,
+          "lutram": 0.0,
+          "srl": 0.0,
+          "ff": 35.0,
+          "ramb36": 0.0,
+          "ramb18": 0.0,
+          "dsp": 0.0
+        },
+        "zyNet/dnn_scheduler_instance": {
+          "module": "dnn_scheduler",
+          "total_lut": 397.0,
+          "logic_lut": 397.0,
+          "lutram": 0.0,
+          "srl": 0.0,
+          "ff": 81.0,
+          "ramb36": 0.0,
+          "ramb18": 0.0,
+          "dsp": 0.0
+        },
+        "zyNet/maxFinder_instance": {
+          "module": "maxFinder",
+          "total_lut": 9.0,
+          "logic_lut": 9.0,
+          "lutram": 0.0,
+          "srl": 0.0,
+          "ff": 56.0,
+          "ramb36": 0.0,
+          "ramb18": 0.0,
+          "dsp": 0.0
+        },
+        "zyNet/systolic_controller_instance": {
+          "module": "systolic_controller",
+          "total_lut": 3326.0,
+          "logic_lut": 3326.0,
+          "lutram": 0.0,
+          "srl": 0.0,
+          "ff": 1190.0,
+          "ramb36": 0.0,
+          "ramb18": 0.0,
+          "dsp": 0.0
+        },
+        "zyNet/systolic_controller_instance/systolic_array_2d_instance": {
+          "module": "systolic_array_2d",
+          "total_lut": 2610.0,
+          "logic_lut": 2610.0,
+          "lutram": 0.0,
+          "srl": 0.0,
+          "ff": 1100.0,
+          "ramb36": 0.0,
+          "ramb18": 0.0,
+          "dsp": 0.0
+        },
+        "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[0].ARRAY_COLUMNS[0].pe_systolic_cell_instance": {
+          "module": "pe_systolic_cell",
+          "total_lut": 92.0,
+          "logic_lut": 92.0,
+          "lutram": 0.0,
+          "srl": 0.0,
+          "ff": 44.0,
+          "ramb36": 0.0,
+          "ramb18": 0.0,
+          "dsp": 0.0
+        },
+        "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[0].ARRAY_COLUMNS[0].pe_systolic_cell_instance/mac_pe_instance": {
+          "module": "mac_pe_47",
+          "total_lut": 90.0,
+          "logic_lut": 90.0,
+          "lutram": 0.0,
+          "srl": 0.0,
+          "ff": 26.0,
+          "ramb36": 0.0,
+          "ramb18": 0.0,
+          "dsp": 0.0
+        },
+        "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[0].ARRAY_COLUMNS[1].pe_systolic_cell_instance": {
+          "module": "pe_systolic_cell_0",
+          "total_lut": 92.0,
+          "logic_lut": 92.0,
+          "lutram": 0.0,
+          "srl": 0.0,
+          "ff": 44.0,
+          "ramb36": 0.0,
+          "ramb18": 0.0,
+          "dsp": 0.0
+        },
+        "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[0].ARRAY_COLUMNS[1].pe_systolic_cell_instance/mac_pe_instance": {
+          "module": "mac_pe_46",
+          "total_lut": 90.0,
+          "logic_lut": 90.0,
+          "lutram": 0.0,
+          "srl": 0.0,
+          "ff": 26.0,
+          "ramb36": 0.0,
+          "ramb18": 0.0,
+          "dsp": 0.0
+        },
+        "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[0].ARRAY_COLUMNS[2].pe_systolic_cell_instance": {
+          "module": "pe_systolic_cell_1",
+          "total_lut": 92.0,
+          "logic_lut": 92.0,
+          "lutram": 0.0,
+          "srl": 0.0,
+          "ff": 44.0,
+          "ramb36": 0.0,
+          "ramb18": 0.0,
+          "dsp": 0.0
+        },
+        "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[0].ARRAY_COLUMNS[2].pe_systolic_cell_instance/mac_pe_instance": {
+          "module": "mac_pe_45",
+          "total_lut": 90.0,
+          "logic_lut": 90.0,
+          "lutram": 0.0,
+          "srl": 0.0,
+          "ff": 26.0,
+          "ramb36": 0.0,
+          "ramb18": 0.0,
+          "dsp": 0.0
+        },
+        "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[0].ARRAY_COLUMNS[3].pe_systolic_cell_instance": {
+          "module": "pe_systolic_cell_2",
+          "total_lut": 124.0,
+          "logic_lut": 124.0,
+          "lutram": 0.0,
+          "srl": 0.0,
+          "ff": 44.0,
+          "ramb36": 0.0,
+          "ramb18": 0.0,
+          "dsp": 0.0
+        },
+        "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[0].ARRAY_COLUMNS[3].pe_systolic_cell_instance/mac_pe_instance": {
+          "module": "mac_pe_44",
+          "total_lut": 122.0,
+          "logic_lut": 122.0,
+          "lutram": 0.0,
+          "srl": 0.0,
+          "ff": 26.0,
+          "ramb36": 0.0,
+          "ramb18": 0.0,
+          "dsp": 0.0
+        },
+        "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[0].ARRAY_COLUMNS[4].pe_systolic_cell_instance": {
+          "module": "pe_systolic_cell_3",
+          "total_lut": 91.0,
+          "logic_lut": 91.0,
+          "lutram": 0.0,
+          "srl": 0.0,
+          "ff": 44.0,
+          "ramb36": 0.0,
+          "ramb18": 0.0,
+          "dsp": 0.0
+        },
+        "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[0].ARRAY_COLUMNS[4].pe_systolic_cell_instance/mac_pe_instance": {
+          "module": "mac_pe_43",
+          "total_lut": 90.0,
+          "logic_lut": 90.0,
+          "lutram": 0.0,
+          "srl": 0.0,
+          "ff": 26.0,
+          "ramb36": 0.0,
+          "ramb18": 0.0,
+          "dsp": 0.0
+        },
+        "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[1].ARRAY_COLUMNS[0].pe_systolic_cell_instance": {
+          "module": "pe_systolic_cell_4",
+          "total_lut": 92.0,
+          "logic_lut": 92.0,
+          "lutram": 0.0,
+          "srl": 0.0,
+          "ff": 44.0,
+          "ramb36": 0.0,
+          "ramb18": 0.0,
+          "dsp": 0.0
+        },
+        "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[1].ARRAY_COLUMNS[0].pe_systolic_cell_instance/mac_pe_instance": {
+          "module": "mac_pe_42",
+          "total_lut": 90.0,
+          "logic_lut": 90.0,
+          "lutram": 0.0,
+          "srl": 0.0,
+          "ff": 26.0,
+          "ramb36": 0.0,
+          "ramb18": 0.0,
+          "dsp": 0.0
+        },
+        "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[1].ARRAY_COLUMNS[1].pe_systolic_cell_instance": {
+          "module": "pe_systolic_cell_5",
+          "total_lut": 91.0,
+          "logic_lut": 91.0,
+          "lutram": 0.0,
+          "srl": 0.0,
+          "ff": 44.0,
+          "ramb36": 0.0,
+          "ramb18": 0.0,
+          "dsp": 0.0
+        },
+        "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[1].ARRAY_COLUMNS[1].pe_systolic_cell_instance/mac_pe_instance": {
+          "module": "mac_pe_41",
+          "total_lut": 90.0,
+          "logic_lut": 90.0,
+          "lutram": 0.0,
+          "srl": 0.0,
+          "ff": 26.0,
+          "ramb36": 0.0,
+          "ramb18": 0.0,
+          "dsp": 0.0
+        },
+        "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[1].ARRAY_COLUMNS[2].pe_systolic_cell_instance": {
+          "module": "pe_systolic_cell_6",
+          "total_lut": 135.0,
+          "logic_lut": 135.0,
+          "lutram": 0.0,
+          "srl": 0.0,
+          "ff": 44.0,
+          "ramb36": 0.0,
+          "ramb18": 0.0,
+          "dsp": 0.0
+        },
+        "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[1].ARRAY_COLUMNS[2].pe_systolic_cell_instance/mac_pe_instance": {
+          "module": "mac_pe_40",
+          "total_lut": 134.0,
+          "logic_lut": 134.0,
+          "lutram": 0.0,
+          "srl": 0.0,
+          "ff": 26.0,
+          "ramb36": 0.0,
+          "ramb18": 0.0,
+          "dsp": 0.0
+        },
+        "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[1].ARRAY_COLUMNS[3].pe_systolic_cell_instance": {
+          "module": "pe_systolic_cell_7",
+          "total_lut": 123.0,
+          "logic_lut": 123.0,
+          "lutram": 0.0,
+          "srl": 0.0,
+          "ff": 44.0,
+          "ramb36": 0.0,
+          "ramb18": 0.0,
+          "dsp": 0.0
+        },
+        "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[1].ARRAY_COLUMNS[3].pe_systolic_cell_instance/mac_pe_instance": {
+          "module": "mac_pe_39",
+          "total_lut": 122.0,
+          "logic_lut": 122.0,
+          "lutram": 0.0,
+          "srl": 0.0,
+          "ff": 26.0,
+          "ramb36": 0.0,
+          "ramb18": 0.0,
+          "dsp": 0.0
+        },
+        "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[1].ARRAY_COLUMNS[4].pe_systolic_cell_instance": {
+          "module": "pe_systolic_cell_8",
+          "total_lut": 91.0,
+          "logic_lut": 91.0,
+          "lutram": 0.0,
+          "srl": 0.0,
+          "ff": 44.0,
+          "ramb36": 0.0,
+          "ramb18": 0.0,
+          "dsp": 0.0
+        },
+        "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[1].ARRAY_COLUMNS[4].pe_systolic_cell_instance/mac_pe_instance": {
+          "module": "mac_pe_38",
+          "total_lut": 90.0,
+          "logic_lut": 90.0,
+          "lutram": 0.0,
+          "srl": 0.0,
+          "ff": 26.0,
+          "ramb36": 0.0,
+          "ramb18": 0.0,
+          "dsp": 0.0
+        },
+        "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[2].ARRAY_COLUMNS[0].pe_systolic_cell_instance": {
+          "module": "pe_systolic_cell_9",
+          "total_lut": 92.0,
+          "logic_lut": 92.0,
+          "lutram": 0.0,
+          "srl": 0.0,
+          "ff": 44.0,
+          "ramb36": 0.0,
+          "ramb18": 0.0,
+          "dsp": 0.0
+        },
+        "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[2].ARRAY_COLUMNS[0].pe_systolic_cell_instance/mac_pe_instance": {
+          "module": "mac_pe_37",
+          "total_lut": 90.0,
+          "logic_lut": 90.0,
+          "lutram": 0.0,
+          "srl": 0.0,
+          "ff": 26.0,
+          "ramb36": 0.0,
+          "ramb18": 0.0,
+          "dsp": 0.0
+        },
+        "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[2].ARRAY_COLUMNS[1].pe_systolic_cell_instance": {
+          "module": "pe_systolic_cell_10",
+          "total_lut": 91.0,
+          "logic_lut": 91.0,
+          "lutram": 0.0,
+          "srl": 0.0,
+          "ff": 44.0,
+          "ramb36": 0.0,
+          "ramb18": 0.0,
+          "dsp": 0.0
+        },
+        "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[2].ARRAY_COLUMNS[1].pe_systolic_cell_instance/mac_pe_instance": {
+          "module": "mac_pe_36",
+          "total_lut": 90.0,
+          "logic_lut": 90.0,
+          "lutram": 0.0,
+          "srl": 0.0,
+          "ff": 26.0,
+          "ramb36": 0.0,
+          "ramb18": 0.0,
+          "dsp": 0.0
+        },
+        "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[2].ARRAY_COLUMNS[2].pe_systolic_cell_instance": {
+          "module": "pe_systolic_cell_11",
+          "total_lut": 135.0,
+          "logic_lut": 135.0,
+          "lutram": 0.0,
+          "srl": 0.0,
+          "ff": 44.0,
+          "ramb36": 0.0,
+          "ramb18": 0.0,
+          "dsp": 0.0
+        },
+        "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[2].ARRAY_COLUMNS[2].pe_systolic_cell_instance/mac_pe_instance": {
+          "module": "mac_pe_35",
+          "total_lut": 134.0,
+          "logic_lut": 134.0,
+          "lutram": 0.0,
+          "srl": 0.0,
+          "ff": 26.0,
+          "ramb36": 0.0,
+          "ramb18": 0.0,
+          "dsp": 0.0
+        },
+        "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[2].ARRAY_COLUMNS[3].pe_systolic_cell_instance": {
+          "module": "pe_systolic_cell_12",
+          "total_lut": 123.0,
+          "logic_lut": 123.0,
+          "lutram": 0.0,
+          "srl": 0.0,
+          "ff": 44.0,
+          "ramb36": 0.0,
+          "ramb18": 0.0,
+          "dsp": 0.0
+        },
+        "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[2].ARRAY_COLUMNS[3].pe_systolic_cell_instance/mac_pe_instance": {
+          "module": "mac_pe_34",
+          "total_lut": 122.0,
+          "logic_lut": 122.0,
+          "lutram": 0.0,
+          "srl": 0.0,
+          "ff": 26.0,
+          "ramb36": 0.0,
+          "ramb18": 0.0,
+          "dsp": 0.0
+        },
+        "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[2].ARRAY_COLUMNS[4].pe_systolic_cell_instance": {
+          "module": "pe_systolic_cell_13",
+          "total_lut": 91.0,
+          "logic_lut": 91.0,
+          "lutram": 0.0,
+          "srl": 0.0,
+          "ff": 44.0,
+          "ramb36": 0.0,
+          "ramb18": 0.0,
+          "dsp": 0.0
+        },
+        "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[2].ARRAY_COLUMNS[4].pe_systolic_cell_instance/mac_pe_instance": {
+          "module": "mac_pe_33",
+          "total_lut": 90.0,
+          "logic_lut": 90.0,
+          "lutram": 0.0,
+          "srl": 0.0,
+          "ff": 26.0,
+          "ramb36": 0.0,
+          "ramb18": 0.0,
+          "dsp": 0.0
+        },
+        "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[3].ARRAY_COLUMNS[0].pe_systolic_cell_instance": {
+          "module": "pe_systolic_cell_14",
+          "total_lut": 93.0,
+          "logic_lut": 93.0,
+          "lutram": 0.0,
+          "srl": 0.0,
+          "ff": 44.0,
+          "ramb36": 0.0,
+          "ramb18": 0.0,
+          "dsp": 0.0
+        },
+        "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[3].ARRAY_COLUMNS[0].pe_systolic_cell_instance/mac_pe_instance": {
+          "module": "mac_pe_32",
+          "total_lut": 91.0,
+          "logic_lut": 91.0,
+          "lutram": 0.0,
+          "srl": 0.0,
+          "ff": 26.0,
+          "ramb36": 0.0,
+          "ramb18": 0.0,
+          "dsp": 0.0
+        },
+        "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[3].ARRAY_COLUMNS[1].pe_systolic_cell_instance": {
+          "module": "pe_systolic_cell_15",
+          "total_lut": 91.0,
+          "logic_lut": 91.0,
+          "lutram": 0.0,
+          "srl": 0.0,
+          "ff": 44.0,
+          "ramb36": 0.0,
+          "ramb18": 0.0,
+          "dsp": 0.0
+        },
+        "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[3].ARRAY_COLUMNS[1].pe_systolic_cell_instance/mac_pe_instance": {
+          "module": "mac_pe_31",
+          "total_lut": 90.0,
+          "logic_lut": 90.0,
+          "lutram": 0.0,
+          "srl": 0.0,
+          "ff": 26.0,
+          "ramb36": 0.0,
+          "ramb18": 0.0,
+          "dsp": 0.0
+        },
+        "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[3].ARRAY_COLUMNS[2].pe_systolic_cell_instance": {
+          "module": "pe_systolic_cell_16",
+          "total_lut": 135.0,
+          "logic_lut": 135.0,
+          "lutram": 0.0,
+          "srl": 0.0,
+          "ff": 44.0,
+          "ramb36": 0.0,
+          "ramb18": 0.0,
+          "dsp": 0.0
+        },
+        "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[3].ARRAY_COLUMNS[2].pe_systolic_cell_instance/mac_pe_instance": {
+          "module": "mac_pe_30",
+          "total_lut": 134.0,
+          "logic_lut": 134.0,
+          "lutram": 0.0,
+          "srl": 0.0,
+          "ff": 26.0,
+          "ramb36": 0.0,
+          "ramb18": 0.0,
+          "dsp": 0.0
+        },
+        "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[3].ARRAY_COLUMNS[3].pe_systolic_cell_instance": {
+          "module": "pe_systolic_cell_17",
+          "total_lut": 123.0,
+          "logic_lut": 123.0,
+          "lutram": 0.0,
+          "srl": 0.0,
+          "ff": 44.0,
+          "ramb36": 0.0,
+          "ramb18": 0.0,
+          "dsp": 0.0
+        },
+        "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[3].ARRAY_COLUMNS[3].pe_systolic_cell_instance/mac_pe_instance": {
+          "module": "mac_pe_29",
+          "total_lut": 122.0,
+          "logic_lut": 122.0,
+          "lutram": 0.0,
+          "srl": 0.0,
+          "ff": 26.0,
+          "ramb36": 0.0,
+          "ramb18": 0.0,
+          "dsp": 0.0
+        },
+        "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[3].ARRAY_COLUMNS[4].pe_systolic_cell_instance": {
+          "module": "pe_systolic_cell_18",
+          "total_lut": 92.0,
+          "logic_lut": 92.0,
+          "lutram": 0.0,
+          "srl": 0.0,
+          "ff": 44.0,
+          "ramb36": 0.0,
+          "ramb18": 0.0,
+          "dsp": 0.0
+        },
+        "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[3].ARRAY_COLUMNS[4].pe_systolic_cell_instance/mac_pe_instance": {
+          "module": "mac_pe_28",
+          "total_lut": 91.0,
+          "logic_lut": 91.0,
+          "lutram": 0.0,
+          "srl": 0.0,
+          "ff": 26.0,
+          "ramb36": 0.0,
+          "ramb18": 0.0,
+          "dsp": 0.0
+        },
+        "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[4].ARRAY_COLUMNS[0].pe_systolic_cell_instance": {
+          "module": "pe_systolic_cell_19",
+          "total_lut": 91.0,
+          "logic_lut": 91.0,
+          "lutram": 0.0,
+          "srl": 0.0,
+          "ff": 44.0,
+          "ramb36": 0.0,
+          "ramb18": 0.0,
+          "dsp": 0.0
+        },
+        "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[4].ARRAY_COLUMNS[0].pe_systolic_cell_instance/mac_pe_instance": {
+          "module": "mac_pe_27",
+          "total_lut": 90.0,
+          "logic_lut": 90.0,
+          "lutram": 0.0,
+          "srl": 0.0,
+          "ff": 26.0,
+          "ramb36": 0.0,
+          "ramb18": 0.0,
+          "dsp": 0.0
+        },
+        "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[4].ARRAY_COLUMNS[1].pe_systolic_cell_instance": {
+          "module": "pe_systolic_cell_20",
+          "total_lut": 91.0,
+          "logic_lut": 91.0,
+          "lutram": 0.0,
+          "srl": 0.0,
+          "ff": 44.0,
+          "ramb36": 0.0,
+          "ramb18": 0.0,
+          "dsp": 0.0
+        },
+        "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[4].ARRAY_COLUMNS[1].pe_systolic_cell_instance/mac_pe_instance": {
+          "module": "mac_pe_26",
+          "total_lut": 90.0,
+          "logic_lut": 90.0,
+          "lutram": 0.0,
+          "srl": 0.0,
+          "ff": 26.0,
+          "ramb36": 0.0,
+          "ramb18": 0.0,
+          "dsp": 0.0
+        },
+        "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[4].ARRAY_COLUMNS[2].pe_systolic_cell_instance": {
+          "module": "pe_systolic_cell_21",
+          "total_lut": 136.0,
+          "logic_lut": 136.0,
+          "lutram": 0.0,
+          "srl": 0.0,
+          "ff": 44.0,
+          "ramb36": 0.0,
+          "ramb18": 0.0,
+          "dsp": 0.0
+        },
+        "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[4].ARRAY_COLUMNS[2].pe_systolic_cell_instance/mac_pe_instance": {
+          "module": "mac_pe_25",
+          "total_lut": 135.0,
+          "logic_lut": 135.0,
+          "lutram": 0.0,
+          "srl": 0.0,
+          "ff": 26.0,
+          "ramb36": 0.0,
+          "ramb18": 0.0,
+          "dsp": 0.0
+        },
+        "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[4].ARRAY_COLUMNS[3].pe_systolic_cell_instance": {
+          "module": "pe_systolic_cell_22",
+          "total_lut": 117.0,
+          "logic_lut": 117.0,
+          "lutram": 0.0,
+          "srl": 0.0,
+          "ff": 44.0,
+          "ramb36": 0.0,
+          "ramb18": 0.0,
+          "dsp": 0.0
+        },
+        "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[4].ARRAY_COLUMNS[3].pe_systolic_cell_instance/mac_pe_instance": {
+          "module": "mac_pe_24",
+          "total_lut": 116.0,
+          "logic_lut": 116.0,
+          "lutram": 0.0,
+          "srl": 0.0,
+          "ff": 26.0,
+          "ramb36": 0.0,
+          "ramb18": 0.0,
+          "dsp": 0.0
+        },
+        "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[4].ARRAY_COLUMNS[4].pe_systolic_cell_instance": {
+          "module": "pe_systolic_cell_23",
+          "total_lut": 93.0,
+          "logic_lut": 93.0,
+          "lutram": 0.0,
+          "srl": 0.0,
+          "ff": 44.0,
+          "ramb36": 0.0,
+          "ramb18": 0.0,
+          "dsp": 0.0
+        },
+        "zyNet/systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[4].ARRAY_COLUMNS[4].pe_systolic_cell_instance/mac_pe_instance": {
+          "module": "mac_pe",
+          "total_lut": 91.0,
+          "logic_lut": 91.0,
+          "lutram": 0.0,
+          "srl": 0.0,
+          "ff": 26.0,
+          "ramb36": 0.0,
+          "ramb18": 0.0,
+          "dsp": 0.0
+        },
+        "zyNet/unified_buffer_instance": {
+          "module": "unified_buffer",
+          "total_lut": 60.0,
+          "logic_lut": 60.0,
+          "lutram": 0.0,
+          "srl": 0.0,
+          "ff": 75.0,
+          "ramb36": 0.0,
+          "ramb18": 5.0,
+          "dsp": 0.0
+        },
+        "zyNet/weight_sram_instance": {
+          "module": "weight_sram",
+          "total_lut": 13963.0,
+          "logic_lut": 13963.0,
+          "lutram": 0.0,
+          "srl": 0.0,
+          "ff": 45.0,
+          "ramb36": 0.0,
+          "ramb18": 0.0,
+          "dsp": 5.0
+        }
+      },
+      "timing": {
+        "wns_ns": -4.576,
+        "tns_ns": -208.111,
+        "setup_failing_endpoints": 79.0,
+        "setup_total_endpoints": 3124.0,
+        "whs_ns": 0.121,
+        "ths_ns": 0.0,
+        "hold_failing_endpoints": 0.0,
+        "hold_total_endpoints": 3124.0,
+        "wpws_ns": 4.5,
+        "tpws_ns": 0.0,
+        "pulse_failing_endpoints": 0.0,
+        "pulse_total_endpoints": 1547.0
+      },
+      "power": {
+        "total_on_chip_power_w": 0.614,
+        "confidence": "Medium",
+        "dynamic_power_w": 0.501,
+        "static_power_w": 0.113,
+        "duration_ns": 1617525.0,
+        "energy_per_workload_uj": 993.16035,
+        "method": "SAIF_average_power_times_collection_duration_estimate",
+        "saif_sha256": "245f96673f6b8f4494b7a186b6ea4fbc7ff0e839b244b3f3543d01b0b07b4f9a"
+      },
+      "ram": {
+        "ramb18_instances": 5,
+        "minimum_bram_bit_efficiency_percent": 44.44
+      },
+      "verification": {
+        "completed": true,
+        "sample_results": [
+          [
+            "0",
+            "7",
+            "7"
+          ],
+          [
+            "1",
+            "2",
+            "2"
+          ],
+          [
+            "2",
+            "1",
+            "1"
+          ],
+          [
+            "3",
+            "0",
+            "0"
+          ],
+          [
+            "4",
+            "4",
+            "4"
+          ],
+          [
+            "5",
+            "1",
+            "1"
+          ],
+          [
+            "6",
+            "4",
+            "4"
+          ],
+          [
+            "7",
+            "9",
+            "9"
+          ],
+          [
+            "8",
+            "5",
+            "5"
+          ],
+          [
+            "9",
+            "9",
+            "9"
+          ],
+          [
+            "10",
+            "0",
+            "0"
+          ],
+          [
+            "11",
+            "6",
+            "6"
+          ],
+          [
+            "12",
+            "9",
+            "9"
+          ],
+          [
+            "13",
+            "0",
+            "0"
+          ],
+          [
+            "14",
+            "1",
+            "1"
+          ],
+          [
+            "15",
+            "5",
+            "5"
+          ],
+          [
+            "16",
+            "9",
+            "9"
+          ],
+          [
+            "17",
+            "7",
+            "7"
+          ],
+          [
+            "18",
+            "8",
+            "3"
+          ],
+          [
+            "19",
+            "4",
+            "4"
+          ],
+          [
+            "20",
+            "9",
+            "9"
+          ],
+          [
+            "21",
+            "6",
+            "6"
+          ],
+          [
+            "22",
+            "6",
+            "6"
+          ],
+          [
+            "23",
+            "5",
+            "5"
+          ],
+          [
+            "24",
+            "4",
+            "4"
+          ],
+          [
+            "25",
+            "0",
+            "0"
+          ],
+          [
+            "26",
+            "7",
+            "7"
+          ],
+          [
+            "27",
+            "4",
+            "4"
+          ],
+          [
+            "28",
+            "0",
+            "0"
+          ],
+          [
+            "29",
+            "1",
+            "1"
+          ],
+          [
+            "30",
+            "3",
+            "3"
+          ],
+          [
+            "31",
+            "1",
+            "1"
+          ],
+          [
+            "32",
+            "3",
+            "3"
+          ],
+          [
+            "33",
+            "4",
+            "4"
+          ],
+          [
+            "34",
+            "7",
+            "7"
+          ],
+          [
+            "35",
+            "2",
+            "2"
+          ],
+          [
+            "36",
+            "7",
+            "7"
+          ],
+          [
+            "37",
+            "1",
+            "1"
+          ],
+          [
+            "38",
+            "2",
+            "2"
+          ],
+          [
+            "39",
+            "1",
+            "1"
+          ],
+          [
+            "40",
+            "1",
+            "1"
+          ],
+          [
+            "41",
+            "7",
+            "7"
+          ],
+          [
+            "42",
+            "4",
+            "4"
+          ],
+          [
+            "43",
+            "2",
+            "2"
+          ],
+          [
+            "44",
+            "3",
+            "3"
+          ],
+          [
+            "45",
+            "5",
+            "5"
+          ],
+          [
+            "46",
+            "1",
+            "1"
+          ],
+          [
+            "47",
+            "2",
+            "2"
+          ],
+          [
+            "48",
+            "4",
+            "4"
+          ],
+          [
+            "49",
+            "4",
+            "4"
+          ],
+          [
+            "50",
+            "6",
+            "6"
+          ],
+          [
+            "51",
+            "3",
+            "3"
+          ],
+          [
+            "52",
+            "5",
+            "5"
+          ],
+          [
+            "53",
+            "5",
+            "5"
+          ],
+          [
+            "54",
+            "6",
+            "6"
+          ],
+          [
+            "55",
+            "0",
+            "0"
+          ],
+          [
+            "56",
+            "4",
+            "4"
+          ],
+          [
+            "57",
+            "1",
+            "1"
+          ],
+          [
+            "58",
+            "9",
+            "9"
+          ],
+          [
+            "59",
+            "5",
+            "5"
+          ],
+          [
+            "60",
+            "7",
+            "7"
+          ],
+          [
+            "61",
+            "8",
+            "8"
+          ],
+          [
+            "62",
+            "9",
+            "9"
+          ],
+          [
+            "63",
+            "3",
+            "3"
+          ],
+          [
+            "64",
+            "7",
+            "7"
+          ],
+          [
+            "65",
+            "4",
+            "4"
+          ],
+          [
+            "66",
+            "6",
+            "6"
+          ],
+          [
+            "67",
+            "4",
+            "4"
+          ],
+          [
+            "68",
+            "3",
+            "3"
+          ],
+          [
+            "69",
+            "0",
+            "0"
+          ],
+          [
+            "70",
+            "7",
+            "7"
+          ],
+          [
+            "71",
+            "0",
+            "0"
+          ],
+          [
+            "72",
+            "2",
+            "2"
+          ],
+          [
+            "73",
+            "9",
+            "9"
+          ],
+          [
+            "74",
+            "1",
+            "1"
+          ],
+          [
+            "75",
+            "7",
+            "7"
+          ],
+          [
+            "76",
+            "3",
+            "3"
+          ],
+          [
+            "77",
+            "2",
+            "2"
+          ],
+          [
+            "78",
+            "9",
+            "9"
+          ],
+          [
+            "79",
+            "7",
+            "7"
+          ],
+          [
+            "80",
+            "7",
+            "7"
+          ],
+          [
+            "81",
+            "6",
+            "6"
+          ],
+          [
+            "82",
+            "2",
+            "2"
+          ],
+          [
+            "83",
+            "7",
+            "7"
+          ],
+          [
+            "84",
+            "8",
+            "8"
+          ],
+          [
+            "85",
+            "4",
+            "4"
+          ],
+          [
+            "86",
+            "7",
+            "7"
+          ],
+          [
+            "87",
+            "3",
+            "3"
+          ],
+          [
+            "88",
+            "6",
+            "6"
+          ],
+          [
+            "89",
+            "1",
+            "1"
+          ],
+          [
+            "90",
+            "3",
+            "3"
+          ],
+          [
+            "91",
+            "6",
+            "6"
+          ],
+          [
+            "92",
+            "9",
+            "9"
+          ],
+          [
+            "93",
+            "3",
+            "3"
+          ],
+          [
+            "94",
+            "1",
+            "1"
+          ],
+          [
+            "95",
+            "4",
+            "4"
+          ],
+          [
+            "96",
+            "1",
+            "1"
+          ],
+          [
+            "97",
+            "7",
+            "7"
+          ],
+          [
+            "98",
+            "6",
+            "6"
+          ],
+          [
+            "99",
+            "9",
+            "9"
+          ]
+        ],
+        "protocol_errors": null,
+        "peak_active_pe_count": null,
+        "interrupt_count_per_batch": null,
+        "measurement_note": "Uninstrumented metrics remain unknown; golden completion is not a substitute for protocol coverage.",
+        "pass_count": 99,
+        "failure_count": 1,
+        "accuracy_percent": 99.0,
+        "image_count": 100,
+        "total_inference_cycles": 161735,
+        "axi_backpressure_cycles": 77977
+      },
+      "execution": {
+        "source_hashes": {
+          "rtl/.gitkeep": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "rtl/activation_unit.sv": "53bd357ee548321b889c852b8e51f215657d1b055c6d6ecad5c3ab514f39605b",
+          "rtl/axi_lite_wrapper.sv": "4d0b1292fbf81b5322f5cfe38fc78e49c279c12f01fbb8644c6ebf60cc0abafc",
+          "rtl/bias_sram.sv": "df1c09d9031314869e74b74d28888373cb15b40345789bcf957428cd6e392c99",
+          "rtl/dnn_scheduler.sv": "6e8449664dea0e93f9319c93f22bb80961baa75da4d1302dc4d18edc3980252e",
+          "rtl/mac_pe.sv": "7ed6209d164911649b9d04b3995cf1308c0b7739dd384429047f430d6cef9871",
+          "rtl/maxFinder.sv": "099d44fd1a3a8d25dc3fbbf1b91f3a450d8278faaa8f562c1e0e54e67501b753",
+          "rtl/pe_systolic_cell.sv": "8a245fe55476c00cec716c8c7db7d810d8cea86ca686a55c1d9590e3b58d1da1",
+          "rtl/systolic_array_2d.sv": "031ea9602457fc1a3cdc6b945e0d14a63ed670dd46f76d9a6c7fd29c8113e789",
+          "rtl/systolic_controller.sv": "e6fba85d3864769a7eac0886a5f3c530c37926fffff9f31f5ec7121421755190",
+          "rtl/systolic_parameters.svh": "427885f4c843ad079c54a04f4a3b6c48d7d5648eebd8f0ceff7386ffae69856d",
+          "rtl/unified_buffer.sv": "393c2f6a3d3a2b67f3558aaad965bacd5b58c4a84522ef2a392891d4d8ada7a1",
+          "rtl/weight_sram.sv": "1a4b9196bf3a85fa97f9b73d4c3f4ef948c58d1175c7039bf57cbc04f3c50532",
+          "rtl/zynet.sv": "0c4e839d99de9d78e5570c4569787a6125bfd607e180209ab84b1409ded521a9",
+          "tb/.gitkeep": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "tb/top_sim.sv": "40615a294d1a637313038f0a21aed2d22b7578f779f4f4fd5e3a9d6d00951bc7",
+          "memory/.gitkeep": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "memory/b_1_0.mif": "f6e0a1e2ac41945a9aa7ff8a8aaa0cebc12a3bcc981a929ad5cf810a090e11ae",
+          "memory/b_1_1.mif": "2743dac64d9b769f3308834c1cb3d1bfc9cb0533f62e2ddc98af1822c62adfe5",
+          "memory/b_1_10.mif": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b",
+          "memory/b_1_11.mif": "3b0556cb9030f74640d3156fe6c7370412fd32e8727dc03f6f1852d8dd533c94",
+          "memory/b_1_12.mif": "16dc368a89b428b2485484313ba67a3912ca03f2b2b42429174a4f8b3dc84e44",
+          "memory/b_1_13.mif": "ce8e85c9de6ad62d7443085e42b8f73dabdbac62a1a5e3eddd5c97b3b44c1e24",
+          "memory/b_1_14.mif": "ee79976c9380d5e337fc1c095ece8c8f22f91f306ceeb161fa51fecede2c4ba1",
+          "memory/b_1_15.mif": "4a44dc15364204a80fe80e9039455cc1608281820fe2b24f1e5233ade6af1dd5",
+          "memory/b_1_16.mif": "a052c5de761ada49d9d072c9dc9881b0f0e79e525a7764ebaba417c394322397",
+          "memory/b_1_17.mif": "ce8e85c9de6ad62d7443085e42b8f73dabdbac62a1a5e3eddd5c97b3b44c1e24",
+          "memory/b_1_18.mif": "dc0726fe0989fe9cd9f6a6b9d90f7e5c65ce000ea39e44a1b7f56997e2d1524e",
+          "memory/b_1_19.mif": "7a5df5ffa0dec2228d90b8d0a0f1b0767b748b0a41314c123075b8289e4e053f",
+          "memory/b_1_2.mif": "e340c1744b3570aa58c6112d647481bfe501ba4c5cfae53a8d9096bc34fa0073",
+          "memory/b_1_20.mif": "712676e20276bc69b183272f3db0bc8aa37c63e9a30166e38e97fe193d023688",
+          "memory/b_1_21.mif": "4fc82b26aecb47d2868c4efbe3581732a3e7cbcc6c2efb32062c08170a05eeb8",
+          "memory/b_1_22.mif": "002058ac937f7446da62ca8497f3c46b19986eb8f164a45578dce297fa6cd5b1",
+          "memory/b_1_23.mif": "ce8e85c9de6ad62d7443085e42b8f73dabdbac62a1a5e3eddd5c97b3b44c1e24",
+          "memory/b_1_24.mif": "e340c1744b3570aa58c6112d647481bfe501ba4c5cfae53a8d9096bc34fa0073",
+          "memory/b_1_25.mif": "7a5df5ffa0dec2228d90b8d0a0f1b0767b748b0a41314c123075b8289e4e053f",
+          "memory/b_1_26.mif": "9b0e12164232d5cd6b708534cfb93cd1fe0c1f5833329d567fee7b8fdbed9868",
+          "memory/b_1_27.mif": "d5d91a6f270ae7d779717e9517fe8a247818bb2fdef48907d7d14d06e56cfdd9",
+          "memory/b_1_28.mif": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b",
+          "memory/b_1_29.mif": "16dc368a89b428b2485484313ba67a3912ca03f2b2b42429174a4f8b3dc84e44",
+          "memory/b_1_3.mif": "f6e0a1e2ac41945a9aa7ff8a8aaa0cebc12a3bcc981a929ad5cf810a090e11ae",
+          "memory/b_1_4.mif": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9",
+          "memory/b_1_5.mif": "4bfa1a09ac70d3b9342ebd344d5548ddcf1435475ec86a8b045988b8303eb0ae",
+          "memory/b_1_6.mif": "49d6d81bf43b4039095a4ba7ba087ebb2c4cc05a738e7413cf35795ef3d33a00",
+          "memory/b_1_7.mif": "9b0e12164232d5cd6b708534cfb93cd1fe0c1f5833329d567fee7b8fdbed9868",
+          "memory/b_1_8.mif": "055f78940c07630352676197ab7c3ed8d5bb204d406e5c6ff101f870bc9b7dd7",
+          "memory/b_1_9.mif": "16dc368a89b428b2485484313ba67a3912ca03f2b2b42429174a4f8b3dc84e44",
+          "memory/b_2_0.mif": "4bf521bed206918eb6ddb366249020058e68398cd5cd891bbbdbb8b1bfc8ad87",
+          "memory/b_2_1.mif": "ad57366865126e55649ecb23ae1d48887544976efea46a48eb5d85a6eeb4d306",
+          "memory/b_2_10.mif": "3b0556cb9030f74640d3156fe6c7370412fd32e8727dc03f6f1852d8dd533c94",
+          "memory/b_2_11.mif": "39e5b4830d4d9c14db7368a95b65d5463ea3d09520373723430c03a5a453b5df",
+          "memory/b_2_12.mif": "002058ac937f7446da62ca8497f3c46b19986eb8f164a45578dce297fa6cd5b1",
+          "memory/b_2_13.mif": "002058ac937f7446da62ca8497f3c46b19986eb8f164a45578dce297fa6cd5b1",
+          "memory/b_2_14.mif": "3dd9c0995d54c0abd51a90f1d57b1ce77bc885fc8a7cea52dcad3c2540dda5ee",
+          "memory/b_2_15.mif": "dc0726fe0989fe9cd9f6a6b9d90f7e5c65ce000ea39e44a1b7f56997e2d1524e",
+          "memory/b_2_16.mif": "4a44dc15364204a80fe80e9039455cc1608281820fe2b24f1e5233ade6af1dd5",
+          "memory/b_2_17.mif": "4a44dc15364204a80fe80e9039455cc1608281820fe2b24f1e5233ade6af1dd5",
+          "memory/b_2_18.mif": "e340c1744b3570aa58c6112d647481bfe501ba4c5cfae53a8d9096bc34fa0073",
+          "memory/b_2_19.mif": "e340c1744b3570aa58c6112d647481bfe501ba4c5cfae53a8d9096bc34fa0073",
+          "memory/b_2_2.mif": "ee79976c9380d5e337fc1c095ece8c8f22f91f306ceeb161fa51fecede2c4ba1",
+          "memory/b_2_3.mif": "391129c952673b00d68c2ed2531816b10023ff5aa439eb6f1c8d4c51f62c080f",
+          "memory/b_2_4.mif": "ee79976c9380d5e337fc1c095ece8c8f22f91f306ceeb161fa51fecede2c4ba1",
+          "memory/b_2_5.mif": "ce8e85c9de6ad62d7443085e42b8f73dabdbac62a1a5e3eddd5c97b3b44c1e24",
+          "memory/b_2_6.mif": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9",
+          "memory/b_2_7.mif": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9",
+          "memory/b_2_8.mif": "e340c1744b3570aa58c6112d647481bfe501ba4c5cfae53a8d9096bc34fa0073",
+          "memory/b_2_9.mif": "9bdb2af6799204a299c603994b8e400e4b1fd625efdb74066cc869fee42c9df3",
+          "memory/b_3_0.mif": "c32c4c935a2a9ddc656132ac9436a966d1d0ff34c1f5de6309cdc09501036768",
+          "memory/b_3_1.mif": "a0021577aae4ff6e91c973c0b2100b094b98184dd07572928776e52440c99fbc",
+          "memory/b_3_2.mif": "69f89b5bbf9e1129f627943a80be22d97c2b036b45f6f30ca6acb3ce5064fc64",
+          "memory/b_3_3.mif": "d5d91a6f270ae7d779717e9517fe8a247818bb2fdef48907d7d14d06e56cfdd9",
+          "memory/b_3_4.mif": "bb679851217460d3c2ccc54af1c01b20960ed4313729625ea8d57266a2710d5e",
+          "memory/b_3_5.mif": "c9edf4cbe8e6daf5ae028e6403176266319f8732a8e847a6e74838fc57cfe1d8",
+          "memory/b_3_6.mif": "e340c1744b3570aa58c6112d647481bfe501ba4c5cfae53a8d9096bc34fa0073",
+          "memory/b_3_7.mif": "97066e386dda1244dafafc118ee21a1453b79542be970dea37499e8bef828f36",
+          "memory/b_3_8.mif": "fa15e858186cf5bde28aa44bc093f3d232da10032a14eaa953ee6f1e4dc2d61e",
+          "memory/b_3_9.mif": "fa15e858186cf5bde28aa44bc093f3d232da10032a14eaa953ee6f1e4dc2d61e",
+          "memory/sigContent.mif": "d2744b48ff738078c801b10c323e255d80367beab4333eb307f5b49b2dced8d9",
+          "memory/w_1_0.mif": "bf36d731781b6394a707750d93cb52ec77bc165026623735c7910eb7ce6157fe",
+          "memory/w_1_1.mif": "7b4653ba151f2bf9d499bec5a5d9053b7df50c46abbbe40441f56317e10add3b",
+          "memory/w_1_10.mif": "a3da20c421dd72d3e2c4a0fee3e301de75b3ce0f32da5ba990cc82b63cd65819",
+          "memory/w_1_11.mif": "beba247a8905cf539bb7cafb84c512ff6865471ccb09690e3860436e2a62faf3",
+          "memory/w_1_12.mif": "d719885284cc0d327e92b8ecd8a7222461a6e7e6e9e35596525ee7595e6d23d7",
+          "memory/w_1_13.mif": "321876da109590ba0c67405197a100c0790f0653dfe7046c21b6bb1d7e5e35ef",
+          "memory/w_1_14.mif": "f79337e438f70cd9f778895abc3c707569f839846e8becad35914fb51187c6dd",
+          "memory/w_1_15.mif": "767d9543097b598b1f24bd5c003084071f8136ec3e6c68b4dbe98d2f943b1afc",
+          "memory/w_1_16.mif": "0b256517418ea881b8c920f634463a7b80da8601de7bcf567d28ab23b8c0edf2",
+          "memory/w_1_17.mif": "0146d8e231241845565515e8f65fdfa9c44dd9a51ce0f4d00663ddb7aef86dd3",
+          "memory/w_1_18.mif": "8f0a7ab05ca3de96f3092ab9078a1f047217b31ed5c1193cf62000da2ca9cbd0",
+          "memory/w_1_19.mif": "9bf919002eab8680324a87f7704c8e33e474804399977507eb7f727a3d09b79d",
+          "memory/w_1_2.mif": "251f4e214a68c7ba8d77ccc4f66de9883152d0cd415aad397badfc4aa169f5dc",
+          "memory/w_1_20.mif": "a2ebd9f826e81d808898553ade4e8ee3c07e53d7cc8750ba3ef172b9cc344aff",
+          "memory/w_1_21.mif": "f9ea75655ace5b5e1a7b1447970580f03988445a82ae697f0ae50546933fd911",
+          "memory/w_1_22.mif": "462dfa9ac98c1b154e0e810eea0cb7aa3b36a9c600813d1ae896ac5ec691223d",
+          "memory/w_1_23.mif": "ba4f8325f121c4f77d264e381da4f7bef9e91a8847eea2460c228c654c18a874",
+          "memory/w_1_24.mif": "15e1a7ca3724a73743e5bc409604a91e6d78b1140a64ab68cf5fb83a0e1b6d16",
+          "memory/w_1_25.mif": "fcfe907ba646b9c71568e345cfd3dafed2aa1722fb1bef0f74eaafb9ecb1f1af",
+          "memory/w_1_26.mif": "aa942bb654886b2227c8de2b2f95b09ee1413faee5f2bad8cc2386d9cf8fb95b",
+          "memory/w_1_27.mif": "b636f26c2ab48ca66c60c75fdfb27ed1127871a09da897323e48685bc865701a",
+          "memory/w_1_28.mif": "c07534a2108fa81daf6e590d67b46f0f5ca41de3d38014b2e1efb275ba7e9786",
+          "memory/w_1_29.mif": "730222b64389268e12a5a9369669b47baebdae8387bdcff79b47abbdda0c4d52",
+          "memory/w_1_3.mif": "8ee21db1c1763834f5ff94352f7bd8e8c1bedf017c5dbc7af6388233a58741e7",
+          "memory/w_1_4.mif": "3965f34106ed84bde30867fcb9c1255a5dc173fdc18dac156855806351ca36a6",
+          "memory/w_1_5.mif": "45149615a32cf8e2b9ff94c48fa117168a8aa0059e9befe8b03a5181fa72eee1",
+          "memory/w_1_6.mif": "c2d61639ee2e5fbc4590f836dc1556e0dfbe37f67d07f6fc8d13ae4c230e1222",
+          "memory/w_1_7.mif": "6682caac1c723f39db41d4a1454db655f6db83ade5e7b8579bf7dc2706a2cc2f",
+          "memory/w_1_8.mif": "a75c413b919d262227bedf55c09c2999254fce8640ebb3bfd3050418c64d168c",
+          "memory/w_1_9.mif": "15f938d3c7994769136e75e24474ea0286fb6b89d4cecad27524c587840ed3fc",
+          "memory/w_2_0.mif": "e177de11f29d82d0b5ac5d3da02ca351fee3813537b55d6b1e6197385ce7d151",
+          "memory/w_2_1.mif": "364eb228315cf522cf4880dea7225874b00d85e2bf54d29745c9d5458bef23dc",
+          "memory/w_2_10.mif": "99e6408378aafa1742dee4fb7638712525d7baabaa7ca268a85541f7f514e845",
+          "memory/w_2_11.mif": "72d28983d03989db6b9e61e87aed93deb67a59bf237ffbaa86938120ec80514d",
+          "memory/w_2_12.mif": "36990bbc47bab4afc9b408ae7dac300f9d223810a77385590f70e685f3a7dbd6",
+          "memory/w_2_13.mif": "d68bbad0bf94965622e20891883a1f14bbeb5092a8738a88b62181be41a1ae8d",
+          "memory/w_2_14.mif": "f891cd50d5b970bb4bb410ad311ebf7c5c582863632ddf61eed2498de800db47",
+          "memory/w_2_15.mif": "df3bd7c9df15df92b956bb21d36aa254246aae35c27c0234ea029476420d30d2",
+          "memory/w_2_16.mif": "d6e9fd9d7f15d5d87211abffab3821ce8ecf4e4e81f05c0df42e0f0986033887",
+          "memory/w_2_17.mif": "5bd448a866a4b54fac6e3856ee540496a5860310e0c4fac1cfb103d0617e629e",
+          "memory/w_2_18.mif": "d4e84016aaa7e3f6ecde52fd18298d72ea80eb37d29b3c80e89e06b1ba13f4c0",
+          "memory/w_2_19.mif": "71da376dc2ddc2834892f6a02b7419b35250c4332e609d260c009f79f3ebc350",
+          "memory/w_2_2.mif": "d6a4a31c86043061bc3903080bef26822a06ee7412e395955da6e618f498849f",
+          "memory/w_2_3.mif": "bb9dbf49d868ddb30c4fc3504d0325647a6bbf61f42d95ac80dc13823a217476",
+          "memory/w_2_4.mif": "752ffa4a53969e52ab1d1d332468c9b290199766453e40dc8bdc8af1844d61be",
+          "memory/w_2_5.mif": "85968adccbf467848f689392a0f4189513a6d435eccf6e253cc59d7b9b840e71",
+          "memory/w_2_6.mif": "b1c957f3a6310432f88210ba28c10e8ad3fb9205dff7e1bfb11e02111ac66e83",
+          "memory/w_2_7.mif": "7047b376b13c3afc9192cd0717775373b6b19f37d839610456c30f309314cba1",
+          "memory/w_2_8.mif": "5118aa5d608d688f1f76f2d46289616634a6944c1417e27316dc5db99d9e2bbf",
+          "memory/w_2_9.mif": "89b0b62f1316d5186eb6028dd009c2fda2130fd0611eb454a7223b86109ca8ef",
+          "memory/w_3_0.mif": "06fcc7d5047fdbb6e700a34394321c28daf4a3b75b0659dfa7ba5e638bd46a8e",
+          "memory/w_3_1.mif": "43083f33868b18343c36b92d8c9303466645c74fbc00f111661fd4763e214e82",
+          "memory/w_3_2.mif": "b5fc159f76c77cea34ed9098b9c1aee243b2892afd1b891af89affa347e7fc36",
+          "memory/w_3_3.mif": "0a1e600c8db8ec487ff85770b998ac955c71517a078449f802b2ef404b30dd4a",
+          "memory/w_3_4.mif": "e0a32bec5ef8c497648fb7d91c88dab2ecc1a18dfdad9eb1b7611ac504c04496",
+          "memory/w_3_5.mif": "69b8ef30bf81a9da80ac268ec341aa779095601b41aa68581708a696b7bc91c8",
+          "memory/w_3_6.mif": "f7c660299c24926c27acba9e80a959629651a6c407e9b5a1b892dccfd3d58802",
+          "memory/w_3_7.mif": "491d3c7b34eead6a3d02fc81359d462ea43c33197984c595700e188aeac21700",
+          "memory/w_3_8.mif": "4efc37ab0dc5cf642aace2a677e57fb1466ccd16a9d79fe5c5e179be1628af1e",
+          "memory/w_3_9.mif": "590786accb65b4455f0bad8c812ac5c37bf0b9c5219094bdee37f1b1bb1f4aca",
+          "scripts/.gitkeep": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "scripts/run_modelsim.do": "99213864b3e0c6a0ef06d67103ef40f7239c446c023ee7a50a73c06254649e9e",
+          "scripts/run_modelsim.sh": "685919148b845d4de126eeb6d5422914cb11398cd1b144af5bd2e8a8201c9a32"
+        },
+        "stages": [
+          {
+            "stage": "compile",
+            "exit_code": 0
+          },
+          {
+            "stage": "simulation",
+            "exit_code": 0
+          },
+          {
+            "stage": "synthesis",
+            "exit_code": 0
+          },
+          {
+            "stage": "implementation",
+            "exit_code": 0
+          },
+          {
+            "stage": "power",
+            "exit_code": 0
+          }
+        ],
+        "all_tools_passed": true,
+        "promoted": false,
+        "kind": "unchanged_original_reference"
+      },
+      "implementation": {
+        "drc_violations": 0,
+        "critical_warnings": 4,
+        "unrouted_nets": 0,
+        "routing_errors": 0
+      },
+      "logs": [
+        {
+          "path": "C:/Users/iuhj0/Eddie/rag_db_project/artifacts/implementation/optimized_accelerator/baseline_001/compile.log",
+          "error_count": 0,
+          "warning_count": 2,
+          "error_records": [],
+          "assertion_failure_count": 0,
+          "timeout_detected": false
+        },
+        {
+          "path": "C:/Users/iuhj0/Eddie/rag_db_project/artifacts/implementation/optimized_accelerator/baseline_001/implementation.log",
+          "error_count": 0,
+          "warning_count": 1,
+          "error_records": [],
+          "assertion_failure_count": 0,
+          "timeout_detected": false
+        },
+        {
+          "path": "C:/Users/iuhj0/Eddie/rag_db_project/artifacts/implementation/optimized_accelerator/baseline_001/power.log",
+          "error_count": 0,
+          "warning_count": 49,
+          "error_records": [],
+          "assertion_failure_count": 0,
+          "timeout_detected": false
+        },
+        {
+          "path": "C:/Users/iuhj0/Eddie/rag_db_project/artifacts/implementation/optimized_accelerator/baseline_001/simulation.log",
+          "error_count": 0,
+          "warning_count": 2,
+          "error_records": [],
+          "assertion_failure_count": 0,
+          "timeout_detected": false
+        }
+      ],
+      "sources": {
+        "utilization": "utilization.rpt",
+        "utilization_hierarchical": "utilization_hierarchical.rpt",
+        "timing_summary": "timing_summary.rpt",
+        "power": "power_post_route.rpt"
+      },
+      "paths": [
+        {
+          "slack_ns": -4.576,
+          "artifact_path": "critical_paths.rpt",
+          "line": 14,
+          "source": "systolic_controller_instance/cycle_count_reg[3]_replica_4/C",
+          "destination": "weight_sram_instance/read_data_reg[15]/D",
+          "logic_levels": 17.0,
+          "delay_ns": 14.538,
+          "logic_ns": 5.522,
+          "route_ns": 9.016,
+          "mux_present": true,
+          "address_path": true,
+          "dsp_present": true
+        },
+        {
+          "slack_ns": -4.566,
+          "artifact_path": "critical_paths.rpt",
+          "line": 107,
+          "source": "systolic_controller_instance/cycle_count_reg[4]/C",
+          "destination": "weight_sram_instance/read_data_reg[22]/D",
+          "logic_levels": 16.0,
+          "delay_ns": 14.509,
+          "logic_ns": 5.353,
+          "route_ns": 9.156,
+          "mux_present": true,
+          "address_path": true,
+          "dsp_present": true
+        },
+        {
+          "slack_ns": -4.415,
+          "artifact_path": "critical_paths.rpt",
+          "line": 198,
+          "source": "systolic_controller_instance/cycle_count_reg[4]/C",
+          "destination": "weight_sram_instance/read_data_reg[23]/D",
+          "logic_levels": 16.0,
+          "delay_ns": 14.359,
+          "logic_ns": 5.353,
+          "route_ns": 9.006,
+          "mux_present": true,
+          "address_path": true,
+          "dsp_present": true
+        },
+        {
+          "slack_ns": -4.34,
+          "artifact_path": "critical_paths.rpt",
+          "line": 289,
+          "source": "systolic_controller_instance/cycle_count_reg[3]_replica_4/C",
+          "destination": "weight_sram_instance/read_data_reg[9]/D",
+          "logic_levels": 16.0,
+          "delay_ns": 14.284,
+          "logic_ns": 5.31,
+          "route_ns": 8.974,
+          "mux_present": true,
+          "address_path": true,
+          "dsp_present": true
+        },
+        {
+          "slack_ns": -4.309,
+          "artifact_path": "critical_paths.rpt",
+          "line": 380,
+          "source": "systolic_controller_instance/cycle_count_reg[4]_replica_6/C",
+          "destination": "weight_sram_instance/read_data_reg[33]/D",
+          "logic_levels": 16.0,
+          "delay_ns": 14.261,
+          "logic_ns": 5.216,
+          "route_ns": 9.045,
+          "mux_present": true,
+          "address_path": true,
+          "dsp_present": true
+        },
+        {
+          "slack_ns": -4.301,
+          "artifact_path": "critical_paths.rpt",
+          "line": 471,
+          "source": "systolic_controller_instance/cycle_count_reg[3]_replica_4/C",
+          "destination": "weight_sram_instance/read_data_reg[14]/D",
+          "logic_levels": 16.0,
+          "delay_ns": 14.253,
+          "logic_ns": 5.373,
+          "route_ns": 8.88,
+          "mux_present": true,
+          "address_path": true,
+          "dsp_present": true
+        },
+        {
+          "slack_ns": -4.3,
+          "artifact_path": "critical_paths.rpt",
+          "line": 562,
+          "source": "dnn_scheduler_instance/layer_index_reg[0]_replica/C",
+          "destination": "weight_sram_instance/read_data_reg[26]/D",
+          "logic_levels": 15.0,
+          "delay_ns": 14.239,
+          "logic_ns": 5.225,
+          "route_ns": 9.014,
+          "mux_present": true,
+          "address_path": true,
+          "dsp_present": true
+        },
+        {
+          "slack_ns": -4.294,
+          "artifact_path": "critical_paths.rpt",
+          "line": 651,
+          "source": "dnn_scheduler_instance/layer_index_reg[0]_replica/C",
+          "destination": "weight_sram_instance/read_data_reg[27]/D",
+          "logic_levels": 16.0,
+          "delay_ns": 14.291,
+          "logic_ns": 5.316,
+          "route_ns": 8.975,
+          "mux_present": true,
+          "address_path": true,
+          "dsp_present": true
+        },
+        {
+          "slack_ns": -4.277,
+          "artifact_path": "critical_paths.rpt",
+          "line": 742,
+          "source": "dnn_scheduler_instance/layer_index_reg[0]_replica/C",
+          "destination": "weight_sram_instance/read_data_reg[29]/D",
+          "logic_levels": 16.0,
+          "delay_ns": 14.305,
+          "logic_ns": 5.323,
+          "route_ns": 8.982,
+          "mux_present": true,
+          "address_path": true,
+          "dsp_present": true
+        },
+        {
+          "slack_ns": -4.262,
+          "artifact_path": "critical_paths.rpt",
+          "line": 833,
+          "source": "dnn_scheduler_instance/layer_index_reg[0]_replica/C",
+          "destination": "weight_sram_instance/read_data_reg[31]/D",
+          "logic_levels": 14.0,
+          "delay_ns": 14.196,
+          "logic_ns": 5.084,
+          "route_ns": 9.112,
+          "mux_present": true,
+          "address_path": true,
+          "dsp_present": true
+        },
+        {
+          "slack_ns": -4.261,
+          "artifact_path": "critical_paths.rpt",
+          "line": 920,
+          "source": "dnn_scheduler_instance/layer_index_reg[0]_replica/C",
+          "destination": "weight_sram_instance/read_data_reg[28]/D",
+          "logic_levels": 15.0,
+          "delay_ns": 14.208,
+          "logic_ns": 5.228,
+          "route_ns": 8.98,
+          "mux_present": true,
+          "address_path": true,
+          "dsp_present": true
+        },
+        {
+          "slack_ns": -4.26,
+          "artifact_path": "critical_paths.rpt",
+          "line": 1009,
+          "source": "dnn_scheduler_instance/layer_index_reg[0]_replica/C",
+          "destination": "weight_sram_instance/read_data_reg[30]/D",
+          "logic_levels": 14.0,
+          "delay_ns": 14.195,
+          "logic_ns": 5.084,
+          "route_ns": 9.111,
+          "mux_present": true,
+          "address_path": true,
+          "dsp_present": true
+        },
+        {
+          "slack_ns": -4.258,
+          "artifact_path": "critical_paths.rpt",
+          "line": 1096,
+          "source": "systolic_controller_instance/cycle_count_reg[3]_replica_4/C",
+          "destination": "weight_sram_instance/read_data_reg[12]/D",
+          "logic_levels": 17.0,
+          "delay_ns": 14.207,
+          "logic_ns": 5.452,
+          "route_ns": 8.755,
+          "mux_present": true,
+          "address_path": true,
+          "dsp_present": true
+        },
+        {
+          "slack_ns": -4.199,
+          "artifact_path": "critical_paths.rpt",
+          "line": 1189,
+          "source": "systolic_controller_instance/cycle_count_reg[4]/C",
+          "destination": "weight_sram_instance/read_data_reg[19]/D",
+          "logic_levels": 14.0,
+          "delay_ns": 14.15,
+          "logic_ns": 5.174,
+          "route_ns": 8.976,
+          "mux_present": true,
+          "address_path": true,
+          "dsp_present": true
+        },
+        {
+          "slack_ns": -4.18,
+          "artifact_path": "critical_paths.rpt",
+          "line": 1276,
+          "source": "systolic_controller_instance/cycle_count_reg[4]/C",
+          "destination": "weight_sram_instance/read_data_reg[18]/D",
+          "logic_levels": 14.0,
+          "delay_ns": 14.123,
+          "logic_ns": 5.148,
+          "route_ns": 8.975,
+          "mux_present": true,
+          "address_path": true,
+          "dsp_present": true
+        },
+        {
+          "slack_ns": -4.175,
+          "artifact_path": "critical_paths.rpt",
+          "line": 1363,
+          "source": "systolic_controller_instance/cycle_count_reg[4]/C",
+          "destination": "weight_sram_instance/read_data_reg[21]/D",
+          "logic_levels": 15.0,
+          "delay_ns": 14.128,
+          "logic_ns": 5.318,
+          "route_ns": 8.81,
+          "mux_present": true,
+          "address_path": true,
+          "dsp_present": true
+        },
+        {
+          "slack_ns": -4.171,
+          "artifact_path": "critical_paths.rpt",
+          "line": 1452,
+          "source": "systolic_controller_instance/cycle_count_reg[4]/C",
+          "destination": "weight_sram_instance/read_data_reg[20]/D",
+          "logic_levels": 15.0,
+          "delay_ns": 14.171,
+          "logic_ns": 5.301,
+          "route_ns": 8.87,
+          "mux_present": true,
+          "address_path": true,
+          "dsp_present": true
+        },
+        {
+          "slack_ns": -4.169,
+          "artifact_path": "critical_paths.rpt",
+          "line": 1541,
+          "source": "dnn_scheduler_instance/layer_index_reg[0]_replica/C",
+          "destination": "weight_sram_instance/read_data_reg[25]/D",
+          "logic_levels": 14.0,
+          "delay_ns": 14.111,
+          "logic_ns": 5.074,
+          "route_ns": 9.037,
+          "mux_present": true,
+          "address_path": true,
+          "dsp_present": true
+        },
+        {
+          "slack_ns": -4.164,
+          "artifact_path": "critical_paths.rpt",
+          "line": 1628,
+          "source": "systolic_controller_instance/cycle_count_reg[4]/C",
+          "destination": "weight_sram_instance/read_data_reg[16]/D",
+          "logic_levels": 15.0,
+          "delay_ns": 14.037,
+          "logic_ns": 5.071,
+          "route_ns": 8.966,
+          "mux_present": true,
+          "address_path": true,
+          "dsp_present": true
+        },
+        {
+          "slack_ns": -4.16,
+          "artifact_path": "critical_paths.rpt",
+          "line": 1717,
+          "source": "dnn_scheduler_instance/layer_index_reg[0]_replica/C",
+          "destination": "weight_sram_instance/read_data_reg[24]/D",
+          "logic_levels": 15.0,
+          "delay_ns": 14.091,
+          "logic_ns": 4.935,
+          "route_ns": 9.156,
+          "mux_present": true,
+          "address_path": true,
+          "dsp_present": true
+        }
+      ],
+      "fanout": [
+        {
+          "net": "weight_sram_instance/read_data1__0_n_100",
+          "fanout": 2415,
+          "driver": "DSP48E1",
+          "slack": "-4.516",
+          "artifact_path": "high_fanout_nets.rpt",
+          "line": 19
+        },
+        {
+          "net": "weight_sram_instance/read_data1__0_n_101",
+          "fanout": 2415,
+          "driver": "DSP48E1",
+          "slack": "-4.576",
+          "artifact_path": "high_fanout_nets.rpt",
+          "line": 20
+        },
+        {
+          "net": "weight_sram_instance/read_data1__0_n_102",
+          "fanout": 2415,
+          "driver": "DSP48E1",
+          "slack": "-4.409",
+          "artifact_path": "high_fanout_nets.rpt",
+          "line": 21
+        },
+        {
+          "net": "weight_sram_instance/read_data1__1_n_100",
+          "fanout": 2415,
+          "driver": "DSP48E1",
+          "slack": "-4.177",
+          "artifact_path": "high_fanout_nets.rpt",
+          "line": 22
+        },
+        {
+          "net": "weight_sram_instance/read_data1__1_n_101",
+          "fanout": 2415,
+          "driver": "DSP48E1",
+          "slack": "-4.292",
+          "artifact_path": "high_fanout_nets.rpt",
+          "line": 23
+        },
+        {
+          "net": "weight_sram_instance/read_data1__1_n_102",
+          "fanout": 2415,
+          "driver": "DSP48E1",
+          "slack": "-4.405",
+          "artifact_path": "high_fanout_nets.rpt",
+          "line": 24
+        },
+        {
+          "net": "weight_sram_instance/read_data1__2_n_100",
+          "fanout": 2415,
+          "driver": "DSP48E1",
+          "slack": "-4.028",
+          "artifact_path": "high_fanout_nets.rpt",
+          "line": 25
+        },
+        {
+          "net": "weight_sram_instance/read_data1__2_n_101",
+          "fanout": 2415,
+          "driver": "DSP48E1",
+          "slack": "-4.092",
+          "artifact_path": "high_fanout_nets.rpt",
+          "line": 26
+        },
+        {
+          "net": "weight_sram_instance/read_data1__2_n_102",
+          "fanout": 2415,
+          "driver": "DSP48E1",
+          "slack": "-4.210",
+          "artifact_path": "high_fanout_nets.rpt",
+          "line": 27
+        },
+        {
+          "net": "weight_sram_instance/read_data1__3_n_100",
+          "fanout": 2415,
+          "driver": "DSP48E1",
+          "slack": "-4.049",
+          "artifact_path": "high_fanout_nets.rpt",
+          "line": 28
+        },
+        {
+          "net": "weight_sram_instance/read_data1__3_n_101",
+          "fanout": 2415,
+          "driver": "DSP48E1",
+          "slack": "-4.100",
+          "artifact_path": "high_fanout_nets.rpt",
+          "line": 29
+        },
+        {
+          "net": "weight_sram_instance/read_data1__3_n_102",
+          "fanout": 2415,
+          "driver": "DSP48E1",
+          "slack": "-4.036",
+          "artifact_path": "high_fanout_nets.rpt",
+          "line": 30
+        },
+        {
+          "net": "weight_sram_instance/read_data1_n_100",
+          "fanout": 2415,
+          "driver": "DSP48E1",
+          "slack": "-3.788",
+          "artifact_path": "high_fanout_nets.rpt",
+          "line": 31
+        },
+        {
+          "net": "weight_sram_instance/read_data1_n_101",
+          "fanout": 2415,
+          "driver": "DSP48E1",
+          "slack": "-3.872",
+          "artifact_path": "high_fanout_nets.rpt",
+          "line": 32
+        },
+        {
+          "net": "weight_sram_instance/read_data1_n_102",
+          "fanout": 2415,
+          "driver": "DSP48E1",
+          "slack": "-3.917",
+          "artifact_path": "high_fanout_nets.rpt",
+          "line": 33
+        },
+        {
+          "net": "weight_sram_instance/read_data1__0_n_103",
+          "fanout": 2410,
+          "driver": "DSP48E1",
+          "slack": "-4.392",
+          "artifact_path": "high_fanout_nets.rpt",
+          "line": 34
+        },
+        {
+          "net": "weight_sram_instance/read_data1__1_n_103",
+          "fanout": 2410,
+          "driver": "DSP48E1",
+          "slack": "-4.399",
+          "artifact_path": "high_fanout_nets.rpt",
+          "line": 35
+        },
+        {
+          "net": "weight_sram_instance/read_data1__2_n_103",
+          "fanout": 2410,
+          "driver": "DSP48E1",
+          "slack": "-4.262",
+          "artifact_path": "high_fanout_nets.rpt",
+          "line": 36
+        },
+        {
+          "net": "weight_sram_instance/read_data1__3_n_103",
+          "fanout": 2410,
+          "driver": "DSP48E1",
+          "slack": "-4.309",
+          "artifact_path": "high_fanout_nets.rpt",
+          "line": 37
+        },
+        {
+          "net": "weight_sram_instance/read_data1_n_103",
+          "fanout": 2410,
+          "driver": "DSP48E1",
+          "slack": "-3.862",
+          "artifact_path": "high_fanout_nets.rpt",
+          "line": 38
+        },
+        {
+          "net": "weight_sram_instance/read_data1__0_n_105",
+          "fanout": 2401,
+          "driver": "DSP48E1",
+          "slack": "-4.378",
+          "artifact_path": "high_fanout_nets.rpt",
+          "line": 39
+        },
+        {
+          "net": "weight_sram_instance/read_data1__1_n_105",
+          "fanout": 2401,
+          "driver": "DSP48E1",
+          "slack": "-4.566",
+          "artifact_path": "high_fanout_nets.rpt",
+          "line": 40
+        },
+        {
+          "net": "weight_sram_instance/read_data1__2_n_105",
+          "fanout": 2401,
+          "driver": "DSP48E1",
+          "slack": "-4.294",
+          "artifact_path": "high_fanout_nets.rpt",
+          "line": 41
+        },
+        {
+          "net": "weight_sram_instance/read_data1__3_n_105",
+          "fanout": 2401,
+          "driver": "DSP48E1",
+          "slack": "-4.269",
+          "artifact_path": "high_fanout_nets.rpt",
+          "line": 42
+        },
+        {
+          "net": "weight_sram_instance/read_data1_n_105",
+          "fanout": 2401,
+          "driver": "DSP48E1",
+          "slack": "-3.917",
+          "artifact_path": "high_fanout_nets.rpt",
+          "line": 43
+        },
+        {
+          "net": "weight_sram_instance/read_data1__0_n_104",
+          "fanout": 2400,
+          "driver": "DSP48E1",
+          "slack": "-4.386",
+          "artifact_path": "high_fanout_nets.rpt",
+          "line": 44
+        },
+        {
+          "net": "weight_sram_instance/read_data1__1_n_104",
+          "fanout": 2400,
+          "driver": "DSP48E1",
+          "slack": "-4.332",
+          "artifact_path": "high_fanout_nets.rpt",
+          "line": 45
+        },
+        {
+          "net": "weight_sram_instance/read_data1__2_n_104",
+          "fanout": 2400,
+          "driver": "DSP48E1",
+          "slack": "-4.300",
+          "artifact_path": "high_fanout_nets.rpt",
+          "line": 46
+        },
+        {
+          "net": "weight_sram_instance/read_data1__3_n_104",
+          "fanout": 2400,
+          "driver": "DSP48E1",
+          "slack": "-4.072",
+          "artifact_path": "high_fanout_nets.rpt",
+          "line": 47
+        },
+        {
+          "net": "weight_sram_instance/read_data1_n_104",
+          "fanout": 2400,
+          "driver": "DSP48E1",
+          "slack": "-3.871",
+          "artifact_path": "high_fanout_nets.rpt",
+          "line": 48
+        },
+        {
+          "net": "systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[4].ARRAY_COLUMNS[4].pe_systolic_cell_instance/mac_pe_instance/s_axi_aresetn",
+          "fanout": 1343,
+          "driver": "LUT1",
+          "slack": "inf",
+          "artifact_path": "high_fanout_nets.rpt",
+          "line": 49
+        },
+        {
+          "net": "weight_sram_instance/read_data1__0_n_99",
+          "fanout": 1269,
+          "driver": "DSP48E1",
+          "slack": "-4.065",
+          "artifact_path": "high_fanout_nets.rpt",
+          "line": 50
+        },
+        {
+          "net": "weight_sram_instance/read_data1__1_n_99",
+          "fanout": 1269,
+          "driver": "DSP48E1",
+          "slack": "-4.012",
+          "artifact_path": "high_fanout_nets.rpt",
+          "line": 51
+        },
+        {
+          "net": "weight_sram_instance/read_data1__2_n_99",
+          "fanout": 1269,
+          "driver": "DSP48E1",
+          "slack": "-3.780",
+          "artifact_path": "high_fanout_nets.rpt",
+          "line": 52
+        },
+        {
+          "net": "weight_sram_instance/read_data1__3_n_99",
+          "fanout": 1269,
+          "driver": "DSP48E1",
+          "slack": "-3.846",
+          "artifact_path": "high_fanout_nets.rpt",
+          "line": 53
+        },
+        {
+          "net": "weight_sram_instance/read_data1_n_99",
+          "fanout": 1269,
+          "driver": "DSP48E1",
+          "slack": "-3.599",
+          "artifact_path": "high_fanout_nets.rpt",
+          "line": 54
+        },
+        {
+          "net": "weight_sram_instance/read_data1__0_n_98",
+          "fanout": 554,
+          "driver": "DSP48E1",
+          "slack": "-3.946",
+          "artifact_path": "high_fanout_nets.rpt",
+          "line": 55
+        },
+        {
+          "net": "weight_sram_instance/read_data1__1_n_98",
+          "fanout": 554,
+          "driver": "DSP48E1",
+          "slack": "-3.921",
+          "artifact_path": "high_fanout_nets.rpt",
+          "line": 56
+        },
+        {
+          "net": "weight_sram_instance/read_data1__2_n_98",
+          "fanout": 554,
+          "driver": "DSP48E1",
+          "slack": "-3.591",
+          "artifact_path": "high_fanout_nets.rpt",
+          "line": 57
+        },
+        {
+          "net": "weight_sram_instance/read_data1__3_n_98",
+          "fanout": 554,
+          "driver": "DSP48E1",
+          "slack": "-3.388",
+          "artifact_path": "high_fanout_nets.rpt",
+          "line": 58
+        },
+        {
+          "net": "weight_sram_instance/read_data1_n_98",
+          "fanout": 554,
+          "driver": "DSP48E1",
+          "slack": "-3.256",
+          "artifact_path": "high_fanout_nets.rpt",
+          "line": 59
+        },
+        {
+          "net": "systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[4].ARRAY_COLUMNS[4].pe_systolic_cell_instance/E[0]",
+          "fanout": 400,
+          "driver": "LUT3",
+          "slack": "-0.231",
+          "artifact_path": "high_fanout_nets.rpt",
+          "line": 60
+        },
+        {
+          "net": "weight_sram_instance/read_data1__0_n_97",
+          "fanout": 277,
+          "driver": "DSP48E1",
+          "slack": "-3.161",
+          "artifact_path": "high_fanout_nets.rpt",
+          "line": 61
+        },
+        {
+          "net": "weight_sram_instance/read_data1__1_n_97",
+          "fanout": 277,
+          "driver": "DSP48E1",
+          "slack": "-3.056",
+          "artifact_path": "high_fanout_nets.rpt",
+          "line": 62
+        },
+        {
+          "net": "weight_sram_instance/read_data1__2_n_97",
+          "fanout": 277,
+          "driver": "DSP48E1",
+          "slack": "-2.970",
+          "artifact_path": "high_fanout_nets.rpt",
+          "line": 63
+        },
+        {
+          "net": "weight_sram_instance/read_data1__3_n_97",
+          "fanout": 277,
+          "driver": "DSP48E1",
+          "slack": "-2.883",
+          "artifact_path": "high_fanout_nets.rpt",
+          "line": 64
+        },
+        {
+          "net": "weight_sram_instance/read_data1_n_97",
+          "fanout": 277,
+          "driver": "DSP48E1",
+          "slack": "-3.067",
+          "artifact_path": "high_fanout_nets.rpt",
+          "line": 65
+        },
+        {
+          "net": "weight_sram_instance/read_data1__0_n_96",
+          "fanout": 161,
+          "driver": "DSP48E1",
+          "slack": "-2.842",
+          "artifact_path": "high_fanout_nets.rpt",
+          "line": 66
+        },
+        {
+          "net": "weight_sram_instance/read_data1__1_n_96",
+          "fanout": 161,
+          "driver": "DSP48E1",
+          "slack": "-2.854",
+          "artifact_path": "high_fanout_nets.rpt",
+          "line": 67
+        },
+        {
+          "net": "weight_sram_instance/read_data1__2_n_96",
+          "fanout": 161,
+          "driver": "DSP48E1",
+          "slack": "-2.604",
+          "artifact_path": "high_fanout_nets.rpt",
+          "line": 68
+        }
+      ],
+      "drc_rules": [
+        {
+          "rule": "NSTD-1",
+          "severity": "Critical Warning",
+          "count": 1,
+          "line": 31,
+          "artifact_path": "drc.rpt"
+        },
+        {
+          "rule": "UCIO-1",
+          "severity": "Critical Warning",
+          "count": 1,
+          "line": 32,
+          "artifact_path": "drc.rpt"
+        },
+        {
+          "rule": "CHECK-3",
+          "severity": "Warning",
+          "count": 1,
+          "line": 33,
+          "artifact_path": "drc.rpt"
+        },
+        {
+          "rule": "DPIP-1",
+          "severity": "Warning",
+          "count": 10,
+          "line": 34,
+          "artifact_path": "drc.rpt"
+        },
+        {
+          "rule": "DPOP-1",
+          "severity": "Warning",
+          "count": 5,
+          "line": 35,
+          "artifact_path": "drc.rpt"
+        },
+        {
+          "rule": "DPOP-2",
+          "severity": "Warning",
+          "count": 5,
+          "line": 36,
+          "artifact_path": "drc.rpt"
+        },
+        {
+          "rule": "RBOR-1",
+          "severity": "Warning",
+          "count": 5,
+          "line": 37,
+          "artifact_path": "drc.rpt"
+        },
+        {
+          "rule": "REQP-1840",
+          "severity": "Warning",
+          "count": 20,
+          "line": 38,
+          "artifact_path": "drc.rpt"
+        },
+        {
+          "rule": "ZPS7-1",
+          "severity": "Warning",
+          "count": 1,
+          "line": 39,
+          "artifact_path": "drc.rpt"
+        }
+      ],
+      "unconstrained_io": {
+        "no_input_delay": 20,
+        "no_output_delay": 11
+      },
+      "unbound_checkpoint_source": false,
+      "coverage": {
+        "critical_paths": {
+          "state": "observed",
+          "artifact_path": "critical_paths.rpt"
+        },
+        "fanout": {
+          "state": "observed",
+          "artifact_path": "high_fanout_nets.rpt"
+        },
+        "drc": {
+          "state": "observed",
+          "artifact_path": "drc.rpt"
+        },
+        "ram": {
+          "state": "observed",
+          "artifact_path": "ram_utilization.rpt"
+        },
+        "verification": {
+          "state": "observed",
+          "artifact_path": "verification_result.json"
+        },
+        "utilization": {
+          "state": "observed",
+          "artifact_path": "utilization.rpt"
+        },
+        "utilization_hierarchical": {
+          "state": "observed",
+          "artifact_path": "utilization_hierarchical.rpt"
+        },
+        "timing_summary": {
+          "state": "observed",
+          "artifact_path": "timing_summary.rpt"
+        },
+        "power": {
+          "state": "observed",
+          "artifact_path": "power_post_route.rpt"
+        }
+      },
+      "comparison_context": {
+        "stage": "post_route",
+        "clock_period_ns": 10.0,
+        "activity_kind": "behavioral_saif_full_workload",
+        "workload_sha256": "9f8bf6a6377a55d06f4b241751d876bd4a0fb8b35e60c261e5f1a4efcb1d30bd"
+      }
+    }
+  },
+  "finding_ids": [
+    "PPA-HOTSPOT-001",
+    "IMPL-DRC-001",
+    "PPA-FANOUT-001",
+    "DRC-NSTD-1",
+    "DRC-UCIO-1",
+    "DRC-CHECK-3",
+    "DRC-DPIP-1",
+    "DRC-DPOP-2",
+    "DRC-RBOR-1",
+    "DRC-REQP-1839",
+    "DRC-REQP-1840",
+    "DRC-ZPS7-1",
+    "PPA-CONSTRAINT-001",
+    "TOOL-WARNING-001",
+    "SPEC-CHECK-REQ-LOOP-PPA-DSP-001",
+    "SPEC-CHECK-REQ-LOOP-PPA-WEIGHT-001",
+    "SPEC-CHECK-REQ-LOOP-PPA-TIMING-001",
+    "SPEC-CHECK-REQ-LOOP-PPA-POWER-001",
+    "SPEC-CHECK-REQ-LOOP-IMPL-DRC-001",
+    "SPEC-CHECK-REQ-LOOP-PPA-MEMORY-MAPPING-001",
+    "SPEC-CHECK-REQ-LOOP-PPA-ADDRESS-001",
+    "SPEC-CHECK-REQ-LOOP-PPA-MUX-001",
+    "SPEC-CHECK-REQ-LOOP-PPA-PIPELINE-001",
+    "SPEC-CHECK-REQ-LOOP-PPA-ROUTE-DELAY-001",
+    "SPEC-CHECK-REQ-LOOP-PPA-FANOUT-001",
+    "SPEC-CHECK-REQ-LOOP-DRC-NSTD-1",
+    "SPEC-CHECK-REQ-LOOP-DRC-UCIO-1",
+    "SPEC-CHECK-REQ-LOOP-DRC-CHECK-3",
+    "SPEC-CHECK-REQ-LOOP-DRC-DPIP-1",
+    "SPEC-CHECK-REQ-LOOP-DRC-DPOP-1",
+    "SPEC-CHECK-REQ-LOOP-DRC-DPOP-2",
+    "SPEC-CHECK-REQ-LOOP-DRC-RBOR-1",
+    "SPEC-CHECK-REQ-LOOP-DRC-REQP-1840",
+    "SPEC-CHECK-REQ-LOOP-DRC-ZPS7-1",
+    "SPEC-CHECK-REQ-LOOP-PPA-CONSTRAINT-001",
+    "SPEC-CHECK-REQ-LOOP-EVIDENCE-PROVENANCE-001",
+    "SPEC-CHECK-REQ-LOOP-EVIDENCE-COVERAGE-001",
+    "SPEC-CHECK-REQ-LOOP-APPROVED-CYCLE-001",
+    "SPEC-CHECK-REQ-LOOP-APPROVED-FUNCTION-001",
+    "SPEC-CHECK-REQ-LOOP-REGRESSION-TOTAL-ON-CHIP-POWER-W",
+    "SPEC-CHECK-REQ-LOOP-VERIFY-COMPILE-001",
+    "SPEC-CHECK-REQ-LOOP-EVIDENCE-MEMORY-MAPPING-001",
+    "SPEC-CHECK-REQ-LOOP-TOOL-WARNING-001",
+    "SPEC-CHECK-REQ-LOOP-VERIFY-EXECUTION-001"
+  ]
+}
