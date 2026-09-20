@@ -1,0 +1,53 @@
+{
+  "kind": "automation_infrastructure_verification",
+  "unit_test_exit_code": 0,
+  "real_tool_result": {
+    "purpose": "unmodified tool adapter smoke test, not approved debugging",
+    "stages": [
+      {
+        "stage": "compile",
+        "exit_code": 0
+      },
+      {
+        "stage": "simulation",
+        "exit_code": 0
+      },
+      {
+        "stage": "synthesis",
+        "exit_code": 0
+      }
+    ]
+  },
+  "rtl_modified": false,
+  "design_approval_granted": false,
+  "production_run_003_created": false,
+  "limitations": [
+    "No approved production RTL patch was executed",
+    "DUT PPA violations remain",
+    "Full protocol/PE activity coverage remains unknown"
+  ],
+  "evidence_hashes": {
+    "unittest.log": "59ad576386899359fe26396c9eadb7ef2e60c0406a602cc4331af6cdcf9e2d4d",
+    "initial_failure/compile.log": "3e3166478d0e6ea1b3bffc7bb1845f3816818fdfb427369f8003b8aa49367dca",
+    "initial_failure/library.log": "87937b3f34e8457ac6e56ce9bd22d11242cf4f6f47ea3906a185fc1daf5ae015",
+    "initial_failure/protocol_assertions.log": "d629895b6929fab542ac779add609e8a7e161e08fda8dffc2971b7bd51971f7c",
+    "initial_failure/simulation.log": "92407332799989474938ddd99c48c65296e2b5732d30aaa81681293a9ad7a154",
+    "initial_failure/smoke_result.json": "cee6bd55e324886ffe60d9357eab23954933c9433ab1c25d195d4ec29e38d395",
+    "initial_failure/verification_result.json": "4e6046a5224c9f0ae30355a0f26034dff04f851710a053be03207b6e81e67dfd",
+    "retry/compile.log": "5054e1283c84cce2b8712c3bfd9bae0d2ee62bfcc83955a7d1231c2534aee239",
+    "retry/critical_paths.rpt": "5a1608fa15a66b2c05a90bba3139fa835cd2d66358cb2899aa8007bc2b63394f",
+    "retry/drc.rpt": "e8c24cd8bc9d27148a4cee74a1cdce2843836ca042706e2b4b9cc6f5edc7bba7",
+    "retry/high_fanout_nets.rpt": "d743d18324a33c07e32b5e7062ee468dcad91c5c6e08de94f73d064637e2a2af",
+    "retry/library.log": "87937b3f34e8457ac6e56ce9bd22d11242cf4f6f47ea3906a185fc1daf5ae015",
+    "retry/power.rpt": "33cab4845d116848783f23d12d533ec226386d4a5ce642c2685c964188c8ce17",
+    "retry/protocol_assertions.log": "1a405f079132726088fb3a4b9a9b27b9c4c4ed36ed356108f5210d5ff64e0678",
+    "retry/ram_utilization.rpt": "34f39d01caea6d9dc061abc7ad8768823282bd85ca9a18dc1d83131383ff2fb6",
+    "retry/simulation.log": "8733e74baaafa2de14611d3da356506e98caa4584bc9beec7dcf875fd6ffb754",
+    "retry/smoke_result.json": "195fbcc768cc02544dc090d0ac44de98b61b24d1ae241cc9886129325ca0a545",
+    "retry/synthesis.log": "5ea1d81b888100e24a01fb13b284f7edf769a19cfcfbfe2a3b6a2007f2ab634b",
+    "retry/timing_summary.rpt": "7eca8fe87fc1d35f998cde2105397a61e29f37888806dae0af3c49ec82eb47bf",
+    "retry/utilization.rpt": "a5f7ac0507d8d795978b1578202017c65a4c50b4265b75a561e2699c449a151f",
+    "retry/utilization_hierarchical.rpt": "71d543d2532ec408302d706643cabe7133c28d512c5659e7429a3b2881a949df",
+    "retry/verification_result.json": "d05b45ee12e5243585cf9ad9a8c932e74f401d1ef19a849f9414e920d6e59054"
+  }
+}

@@ -1,0 +1,71 @@
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2022.1 (win64) Build 3526262 Mon Apr 18 15:48:16 MDT 2022
+| Date         : Sat Sep 19 18:10:48 2026
+| Host         : BOOK-P2O9FRPHFQ running 64-bit major release  (build 9200)
+| Command      : report_high_fanout_nets -timing -max_nets 50 -file C:/Users/iuhj0/Eddie/rag_db_project/artifacts/implementation/optimized_accelerator/run_004/reference/high_fanout_nets.rpt
+| Design       : zyNet
+| Device       : xc7z020
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+High Fan-out Nets Information
+
+1. Summary
+----------
+
++------------------------------------------------------------------------------------------------------------------------------------------------+--------+-------------+-----------------+-----------------+
+| Net Name                                                                                                                                       | Fanout | Driver Type | Worst Slack(ns) | Worst Delay(ns) |
++------------------------------------------------------------------------------------------------------------------------------------------------+--------+-------------+-----------------+-----------------+
+| weight_sram_instance/read_data1__0_n_100                                                                                                       |   2415 | DSP48E1     |          -4.516 |           2.448 |
+| weight_sram_instance/read_data1__0_n_101                                                                                                       |   2415 | DSP48E1     |          -4.576 |           2.515 |
+| weight_sram_instance/read_data1__0_n_102                                                                                                       |   2415 | DSP48E1     |          -4.409 |           2.634 |
+| weight_sram_instance/read_data1__1_n_100                                                                                                       |   2415 | DSP48E1     |          -4.177 |           2.510 |
+| weight_sram_instance/read_data1__1_n_101                                                                                                       |   2415 | DSP48E1     |          -4.292 |           2.571 |
+| weight_sram_instance/read_data1__1_n_102                                                                                                       |   2415 | DSP48E1     |          -4.405 |           2.662 |
+| weight_sram_instance/read_data1__2_n_100                                                                                                       |   2415 | DSP48E1     |          -4.028 |           2.071 |
+| weight_sram_instance/read_data1__2_n_101                                                                                                       |   2415 | DSP48E1     |          -4.092 |           2.102 |
+| weight_sram_instance/read_data1__2_n_102                                                                                                       |   2415 | DSP48E1     |          -4.210 |           2.384 |
+| weight_sram_instance/read_data1__3_n_100                                                                                                       |   2415 | DSP48E1     |          -4.049 |           2.496 |
+| weight_sram_instance/read_data1__3_n_101                                                                                                       |   2415 | DSP48E1     |          -4.100 |           2.506 |
+| weight_sram_instance/read_data1__3_n_102                                                                                                       |   2415 | DSP48E1     |          -4.036 |           2.384 |
+| weight_sram_instance/read_data1_n_100                                                                                                          |   2415 | DSP48E1     |          -3.788 |           2.923 |
+| weight_sram_instance/read_data1_n_101                                                                                                          |   2415 | DSP48E1     |          -3.872 |           2.851 |
+| weight_sram_instance/read_data1_n_102                                                                                                          |   2415 | DSP48E1     |          -3.917 |           2.920 |
+| weight_sram_instance/read_data1__0_n_103                                                                                                       |   2410 | DSP48E1     |          -4.392 |           2.828 |
+| weight_sram_instance/read_data1__1_n_103                                                                                                       |   2410 | DSP48E1     |          -4.399 |           2.698 |
+| weight_sram_instance/read_data1__2_n_103                                                                                                       |   2410 | DSP48E1     |          -4.262 |           2.307 |
+| weight_sram_instance/read_data1__3_n_103                                                                                                       |   2410 | DSP48E1     |          -4.309 |           2.523 |
+| weight_sram_instance/read_data1_n_103                                                                                                          |   2410 | DSP48E1     |          -3.862 |           2.703 |
+| weight_sram_instance/read_data1__0_n_105                                                                                                       |   2401 | DSP48E1     |          -4.378 |           2.421 |
+| weight_sram_instance/read_data1__1_n_105                                                                                                       |   2401 | DSP48E1     |          -4.566 |           2.896 |
+| weight_sram_instance/read_data1__2_n_105                                                                                                       |   2401 | DSP48E1     |          -4.294 |           2.444 |
+| weight_sram_instance/read_data1__3_n_105                                                                                                       |   2401 | DSP48E1     |          -4.269 |           2.533 |
+| weight_sram_instance/read_data1_n_105                                                                                                          |   2401 | DSP48E1     |          -3.917 |           2.894 |
+| weight_sram_instance/read_data1__0_n_104                                                                                                       |   2400 | DSP48E1     |          -4.386 |           2.590 |
+| weight_sram_instance/read_data1__1_n_104                                                                                                       |   2400 | DSP48E1     |          -4.332 |           2.919 |
+| weight_sram_instance/read_data1__2_n_104                                                                                                       |   2400 | DSP48E1     |          -4.300 |           2.447 |
+| weight_sram_instance/read_data1__3_n_104                                                                                                       |   2400 | DSP48E1     |          -4.072 |           2.717 |
+| weight_sram_instance/read_data1_n_104                                                                                                          |   2400 | DSP48E1     |          -3.871 |           3.119 |
+| systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[4].ARRAY_COLUMNS[4].pe_systolic_cell_instance/mac_pe_instance/s_axi_aresetn |   1343 | LUT1        |             inf |          10.243 |
+| weight_sram_instance/read_data1__0_n_99                                                                                                        |   1269 | DSP48E1     |          -4.065 |           2.547 |
+| weight_sram_instance/read_data1__1_n_99                                                                                                        |   1269 | DSP48E1     |          -4.012 |           2.743 |
+| weight_sram_instance/read_data1__2_n_99                                                                                                        |   1269 | DSP48E1     |          -3.780 |           2.416 |
+| weight_sram_instance/read_data1__3_n_99                                                                                                        |   1269 | DSP48E1     |          -3.846 |           2.327 |
+| weight_sram_instance/read_data1_n_99                                                                                                           |   1269 | DSP48E1     |          -3.599 |           3.304 |
+| weight_sram_instance/read_data1__0_n_98                                                                                                        |    554 | DSP48E1     |          -3.946 |           2.602 |
+| weight_sram_instance/read_data1__1_n_98                                                                                                        |    554 | DSP48E1     |          -3.921 |           2.799 |
+| weight_sram_instance/read_data1__2_n_98                                                                                                        |    554 | DSP48E1     |          -3.591 |           2.459 |
+| weight_sram_instance/read_data1__3_n_98                                                                                                        |    554 | DSP48E1     |          -3.388 |           2.931 |
+| weight_sram_instance/read_data1_n_98                                                                                                           |    554 | DSP48E1     |          -3.256 |           3.172 |
+| systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[4].ARRAY_COLUMNS[4].pe_systolic_cell_instance/E[0]                          |    400 | LUT3        |          -0.231 |           5.131 |
+| weight_sram_instance/read_data1__0_n_97                                                                                                        |    277 | DSP48E1     |          -3.161 |           2.698 |
+| weight_sram_instance/read_data1__1_n_97                                                                                                        |    277 | DSP48E1     |          -3.056 |           2.700 |
+| weight_sram_instance/read_data1__2_n_97                                                                                                        |    277 | DSP48E1     |          -2.970 |           2.771 |
+| weight_sram_instance/read_data1__3_n_97                                                                                                        |    277 | DSP48E1     |          -2.883 |           2.372 |
+| weight_sram_instance/read_data1_n_97                                                                                                           |    277 | DSP48E1     |          -3.067 |           3.558 |
+| weight_sram_instance/read_data1__0_n_96                                                                                                        |    161 | DSP48E1     |          -2.842 |           2.683 |
+| weight_sram_instance/read_data1__1_n_96                                                                                                        |    161 | DSP48E1     |          -2.854 |           2.613 |
+| weight_sram_instance/read_data1__2_n_96                                                                                                        |    161 | DSP48E1     |          -2.604 |           2.327 |
++------------------------------------------------------------------------------------------------------------------------------------------------+--------+-------------+-----------------+-----------------+
+
+

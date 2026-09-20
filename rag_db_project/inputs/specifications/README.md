@@ -6,7 +6,7 @@
 |---|---|---|---|
 | 1 | `01_reference_model/` | approved | legacy FC-MLP 기능, 인터페이스, 수치 및 baseline 계약 |
 | 2 | `02_systolic_accelerator/` | approved | 5×5 OS Systolic Array와 controller 요구사항 |
-| 3 | `03_architecture_optimization/` | not-created | buffer, overlap, parameter화 등 최적화 요구사항 |
+| 3 | `03_architecture_optimization/` | approved | Unified Buffer, AXI Latency Hiding과 PPA 최적화 요구사항 |
 | 4 | `04_verification/` | not-created | testcase, assertion, coverage 및 회귀 요구사항 |
 
 `02_systolic_accelerator`는 이식 과정의 작업 기록이 아니라 구현해야 할 systolic accelerator 아키텍처 자체를 정의한다.

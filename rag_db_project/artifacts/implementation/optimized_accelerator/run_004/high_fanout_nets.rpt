@@ -1,0 +1,71 @@
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2022.1 (win64) Build 3526262 Mon Apr 18 15:48:16 MDT 2022
+| Date         : Sat Sep 19 17:28:46 2026
+| Host         : BOOK-P2O9FRPHFQ running 64-bit major release  (build 9200)
+| Command      : report_high_fanout_nets -timing -max_nets 50 -file C:/Users/iuhj0/Eddie/rag_db_project/artifacts/implementation/optimized_accelerator/run_004/high_fanout_nets.rpt
+| Design       : zyNet
+| Device       : xc7z020
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+High Fan-out Nets Information
+
+1. Summary
+----------
+
++----------------------------------------------------------------------------------------------------------------------------------------------------------+--------+-------------+-----------------+-----------------+
+| Net Name                                                                                                                                                 | Fanout | Driver Type | Worst Slack(ns) | Worst Delay(ns) |
++----------------------------------------------------------------------------------------------------------------------------------------------------------+--------+-------------+-----------------+-----------------+
+| systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[4].ARRAY_COLUMNS[4].pe_systolic_cell_instance/s_axi_aresetn                           |    561 | LUT1        |             inf |           6.696 |
+| dnn_scheduler_instance/activation_column[0]                                                                                                              |    302 | FDRE        |           0.388 |           1.707 |
+| systolic_controller_instance/FSM_onehot_state_reg[3]_1                                                                                                   |    191 | FDCE        |           3.214 |           3.392 |
+| dnn_scheduler_instance/activation_column_reg[2]_rep_1                                                                                                    |    159 | FDRE        |           0.783 |           1.568 |
+| dnn_scheduler_instance/layer_index[0]                                                                                                                    |    138 | FDSE        |           1.695 |           1.489 |
+| dnn_scheduler_instance/layer_index[1]                                                                                                                    |    133 | FDRE        |           1.745 |           2.397 |
+| systolic_controller_instance/Q[1]                                                                                                                        |    112 | FDCE        |           1.773 |           1.117 |
+| dnn_scheduler_instance/controller_start                                                                                                                  |    106 | FDRE        |           3.586 |           4.634 |
+| systolic_controller_instance/p_0_in                                                                                                                      |    106 | FDPE        |           4.602 |           3.136 |
+| dnn_scheduler_instance/SR[0]                                                                                                                             |     90 | LUT2        |           4.914 |           3.079 |
+| systolic_controller_instance/Q[0]                                                                                                                        |     88 | FDCE        |           1.667 |           1.290 |
+| dnn_scheduler_instance/activation_column_reg[1]_rep_0                                                                                                    |     87 | FDRE        |           0.120 |           1.448 |
+| dnn_scheduler_instance/activation_column_reg[1]_rep__0_0                                                                                                 |     87 | FDRE        |           0.322 |           1.492 |
+| dnn_scheduler_instance/activation_column_reg[1]_rep__1_0                                                                                                 |     87 | FDRE        |           0.321 |           1.468 |
+| dnn_scheduler_instance/activation_column[2]                                                                                                              |     70 | FDRE        |           1.075 |           1.351 |
+| dnn_scheduler_instance/group_index[0]                                                                                                                    |     70 | FDRE        |           5.139 |           1.945 |
+| systolic_controller_instance/Q[8]                                                                                                                        |     67 | FDCE        |           2.129 |           1.550 |
+| systolic_controller_instance/Q[9]                                                                                                                        |     64 | FDCE        |           1.721 |           1.256 |
+| dnn_scheduler_instance/group_index[1]                                                                                                                    |     61 | FDRE        |           3.305 |           2.291 |
+| dnn_scheduler_instance/group_index[2]                                                                                                                    |     61 | FDRE        |           3.675 |           3.727 |
+| dnn_scheduler_instance/global_write_enable                                                                                                               |     59 | FDRE        |           5.056 |           1.578 |
+| systolic_controller_instance/Q[2]                                                                                                                        |     52 | FDCE        |           1.410 |           0.928 |
+| systolic_controller_instance/Q[3]                                                                                                                        |     51 | FDCE        |           1.039 |           1.136 |
+| systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[4].ARRAY_COLUMNS[4].pe_systolic_cell_instance/b_valid_register                        |     50 | LUT3        |           4.602 |           2.675 |
+| dnn_scheduler_instance/CO[0]                                                                                                                             |     49 | CARRY4      |           2.392 |           1.140 |
+| systolic_controller_instance/Q[4]                                                                                                                        |     42 | FDCE        |           1.222 |           2.569 |
+| dnn_scheduler_instance/activation_column[1]                                                                                                              |     41 | FDRE        |           2.041 |           1.258 |
+| systolic_controller_instance/Q[5]                                                                                                                        |     40 | FDCE        |           1.081 |           2.328 |
+| systolic_controller_instance/consumed_feature_count_4[10]_i_7_n_0                                                                                        |     40 | LUT6        |           1.039 |           1.020 |
+| dnn_scheduler_instance/E[0]                                                                                                                              |     39 | FDRE        |           5.759 |           3.340 |
+| systolic_controller_instance/Q[6]                                                                                                                        |     38 | FDCE        |           1.595 |           2.310 |
+| systolic_controller_instance/consumed_feature_count_4[3]_i_2_n_0                                                                                         |     38 | LUT3        |           2.252 |           1.222 |
+| systolic_controller_instance/Q[7]                                                                                                                        |     37 | FDCE        |           1.576 |           1.311 |
+| unified_buffer_instance/stream_image_index_reg_n_0_[2]                                                                                                   |     36 | FDRE        |           3.265 |           1.507 |
+| dnn_scheduler_instance/activation_column_reg[0]_0                                                                                                        |     25 | LUT5        |           0.308 |           1.057 |
+| s_axi_aresetn_IBUF                                                                                                                                       |     25 | IBUF        |             inf |           3.709 |
+| systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[4].ARRAY_COLUMNS[4].pe_systolic_cell_instance/mac_pe_instance/FSM_onehot_state_reg[0] |     25 | LUT3        |           4.923 |           2.506 |
+| systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[0].ARRAY_COLUMNS[0].pe_systolic_cell_instance/a_register_reg[7]_0[7]                  |     24 | FDCE        |           4.502 |           1.288 |
+| systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[0].ARRAY_COLUMNS[1].pe_systolic_cell_instance/a_register_reg[7]_0[7]                  |     24 | FDCE        |           4.477 |           1.276 |
+| systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[0].ARRAY_COLUMNS[2].pe_systolic_cell_instance/a_register_reg[7]_0[7]                  |     24 | FDCE        |           4.007 |           1.612 |
+| systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[0].ARRAY_COLUMNS[3].pe_systolic_cell_instance/a_register_reg[7]_0[7]                  |     24 | FDCE        |           4.471 |           1.279 |
+| systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[1].ARRAY_COLUMNS[0].pe_systolic_cell_instance/a_register_reg[7]_0[7]                  |     24 | FDCE        |           4.183 |           1.398 |
+| systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[1].ARRAY_COLUMNS[1].pe_systolic_cell_instance/a_register_reg[7]_0[7]                  |     24 | FDCE        |           4.322 |           1.296 |
+| systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[1].ARRAY_COLUMNS[2].pe_systolic_cell_instance/a_register_reg[7]_0[7]                  |     24 | FDCE        |           3.735 |           2.076 |
+| systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[1].ARRAY_COLUMNS[3].pe_systolic_cell_instance/a_register_reg[7]_0[7]                  |     24 | FDCE        |           4.663 |           1.149 |
+| systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[2].ARRAY_COLUMNS[0].pe_systolic_cell_instance/a_register_reg[7]_0[7]                  |     24 | FDCE        |           4.501 |           1.288 |
+| systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[2].ARRAY_COLUMNS[1].pe_systolic_cell_instance/a_register_reg[7]_0[7]                  |     24 | FDCE        |           4.023 |           1.790 |
+| systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[2].ARRAY_COLUMNS[2].pe_systolic_cell_instance/a_register_reg[7]_0[7]                  |     24 | FDCE        |           4.203 |           1.609 |
+| systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[2].ARRAY_COLUMNS[3].pe_systolic_cell_instance/a_register_reg[7]_0[7]                  |     24 | FDCE        |           4.441 |           1.370 |
+| systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[3].ARRAY_COLUMNS[0].pe_systolic_cell_instance/a_register_reg[7]_0[7]                  |     24 | FDCE        |           4.388 |           1.368 |
++----------------------------------------------------------------------------------------------------------------------------------------------------------+--------+-------------+-----------------+-----------------+
+
+

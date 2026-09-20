@@ -1,0 +1,22 @@
+COMMAND ["C:/intelFPGA/18.1/modelsim_ase/win32aloem/vlog.exe", "-sv", "+incdir+rtl", "C:\\intelFPGA\\18.1\\dnn_optimization_project\\.automation_smoke_20260907_retry\\project\\workspace\\target\\rtl\\activation_unit.sv", "C:\\intelFPGA\\18.1\\dnn_optimization_project\\.automation_smoke_20260907_retry\\project\\workspace\\target\\rtl\\axi_lite_wrapper.sv", "C:\\intelFPGA\\18.1\\dnn_optimization_project\\.automation_smoke_20260907_retry\\project\\workspace\\target\\rtl\\bias_sram.sv", "C:\\intelFPGA\\18.1\\dnn_optimization_project\\.automation_smoke_20260907_retry\\project\\workspace\\target\\rtl\\dnn_scheduler.sv", "C:\\intelFPGA\\18.1\\dnn_optimization_project\\.automation_smoke_20260907_retry\\project\\workspace\\target\\rtl\\mac_pe.sv", "C:\\intelFPGA\\18.1\\dnn_optimization_project\\.automation_smoke_20260907_retry\\project\\workspace\\target\\rtl\\maxFinder.sv", "C:\\intelFPGA\\18.1\\dnn_optimization_project\\.automation_smoke_20260907_retry\\project\\workspace\\target\\rtl\\pe_systolic_cell.sv", "C:\\intelFPGA\\18.1\\dnn_optimization_project\\.automation_smoke_20260907_retry\\project\\workspace\\target\\rtl\\systolic_array_2d.sv", "C:\\intelFPGA\\18.1\\dnn_optimization_project\\.automation_smoke_20260907_retry\\project\\workspace\\target\\rtl\\systolic_controller.sv", "C:\\intelFPGA\\18.1\\dnn_optimization_project\\.automation_smoke_20260907_retry\\project\\workspace\\target\\rtl\\unified_buffer.sv", "C:\\intelFPGA\\18.1\\dnn_optimization_project\\.automation_smoke_20260907_retry\\project\\workspace\\target\\rtl\\weight_sram.sv", "C:\\intelFPGA\\18.1\\dnn_optimization_project\\.automation_smoke_20260907_retry\\project\\workspace\\target\\rtl\\zynet.sv", "tb/top_sim.sv"]
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+Start time: 16:46:04 on Sep 07,2026
+vlog -sv "+incdir+rtl" C:\intelFPGA\18.1\dnn_optimization_project\.automation_smoke_20260907_retry\project\workspace\target\rtl\activation_unit.sv C:\intelFPGA\18.1\dnn_optimization_project\.automation_smoke_20260907_retry\project\workspace\target\rtl\axi_lite_wrapper.sv C:\intelFPGA\18.1\dnn_optimization_project\.automation_smoke_20260907_retry\project\workspace\target\rtl\bias_sram.sv C:\intelFPGA\18.1\dnn_optimization_project\.automation_smoke_20260907_retry\project\workspace\target\rtl\dnn_scheduler.sv C:\intelFPGA\18.1\dnn_optimization_project\.automation_smoke_20260907_retry\project\workspace\target\rtl\mac_pe.sv C:\intelFPGA\18.1\dnn_optimization_project\.automation_smoke_20260907_retry\project\workspace\target\rtl\maxFinder.sv C:\intelFPGA\18.1\dnn_optimization_project\.automation_smoke_20260907_retry\project\workspace\target\rtl\pe_systolic_cell.sv C:\intelFPGA\18.1\dnn_optimization_project\.automation_smoke_20260907_retry\project\workspace\target\rtl\systolic_array_2d.sv C:\intelFPGA\18.1\dnn_optimization_project\.automation_smoke_20260907_retry\project\workspace\target\rtl\systolic_controller.sv C:\intelFPGA\18.1\dnn_optimization_project\.automation_smoke_20260907_retry\project\workspace\target\rtl\unified_buffer.sv C:\intelFPGA\18.1\dnn_optimization_project\.automation_smoke_20260907_retry\project\workspace\target\rtl\weight_sram.sv C:\intelFPGA\18.1\dnn_optimization_project\.automation_smoke_20260907_retry\project\workspace\target\rtl\zynet.sv tb/top_sim.sv 
+-- Compiling module activation_unit
+-- Compiling module axi_lite_wrapper
+-- Compiling module bias_sram
+-- Compiling module dnn_scheduler
+-- Compiling module mac_pe
+-- Compiling module maxFinder
+-- Compiling module pe_systolic_cell
+-- Compiling module systolic_array_2d
+-- Compiling module systolic_controller
+-- Compiling module unified_buffer
+-- Compiling module weight_sram
+-- Compiling module zyNet
+-- Compiling module top_sim
+
+Top level modules:
+	top_sim
+End time: 16:46:04 on Sep 07,2026, Elapsed time: 0:00:00
+Errors: 0, Warnings: 0

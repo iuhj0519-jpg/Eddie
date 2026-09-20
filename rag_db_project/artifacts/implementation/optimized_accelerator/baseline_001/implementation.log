@@ -1,0 +1,1491 @@
+COMMAND ["cmd.exe", "/d", "/c", "C:/Xilinx/Vivado/2022.1/bin/vivado.bat", "-mode", "batch", "-source", "C:\\Users\\iuhj0\\Eddie\\rag_db_project\\rag\\automation\\vivado_flow.tcl", "-tclargs", "implementation", "C:\\Users\\iuhj0\\Eddie\\rag_db_project\\artifacts\\implementation\\optimized_accelerator\\run_004\\reference"]
+
+****** Vivado v2022.1 (64-bit)
+  **** SW Build 3526262 on Mon Apr 18 15:48:16 MDT 2022
+  **** IP Build 3524634 on Mon Apr 18 20:55:01 MDT 2022
+    ** Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+
+source {C:\Users\iuhj0\Eddie\rag_db_project\rag\automation\vivado_flow.tcl}
+# proc reports {out} {
+#     report_utilization -file "$out/utilization.rpt"
+#     report_utilization -hierarchical -file "$out/utilization_hierarchical.rpt"
+#     report_ram_utilization -file "$out/ram_utilization.rpt"
+#     report_timing_summary -delay_type min_max -max_paths 20 -file "$out/timing_summary.rpt"
+#     report_timing -delay_type max -max_paths 20 -file "$out/critical_paths.rpt"
+#     report_high_fanout_nets -timing -max_nets 50 -file "$out/high_fanout_nets.rpt"
+#     report_drc -file "$out/drc.rpt"
+# }
+# proc main {stage out} {
+#     set work [pwd]
+#     set flow "$work/.vivado_flow"
+#     file mkdir $flow $out
+#     set project "$flow/project/accelerator.xpr"
+#     set_param general.maxThreads 4
+#     if {$stage eq "compile"} {
+#         if {[file exists $project]} { error "Fresh isolated project required" }
+#         create_project accelerator "$flow/project" -part xc7z020clg400-1
+#         add_files -norecurse [glob "$work/rtl/*.sv"]
+#         set headers [glob -nocomplain "$work/rtl/*.svh"]
+#         if {[llength $headers]} { add_files -norecurse $headers }
+#         add_files -fileset sim_1 -norecurse "$work/tb/top_sim.sv"
+#         set_property top zyNet [get_filesets sources_1]
+#         set_property top top_sim [get_filesets sim_1]
+#         set_property include_dirs [list "$work/rtl"] [get_filesets sources_1]
+#         set_property include_dirs [list "$work/rtl"] [get_filesets sim_1]
+#         set_property used_in_synthesis false [get_files *top_sim.sv]
+#         set_property target_simulator XSim [current_project]
+#         set_property xsim.simulate.runtime 0ns [get_filesets sim_1]
+#         update_compile_order -fileset sources_1
+#         update_compile_order -fileset sim_1
+#         launch_simulation -step compile
+#         close_project
+#     } elseif {$stage eq "simulation"} {
+#         open_project $project
+#         launch_simulation -noclean_dir
+#         restart
+#         set observed [get_objects -r /top_sim/device_under_test/*]
+#         if {![llength $observed]} { error "DUT scope missing" }
+#         open_saif "$flow/activity.saif"
+#         log_saif $observed
+#         run all
+#         close_saif
+#         close_sim
+#         close_project
+#         file copy -force "$flow/activity.saif" "$out/activity.saif"
+#     } elseif {$stage eq "synthesis"} {
+#         create_project -in_memory -part xc7z020clg400-1
+#         set_property include_dirs [list "$work/rtl"] [current_fileset]
+#         read_verilog -sv [glob "$work/rtl/*.sv"]
+#         # Board/I/O constraints are used only when present in approved source.
+#         foreach xdc [glob -nocomplain "$work/constraints/*.xdc"] { read_xdc $xdc }
+#         synth_design -top zyNet -part xc7z020clg400-1
+#         if {![llength [get_clocks -quiet -of_objects [get_ports s_axi_aclk]]]} {
+#             create_clock -name s_axi_aclk -period 10.000 [get_ports s_axi_aclk]
+#         }
+#         reports $out
+#         report_power -file "$out/power.rpt"
+#         write_checkpoint "$flow/post_synthesis.dcp"
+#         file copy "$flow/post_synthesis.dcp" "$out/post_synthesis.dcp"
+#     } elseif {$stage eq "implementation"} {
+#         open_checkpoint "$flow/post_synthesis.dcp"
+#         opt_design
+#         place_design
+#         phys_opt_design
+#         route_design
+#         reports $out
+#         report_route_status -file "$out/route_status.rpt"
+#         report_clocks -file "$out/clocks.rpt"
+#         write_checkpoint "$flow/post_route.dcp"
+#         file copy "$flow/post_route.dcp" "$out/post_route.dcp"
+#         # Timing/DRC failures are findings, not hidden by successful route execution.
+#     } elseif {$stage eq "power"} {
+#         open_checkpoint "$flow/post_route.dcp"
+#         reset_switching_activity [get_nets -hierarchical]
+#         if {[llength [get_ports]]} { reset_switching_activity [get_ports] }
+#         read_saif -strip_path top_sim/device_under_test -out_file "$out/saif_mapping.rpt" "$flow/activity.saif"
+#         report_power -name power_saif -file "$out/power_post_route.rpt"
+#         report_switching_activity -signal_rate -static_probability -file "$out/switching_activity.rpt" [get_nets -hierarchical]
+#     } else { error "Unsupported stage: $stage" }
+# }
+# if {[catch {main [lindex $argv 0] [file normalize [lindex $argv 1]]} problem]} {
+#     puts stderr "AUTOMATION_STAGE_FAILED: $problem"
+#     exit 1
+# }
+Command: open_checkpoint C:/Users/iuhj0/Eddie/rag_db_project/.automation_debug/baseline_001/project/workspace/optimized_accelerator/.vivado_flow/post_synthesis.dcp
+
+Starting open_checkpoint Task
+
+Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.090 . Memory (MB): peak = 1286.980 ; gain = 0.000
+INFO: [Device 21-403] Loading part xc7z020clg400-1
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.146 . Memory (MB): peak = 1286.980 ; gain = 0.000
+INFO: [Netlist 29-17] Analyzing 8916 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+INFO: [Project 1-479] Netlist was created with Vivado 2022.1
+INFO: [Project 1-570] Preparing netlist for logic optimization
+INFO: [Timing 38-478] Restoring timing data from binary archive.
+INFO: [Timing 38-479] Binary timing data restore complete.
+INFO: [Project 1-856] Restoring constraints from binary archive.
+INFO: [Project 1-853] Binary constraint restore complete.
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.018 . Memory (MB): peak = 1507.633 ; gain = 0.000
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+INFO: [Project 1-604] Checkpoint was created with Vivado v2022.1 (64-bit) build 3526262
+open_checkpoint: Time (s): cpu = 00:00:31 ; elapsed = 00:00:42 . Memory (MB): peak = 1507.633 ; gain = 220.652
+Command: opt_design
+Attempting to get a license for feature 'Implementation' and/or device 'xc7z020'
+INFO: [Common 17-349] Got license for feature 'Implementation' and/or device 'xc7z020'
+Running DRC as a precondition to command opt_design
+
+Starting DRC Task
+INFO: [DRC 23-27] Running DRC with 4 threads
+INFO: [Project 1-461] DRC finished with 0 Errors
+INFO: [Project 1-462] Please refer to the DRC report (report_drc) for more information.
+
+Time (s): cpu = 00:00:03 ; elapsed = 00:00:02 . Memory (MB): peak = 1526.676 ; gain = 16.043
+
+Starting Cache Timing Information Task
+Ending Cache Timing Information Task | Checksum: 15b2ecc93
+
+Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.137 . Memory (MB): peak = 1526.676 ; gain = 0.000
+
+Starting Logic Optimization Task
+
+Phase 1 Retarget
+INFO: [Opt 31-138] Pushed 3 inverter(s) to 19 load pin(s).
+In IDDR TRANSFORM
+INFO: [Opt 31-49] Retargeted 0 cell(s).
+Phase 1 Retarget | Checksum: d9848e53
+
+Time (s): cpu = 00:00:04 ; elapsed = 00:00:03 . Memory (MB): peak = 1817.648 ; gain = 0.000
+INFO: [Opt 31-389] Phase Retarget created 11 cells and removed 13 cells
+
+Phase 2 Constant propagation
+INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
+Phase 2 Constant propagation | Checksum: f0366c78
+
+Time (s): cpu = 00:00:04 ; elapsed = 00:00:03 . Memory (MB): peak = 1817.648 ; gain = 0.000
+INFO: [Opt 31-389] Phase Constant propagation created 3 cells and removed 3 cells
+
+Phase 3 Sweep
+Phase 3 Sweep | Checksum: 1361c1981
+
+Time (s): cpu = 00:00:05 ; elapsed = 00:00:04 . Memory (MB): peak = 1817.648 ; gain = 0.000
+INFO: [Opt 31-389] Phase Sweep created 0 cells and removed 0 cells
+
+Phase 4 BUFG optimization
+Phase 4 BUFG optimization | Checksum: 1361c1981
+
+Time (s): cpu = 00:00:07 ; elapsed = 00:00:05 . Memory (MB): peak = 1817.648 ; gain = 0.000
+INFO: [Opt 31-662] Phase BUFG optimization created 0 cells of which 0 are BUFGs and removed 0 cells.
+
+Phase 5 Shift Register Optimization
+INFO: [Opt 31-1064] SRL Remap converted 0 SRLs to 0 registers and converted 0 registers of register chains to 0 SRLs
+Phase 5 Shift Register Optimization | Checksum: 1361c1981
+
+Time (s): cpu = 00:00:07 ; elapsed = 00:00:05 . Memory (MB): peak = 1817.648 ; gain = 0.000
+INFO: [Opt 31-389] Phase Shift Register Optimization created 0 cells and removed 0 cells
+
+Phase 6 Post Processing Netlist
+Phase 6 Post Processing Netlist | Checksum: 1361c1981
+
+Time (s): cpu = 00:00:07 ; elapsed = 00:00:05 . Memory (MB): peak = 1817.648 ; gain = 0.000
+INFO: [Opt 31-389] Phase Post Processing Netlist created 0 cells and removed 0 cells
+Opt_design Change Summary
+=========================
+
+
+-------------------------------------------------------------------------------------------------------------------------
+|  Phase                        |  #Cells created  |  #Cells Removed  |  #Constrained objects preventing optimizations  |
+-------------------------------------------------------------------------------------------------------------------------
+|  Retarget                     |              11  |              13  |                                              0  |
+|  Constant propagation         |               3  |               3  |                                              0  |
+|  Sweep                        |               0  |               0  |                                              0  |
+|  BUFG optimization            |               0  |               0  |                                              0  |
+|  Shift Register Optimization  |               0  |               0  |                                              0  |
+|  Post Processing Netlist      |               0  |               0  |                                              0  |
+-------------------------------------------------------------------------------------------------------------------------
+
+
+
+Starting Connectivity Check Task
+
+Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.132 . Memory (MB): peak = 1817.648 ; gain = 0.000
+Ending Logic Optimization Task | Checksum: 9a8e0195
+
+Time (s): cpu = 00:00:08 ; elapsed = 00:00:06 . Memory (MB): peak = 1817.648 ; gain = 0.000
+
+Starting Power Optimization Task
+INFO: [Pwropt 34-132] Skipping clock gating for clocks with a period < 2.00 ns.
+INFO: [Pwropt 34-9] Applying IDT optimizations ...
+INFO: [Pwropt 34-10] Applying ODC optimizations ...
+INFO: [Timing 38-35] Done setting XDC timing constraints.
+Running Vector-less Activity Propagation...
+
+Finished Running Vector-less Activity Propagation
+
+
+Starting PowerOpt Patch Enables Task
+INFO: [Pwropt 34-162] WRITE_MODE attribute of 0 BRAM(s) out of a total of 5 has been updated to save power. Run report_power_opt to get a complete listing of the BRAMs updated.
+INFO: [Pwropt 34-201] Structural ODC has moved 0 WE to EN ports
+Number of BRAM Ports augmented: 5 newly gated: 0 Total Ports: 10
+Ending PowerOpt Patch Enables Task | Checksum: 10cf8054d
+
+Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.256 . Memory (MB): peak = 1953.535 ; gain = 0.000
+Ending Power Optimization Task | Checksum: 10cf8054d
+
+Time (s): cpu = 00:00:13 ; elapsed = 00:00:08 . Memory (MB): peak = 1953.535 ; gain = 135.887
+
+Starting Final Cleanup Task
+Ending Final Cleanup Task | Checksum: 10cf8054d
+
+Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.012 . Memory (MB): peak = 1953.535 ; gain = 0.000
+
+Starting Netlist Obfuscation Task
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.017 . Memory (MB): peak = 1953.535 ; gain = 0.000
+Ending Netlist Obfuscation Task | Checksum: 13eafe416
+
+Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.031 . Memory (MB): peak = 1953.535 ; gain = 0.000
+INFO: [Common 17-83] Releasing license: Implementation
+32 Infos, 0 Warnings, 0 Critical Warnings and 0 Errors encountered.
+opt_design completed successfully
+opt_design: Time (s): cpu = 00:00:30 ; elapsed = 00:00:25 . Memory (MB): peak = 1953.535 ; gain = 445.902
+INFO: [Common 17-600] The following parameters have non-default value.
+general.maxThreads
+Command: place_design
+Attempting to get a license for feature 'Implementation' and/or device 'xc7z020'
+INFO: [Common 17-349] Got license for feature 'Implementation' and/or device 'xc7z020'
+INFO: [Timing 38-35] Done setting XDC timing constraints.
+INFO: [DRC 23-27] Running DRC with 4 threads
+INFO: [Vivado_Tcl 4-198] DRC finished with 0 Errors
+INFO: [Vivado_Tcl 4-199] Please refer to the DRC report (report_drc) for more information.
+Running DRC as a precondition to command place_design
+INFO: [DRC 23-27] Running DRC with 4 threads
+INFO: [Vivado_Tcl 4-198] DRC finished with 0 Errors, 21 Warnings
+INFO: [Vivado_Tcl 4-199] Please refer to the DRC report (report_drc) for more information.
+
+Starting Placer Task
+INFO: [Place 30-611] Multithreading enabled for place_design using a maximum of 4 CPUs
+
+Phase 1 Placer Initialization
+
+Phase 1.1 Placer Initialization Netlist Sorting
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.013 . Memory (MB): peak = 1953.535 ; gain = 0.000
+Phase 1.1 Placer Initialization Netlist Sorting | Checksum: 4ebd9c81
+
+Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.034 . Memory (MB): peak = 1953.535 ; gain = 0.000
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.014 . Memory (MB): peak = 1953.535 ; gain = 0.000
+
+Phase 1.2 IO Placement/ Clock Placement/ Build Placer Device
+Phase 1.2 IO Placement/ Clock Placement/ Build Placer Device | Checksum: ebf78b87
+
+Time (s): cpu = 00:00:03 ; elapsed = 00:00:02 . Memory (MB): peak = 1953.535 ; gain = 0.000
+
+Phase 1.3 Build Placer Netlist Model
+Phase 1.3 Build Placer Netlist Model | Checksum: 1c263203b
+
+Time (s): cpu = 00:00:17 ; elapsed = 00:00:13 . Memory (MB): peak = 1953.535 ; gain = 0.000
+
+Phase 1.4 Constrain Clocks/Macros
+Phase 1.4 Constrain Clocks/Macros | Checksum: 1c263203b
+
+Time (s): cpu = 00:00:17 ; elapsed = 00:00:14 . Memory (MB): peak = 1953.535 ; gain = 0.000
+Phase 1 Placer Initialization | Checksum: 1c263203b
+
+Time (s): cpu = 00:00:17 ; elapsed = 00:00:14 . Memory (MB): peak = 1953.535 ; gain = 0.000
+
+Phase 2 Global Placement
+
+Phase 2.1 Floorplanning
+Phase 2.1 Floorplanning | Checksum: 166b44b66
+
+Time (s): cpu = 00:00:25 ; elapsed = 00:00:18 . Memory (MB): peak = 1953.535 ; gain = 0.000
+
+Phase 2.2 Update Timing before SLR Path Opt
+Phase 2.2 Update Timing before SLR Path Opt | Checksum: 156a810b6
+
+Time (s): cpu = 00:00:30 ; elapsed = 00:00:21 . Memory (MB): peak = 1953.535 ; gain = 0.000
+
+Phase 2.3 Post-Processing in Floorplanning
+Phase 2.3 Post-Processing in Floorplanning | Checksum: 156a810b6
+
+Time (s): cpu = 00:00:30 ; elapsed = 00:00:21 . Memory (MB): peak = 1953.535 ; gain = 0.000
+
+Phase 2.4 Global Placement Core
+
+Phase 2.4.1 Physical Synthesis In Placer
+INFO: [Physopt 32-1035] Found 60 LUTNM shape to break, 165 LUT instances to create LUTNM shape
+INFO: [Physopt 32-1044] Break lutnm for timing: one critical 7, two critical 53, total 60, new lutff created 1
+INFO: [Physopt 32-1138] End 1 Pass. Optimized 120 nets or LUTs. Breaked 60 LUTs, combined 60 existing LUTs and moved 0 existing LUT
+INFO: [Physopt 32-65] No nets found for high-fanout optimization.
+INFO: [Physopt 32-232] Optimized 0 net. Created 0 new instance.
+INFO: [Physopt 32-775] End 1 Pass. Optimized 0 net or cell. Created 0 new cell, deleted 0 existing cell and moved 0 existing cell
+INFO: [Physopt 32-76] Pass 1. Identified 2 candidate nets for fanout optimization.
+INFO: [Physopt 32-81] Processed net dnn_scheduler_instance/DI[0]. Replicated 9 times.
+INFO: [Physopt 32-81] Processed net dnn_scheduler_instance/group_index_reg[1]_0[1]. Replicated 10 times.
+INFO: [Physopt 32-232] Optimized 2 nets. Created 19 new instances.
+INFO: [Physopt 32-775] End 1 Pass. Optimized 2 nets or cells. Created 19 new cells, deleted 0 existing cell and moved 0 existing cell
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.229 . Memory (MB): peak = 1953.535 ; gain = 0.000
+INFO: [Physopt 32-456] No candidate cells for DSP register optimization found in the design.
+INFO: [Physopt 32-775] End 2 Pass. Optimized 0 net or cell. Created 0 new cell, deleted 0 existing cell and moved 0 existing cell
+INFO: [Physopt 32-1123] No candidate cells found for Shift Register to Pipeline optimization
+INFO: [Physopt 32-775] End 1 Pass. Optimized 0 net or cell. Created 0 new cell, deleted 0 existing cell and moved 0 existing cell
+INFO: [Physopt 32-677] No candidate cells for Shift Register optimization found in the design
+INFO: [Physopt 32-775] End 1 Pass. Optimized 0 net or cell. Created 0 new cell, deleted 0 existing cell and moved 0 existing cell
+INFO: [Physopt 32-526] No candidate cells for BRAM register optimization found in the design
+INFO: [Physopt 32-775] End 1 Pass. Optimized 0 net or cell. Created 0 new cell, deleted 0 existing cell and moved 0 existing cell
+INFO: [Physopt 32-846] No candidate cells for URAM register optimization found in the design
+INFO: [Physopt 32-775] End 2 Pass. Optimized 0 net or cell. Created 0 new cell, deleted 0 existing cell and moved 0 existing cell
+INFO: [Physopt 32-949] No candidate nets found for dynamic/static region interface net replication
+INFO: [Physopt 32-775] End 1 Pass. Optimized 0 net or cell. Created 0 new cell, deleted 0 existing cell and moved 0 existing cell
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.015 . Memory (MB): peak = 1953.535 ; gain = 0.000
+
+Summary of Physical Synthesis Optimizations
+============================================
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------
+|  Optimization                                     |  Added Cells  |  Removed Cells  |  Optimized Cells/Nets  |  Dont Touch  |  Iterations  |  Elapsed   |
+-----------------------------------------------------------------------------------------------------------------------------------------------------------
+|  LUT Combining                                    |           60  |             60  |                   120  |           0  |           1  |  00:00:01  |
+|  Retime                                           |            0  |              0  |                     0  |           0  |           1  |  00:00:00  |
+|  Very High Fanout                                 |            0  |              0  |                     0  |           0  |           1  |  00:00:00  |
+|  Fanout                                           |           19  |              0  |                     2  |           0  |           1  |  00:00:03  |
+|  DSP Register                                     |            0  |              0  |                     0  |           0  |           1  |  00:00:00  |
+|  Shift Register to Pipeline                       |            0  |              0  |                     0  |           0  |           1  |  00:00:00  |
+|  Shift Register                                   |            0  |              0  |                     0  |           0  |           1  |  00:00:00  |
+|  BRAM Register                                    |            0  |              0  |                     0  |           0  |           1  |  00:00:00  |
+|  URAM Register                                    |            0  |              0  |                     0  |           0  |           1  |  00:00:00  |
+|  Dynamic/Static Region Interface Net Replication  |            0  |              0  |                     0  |           0  |           1  |  00:00:00  |
+|  Total                                            |           79  |             60  |                   122  |           0  |          10  |  00:00:04  |
+-----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+Phase 2.4.1 Physical Synthesis In Placer | Checksum: c13b7124
+
+Time (s): cpu = 00:02:01 ; elapsed = 00:01:25 . Memory (MB): peak = 1953.535 ; gain = 0.000
+Phase 2.4 Global Placement Core | Checksum: 196aa3add
+
+Time (s): cpu = 00:02:03 ; elapsed = 00:01:26 . Memory (MB): peak = 1953.535 ; gain = 0.000
+Phase 2 Global Placement | Checksum: 196aa3add
+
+Time (s): cpu = 00:02:03 ; elapsed = 00:01:26 . Memory (MB): peak = 1953.535 ; gain = 0.000
+
+Phase 3 Detail Placement
+
+Phase 3.1 Commit Multi Column Macros
+Phase 3.1 Commit Multi Column Macros | Checksum: 1d7c99dea
+
+Time (s): cpu = 00:02:09 ; elapsed = 00:01:30 . Memory (MB): peak = 1953.535 ; gain = 0.000
+
+Phase 3.2 Commit Most Macros & LUTRAMs
+Phase 3.2 Commit Most Macros & LUTRAMs | Checksum: d7275a89
+
+Time (s): cpu = 00:02:20 ; elapsed = 00:01:37 . Memory (MB): peak = 1953.535 ; gain = 0.000
+
+Phase 3.3 Area Swap Optimization
+Phase 3.3 Area Swap Optimization | Checksum: 99f82feb
+
+Time (s): cpu = 00:02:20 ; elapsed = 00:01:38 . Memory (MB): peak = 1953.535 ; gain = 0.000
+
+Phase 3.4 Pipeline Register Optimization
+Phase 3.4 Pipeline Register Optimization | Checksum: c5507957
+
+Time (s): cpu = 00:02:20 ; elapsed = 00:01:38 . Memory (MB): peak = 1953.535 ; gain = 0.000
+
+Phase 3.5 Fast Optimization
+Phase 3.5 Fast Optimization | Checksum: 18222cb63
+
+Time (s): cpu = 00:02:44 ; elapsed = 00:02:00 . Memory (MB): peak = 1953.535 ; gain = 0.000
+
+Phase 3.6 Small Shape Detail Placement
+Phase 3.6 Small Shape Detail Placement | Checksum: 135f7863d
+
+Time (s): cpu = 00:02:58 ; elapsed = 00:02:19 . Memory (MB): peak = 1953.535 ; gain = 0.000
+
+Phase 3.7 Re-assign LUT pins
+Phase 3.7 Re-assign LUT pins | Checksum: 13b0fa974
+
+Time (s): cpu = 00:03:02 ; elapsed = 00:02:25 . Memory (MB): peak = 1953.535 ; gain = 0.000
+
+Phase 3.8 Pipeline Register Optimization
+Phase 3.8 Pipeline Register Optimization | Checksum: 116787e00
+
+Time (s): cpu = 00:03:02 ; elapsed = 00:02:26 . Memory (MB): peak = 1953.535 ; gain = 0.000
+
+Phase 3.9 Fast Optimization
+Phase 3.9 Fast Optimization | Checksum: 122f57eaf
+
+Time (s): cpu = 00:03:38 ; elapsed = 00:03:03 . Memory (MB): peak = 1953.535 ; gain = 0.000
+Phase 3 Detail Placement | Checksum: 122f57eaf
+
+Time (s): cpu = 00:03:38 ; elapsed = 00:03:03 . Memory (MB): peak = 1953.535 ; gain = 0.000
+
+Phase 4 Post Placement Optimization and Clean-Up
+
+Phase 4.1 Post Commit Optimization
+INFO: [Timing 38-35] Done setting XDC timing constraints.
+
+Phase 4.1.1 Post Placement Optimization
+Post Placement Optimization Initialization | Checksum: 18526be78
+
+Phase 4.1.1.1 BUFG Insertion
+
+Starting Physical Synthesis Task
+
+Phase 1 Physical Synthesis Initialization
+INFO: [Physopt 32-721] Multithreading enabled for phys_opt_design using a maximum of 4 CPUs
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-4.876 | TNS=-201.127 |
+Phase 1 Physical Synthesis Initialization | Checksum: 19ad73cde
+
+Time (s): cpu = 00:00:02 ; elapsed = 00:00:02 . Memory (MB): peak = 1970.387 ; gain = 0.000
+INFO: [Place 46-33] Processed net systolic_controller_instance/systolic_array_2d_instance/ARRAY_ROWS[4].ARRAY_COLUMNS[4].pe_systolic_cell_instance/mac_pe_instance/s_axi_aresetn, BUFG insertion was skipped due to placement/routing conflicts.
+INFO: [Place 46-56] BUFG insertion identified 1 candidate nets. Inserted BUFG: 0, Replicated BUFG Driver: 0, Skipped due to Placement/Routing Conflicts: 1, Skipped due to Timing Degradation: 0, Skipped due to Illegal Netlist: 0.
+Ending Physical Synthesis Task | Checksum: d9fa0f61
+
+Time (s): cpu = 00:00:04 ; elapsed = 00:00:05 . Memory (MB): peak = 1970.387 ; gain = 0.000
+Phase 4.1.1.1 BUFG Insertion | Checksum: 18526be78
+
+Time (s): cpu = 00:03:55 ; elapsed = 00:03:20 . Memory (MB): peak = 1970.387 ; gain = 16.852
+
+Phase 4.1.1.2 Post Placement Timing Optimization
+INFO: [Place 30-746] Post Placement Timing Summary WNS=-4.108. For the most accurate timing information please run report_timing.
+Phase 4.1.1.2 Post Placement Timing Optimization | Checksum: 11f303b03
+
+Time (s): cpu = 00:05:14 ; elapsed = 00:04:41 . Memory (MB): peak = 1970.387 ; gain = 16.852
+
+Time (s): cpu = 00:05:14 ; elapsed = 00:04:41 . Memory (MB): peak = 1970.387 ; gain = 16.852
+Phase 4.1 Post Commit Optimization | Checksum: 11f303b03
+
+Time (s): cpu = 00:05:14 ; elapsed = 00:04:42 . Memory (MB): peak = 1970.387 ; gain = 16.852
+
+Phase 4.2 Post Placement Cleanup
+Phase 4.2 Post Placement Cleanup | Checksum: 11f303b03
+
+Time (s): cpu = 00:05:14 ; elapsed = 00:04:42 . Memory (MB): peak = 1970.387 ; gain = 16.852
+
+Phase 4.3 Placer Reporting
+
+Phase 4.3.1 Print Estimated Congestion
+INFO: [Place 30-612] Post-Placement Estimated Congestion 
+ ____________________________________________________
+|           | Global Congestion | Short Congestion  |
+| Direction | Region Size       | Region Size       |
+|___________|___________________|___________________|
+|      North|                1x1|                1x1|
+|___________|___________________|___________________|
+|      South|                1x1|                2x2|
+|___________|___________________|___________________|
+|       East|                1x1|                1x1|
+|___________|___________________|___________________|
+|       West|                1x1|                1x1|
+|___________|___________________|___________________|
+
+Phase 4.3.1 Print Estimated Congestion | Checksum: 11f303b03
+
+Time (s): cpu = 00:05:15 ; elapsed = 00:04:42 . Memory (MB): peak = 1970.387 ; gain = 16.852
+Phase 4.3 Placer Reporting | Checksum: 11f303b03
+
+Time (s): cpu = 00:05:15 ; elapsed = 00:04:43 . Memory (MB): peak = 1970.387 ; gain = 16.852
+
+Phase 4.4 Final Placement Cleanup
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.007 . Memory (MB): peak = 1970.387 ; gain = 0.000
+
+Time (s): cpu = 00:05:15 ; elapsed = 00:04:43 . Memory (MB): peak = 1970.387 ; gain = 16.852
+Phase 4 Post Placement Optimization and Clean-Up | Checksum: 15950d60e
+
+Time (s): cpu = 00:05:15 ; elapsed = 00:04:43 . Memory (MB): peak = 1970.387 ; gain = 16.852
+Ending Placer Task | Checksum: 1187c54f8
+
+Time (s): cpu = 00:05:15 ; elapsed = 00:04:43 . Memory (MB): peak = 1970.387 ; gain = 16.852
+INFO: [Common 17-83] Releasing license: Implementation
+73 Infos, 0 Warnings, 0 Critical Warnings and 0 Errors encountered.
+place_design completed successfully
+place_design: Time (s): cpu = 00:05:29 ; elapsed = 00:04:50 . Memory (MB): peak = 1970.387 ; gain = 16.852
+INFO: [Common 17-600] The following parameters have non-default value.
+general.maxThreads
+Command: phys_opt_design
+Attempting to get a license for feature 'Implementation' and/or device 'xc7z020'
+INFO: [Common 17-349] Got license for feature 'Implementation' and/or device 'xc7z020'
+INFO: [Vivado_Tcl 4-1435] PhysOpt_Tcl_Interface Runtime Before Starting Physical Synthesis Task | CPU: 7.00s |  WALL: 3.52s
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.006 . Memory (MB): peak = 1970.387 ; gain = 0.000
+
+Starting Physical Synthesis Task
+
+Phase 1 Physical Synthesis Initialization
+INFO: [Physopt 32-721] Multithreading enabled for phys_opt_design using a maximum of 4 CPUs
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-4.108 | TNS=-184.405 |
+Phase 1 Physical Synthesis Initialization | Checksum: 10a36bb3e
+
+Time (s): cpu = 00:00:04 ; elapsed = 00:00:03 . Memory (MB): peak = 1976.508 ; gain = 6.121
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-4.108 | TNS=-184.405 |
+
+Phase 2 DSP Register Optimization
+INFO: [Physopt 32-456] No candidate cells for DSP register optimization found in the design.
+INFO: [Physopt 32-775] End 2 Pass. Optimized 0 net or cell. Created 0 new cell, deleted 0 existing cell and moved 0 existing cell
+Phase 2 DSP Register Optimization | Checksum: 10a36bb3e
+
+Time (s): cpu = 00:00:04 ; elapsed = 00:00:03 . Memory (MB): peak = 1976.508 ; gain = 6.121
+
+Phase 3 Critical Path Optimization
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-4.108 | TNS=-184.405 |
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[39]_0[24]. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-81] Processed net systolic_controller_instance/cycle_count_reg_n_0_[5]. Replicated 3 times.
+INFO: [Physopt 32-735] Processed net systolic_controller_instance/cycle_count_reg_n_0_[5]. Optimization improves timing on the net.
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-4.106 | TNS=-185.557 |
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[39]_0[17]. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-81] Processed net systolic_controller_instance/cycle_count_reg_n_0_[5]_repN. Replicated 1 times.
+INFO: [Physopt 32-735] Processed net systolic_controller_instance/cycle_count_reg_n_0_[5]_repN. Optimization improves timing on the net.
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-4.106 | TNS=-185.653 |
+INFO: [Physopt 32-81] Processed net systolic_controller_instance/cycle_count_reg_n_0_[5]_repN_3. Replicated 1 times.
+INFO: [Physopt 32-735] Processed net systolic_controller_instance/cycle_count_reg_n_0_[5]_repN_3. Optimization improves timing on the net.
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-4.092 | TNS=-184.069 |
+INFO: [Physopt 32-81] Processed net systolic_controller_instance/Q[3]. Replicated 4 times.
+INFO: [Physopt 32-735] Processed net systolic_controller_instance/Q[3]. Optimization improves timing on the net.
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-4.034 | TNS=-183.517 |
+INFO: [Physopt 32-81] Processed net systolic_controller_instance/cycle_count_reg_n_0_[4]. Replicated 4 times.
+INFO: [Physopt 32-735] Processed net systolic_controller_instance/cycle_count_reg_n_0_[4]. Optimization improves timing on the net.
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-4.008 | TNS=-182.981 |
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[39]_0[2]. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-663] Processed net dnn_scheduler_instance/group_index_reg[1]_0[1]_repN.  Re-placed instance dnn_scheduler_instance/group_index_reg[1]_replica
+INFO: [Physopt 32-735] Processed net dnn_scheduler_instance/group_index_reg[1]_0[1]_repN. Optimization improves timing on the net.
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-4.005 | TNS=-182.333 |
+INFO: [Physopt 32-81] Processed net dnn_scheduler_instance/layer_index[1]. Replicated 2 times.
+INFO: [Physopt 32-735] Processed net dnn_scheduler_instance/layer_index[1]. Optimization improves timing on the net.
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-3.997 | TNS=-182.149 |
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[39]_0[14]. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-81] Processed net systolic_controller_instance/Q[1]. Replicated 4 times.
+INFO: [Physopt 32-735] Processed net systolic_controller_instance/Q[1]. Optimization improves timing on the net.
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-3.979 | TNS=-181.501 |
+INFO: [Physopt 32-81] Processed net systolic_controller_instance/cycle_count_reg_n_0_[6]. Replicated 4 times.
+INFO: [Physopt 32-735] Processed net systolic_controller_instance/cycle_count_reg_n_0_[6]. Optimization improves timing on the net.
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-3.968 | TNS=-181.292 |
+INFO: [Physopt 32-81] Processed net systolic_controller_instance/cycle_count_reg_n_0_[5]_repN_4. Replicated 1 times.
+INFO: [Physopt 32-735] Processed net systolic_controller_instance/cycle_count_reg_n_0_[5]_repN_4. Optimization improves timing on the net.
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-3.962 | TNS=-181.262 |
+INFO: [Physopt 32-81] Processed net systolic_controller_instance/cycle_count_reg_n_0_[5]_repN_4. Replicated 1 times.
+INFO: [Physopt 32-735] Processed net systolic_controller_instance/cycle_count_reg_n_0_[5]_repN_4. Optimization improves timing on the net.
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-3.961 | TNS=-181.167 |
+INFO: [Physopt 32-81] Processed net systolic_controller_instance/Q[3]_repN_1. Replicated 1 times.
+INFO: [Physopt 32-735] Processed net systolic_controller_instance/Q[3]_repN_1. Optimization improves timing on the net.
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-3.946 | TNS=-180.855 |
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[39]_0[33]. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-81] Processed net dnn_scheduler_instance/group_index[2]. Replicated 5 times.
+INFO: [Physopt 32-735] Processed net dnn_scheduler_instance/group_index[2]. Optimization improves timing on the net.
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-3.943 | TNS=-180.423 |
+INFO: [Physopt 32-81] Processed net dnn_scheduler_instance/layer_index[0]. Replicated 2 times.
+INFO: [Physopt 32-735] Processed net dnn_scheduler_instance/layer_index[0]. Optimization improves timing on the net.
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-3.941 | TNS=-180.365 |
+INFO: [Physopt 32-81] Processed net systolic_controller_instance/cycle_count_reg_n_0_[6]_repN. Replicated 4 times.
+INFO: [Physopt 32-735] Processed net systolic_controller_instance/cycle_count_reg_n_0_[6]_repN. Optimization improves timing on the net.
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-3.937 | TNS=-180.220 |
+INFO: [Physopt 32-81] Processed net systolic_controller_instance/cycle_count_reg_n_0_[4]_repN. Replicated 1 times.
+INFO: [Physopt 32-735] Processed net systolic_controller_instance/cycle_count_reg_n_0_[4]_repN. Optimization improves timing on the net.
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-3.936 | TNS=-180.084 |
+INFO: [Physopt 32-663] Processed net systolic_controller_instance/cycle_count_reg_n_0_[5]_repN_6.  Re-placed instance systolic_controller_instance/cycle_count_reg[5]_replica_6
+INFO: [Physopt 32-735] Processed net systolic_controller_instance/cycle_count_reg_n_0_[5]_repN_6. Optimization improves timing on the net.
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-3.925 | TNS=-179.996 |
+INFO: [Physopt 32-702] Processed net systolic_controller_instance/cycle_count_reg_n_0_[5]_repN_6. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-710] Processed net weight_sram_instance/p_14_out[17]. Critical path length was reduced through logic transformation on cell weight_sram_instance/read_data[17]_i_1_comp.
+INFO: [Physopt 32-735] Processed net weight_sram_instance/read_data[17]_i_2_n_0. Optimization improves timing on the net.
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-3.922 | TNS=-179.833 |
+INFO: [Physopt 32-81] Processed net systolic_controller_instance/Q[2]. Replicated 5 times.
+INFO: [Physopt 32-735] Processed net systolic_controller_instance/Q[2]. Optimization improves timing on the net.
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-3.921 | TNS=-179.777 |
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[39]_0[21]. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[21]_i_3_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[21]_i_8_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-608] Optimized 1 net.  Swapped 24 pins.
+INFO: [Physopt 32-735] Processed net weight_sram_instance/read_data[21]_i_22_n_0. Optimization improves timing on the net.
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-3.921 | TNS=-179.542 |
+INFO: [Physopt 32-663] Processed net dnn_scheduler_instance/group_index_reg[1]_0[0].  Re-placed instance dnn_scheduler_instance/group_index_reg[0]
+INFO: [Physopt 32-735] Processed net dnn_scheduler_instance/group_index_reg[1]_0[0]. Optimization improves timing on the net.
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-3.920 | TNS=-178.822 |
+INFO: [Physopt 32-81] Processed net dnn_scheduler_instance/layer_index[1]_repN. Replicated 1 times.
+INFO: [Physopt 32-735] Processed net dnn_scheduler_instance/layer_index[1]_repN. Optimization improves timing on the net.
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-3.915 | TNS=-178.590 |
+INFO: [Physopt 32-81] Processed net systolic_controller_instance/Q[0]. Replicated 3 times.
+INFO: [Physopt 32-735] Processed net systolic_controller_instance/Q[0]. Optimization improves timing on the net.
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-3.892 | TNS=-177.262 |
+INFO: [Physopt 32-81] Processed net systolic_controller_instance/cycle_count_reg_n_0_[5]_repN_4. Replicated 1 times.
+INFO: [Physopt 32-735] Processed net systolic_controller_instance/cycle_count_reg_n_0_[5]_repN_4. Optimization improves timing on the net.
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-3.891 | TNS=-177.238 |
+INFO: [Physopt 32-663] Processed net dnn_scheduler_instance/layer_index[0]_repN.  Re-placed instance dnn_scheduler_instance/layer_index_reg[0]_replica
+INFO: [Physopt 32-735] Processed net dnn_scheduler_instance/layer_index[0]_repN. Optimization improves timing on the net.
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-3.889 | TNS=-177.630 |
+INFO: [Physopt 32-702] Processed net systolic_controller_instance/cycle_count_reg_n_0_[5]_repN_7. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-710] Processed net weight_sram_instance/p_14_out[33]. Critical path length was reduced through logic transformation on cell weight_sram_instance/read_data[33]_i_1_comp.
+INFO: [Physopt 32-735] Processed net weight_sram_instance/read_data[33]_i_2_n_0. Optimization improves timing on the net.
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-3.885 | TNS=-177.626 |
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data[33]_i_2_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[33]_i_5_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-608] Optimized 1 net.  Swapped 23 pins.
+INFO: [Physopt 32-735] Processed net weight_sram_instance/read_data[33]_i_13_n_0. Optimization improves timing on the net.
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-3.872 | TNS=-177.611 |
+INFO: [Physopt 32-663] Processed net dnn_scheduler_instance/layer_index[0]_repN.  Re-placed instance dnn_scheduler_instance/layer_index_reg[0]_replica
+INFO: [Physopt 32-735] Processed net dnn_scheduler_instance/layer_index[0]_repN. Optimization improves timing on the net.
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-3.870 | TNS=-177.419 |
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[33]_i_7_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data[33]_i_17_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[33]_i_45_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-608] Optimized 1 net.  Swapped 24 pins.
+INFO: [Physopt 32-735] Processed net weight_sram_instance/read_data[33]_i_101_n_0. Optimization improves timing on the net.
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-3.864 | TNS=-177.332 |
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[39]_0[18]. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-81] Processed net dnn_scheduler_instance/layer_index[0]_repN. Replicated 1 times.
+INFO: [Physopt 32-735] Processed net dnn_scheduler_instance/layer_index[0]_repN. Optimization improves timing on the net.
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-3.863 | TNS=-176.404 |
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[39]_0[16]. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data[16]_i_2_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[16]_i_5_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-608] Optimized 1 net.  Swapped 23 pins.
+INFO: [Physopt 32-735] Processed net weight_sram_instance/read_data[16]_i_13_n_0. Optimization improves timing on the net.
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-3.856 | TNS=-176.397 |
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[16]_i_7_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-608] Optimized 1 net.  Swapped 23 pins.
+INFO: [Physopt 32-735] Processed net weight_sram_instance/read_data[16]_i_20_n_0. Optimization improves timing on the net.
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-3.853 | TNS=-176.372 |
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[39]_0[19]. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[19]_i_2_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data[19]_i_5_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[19]_i_15_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data[19]_i_36_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[19]_i_84_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[19]_i_151_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/g261_b3__1_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-608] Optimized 1 net.  Swapped 24 pins.
+INFO: [Physopt 32-735] Processed net weight_sram_instance/p_14_out[19]. Optimization improves timing on the net.
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-3.848 | TNS=-176.205 |
+INFO: [Physopt 32-710] Processed net weight_sram_instance/p_14_out[18]. Critical path length was reduced through logic transformation on cell weight_sram_instance/read_data[18]_i_1_comp.
+INFO: [Physopt 32-735] Processed net weight_sram_instance/read_data[18]_i_2_n_0. Optimization improves timing on the net.
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-3.831 | TNS=-176.183 |
+INFO: [Physopt 32-710] Processed net weight_sram_instance/read_data[16]_i_2_n_0. Critical path length was reduced through logic transformation on cell weight_sram_instance/read_data[16]_i_2_comp.
+INFO: [Physopt 32-735] Processed net weight_sram_instance/read_data[16]_i_6_n_0. Optimization improves timing on the net.
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-3.826 | TNS=-176.063 |
+INFO: [Physopt 32-663] Processed net weight_sram_instance/read_data[18]_i_2_n_0.  Re-placed instance weight_sram_instance/read_data[18]_i_2_comp
+INFO: [Physopt 32-735] Processed net weight_sram_instance/read_data[18]_i_2_n_0. Optimization improves timing on the net.
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-3.816 | TNS=-176.031 |
+INFO: [Physopt 32-81] Processed net systolic_controller_instance/Q[3]_repN_4. Replicated 2 times.
+INFO: [Physopt 32-735] Processed net systolic_controller_instance/Q[3]_repN_4. Optimization improves timing on the net.
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-3.802 | TNS=-175.583 |
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[39]_0[22]. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[23]_i_3_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[23]_i_8_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-608] Optimized 1 net.  Swapped 24 pins.
+INFO: [Physopt 32-735] Processed net weight_sram_instance/read_data[23]_i_21_n_0. Optimization improves timing on the net.
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-3.800 | TNS=-175.413 |
+INFO: [Physopt 32-81] Processed net systolic_controller_instance/Q[5]. Replicated 4 times.
+INFO: [Physopt 32-735] Processed net systolic_controller_instance/Q[5]. Optimization improves timing on the net.
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-3.794 | TNS=-175.229 |
+INFO: [Physopt 32-710] Processed net weight_sram_instance/p_14_out[18]. Critical path length was reduced through logic transformation on cell weight_sram_instance/read_data[18]_i_1_comp_1.
+INFO: [Physopt 32-735] Processed net weight_sram_instance/read_data[18]_i_2_n_0. Optimization improves timing on the net.
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-3.783 | TNS=-175.057 |
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[33]_i_42_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data[33]_i_91_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[33]_i_207_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/g62_b1__3_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-608] Optimized 1 net.  Swapped 18 pins.
+INFO: [Physopt 32-735] Processed net weight_sram_instance/p_14_out[33]. Optimization improves timing on the net.
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-3.777 | TNS=-174.935 |
+INFO: [Physopt 32-702] Processed net dnn_scheduler_instance/layer_index[0]_repN. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-710] Processed net weight_sram_instance/p_14_out[24]. Critical path length was reduced through logic transformation on cell weight_sram_instance/read_data[24]_i_1_comp.
+INFO: [Physopt 32-735] Processed net weight_sram_instance/read_data[24]_i_2_n_0. Optimization improves timing on the net.
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-3.764 | TNS=-174.805 |
+INFO: [Physopt 32-601] Processed net systolic_controller_instance/Q[2]_repN. Net driver systolic_controller_instance/cycle_count_reg[2]_replica was replaced.
+INFO: [Physopt 32-735] Processed net systolic_controller_instance/Q[2]_repN. Optimization improves timing on the net.
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-3.762 | TNS=-174.663 |
+INFO: [Physopt 32-710] Processed net weight_sram_instance/p_14_out[17]. Critical path length was reduced through logic transformation on cell weight_sram_instance/read_data[17]_i_1_comp_1.
+INFO: [Physopt 32-735] Processed net weight_sram_instance/read_data[17]_i_2_n_0. Optimization improves timing on the net.
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-3.760 | TNS=-174.444 |
+INFO: [Physopt 32-702] Processed net systolic_controller_instance/Q[3]_repN_4. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[15]_i_2_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-608] Optimized 1 net.  Swapped 17 pins.
+INFO: [Physopt 32-735] Processed net weight_sram_instance/read_data[15]_i_5_n_0. Optimization improves timing on the net.
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-3.755 | TNS=-174.385 |
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[39]_0[25]. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-710] Processed net weight_sram_instance/p_14_out[25]. Critical path length was reduced through logic transformation on cell weight_sram_instance/read_data[25]_i_1_comp.
+INFO: [Physopt 32-735] Processed net weight_sram_instance/read_data[25]_i_2_n_0. Optimization improves timing on the net.
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-3.749 | TNS=-174.336 |
+INFO: [Physopt 32-601] Processed net dnn_scheduler_instance/layer_index[1]_repN. Net driver dnn_scheduler_instance/layer_index_reg[1]_replica was replaced.
+INFO: [Physopt 32-735] Processed net dnn_scheduler_instance/layer_index[1]_repN. Optimization improves timing on the net.
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-3.749 | TNS=-174.270 |
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[39]_0[9]. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-710] Processed net weight_sram_instance/p_14_out[9]. Critical path length was reduced through logic transformation on cell weight_sram_instance/read_data[9]_i_1_comp.
+INFO: [Physopt 32-735] Processed net weight_sram_instance/read_data[9]_i_2_n_0. Optimization improves timing on the net.
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-3.748 | TNS=-174.183 |
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[39]_0[32]. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-710] Processed net weight_sram_instance/p_14_out[32]. Critical path length was reduced through logic transformation on cell weight_sram_instance/read_data[32]_i_1_comp.
+INFO: [Physopt 32-735] Processed net weight_sram_instance/read_data[32]_i_2_n_0. Optimization improves timing on the net.
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-3.738 | TNS=-174.078 |
+INFO: [Physopt 32-81] Processed net dnn_scheduler_instance/group_index_reg[1]_0[0]. Replicated 3 times.
+INFO: [Physopt 32-735] Processed net dnn_scheduler_instance/group_index_reg[1]_0[0]. Optimization improves timing on the net.
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-3.722 | TNS=-173.590 |
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[39]_0[10]. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-710] Processed net weight_sram_instance/p_14_out[10]. Critical path length was reduced through logic transformation on cell weight_sram_instance/read_data[10]_i_1_comp.
+INFO: [Physopt 32-735] Processed net weight_sram_instance/read_data[10]_i_2_n_0. Optimization improves timing on the net.
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-3.717 | TNS=-173.559 |
+INFO: [Physopt 32-608] Optimized 1 net.  Swapped 24 pins.
+INFO: [Physopt 32-735] Processed net weight_sram_instance/read_data[23]_i_20_n_0. Optimization improves timing on the net.
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-3.711 | TNS=-173.534 |
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data[16]_i_14_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-608] Optimized 1 net.  Swapped 24 pins.
+INFO: [Physopt 32-735] Processed net weight_sram_instance/read_data[16]_i_35_n_0. Optimization improves timing on the net.
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-3.706 | TNS=-173.528 |
+INFO: [Physopt 32-710] Processed net weight_sram_instance/p_14_out[25]. Critical path length was reduced through logic transformation on cell weight_sram_instance/read_data[25]_i_1_comp_1.
+INFO: [Physopt 32-735] Processed net weight_sram_instance/read_data[25]_i_2_n_0. Optimization improves timing on the net.
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-3.705 | TNS=-173.108 |
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data[16]_i_20_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data[16]_i_51_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[16]_i_120_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[16]_i_275_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/g68_b0__1_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/p_14_out[16]. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net systolic_controller_instance/operand_read_address[27]. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-81] Processed net systolic_controller_instance/cycle_count_reg[2]_0[2]. Replicated 1 times.
+INFO: [Physopt 32-735] Processed net systolic_controller_instance/cycle_count_reg[2]_0[2]. Optimization improves timing on the net.
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-3.701 | TNS=-172.620 |
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data[15]_i_5_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[15]_i_14_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data[15]_i_36_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[15]_i_87_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[15]_i_155_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-608] Optimized 1 net.  Swapped 24 pins.
+INFO: [Physopt 32-735] Processed net weight_sram_instance/g264_b6__0_n_0. Optimization improves timing on the net.
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-3.691 | TNS=-172.608 |
+INFO: [Physopt 32-663] Processed net weight_sram_instance/read_data[10]_i_2_n_0.  Re-placed instance weight_sram_instance/read_data[10]_i_2_comp
+INFO: [Physopt 32-735] Processed net weight_sram_instance/read_data[10]_i_2_n_0. Optimization improves timing on the net.
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-3.689 | TNS=-172.553 |
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data[15]_i_6_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[15]_i_16_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-608] Optimized 1 net.  Swapped 24 pins.
+INFO: [Physopt 32-735] Processed net weight_sram_instance/read_data[15]_i_40_n_0. Optimization improves timing on the net.
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-3.682 | TNS=-172.546 |
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[15]_i_12_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data[15]_i_31_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[15]_i_74_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[15]_i_149_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/g289_b6__0_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-608] Optimized 1 net.  Swapped 18 pins.
+INFO: [Physopt 32-735] Processed net weight_sram_instance/p_14_out[14]. Optimization improves timing on the net.
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-3.677 | TNS=-172.305 |
+INFO: [Physopt 32-601] Processed net dnn_scheduler_instance/layer_index[0]_repN_2. Net driver dnn_scheduler_instance/layer_index_reg[0]_replica_2 was replaced.
+INFO: [Physopt 32-735] Processed net dnn_scheduler_instance/layer_index[0]_repN_2. Optimization improves timing on the net.
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-3.676 | TNS=-172.265 |
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[39]_0[31]. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[31]_i_3_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[31]_i_8_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-608] Optimized 1 net.  Swapped 24 pins.
+INFO: [Physopt 32-735] Processed net weight_sram_instance/read_data[31]_i_20_n_0. Optimization improves timing on the net.
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-3.672 | TNS=-172.223 |
+INFO: [Physopt 32-663] Processed net dnn_scheduler_instance/group_index_reg[1]_0[1]_repN.  Re-placed instance dnn_scheduler_instance/group_index_reg[1]_replica
+INFO: [Physopt 32-735] Processed net dnn_scheduler_instance/group_index_reg[1]_0[1]_repN. Optimization improves timing on the net.
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-3.662 | TNS=-171.831 |
+INFO: [Physopt 32-608] Optimized 1 net.  Swapped 18 pins.
+INFO: [Physopt 32-735] Processed net weight_sram_instance/read_data[9]_i_2_n_0. Optimization improves timing on the net.
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-3.661 | TNS=-171.788 |
+INFO: [Physopt 32-702] Processed net weight_sram_instance/p_14_out[33]. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net systolic_controller_instance/operand_read_address[49]. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-710] Processed net systolic_controller_instance/operand_read_address[49]. Critical path length was reduced through logic transformation on cell systolic_controller_instance/read_data1__3_i_3_comp.
+INFO: [Physopt 32-735] Processed net systolic_controller_instance/cycle_count_reg[2]_0[4]. Optimization improves timing on the net.
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-3.660 | TNS=-171.780 |
+INFO: [Physopt 32-81] Processed net systolic_controller_instance/operand_read_address[44]. Replicated 1 times.
+INFO: [Physopt 32-735] Processed net systolic_controller_instance/operand_read_address[44]. Optimization improves timing on the net.
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-3.655 | TNS=-171.676 |
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[39]_0[30]. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[31]_i_2_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-608] Optimized 1 net.  Swapped 23 pins.
+INFO: [Physopt 32-735] Processed net weight_sram_instance/read_data[31]_i_5_n_0. Optimization improves timing on the net.
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-3.651 | TNS=-171.560 |
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[39]_0[28]. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[28]_i_2_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data[28]_i_6_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[28]_i_17_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-608] Optimized 1 net.  Swapped 24 pins.
+INFO: [Physopt 32-735] Processed net weight_sram_instance/read_data[28]_i_41_n_0. Optimization improves timing on the net.
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-3.647 | TNS=-171.543 |
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data[24]_i_2_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-608] Optimized 1 net.  Swapped 24 pins.
+INFO: [Physopt 32-735] Processed net weight_sram_instance/read_data[24]_i_6_n_0. Optimization improves timing on the net.
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-3.647 | TNS=-171.437 |
+INFO: [Physopt 32-608] Optimized 1 net.  Swapped 10 pins.
+INFO: [Physopt 32-735] Processed net systolic_controller_instance/operand_read_address[44]_repN. Optimization improves timing on the net.
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-3.644 | TNS=-171.053 |
+INFO: [Physopt 32-663] Processed net systolic_controller_instance/cycle_count_reg[2]_0[2]_repN.  Re-placed instance systolic_controller_instance/read_valid[2]_i_1_replica
+INFO: [Physopt 32-735] Processed net systolic_controller_instance/cycle_count_reg[2]_0[2]_repN. Optimization improves timing on the net.
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-3.637 | TNS=-170.885 |
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[39]_0[15]. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[15]_i_3_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[15]_i_7_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data[15]_i_19_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[15]_i_52_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-608] Optimized 1 net.  Swapped 24 pins.
+INFO: [Physopt 32-735] Processed net weight_sram_instance/read_data[15]_i_125_n_0. Optimization improves timing on the net.
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-3.636 | TNS=-170.826 |
+INFO: [Physopt 32-710] Processed net weight_sram_instance/p_14_out[10]. Critical path length was reduced through logic transformation on cell weight_sram_instance/read_data[10]_i_1_comp_1.
+INFO: [Physopt 32-735] Processed net weight_sram_instance/read_data[10]_i_2_n_0. Optimization improves timing on the net.
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-3.634 | TNS=-170.397 |
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[28]_i_3_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[28]_i_7_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data[28]_i_19_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[28]_i_49_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data[28]_i_116_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[28]_i_183_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/g15_b4__2_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/p_14_out[28]. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net systolic_controller_instance/operand_read_address[37]. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-710] Processed net systolic_controller_instance/operand_read_address[37]. Critical path length was reduced through logic transformation on cell systolic_controller_instance/read_data1__2_i_6_comp.
+INFO: [Physopt 32-735] Processed net systolic_controller_instance/cycle_count_reg[2]_0[3]. Optimization improves timing on the net.
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-3.623 | TNS=-169.973 |
+INFO: [Physopt 32-710] Processed net systolic_controller_instance/operand_read_address[27]. Critical path length was reduced through logic transformation on cell systolic_controller_instance/read_data1__1_i_8_comp.
+INFO: [Physopt 32-735] Processed net systolic_controller_instance/cycle_count_reg[2]_0[2]_repN. Optimization improves timing on the net.
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-3.623 | TNS=-169.533 |
+INFO: [Physopt 32-601] Processed net dnn_scheduler_instance/layer_index[0]_repN_2. Net driver dnn_scheduler_instance/layer_index_reg[0]_replica_2 was replaced.
+INFO: [Physopt 32-735] Processed net dnn_scheduler_instance/layer_index[0]_repN_2. Optimization improves timing on the net.
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-3.620 | TNS=-169.638 |
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[39]_0[11]. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[11]_i_3_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[11]_i_7_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-608] Optimized 1 net.  Swapped 24 pins.
+INFO: [Physopt 32-735] Processed net weight_sram_instance/read_data[11]_i_19_n_0. Optimization improves timing on the net.
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-3.619 | TNS=-169.551 |
+INFO: [Physopt 32-710] Processed net weight_sram_instance/p_14_out[9]. Critical path length was reduced through logic transformation on cell weight_sram_instance/read_data[9]_i_1_comp_1.
+INFO: [Physopt 32-735] Processed net weight_sram_instance/read_data[9]_i_2_n_0. Optimization improves timing on the net.
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-3.618 | TNS=-169.430 |
+INFO: [Physopt 32-81] Processed net dnn_scheduler_instance/layer_index[1]_repN. Replicated 2 times.
+INFO: [Physopt 32-735] Processed net dnn_scheduler_instance/layer_index[1]_repN. Optimization improves timing on the net.
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-3.608 | TNS=-169.350 |
+INFO: [Physopt 32-81] Processed net systolic_controller_instance/Q[2]_repN. Replicated 4 times.
+INFO: [Physopt 32-735] Processed net systolic_controller_instance/Q[2]_repN. Optimization improves timing on the net.
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-3.606 | TNS=-169.310 |
+INFO: [Physopt 32-81] Processed net dnn_scheduler_instance/layer_index[0]_repN_2. Replicated 2 times.
+INFO: [Physopt 32-735] Processed net dnn_scheduler_instance/layer_index[0]_repN_2. Optimization improves timing on the net.
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-3.603 | TNS=-169.255 |
+INFO: [Physopt 32-81] Processed net systolic_controller_instance/cycle_count_reg_n_0_[7]. Replicated 5 times.
+INFO: [Physopt 32-735] Processed net systolic_controller_instance/cycle_count_reg_n_0_[7]. Optimization improves timing on the net.
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-3.603 | TNS=-169.247 |
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[15]_i_8_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-608] Optimized 1 net.  Swapped 24 pins.
+INFO: [Physopt 32-735] Processed net weight_sram_instance/read_data[15]_i_20_n_0. Optimization improves timing on the net.
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-3.602 | TNS=-169.215 |
+INFO: [Physopt 32-663] Processed net dnn_scheduler_instance/group_index_reg[1]_0[1]_repN.  Re-placed instance dnn_scheduler_instance/group_index_reg[1]_replica
+INFO: [Physopt 32-735] Processed net dnn_scheduler_instance/group_index_reg[1]_0[1]_repN. Optimization improves timing on the net.
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-3.599 | TNS=-169.135 |
+INFO: [Physopt 32-702] Processed net systolic_controller_instance/operand_read_address[43]. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-710] Processed net systolic_controller_instance/operand_read_address[43]. Critical path length was reduced through logic transformation on cell systolic_controller_instance/read_data1__3_i_9_comp.
+INFO: [Physopt 32-735] Processed net systolic_controller_instance/cycle_count_reg[2]_0[4]. Optimization improves timing on the net.
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-3.596 | TNS=-168.967 |
+INFO: [Physopt 32-81] Processed net systolic_controller_instance/Q[2]_repN_5. Replicated 2 times.
+INFO: [Physopt 32-735] Processed net systolic_controller_instance/Q[2]_repN_5. Optimization improves timing on the net.
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-3.592 | TNS=-168.877 |
+INFO: [Physopt 32-663] Processed net dnn_scheduler_instance/layer_index[1]_repN_3.  Re-placed instance dnn_scheduler_instance/layer_index_reg[1]_replica_3
+INFO: [Physopt 32-735] Processed net dnn_scheduler_instance/layer_index[1]_repN_3. Optimization improves timing on the net.
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-3.590 | TNS=-168.861 |
+INFO: [Physopt 32-81] Processed net systolic_controller_instance/cycle_count_reg_n_0_[4]_repN. Replicated 3 times.
+INFO: [Physopt 32-735] Processed net systolic_controller_instance/cycle_count_reg_n_0_[4]_repN. Optimization improves timing on the net.
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-3.583 | TNS=-168.805 |
+INFO: [Physopt 32-601] Processed net systolic_controller_instance/Q[0]_repN. Net driver systolic_controller_instance/cycle_count_reg[0]_replica was replaced.
+INFO: [Physopt 32-735] Processed net systolic_controller_instance/Q[0]_repN. Optimization improves timing on the net.
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-3.582 | TNS=-168.797 |
+INFO: [Physopt 32-81] Processed net dnn_scheduler_instance/group_index_reg[1]_0[1]_repN. Replicated 1 times.
+INFO: [Physopt 32-735] Processed net dnn_scheduler_instance/group_index_reg[1]_0[1]_repN. Optimization improves timing on the net.
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-3.581 | TNS=-168.677 |
+INFO: [Physopt 32-702] Processed net systolic_controller_instance/operand_read_address[33]. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-710] Processed net systolic_controller_instance/operand_read_address[33]. Critical path length was reduced through logic transformation on cell systolic_controller_instance/read_data1__2_i_10_comp.
+INFO: [Physopt 32-735] Processed net systolic_controller_instance/cycle_count_reg[2]_0[3]. Optimization improves timing on the net.
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-3.578 | TNS=-168.525 |
+INFO: [Physopt 32-702] Processed net systolic_controller_instance/operand_read_address[45]. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-710] Processed net systolic_controller_instance/operand_read_address[45]. Critical path length was reduced through logic transformation on cell systolic_controller_instance/read_data1__3_i_7_comp.
+INFO: [Physopt 32-735] Processed net systolic_controller_instance/cycle_count_reg[2]_0[4]. Optimization improves timing on the net.
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-3.571 | TNS=-168.181 |
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data[15]_i_125_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[15]_i_210_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[15]_i_271_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-608] Optimized 1 net.  Swapped 24 pins.
+INFO: [Physopt 32-735] Processed net weight_sram_instance/g77_b6__0_n_0. Optimization improves timing on the net.
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-3.568 | TNS=-168.169 |
+INFO: [Physopt 32-702] Processed net systolic_controller_instance/operand_read_address[23]. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-710] Processed net systolic_controller_instance/operand_read_address[23]. Critical path length was reduced through logic transformation on cell systolic_controller_instance/read_data1__1_i_12_comp.
+INFO: [Physopt 32-735] Processed net systolic_controller_instance/cycle_count_reg[2]_0[2]_repN. Optimization improves timing on the net.
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-3.567 | TNS=-167.545 |
+INFO: [Physopt 32-702] Processed net dnn_scheduler_instance/group_index[2]_repN_2. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-710] Processed net weight_sram_instance/p_14_out[2]. Critical path length was reduced through logic transformation on cell weight_sram_instance/read_data[2]_i_1_comp.
+INFO: [Physopt 32-735] Processed net weight_sram_instance/read_data[2]_i_2_n_0. Optimization improves timing on the net.
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-3.564 | TNS=-167.500 |
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[39]_0[1]. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-663] Processed net weight_sram_instance/read_data[1]_i_2_n_0.  Re-placed instance weight_sram_instance/read_data[1]_i_2
+INFO: [Physopt 32-735] Processed net weight_sram_instance/read_data[1]_i_2_n_0. Optimization improves timing on the net.
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-3.562 | TNS=-167.445 |
+INFO: [Physopt 32-702] Processed net systolic_controller_instance/operand_read_address[34]. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-710] Processed net systolic_controller_instance/operand_read_address[34]. Critical path length was reduced through logic transformation on cell systolic_controller_instance/read_data1__2_i_9_comp.
+INFO: [Physopt 32-735] Processed net systolic_controller_instance/cycle_count_reg[2]_0[3]. Optimization improves timing on the net.
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-3.559 | TNS=-167.285 |
+INFO: [Physopt 32-608] Optimized 1 net.  Swapped 24 pins.
+INFO: [Physopt 32-735] Processed net weight_sram_instance/g76_b6__0_n_0. Optimization improves timing on the net.
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-3.557 | TNS=-167.266 |
+INFO: [Common 17-14] Message 'Physopt 32-619' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[39]_0[4]. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[4]_i_3_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[4]_i_8_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data[4]_i_21_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[4]_i_55_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-608] Optimized 1 net.  Swapped 24 pins.
+INFO: [Physopt 32-735] Processed net weight_sram_instance/read_data[4]_i_127_n_0. Optimization improves timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[39]_0[13]. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[13]_i_3_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[13]_i_8_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-608] Optimized 1 net.  Swapped 24 pins.
+INFO: [Physopt 32-735] Processed net weight_sram_instance/read_data[13]_i_22_n_0. Optimization improves timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[4]_i_7_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data[4]_i_20_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[4]_i_50_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data[4]_i_117_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[4]_i_188_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/g117_b4_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-608] Optimized 1 net.  Swapped 18 pins.
+INFO: [Physopt 32-735] Processed net weight_sram_instance/p_14_out[4]. Optimization improves timing on the net.
+INFO: [Common 17-14] Message 'Physopt 32-735' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[39]_0[8]. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-710] Processed net weight_sram_instance/p_14_out[8]. Critical path length was reduced through logic transformation on cell weight_sram_instance/read_data[8]_i_1_comp.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[13]_i_7_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-608] Optimized 1 net.  Swapped 24 pins.
+INFO: [Physopt 32-702] Processed net systolic_controller_instance/operand_read_address[35]. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-710] Processed net systolic_controller_instance/operand_read_address[35]. Critical path length was reduced through logic transformation on cell systolic_controller_instance/read_data1__2_i_8_comp.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data[15]_i_124_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[15]_i_207_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-608] Optimized 1 net.  Swapped 18 pins.
+INFO: [Physopt 32-702] Processed net systolic_controller_instance/operand_read_address[46]. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-710] Processed net systolic_controller_instance/operand_read_address[46]. Critical path length was reduced through logic transformation on cell systolic_controller_instance/read_data1__3_i_6_comp.
+INFO: [Physopt 32-608] Optimized 1 net.  Swapped 24 pins.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data[15]_i_21_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[15]_i_57_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data[15]_i_137_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[15]_i_240_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-608] Optimized 1 net.  Swapped 24 pins.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[15]_i_51_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data[15]_i_123_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[15]_i_204_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-608] Optimized 1 net.  Swapped 24 pins.
+INFO: [Physopt 32-608] Optimized 1 net.  Swapped 24 pins.
+INFO: [Physopt 32-608] Optimized 1 net.  Swapped 24 pins.
+INFO: [Physopt 32-608] Optimized 1 net.  Swapped 24 pins.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[39]_0[15]. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net systolic_controller_instance/Q[3]_repN_4. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[15]_i_3_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[15]_i_7_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data[15]_i_19_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[15]_i_52_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data[15]_i_124_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[15]_i_207_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-608] Optimized 1 net.  Swapped 18 pins.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data[15]_i_125_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[15]_i_211_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-608] Optimized 1 net.  Swapped 24 pins.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[15]_i_210_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[15]_i_272_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-608] Optimized 1 net.  Swapped 24 pins.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[15]_i_8_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data[15]_i_21_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[15]_i_57_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data[15]_i_137_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[15]_i_240_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-608] Optimized 1 net.  Swapped 24 pins.
+INFO: [Physopt 32-608] Optimized 1 net.  Swapped 24 pins.
+INFO: [Physopt 32-608] Optimized 1 net.  Swapped 24 pins.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[39]_0[2]. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net dnn_scheduler_instance/group_index[2]_repN_2. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data[2]_i_2_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[2]_i_6_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-608] Optimized 1 net.  Swapped 12 pins.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[39]_0[28]. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net dnn_scheduler_instance/layer_index[0]_repN. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[28]_i_3_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[28]_i_7_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data[28]_i_19_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[28]_i_49_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data[28]_i_116_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[28]_i_183_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/g15_b4__2_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/p_14_out[28]. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-663] Processed net systolic_controller_instance/operand_read_address[36].  Re-placed instance systolic_controller_instance/read_data1__2_i_7
+INFO: [Physopt 32-702] Processed net weight_sram_instance/g255_b6__0_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/p_14_out[15]. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net systolic_controller_instance/operand_read_address[17]. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net systolic_controller_instance/cycle_count_reg[2]_0[1]. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net systolic_controller_instance/operand_read_address2. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net systolic_controller_instance/read_valid[1]_i_14_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net systolic_controller_instance/consumed_feature_count_1[10]_i_3_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net systolic_controller_instance/consumed_feature_count_1[7]_i_3_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data1__0_n_101. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net s_axi_aclk_IBUF. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net s_axi_aclk. Optimizations did not improve timing on the net.
+Phase 3 Critical Path Optimization | Checksum: 10a36bb3e
+
+Time (s): cpu = 00:08:51 ; elapsed = 00:05:07 . Memory (MB): peak = 1982.320 ; gain = 11.934
+
+Phase 4 Critical Path Optimization
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[39]_0[15]. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net systolic_controller_instance/Q[3]_repN_4. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[15]_i_3_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[15]_i_8_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data[15]_i_21_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[15]_i_57_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data[15]_i_137_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[15]_i_240_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/g255_b6__0_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/p_14_out[15]. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net systolic_controller_instance/operand_read_address[17]. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-710] Processed net systolic_controller_instance/operand_read_address[17]. Critical path length was reduced through logic transformation on cell systolic_controller_instance/read_data1__0_i_9_comp.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[39]_0[33]. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net systolic_controller_instance/cycle_count_reg_n_0_[5]_repN_7. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-663] Processed net weight_sram_instance/read_data[33]_i_2_n_0.  Re-placed instance weight_sram_instance/read_data[33]_i_2_comp
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[39]_0[36]. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[36]_i_3_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[36]_i_7_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-608] Optimized 1 net.  Swapped 24 pins.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[39]_0[1]. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net dnn_scheduler_instance/group_index[2]_repN_2. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-710] Processed net weight_sram_instance/p_14_out[1]. Critical path length was reduced through logic transformation on cell weight_sram_instance/read_data[1]_i_1_comp.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[39]_0[2]. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data[2]_i_2_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[2]_i_6_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data[2]_i_17_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[2]_i_42_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-608] Optimized 1 net.  Swapped 24 pins.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[39]_0[28]. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net dnn_scheduler_instance/layer_index[0]_repN. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[28]_i_3_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[28]_i_7_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data[28]_i_19_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[28]_i_49_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data[28]_i_116_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[28]_i_183_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/g15_b4__2_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/p_14_out[28]. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net systolic_controller_instance/operand_read_address[36]. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-710] Processed net systolic_controller_instance/operand_read_address[36]. Critical path length was reduced through logic transformation on cell systolic_controller_instance/read_data1__2_i_7_comp.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[39]_0[32]. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-663] Processed net weight_sram_instance/read_data[32]_i_2_n_0.  Re-placed instance weight_sram_instance/read_data[32]_i_2_comp
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[39]_0[16]. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-663] Processed net systolic_controller_instance/cycle_count_reg_n_0_[5]_repN_6.  Re-placed instance systolic_controller_instance/cycle_count_reg[5]_replica_6
+INFO: [Physopt 32-702] Processed net systolic_controller_instance/cycle_count_reg_n_0_[5]_repN_6. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data[16]_i_2_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[16]_i_7_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data[16]_i_20_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data[16]_i_51_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[16]_i_120_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[16]_i_275_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/g68_b0__1_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/p_14_out[16]. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net systolic_controller_instance/operand_read_address[25]. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-710] Processed net systolic_controller_instance/operand_read_address[25]. Critical path length was reduced through logic transformation on cell systolic_controller_instance/read_data1__1_i_10_comp.
+INFO: [Physopt 32-608] Optimized 1 net.  Swapped 24 pins.
+INFO: [Physopt 32-702] Processed net systolic_controller_instance/operand_read_address[14]. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-710] Processed net systolic_controller_instance/operand_read_address[14]. Critical path length was reduced through logic transformation on cell systolic_controller_instance/read_data1__0_i_12_comp.
+INFO: [Physopt 32-702] Processed net systolic_controller_instance/operand_read_address[18]. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-710] Processed net systolic_controller_instance/operand_read_address[18]. Critical path length was reduced through logic transformation on cell systolic_controller_instance/read_data1__0_i_8_comp.
+INFO: [Physopt 32-702] Processed net systolic_controller_instance/operand_read_address[13]. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-710] Processed net systolic_controller_instance/operand_read_address[13]. Critical path length was reduced through logic transformation on cell systolic_controller_instance/read_data1__0_i_13_comp.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[2]_i_7_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data[2]_i_18_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[2]_i_47_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data[2]_i_97_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[2]_i_217_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/g15_b2_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-608] Optimized 1 net.  Swapped 6 pins.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[39]_0[35]. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[35]_i_3_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[35]_i_7_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data[35]_i_20_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[35]_i_53_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-608] Optimized 1 net.  Swapped 24 pins.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[39]_0[34]. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-710] Processed net weight_sram_instance/p_14_out[34]. Critical path length was reduced through logic transformation on cell weight_sram_instance/read_data[34]_i_1_comp.
+INFO: [Physopt 32-710] Processed net weight_sram_instance/p_14_out[34]. Critical path length was reduced through logic transformation on cell weight_sram_instance/read_data[34]_i_1_comp_1.
+INFO: [Physopt 32-702] Processed net systolic_controller_instance/operand_read_address[32]. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-710] Processed net systolic_controller_instance/operand_read_address[32]. Critical path length was reduced through logic transformation on cell systolic_controller_instance/read_data1__2_i_11_comp.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[35]_i_52_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data[35]_i_122_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[35]_i_200_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/g95_b3__3_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-608] Optimized 1 net.  Swapped 18 pins.
+INFO: [Physopt 32-710] Processed net weight_sram_instance/p_14_out[32]. Critical path length was reduced through logic transformation on cell weight_sram_instance/read_data[32]_i_1_comp_1.
+INFO: [Physopt 32-702] Processed net systolic_controller_instance/operand_read_address[28]. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-710] Processed net systolic_controller_instance/operand_read_address[28]. Critical path length was reduced through logic transformation on cell systolic_controller_instance/read_data1__1_i_7_comp.
+INFO: [Physopt 32-663] Processed net weight_sram_instance/read_data[1]_i_2_n_0.  Re-placed instance weight_sram_instance/read_data[1]_i_2_comp
+INFO: [Physopt 32-663] Processed net dnn_scheduler_instance/DI[0]_repN.  Re-placed instance dnn_scheduler_instance/group_index_reg[0]_rep_replica
+INFO: [Physopt 32-702] Processed net systolic_controller_instance/operand_read_address[24]. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-710] Processed net systolic_controller_instance/operand_read_address[24]. Critical path length was reduced through logic transformation on cell systolic_controller_instance/read_data1__1_i_11_comp.
+INFO: [Physopt 32-702] Processed net systolic_controller_instance/operand_read_address[38]. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-710] Processed net systolic_controller_instance/operand_read_address[38]. Critical path length was reduced through logic transformation on cell systolic_controller_instance/read_data1__2_i_5_comp.
+INFO: [Physopt 32-702] Processed net systolic_controller_instance/operand_read_address[22]. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-710] Processed net systolic_controller_instance/operand_read_address[22]. Critical path length was reduced through logic transformation on cell systolic_controller_instance/read_data1__1_i_13_comp.
+INFO: [Physopt 32-702] Processed net systolic_controller_instance/operand_read_address[39]. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-710] Processed net systolic_controller_instance/operand_read_address[39]. Critical path length was reduced through logic transformation on cell systolic_controller_instance/read_data1__2_i_4_comp.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[39]_0[0]. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-710] Processed net weight_sram_instance/p_14_out[0]. Critical path length was reduced through logic transformation on cell weight_sram_instance/read_data[0]_i_1_comp.
+INFO: [Physopt 32-702] Processed net systolic_controller_instance/operand_read_address[26]. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-710] Processed net systolic_controller_instance/operand_read_address[26]. Critical path length was reduced through logic transformation on cell systolic_controller_instance/read_data1__1_i_9_comp.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[39]_0[37]. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[37]_i_2_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-608] Optimized 1 net.  Swapped 11 pins.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[39]_0[3]. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[3]_i_2_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-608] Optimized 1 net.  Swapped 23 pins.
+INFO: [Physopt 32-702] Processed net systolic_controller_instance/operand_read_address[29]. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-710] Processed net systolic_controller_instance/operand_read_address[29]. Critical path length was reduced through logic transformation on cell systolic_controller_instance/read_data1__1_i_6_comp.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[36]_i_8_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-608] Optimized 1 net.  Swapped 24 pins.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data[3]_i_6_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[3]_i_17_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data[3]_i_41_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[3]_i_93_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-608] Optimized 1 net.  Swapped 24 pins.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[39]_0[5]. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[5]_i_2_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-608] Optimized 1 net.  Swapped 17 pins.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[39]_0[4]. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[4]_i_2_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data[4]_i_5_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[4]_i_12_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data[4]_i_31_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[4]_i_68_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/g319_b4_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/p_14_out[4]. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-663] Processed net dnn_scheduler_instance/A[1].  Re-placed instance dnn_scheduler_instance/read_data1_i_3
+INFO: [Physopt 32-702] Processed net systolic_controller_instance/operand_read_address[19]. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-710] Processed net systolic_controller_instance/operand_read_address[19]. Critical path length was reduced through logic transformation on cell systolic_controller_instance/read_data1__0_i_7_comp.
+INFO: [Physopt 32-702] Processed net systolic_controller_instance/operand_read_address[15]. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-710] Processed net systolic_controller_instance/operand_read_address[15]. Critical path length was reduced through logic transformation on cell systolic_controller_instance/read_data1__0_i_11_comp.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data[36]_i_22_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[36]_i_59_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-608] Optimized 1 net.  Swapped 24 pins.
+INFO: [Physopt 32-81] Processed net systolic_controller_instance/Q[0]_repN. Replicated 1 times.
+INFO: [Physopt 32-81] Processed net systolic_controller_instance/Q[0]_repN. Replicated 1 times.
+INFO: [Physopt 32-702] Processed net systolic_controller_instance/operand_read_address[16]. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-134] Processed net systolic_controller_instance/cycle_count_reg[2]_0[1]. Rewiring did not optimize the net.
+INFO: [Physopt 32-702] Processed net systolic_controller_instance/cycle_count_reg[2]_0[1]. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net systolic_controller_instance/operand_read_address2. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net systolic_controller_instance/read_valid_reg[1]_i_3_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net systolic_controller_instance/read_valid_reg[1]_i_8_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net systolic_controller_instance/read_valid[1]_i_14_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-710] Processed net systolic_controller_instance/read_valid[1]_i_14_n_0. Critical path length was reduced through logic transformation on cell systolic_controller_instance/read_valid[1]_i_14_comp.
+INFO: [Physopt 32-81] Processed net systolic_controller_instance/Q[0]_repN. Replicated 2 times.
+INFO: [Physopt 32-702] Processed net systolic_controller_instance/consumed_feature_count_1[7]_i_3_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data1__0_n_101. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net s_axi_aclk_IBUF. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net s_axi_aclk. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[39]_0[15]. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net systolic_controller_instance/Q[3]_repN_4. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[15]_i_3_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[15]_i_8_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data[15]_i_21_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[15]_i_57_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data[15]_i_137_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[15]_i_240_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/g255_b6__0_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/p_14_out[15]. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net systolic_controller_instance/operand_read_address[16]. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net systolic_controller_instance/cycle_count_reg[2]_0[1]. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net systolic_controller_instance/operand_read_address2. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-663] Processed net systolic_controller_instance/read_valid[1]_i_14_n_0.  Re-placed instance systolic_controller_instance/read_valid[1]_i_14_comp
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[39]_0[38]. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net systolic_controller_instance/cycle_count_reg_n_0_[5]_repN_7. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[39]_i_3_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[39]_i_8_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-608] Optimized 1 net.  Swapped 24 pins.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[39]_0[4]. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net dnn_scheduler_instance/layer_index[1]_repN_3. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[4]_i_2_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data[4]_i_5_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[4]_i_12_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data[4]_i_31_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data_reg[4]_i_68_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/g319_b4_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/p_14_out[4]. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net systolic_controller_instance/operand_read_address[0]. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net systolic_controller_instance/cycle_count_reg[8]_0[0]. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net dnn_scheduler_instance/layer_index_reg[1]_0[1]. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net weight_sram_instance/read_data1_n_102. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net s_axi_aclk_IBUF. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net s_axi_aclk. Optimizations did not improve timing on the net.
+Phase 4 Critical Path Optimization | Checksum: 10a36bb3e
+
+Time (s): cpu = 00:12:08 ; elapsed = 00:07:07 . Memory (MB): peak = 1982.320 ; gain = 11.934
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.181 . Memory (MB): peak = 1982.320 ; gain = 0.000
+INFO: [Physopt 32-603] Post Physical Optimization Timing Summary | WNS=-3.282 | TNS=-154.749 |
+
+Summary of Physical Synthesis Optimizations
+============================================
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+|  Optimization   |  WNS Gain (ns)  |  TNS Gain (ns)  |  Added Cells  |  Removed Cells  |  Optimized Cells/Nets  |  Dont Touch  |  Iterations  |  Elapsed   |
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+|  DSP Register   |          0.000  |          0.000  |            0  |              0  |                     0  |           0  |           1  |  00:00:00  |
+|  Critical Path  |          0.826  |         29.656  |           83  |              0  |                   164  |           0  |           2  |  00:07:04  |
+|  Total          |          0.826  |         29.656  |           83  |              0  |                   164  |           0  |           3  |  00:07:04  |
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.014 . Memory (MB): peak = 1982.320 ; gain = 0.000
+Ending Physical Synthesis Task | Checksum: 1be9f73e0
+
+Time (s): cpu = 00:12:08 ; elapsed = 00:07:08 . Memory (MB): peak = 1982.320 ; gain = 11.934
+INFO: [Common 17-83] Releasing license: Implementation
+758 Infos, 0 Warnings, 0 Critical Warnings and 0 Errors encountered.
+phys_opt_design completed successfully
+phys_opt_design: Time (s): cpu = 00:12:14 ; elapsed = 00:07:11 . Memory (MB): peak = 1982.320 ; gain = 11.934
+INFO: [Common 17-600] The following parameters have non-default value.
+general.maxThreads
+Command: route_design
+Attempting to get a license for feature 'Implementation' and/or device 'xc7z020'
+INFO: [Common 17-349] Got license for feature 'Implementation' and/or device 'xc7z020'
+INFO: [DRC 23-27] Running DRC with 4 threads
+INFO: [Vivado_Tcl 4-198] DRC finished with 0 Errors
+INFO: [Vivado_Tcl 4-199] Please refer to the DRC report (report_drc) for more information.
+Running DRC as a precondition to command route_design
+INFO: [DRC 23-27] Running DRC with 4 threads
+INFO: [Vivado_Tcl 4-198] DRC finished with 0 Errors
+INFO: [Vivado_Tcl 4-199] Please refer to the DRC report (report_drc) for more information.
+
+
+Starting Routing Task
+INFO: [Route 35-254] Multithreading enabled for route_design using a maximum of 4 CPUs
+
+Phase 1 Build RT Design
+Checksum: PlaceDB: 16edd9c6 ConstDB: 0 ShapeSum: cd1dbdb1 RouteDB: 0
+Post Restoration Checksum: NetGraph: ec472cd2 NumContArr: 856390a5 Constraints: 0 Timing: 0
+Phase 1 Build RT Design | Checksum: 171aabd77
+
+Time (s): cpu = 00:01:18 ; elapsed = 00:01:08 . Memory (MB): peak = 2080.410 ; gain = 63.414
+
+Phase 2 Router Initialization
+
+Phase 2.1 Fix Topology Constraints
+Phase 2.1 Fix Topology Constraints | Checksum: 171aabd77
+
+Time (s): cpu = 00:01:19 ; elapsed = 00:01:08 . Memory (MB): peak = 2093.285 ; gain = 76.289
+
+Phase 2.2 Pre Route Cleanup
+Phase 2.2 Pre Route Cleanup | Checksum: 171aabd77
+
+Time (s): cpu = 00:01:19 ; elapsed = 00:01:08 . Memory (MB): peak = 2093.285 ; gain = 76.289
+ Number of Nodes with overlaps = 0
+
+Phase 2.3 Update Timing
+Phase 2.3 Update Timing | Checksum: 13da3249c
+
+Time (s): cpu = 00:01:37 ; elapsed = 00:01:21 . Memory (MB): peak = 2129.910 ; gain = 112.914
+INFO: [Route 35-416] Intermediate Timing Summary | WNS=-3.186 | TNS=-144.304| WHS=-0.114 | THS=-5.097 |
+
+
+Router Utilization Summary
+  Global Vertical Routing Utilization    = 0 %
+  Global Horizontal Routing Utilization  = 0 %
+  Routable Net Status*
+  *Does not include unroutable nets such as driverless and loadless.
+  Run report_route_status for detailed report.
+  Number of Failed Nets               = 11228
+    (Failed Nets is the sum of unrouted and partially routed nets)
+  Number of Unrouted Nets             = 11228
+  Number of Partially Routed Nets     = 0
+  Number of Node Overlaps             = 0
+
+Phase 2 Router Initialization | Checksum: 11d382b5f
+
+Time (s): cpu = 00:01:51 ; elapsed = 00:01:29 . Memory (MB): peak = 2179.141 ; gain = 162.145
+
+Phase 3 Initial Routing
+
+Phase 3.1 Global Routing
+Phase 3.1 Global Routing | Checksum: 11d382b5f
+
+Time (s): cpu = 00:01:51 ; elapsed = 00:01:29 . Memory (MB): peak = 2179.141 ; gain = 162.145
+Phase 3 Initial Routing | Checksum: 88ace9bf
+
+Time (s): cpu = 00:04:00 ; elapsed = 00:02:16 . Memory (MB): peak = 2294.184 ; gain = 277.188
+
+Phase 4 Rip-up And Reroute
+
+Phase 4.1 Global Iteration 0
+ Number of Nodes with overlaps = 37189
+ Number of Nodes with overlaps = 10356
+ Number of Nodes with overlaps = 3657
+ Number of Nodes with overlaps = 749
+ Number of Nodes with overlaps = 130
+ Number of Nodes with overlaps = 69
+ Number of Nodes with overlaps = 490
+ Number of Nodes with overlaps = 8
+ Number of Nodes with overlaps = 30
+ Number of Nodes with overlaps = 15
+ Number of Nodes with overlaps = 33
+ Number of Nodes with overlaps = 15
+ Number of Nodes with overlaps = 1
+ Number of Nodes with overlaps = 0
+INFO: [Route 35-416] Intermediate Timing Summary | WNS=-5.175 | TNS=-243.357| WHS=N/A    | THS=N/A    |
+
+Phase 4.1 Global Iteration 0 | Checksum: 1ff1ce6e6
+
+Time (s): cpu = 00:12:00 ; elapsed = 00:11:37 . Memory (MB): peak = 2294.184 ; gain = 277.188
+
+Phase 4.2 Global Iteration 1
+ Number of Nodes with overlaps = 547
+ Number of Nodes with overlaps = 255
+ Number of Nodes with overlaps = 1113
+ Number of Nodes with overlaps = 280
+ Number of Nodes with overlaps = 128
+ Number of Nodes with overlaps = 70
+ Number of Nodes with overlaps = 39
+ Number of Nodes with overlaps = 22
+ Number of Nodes with overlaps = 12
+ Number of Nodes with overlaps = 3
+ Number of Nodes with overlaps = 1
+ Number of Nodes with overlaps = 0
+INFO: [Route 35-416] Intermediate Timing Summary | WNS=-4.689 | TNS=-229.462| WHS=N/A    | THS=N/A    |
+
+Phase 4.2 Global Iteration 1 | Checksum: 1cb86692d
+
+Time (s): cpu = 00:14:54 ; elapsed = 00:15:14 . Memory (MB): peak = 2294.184 ; gain = 277.188
+
+Phase 4.3 Global Iteration 2
+ Number of Nodes with overlaps = 782
+ Number of Nodes with overlaps = 262
+ Number of Nodes with overlaps = 174
+ Number of Nodes with overlaps = 178
+ Number of Nodes with overlaps = 35
+ Number of Nodes with overlaps = 25
+ Number of Nodes with overlaps = 107
+ Number of Nodes with overlaps = 25
+ Number of Nodes with overlaps = 4
+ Number of Nodes with overlaps = 49
+Phase 4.3 Global Iteration 2 | Checksum: 19bdfd166
+
+Time (s): cpu = 00:16:33 ; elapsed = 00:16:51 . Memory (MB): peak = 2294.184 ; gain = 277.188
+Phase 4 Rip-up And Reroute | Checksum: 19bdfd166
+
+Time (s): cpu = 00:16:33 ; elapsed = 00:16:51 . Memory (MB): peak = 2294.184 ; gain = 277.188
+
+Phase 5 Delay and Skew Optimization
+
+Phase 5.1 Delay CleanUp
+
+Phase 5.1.1 Update Timing
+Phase 5.1.1 Update Timing | Checksum: 1c418bb76
+
+Time (s): cpu = 00:16:36 ; elapsed = 00:16:53 . Memory (MB): peak = 2294.184 ; gain = 277.188
+INFO: [Route 35-416] Intermediate Timing Summary | WNS=-4.574 | TNS=-222.856| WHS=N/A    | THS=N/A    |
+
+ Number of Nodes with overlaps = 0
+Phase 5.1 Delay CleanUp | Checksum: 13b9ecb49
+
+Time (s): cpu = 00:16:38 ; elapsed = 00:16:54 . Memory (MB): peak = 2294.184 ; gain = 277.188
+
+Phase 5.2 Clock Skew Optimization
+Phase 5.2 Clock Skew Optimization | Checksum: 13b9ecb49
+
+Time (s): cpu = 00:16:38 ; elapsed = 00:16:54 . Memory (MB): peak = 2294.184 ; gain = 277.188
+Phase 5 Delay and Skew Optimization | Checksum: 13b9ecb49
+
+Time (s): cpu = 00:16:38 ; elapsed = 00:16:54 . Memory (MB): peak = 2294.184 ; gain = 277.188
+
+Phase 6 Post Hold Fix
+
+Phase 6.1 Hold Fix Iter
+
+Phase 6.1.1 Update Timing
+Phase 6.1.1 Update Timing | Checksum: 1abad176b
+
+Time (s): cpu = 00:16:40 ; elapsed = 00:16:56 . Memory (MB): peak = 2294.184 ; gain = 277.188
+INFO: [Route 35-416] Intermediate Timing Summary | WNS=-4.574 | TNS=-208.209| WHS=0.121  | THS=0.000  |
+
+Phase 6.1 Hold Fix Iter | Checksum: 1abad176b
+
+Time (s): cpu = 00:16:40 ; elapsed = 00:16:56 . Memory (MB): peak = 2294.184 ; gain = 277.188
+Phase 6 Post Hold Fix | Checksum: 1abad176b
+
+Time (s): cpu = 00:16:40 ; elapsed = 00:16:56 . Memory (MB): peak = 2294.184 ; gain = 277.188
+
+Phase 7 Route finalize
+
+Router Utilization Summary
+  Global Vertical Routing Utilization    = 5.69054 %
+  Global Horizontal Routing Utilization  = 8.92351 %
+  Routable Net Status*
+  *Does not include unroutable nets such as driverless and loadless.
+  Run report_route_status for detailed report.
+  Number of Failed Nets               = 0
+    (Failed Nets is the sum of unrouted and partially routed nets)
+  Number of Unrouted Nets             = 0
+  Number of Partially Routed Nets     = 0
+  Number of Node Overlaps             = 0
+
+Congestion Report
+North Dir 1x1 Area, Max Cong = 83.7838%, No Congested Regions.
+South Dir 1x1 Area, Max Cong = 70.2703%, No Congested Regions.
+East Dir 2x2 Area, Max Cong = 88.2353%, Congestion bounded by tiles (Lower Left Tile -> Upper Right Tile):
+   INT_L_X26Y6 -> INT_R_X27Y7
+West Dir 2x2 Area, Max Cong = 90.4412%, Congestion bounded by tiles (Lower Left Tile -> Upper Right Tile):
+   INT_L_X56Y30 -> INT_R_X57Y31
+   INT_L_X58Y30 -> INT_R_X59Y31
+
+------------------------------
+Reporting congestion hotspots
+------------------------------
+Direction: North
+----------------
+Congested clusters found at Level 0
+Effective congestion level: 0 Aspect Ratio: 1 Sparse Ratio: 0
+Direction: South
+----------------
+Congested clusters found at Level 0
+Effective congestion level: 0 Aspect Ratio: 1 Sparse Ratio: 0
+Direction: East
+----------------
+Congested clusters found at Level 0
+Effective congestion level: 2 Aspect Ratio: 1 Sparse Ratio: 0.75
+Direction: West
+----------------
+Congested clusters found at Level 0
+Effective congestion level: 2 Aspect Ratio: 0.8 Sparse Ratio: 0.8125
+
+Phase 7 Route finalize | Checksum: 1556ea4a1
+
+Time (s): cpu = 00:16:41 ; elapsed = 00:16:57 . Memory (MB): peak = 2294.184 ; gain = 277.188
+
+Phase 8 Verifying routed nets
+
+ Verification completed successfully
+Phase 8 Verifying routed nets | Checksum: 1556ea4a1
+
+Time (s): cpu = 00:16:41 ; elapsed = 00:16:57 . Memory (MB): peak = 2294.184 ; gain = 277.188
+
+Phase 9 Depositing Routes
+Phase 9 Depositing Routes | Checksum: 12c1c62ae
+
+Time (s): cpu = 00:16:44 ; elapsed = 00:17:01 . Memory (MB): peak = 2294.184 ; gain = 277.188
+
+Phase 10 Post Router Timing
+INFO: [Route 35-57] Estimated Timing Summary | WNS=-4.574 | TNS=-208.209| WHS=0.121  | THS=0.000  |
+
+WARNING: [Route 35-328] Router estimated timing not met.
+Resolution: For a complete and accurate timing signoff, report_timing_summary must be run after route_design. Alternatively, route_design can be run with the -timing_summary option to enable a complete timing signoff at the end of route_design.
+Phase 10 Post Router Timing | Checksum: 12c1c62ae
+
+Time (s): cpu = 00:16:46 ; elapsed = 00:17:02 . Memory (MB): peak = 2294.184 ; gain = 277.188
+INFO: [Route 35-16] Router Completed Successfully
+
+Time (s): cpu = 00:16:46 ; elapsed = 00:17:02 . Memory (MB): peak = 2294.184 ; gain = 277.188
+
+Routing Is Done.
+INFO: [Common 17-83] Releasing license: Implementation
+775 Infos, 1 Warnings, 0 Critical Warnings and 0 Errors encountered.
+route_design completed successfully
+route_design: Time (s): cpu = 00:17:06 ; elapsed = 00:17:12 . Memory (MB): peak = 2294.184 ; gain = 311.863
+INFO: [Common 17-600] The following parameters have non-default value.
+general.maxThreads
+report_ram_utilization: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2294.184 ; gain = 0.000
+INFO: [Timing 38-91] UpdateTimingParams: Speed grade: -1, Delay Type: min_max.
+INFO: [Timing 38-191] Multithreading enabled for timing update using a maximum of 4 CPUs
+report_timing_summary: Time (s): cpu = 00:00:12 ; elapsed = 00:00:08 . Memory (MB): peak = 2294.184 ; gain = 0.000
+INFO: [Timing 38-91] UpdateTimingParams: Speed grade: -1, Delay Type: max.
+INFO: [Timing 38-191] Multithreading enabled for timing update using a maximum of 4 CPUs
+INFO: [Timing 38-78] ReportTimingParams: -max_paths 20 -nworst 1 -delay_type max -sort_by slack.
+INFO: [Timing 38-91] UpdateTimingParams: Speed grade: -1, Delay Type: max.
+INFO: [Timing 38-191] Multithreading enabled for timing update using a maximum of 4 CPUs
+INFO: [Timing 38-78] ReportTimingParams: -max_paths 10 -nworst 1 -delay_type max -sort_by slack.
+report_high_fanout_nets: Time (s): cpu = 00:00:05 ; elapsed = 00:00:04 . Memory (MB): peak = 2294.184 ; gain = 0.000
+Command: report_drc -file C:/Users/iuhj0/Eddie/rag_db_project/artifacts/implementation/optimized_accelerator/run_004/reference/drc.rpt
+INFO: [IP_Flow 19-234] Refreshing IP repositories
+INFO: [IP_Flow 19-1704] No user IP repositories specified
+INFO: [IP_Flow 19-2313] Loaded Vivado IP repository 'C:/Xilinx/Vivado/2022.1/data/ip'.
+INFO: [DRC 23-27] Running DRC with 4 threads
+INFO: [Vivado_Tcl 2-168] The results of DRC are in file C:/Users/iuhj0/Eddie/rag_db_project/artifacts/implementation/optimized_accelerator/run_004/reference/drc.rpt.
+report_drc completed successfully
+INFO: [Timing 38-480] Writing timing data to binary archive.
+Writing XDEF routing.
+Writing XDEF routing logical nets.
+Writing XDEF routing special nets.
+Write XDEF Complete: Time (s): cpu = 00:00:05 ; elapsed = 00:00:03 . Memory (MB): peak = 2294.184 ; gain = 0.000
+INFO: [Common 17-1381] The checkpoint 'C:/Users/iuhj0/Eddie/rag_db_project/.automation_debug/baseline_001/project/workspace/optimized_accelerator/.vivado_flow/post_route.dcp' has been generated.
+# exit 0
+INFO: [Common 17-206] Exiting Vivado at Sat Sep 19 18:10:55 2026...

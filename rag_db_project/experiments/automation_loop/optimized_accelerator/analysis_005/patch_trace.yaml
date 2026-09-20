@@ -1,0 +1,7 @@
+changes:
+- finding_id: VERIFY-COMPILE-001
+  requirement_id: REQ-LOOP-VERIFY-COMPILE-001
+  files:
+  - tb/top_sim.sv
+  explanation: Remove the Agent-introduced duplicate declarations and instance start;
+    no RTL or contract change.

@@ -1,0 +1,13 @@
+{
+  "completed": false,
+  "sample_results": [],
+  "protocol_errors": null,
+  "peak_active_pe_count": null,
+  "interrupt_count_per_batch": null,
+  "measurement_note": "Uninstrumented metrics remain unknown; golden completion is not a substitute for protocol coverage.",
+  "pass_count": 0,
+  "failure_count": 100,
+  "accuracy_percent": 0.0,
+  "image_count": 100,
+  "total_inference_cycles": 161735
+}

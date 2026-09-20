@@ -1,0 +1,23 @@
+{
+  "schema_version": "1.0",
+  "run_id": "run_001",
+  "target": "optimized_accelerator",
+  "stage": "post_synthesis_analysis",
+  "status": "findings_detected_pending_human_approval",
+  "functional_regression_executed": false,
+  "rtl_patch_applied": false,
+  "observations": {
+    "dsp48_count": 5,
+    "expected_concurrent_pe_count": 25,
+    "total_lut": 18059,
+    "weight_sram_lut": 13930,
+    "weight_sram_bram_tile": 0,
+    "wns_ns": -4.805,
+    "tns_ns": -135.394
+  },
+  "finding_ids": [
+    "PPA-DSP-001",
+    "PPA-WEIGHT-001"
+  ],
+  "next_gate": "human_review_of_spec_change_proposal"
+}

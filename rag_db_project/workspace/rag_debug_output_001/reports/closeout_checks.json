@@ -1,0 +1,13 @@
+{
+  "source_matches_executed": true,
+  "original_unchanged": true,
+  "spec_and_data_unchanged": true,
+  "all_100_predictions_equal": true,
+  "paired_context_validated": true,
+  "all_tools_passed": true,
+  "numeric_checks_pass": 16,
+  "manual_checks_pending": 30,
+  "max_evidence_bytes": 32840520,
+  "git_staged_bytes_verified": true,
+  "final_accepted": false
+}

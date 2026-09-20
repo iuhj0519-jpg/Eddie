@@ -1,0 +1,108 @@
+schema_version: "1.0"
+policy_id: evidence_driven_rtl_automation_loop_v1
+status: approved
+default_action: deny
+
+purpose: >-
+  Collect every available tool result, detect functional and PPA problems, connect each
+  finding to evidence, pause for human approval, and only then generate and revalidate a patch.
+
+state_machine:
+  - intake_raw_developer_request_and_chunk
+  - draft_additive_spec_with_measurable_acceptance
+  - human_approve_exact_spec_digest
+  - freeze_versioned_spec_overlay_and_refresh_rag
+  - preflight
+  - collect_artifacts
+  - normalize_metrics
+  - detect_findings
+  - retrieve_validated_run_experience
+  - document_diagnosis
+  - waiting_human_approval
+  - generate_patch_in_isolation
+  - compile_simulate_synthesize
+  - regression_decision
+  - evaluate_approved_requirements_and_propose_improvements
+  - draft_next_spec_and_wait_for_fresh_approval_or_final_acceptance
+  - validated_or_next_iteration
+
+required_traceability_chain:
+  - spec_requirement_id
+  - failure_evidence
+  - approved_change
+  - revalidation_result
+
+detector_domains:
+  - memory_access_and_address_generation_paths
+  - mux_selection_depth_and_pipeline_alignment
+  - high_fanout_and_routing_delay
+  - drc_reset_bram_output_register_and_dsp_pipeline_warnings
+  - missing_or_unparsed_evidence_coverage
+  - compile_and_elaboration
+  - simulation_timeout_and_assertions
+  - accuracy_and_failure_count
+  - axi_protocol_interrupt_and_handshake
+  - cycle_and_throughput_regression
+  - setup_hold_and_pulse_width_timing
+  - lut_ff_io_and_hierarchical_hotspots
+  - block_ram_inference_and_bit_efficiency
+  - dsp_parallelism_and_pe_activity
+  - power_budget_and_evidence_confidence
+  - previous_validated_run_regression
+
+approval_gate:
+  required_before:
+    - rtl_change
+    - spec_change
+    - test_expectation_change
+    - arithmetic_or_q_format_change
+    - fsm_protocol_or_memory_architecture_change
+  may_run_without_approval:
+    - read_only_artifact_collection
+    - parsing
+    - finding_generation
+    - retrieval_of_validated_workspace_run_history
+    - diagnosis_and_patch_proposal_documentation
+
+evidence_policy:
+  allow:
+    - approved_specifications
+    - current_workspace_rtl_tb_and_memory
+    - artifacts_from_current_workspace_runs
+    - validated_or_explicitly_labeled_pending_automation_runs
+  deny:
+    - historical_baselines_as_debug_evidence
+    - external_web
+    - external_llm_api
+  missing_evidence_action: record_unknown_and_request_human_decision
+
+runtime_contract:
+  requirement_intake: preserve_raw_text_and_ids_never_infer_approval
+  spec_versions: immutable_additive_overlay_with_baseline_and_ancestor_hashes
+  approval_requires_existing_requirement_in_bound_spec: true
+  proposals_cover_all_findings_not_only_weight_sram: true
+  manual_predicates_require_bound_evidence_and_named_human_review: true
+  rag_refresh_after_lifecycle_events: required_local_only
+  final_acceptance_requires_same_source_post_route_and_full_evidence: true
+  specification_relaxation: not_supported_by_additive_revision_requires_separate_review
+  detection_is_exhaustive_guarantee: false
+  review_all_available_reports_and_unclassified_warnings: true
+  four_existing_findings_are_not_an_allowlist: true
+  every_iteration_requires_fresh_human_decisions: true
+  approval_binding: [source_hashes, evidence_hashes, findings_sha256, config_sha256]
+  patch_scope: existing_rtl_sv_svh_and_exact_approved_spec_tb_allowlist
+  additional_patch_scope_limit: tb/top_sim.sv
+  additional_patch_scope_requires: immutable_approved_spec_patch_scope_and_finding_trace
+  patch_trace_required: true
+  tb_memory_spec_and_expectation_changes_require_separate_scope_approval: true
+  empty_tool_commands_action: fail_closed
+  missing_tools_or_missing_metrics_action: fail_closed_or_record_unknown
+  synthesis_pass_is_not_post_route_timing_closure: true
+  automatic_workspace_promotion: false
+
+git_policy:
+  protected_branches: [main, Project_Git]
+  debug_location: isolated_worktree_or_isolated_debug_workspace
+  commit_before_human_approval: false
+  push_before_human_approval: false
+  promote_patch_condition: full_regression_passed_and_human_accepted

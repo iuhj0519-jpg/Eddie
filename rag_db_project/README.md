@@ -1,5 +1,10 @@
 # Legacy FC-MLP To Systolic Accelerator RAG Project
 
+## 승인 기반 반자동화 Loop 프로젝트 종료
+
+개발자의 분석 종료 및 `Project_Git` 통합 승인에 따라 결과를 통합한다. 코드: `workspace/rag_debug_output_001`, 검증 실행: `run_004`, 후속 검토: `analysis_006`.
+[종료·통합 기록](experiments/automation_loop/ppa_summary/PROJECT_COMPLETION.md)에서 최종 결과, 원본 증거, GUI 수정본 보관 위치와 향후 재개 조건을 확인한다. 프로젝트 종료는 잔여 DRC/외부 I/O 제약까지 해소됐다는 뜻이 아니다.
+
 ## RAG-Only 생성 정책
 
 이 프로젝트는 외부 Web 검색, 외부 자료와 외부 LLM/API를 코드 생성 근거에서 완전히 배제하고, 승인된 RAG DB만으로 설계·구현·검증하는 조건에서 RAG 성능을 최대한 끌어올리는 것을 목표로 한다. 승인 DB에 근거가 없으면 Agent는 외부 지식으로 보완하지 않고 `unknown` 또는 Requirement mismatch로 보고한다.
@@ -81,3 +86,18 @@ Compile, simulation, regression and comparison
 Reference Model, 변경되지 않은 Systolic Controller Reference RTL 4개와 Systolic Accelerator SPEC version 1.1을 포함한 246개 입력 파일은 `rag-input-baseline-v1.1`과 SHA-256 Inventory로 동결한다.
 
 `prototype_generation` 접근 정책에 따라 Markdown과 두 Reference RTL 계층의 23개 원천을 164개 Chunk로 나눠 `prototype_generation_v2` Hybrid Index에 Ingestion했다. SQLite FTS5 BM25와 384차원 deterministic feature-hash Dense Index를 사용하며, Historical Baseline과 Workspace를 포함한 금지 경로 Chunk는 0개다. Systolic Prototype은 변경되지 않은 4개 Controller Reference와 SPEC을 근거로 SRAM Streaming Adapter를 사용해 생성했으며, ModelSim 100-Sample Regression에서 99 PASS/1 FAIL, Accuracy 99.0%를 확인했다.
+
+Architecture Optimization SPEC version 1.0은 승인되었다. Input Buffer와 Global Buffer를 Unified Buffer로 통합하고, 현재 Batch의 Compute와 다음 Batch의 AXI-Stream Prefetch를 겹쳐 첫 Batch 이외의 입력 Latency를 숨기는 계약을 정의한다.
+
+기존 Manifest 계층을 유지하면서 승인 Source와 단계별 Access Policy를 확장한다. Optimization Generation은 검증된 `run_002` Systolic Prototype과 승인 SPEC만 사용하며 외부 Web, 외부 LLM/API와 Historical Baseline은 차단한다.
+
+## Prototype Generation Run 역할
+
+`experiments/prototype_generation/`의 Run은 생성 당시 Source와 Index Hash를 포함하는 불변 감사 기록이다. 뒤 Run이 앞 Run의 생성 기준을 대체하더라도 이전 Run의 Chunk Count와 Index Hash를 삭제하거나 재작성하지 않는다.
+
+| Run | 역할 | 후속 생성 기준 |
+|---|---|---|
+| `run_001` | Generation Query의 의미, RAG 접근 정책, Protocol Preservation과 최초 Evidence Freeze가 형성된 실험 기록 | 사용하지 않음 |
+| `run_002` | Systolic Controller Reference RTL까지 포함한 Source, Chunking/Ingestion, Retrieval Evidence와 최종 Systolic Prototype 검증 기록 | 현재 기준 |
+
+`run_001`의 Source/Index 정보는 현재 RAG DB를 설명하기 위한 값이 아니라 당시 Query 결과를 재현하기 위한 값이다. Optimization Generation은 `run_002`가 고정한 검증 완료 Systolic Prototype과 새로 승인할 Optimization SPEC만 사용한다.

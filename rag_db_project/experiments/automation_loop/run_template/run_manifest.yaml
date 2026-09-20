@@ -1,0 +1,37 @@
+schema_version: "1.0"
+experiment_type: automation_loop
+run_id: run_###
+target: systolic_prototype
+status: pending_preflight
+
+source:
+  workspace: workspace/systolic_prototype
+  artifact_root: artifacts/verification/systolic_prototype/run_###
+  approved_spec: ""
+  approved_spec_sha256: ""
+  historical_baseline_used: false
+  external_knowledge_used: false
+
+acceptance:
+  expected_images: 100
+  expected_failures: 1
+  expected_accuracy_percent: 99.0
+  interrupt_count_per_batch: 1
+  protocol_errors: 0
+
+gate:
+  state: pending_human_approval
+  patch_allowed: false
+
+traceability:
+  required_chain: [spec_requirement_id, failure_evidence, approved_change, revalidation_result]
+
+outputs:
+  run_manifest: run_manifest.yaml
+  analysis_result: analysis_result.json
+  findings: findings.yaml
+  diagnosis: diagnosis.md
+  approval: approval.yaml
+  gate_status: gate_status.json
+  proposed_patch: proposed_patch.diff
+  revalidation_result: revalidation_result.json

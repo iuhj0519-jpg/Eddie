@@ -1,0 +1,435 @@
+COMMAND ["C:/intelFPGA/18.1/modelsim_ase/win32aloem/vsim.exe", "-c", "-t", "1ps", "work.top_sim", "-do", "onerror {quit -code 1 -f}; onbreak {quit -code 1 -f}; run -all; quit -code 0 -f"]
+Reading C:/intelFPGA/18.1/modelsim_ase/tcl/vsim/pref.tcl
+
+# 10.5b
+
+# vsim -c -t 1ps work.top_sim -do "onerror {quit -code 1 -f}; onbreak {quit -code 1 -f}; run -all; quit -code 0 -f" 
+# Start time: 16:43:06 on Sep 07,2026
+# Loading sv_std.std
+# Loading work.top_sim
+# Loading work.zyNet
+# Loading work.unified_buffer
+# Loading work.weight_sram
+# Loading work.systolic_controller
+# Loading work.systolic_array_2d
+# Loading work.bias_sram
+# Loading work.activation_unit
+# Loading work.maxFinder
+# Loading work.dnn_scheduler
+# Loading work.axi_lite_wrapper
+# Loading work.pe_systolic_cell
+# Loading work.mac_pe
+# onerror {quit -code 1 -f}
+#  Warning: onerror command for use within macro
+#  onbreak {quit -code 1 -f}
+#  Warning: onbreak command for use within macro
+#  run -all
+# ** Warning: (vsim-7) Failed to open readmem file "../../inputs/reference_model/testdata/test_data_0000.txt" in read mode.
+# No such file or directory. (errno = ENOENT)    : tb/top_sim.sv(124)
+#    Time: 145 ns  Iteration: 1  Instance: /top_sim
+# ** Warning: (vsim-7) Failed to open readmem file "../../inputs/reference_model/testdata/test_data_0001.txt" in read mode.
+# No such file or directory. (errno = ENOENT)    : tb/top_sim.sv(124)
+#    Time: 7990 ns  Iteration: 1  Instance: /top_sim
+# ** Warning: (vsim-7) Failed to open readmem file "../../inputs/reference_model/testdata/test_data_0002.txt" in read mode.
+# No such file or directory. (errno = ENOENT)    : tb/top_sim.sv(124)
+#    Time: 15840 ns  Iteration: 1  Instance: /top_sim
+# ** Warning: (vsim-7) Failed to open readmem file "../../inputs/reference_model/testdata/test_data_0003.txt" in read mode.
+# No such file or directory. (errno = ENOENT)    : tb/top_sim.sv(124)
+#    Time: 23690 ns  Iteration: 1  Instance: /top_sim
+# ** Warning: (vsim-7) Failed to open readmem file "../../inputs/reference_model/testdata/test_data_0004.txt" in read mode.
+# No such file or directory. (errno = ENOENT)    : tb/top_sim.sv(124)
+#    Time: 31540 ns  Iteration: 1  Instance: /top_sim
+# ** Warning: (vsim-7) Failed to open readmem file "../../inputs/reference_model/testdata/test_data_0005.txt" in read mode.
+# No such file or directory. (errno = ENOENT)    : tb/top_sim.sv(124)
+#    Time: 39390 ns  Iteration: 1  Instance: /top_sim
+# ** Warning: (vsim-7) Failed to open readmem file "../../inputs/reference_model/testdata/test_data_0006.txt" in read mode.
+# No such file or directory. (errno = ENOENT)    : tb/top_sim.sv(124)
+#    Time: 88040 ns  Iteration: 1  Instance: /top_sim
+# FAIL sample=0 detected=0 expected=x
+# FAIL sample=1 detected=0 expected=x
+# FAIL sample=2 detected=0 expected=x
+# FAIL sample=3 detected=0 expected=x
+# FAIL sample=4 detected=0 expected=x
+# ** Warning: (vsim-7) Failed to open readmem file "../../inputs/reference_model/testdata/test_data_0007.txt" in read mode.
+# No such file or directory. (errno = ENOENT)    : tb/top_sim.sv(124)
+#    Time: 96140 ns  Iteration: 1  Instance: /top_sim
+# ** Warning: (vsim-7) Failed to open readmem file "../../inputs/reference_model/testdata/test_data_0008.txt" in read mode.
+# No such file or directory. (errno = ENOENT)    : tb/top_sim.sv(124)
+#    Time: 103990 ns  Iteration: 1  Instance: /top_sim
+# ** Warning: (vsim-7) Failed to open readmem file "../../inputs/reference_model/testdata/test_data_0009.txt" in read mode.
+# No such file or directory. (errno = ENOENT)    : tb/top_sim.sv(124)
+#    Time: 111840 ns  Iteration: 1  Instance: /top_sim
+# ** Warning: (vsim-7) Failed to open readmem file "../../inputs/reference_model/testdata/test_data_0010.txt" in read mode.
+# No such file or directory. (errno = ENOENT)    : tb/top_sim.sv(124)
+#    Time: 119690 ns  Iteration: 1  Instance: /top_sim
+# ** Warning: (vsim-7) Failed to open readmem file "../../inputs/reference_model/testdata/test_data_0011.txt" in read mode.
+# No such file or directory. (errno = ENOENT)    : tb/top_sim.sv(124)
+#    Time: 168330 ns  Iteration: 1  Instance: /top_sim
+# FAIL sample=5 detected=0 expected=x
+# FAIL sample=6 detected=0 expected=x
+# FAIL sample=7 detected=0 expected=x
+# FAIL sample=8 detected=0 expected=x
+# FAIL sample=9 detected=0 expected=x
+# ** Warning: (vsim-7) Failed to open readmem file "../../inputs/reference_model/testdata/test_data_0012.txt" in read mode.
+# No such file or directory. (errno = ENOENT)    : tb/top_sim.sv(124)
+#    Time: 176430 ns  Iteration: 1  Instance: /top_sim
+# ** Warning: (vsim-7) Failed to open readmem file "../../inputs/reference_model/testdata/test_data_0013.txt" in read mode.
+# No such file or directory. (errno = ENOENT)    : tb/top_sim.sv(124)
+#    Time: 184280 ns  Iteration: 1  Instance: /top_sim
+# ** Warning: (vsim-7) Failed to open readmem file "../../inputs/reference_model/testdata/test_data_0014.txt" in read mode.
+# No such file or directory. (errno = ENOENT)    : tb/top_sim.sv(124)
+#    Time: 192130 ns  Iteration: 1  Instance: /top_sim
+# ** Warning: (vsim-7) Failed to open readmem file "../../inputs/reference_model/testdata/test_data_0015.txt" in read mode.
+# No such file or directory. (errno = ENOENT)    : tb/top_sim.sv(124)
+#    Time: 199980 ns  Iteration: 1  Instance: /top_sim
+# ** Warning: (vsim-7) Failed to open readmem file "../../inputs/reference_model/testdata/test_data_0016.txt" in read mode.
+# No such file or directory. (errno = ENOENT)    : tb/top_sim.sv(124)
+#    Time: 248620 ns  Iteration: 1  Instance: /top_sim
+# FAIL sample=10 detected=0 expected=x
+# FAIL sample=11 detected=0 expected=x
+# FAIL sample=12 detected=0 expected=x
+# FAIL sample=13 detected=0 expected=x
+# FAIL sample=14 detected=0 expected=x
+# ** Warning: (vsim-7) Failed to open readmem file "../../inputs/reference_model/testdata/test_data_0017.txt" in read mode.
+# No such file or directory. (errno = ENOENT)    : tb/top_sim.sv(124)
+#    Time: 256720 ns  Iteration: 1  Instance: /top_sim
+# ** Warning: (vsim-7) Failed to open readmem file "../../inputs/reference_model/testdata/test_data_0018.txt" in read mode.
+# No such file or directory. (errno = ENOENT)    : tb/top_sim.sv(124)
+#    Time: 264570 ns  Iteration: 1  Instance: /top_sim
+# ** Warning: (vsim-7) Failed to open readmem file "../../inputs/reference_model/testdata/test_data_0019.txt" in read mode.
+# No such file or directory. (errno = ENOENT)    : tb/top_sim.sv(124)
+#    Time: 272420 ns  Iteration: 1  Instance: /top_sim
+# ** Warning: (vsim-7) Failed to open readmem file "../../inputs/reference_model/testdata/test_data_0020.txt" in read mode.
+# No such file or directory. (errno = ENOENT)    : tb/top_sim.sv(124)
+#    Time: 280270 ns  Iteration: 1  Instance: /top_sim
+# ** Warning: (vsim-7) Failed to open readmem file "../../inputs/reference_model/testdata/test_data_0021.txt" in read mode.
+# No such file or directory. (errno = ENOENT)    : tb/top_sim.sv(124)
+#    Time: 328910 ns  Iteration: 1  Instance: /top_sim
+# FAIL sample=15 detected=0 expected=x
+# FAIL sample=16 detected=0 expected=x
+# FAIL sample=17 detected=0 expected=x
+# FAIL sample=18 detected=0 expected=x
+# FAIL sample=19 detected=0 expected=x
+# ** Warning: (vsim-7) Failed to open readmem file "../../inputs/reference_model/testdata/test_data_0022.txt" in read mode.
+# No such file or directory. (errno = ENOENT)    : tb/top_sim.sv(124)
+#    Time: 337010 ns  Iteration: 1  Instance: /top_sim
+# ** Warning: (vsim-7) Failed to open readmem file "../../inputs/reference_model/testdata/test_data_0023.txt" in read mode.
+# No such file or directory. (errno = ENOENT)    : tb/top_sim.sv(124)
+#    Time: 344860 ns  Iteration: 1  Instance: /top_sim
+# ** Warning: (vsim-7) Failed to open readmem file "../../inputs/reference_model/testdata/test_data_0024.txt" in read mode.
+# No such file or directory. (errno = ENOENT)    : tb/top_sim.sv(124)
+#    Time: 352710 ns  Iteration: 1  Instance: /top_sim
+# ** Warning: (vsim-7) Failed to open readmem file "../../inputs/reference_model/testdata/test_data_0025.txt" in read mode.
+# No such file or directory. (errno = ENOENT)    : tb/top_sim.sv(124)
+#    Time: 360560 ns  Iteration: 1  Instance: /top_sim
+# ** Warning: (vsim-7) Failed to open readmem file "../../inputs/reference_model/testdata/test_data_0026.txt" in read mode.
+# No such file or directory. (errno = ENOENT)    : tb/top_sim.sv(124)
+#    Time: 409200 ns  Iteration: 1  Instance: /top_sim
+# FAIL sample=20 detected=0 expected=x
+# FAIL sample=21 detected=0 expected=x
+# FAIL sample=22 detected=0 expected=x
+# FAIL sample=23 detected=0 expected=x
+# FAIL sample=24 detected=0 expected=x
+# ** Warning: (vsim-7) Failed to open readmem file "../../inputs/reference_model/testdata/test_data_0027.txt" in read mode.
+# No such file or directory. (errno = ENOENT)    : tb/top_sim.sv(124)
+#    Time: 417300 ns  Iteration: 1  Instance: /top_sim
+# ** Warning: (vsim-7) Failed to open readmem file "../../inputs/reference_model/testdata/test_data_0028.txt" in read mode.
+# No such file or directory. (errno = ENOENT)    : tb/top_sim.sv(124)
+#    Time: 425150 ns  Iteration: 1  Instance: /top_sim
+# ** Warning: (vsim-7) Failed to open readmem file "../../inputs/reference_model/testdata/test_data_0029.txt" in read mode.
+# No such file or directory. (errno = ENOENT)    : tb/top_sim.sv(124)
+#    Time: 433 us  Iteration: 1  Instance: /top_sim
+# ** Warning: (vsim-7) Failed to open readmem file "../../inputs/reference_model/testdata/test_data_0030.txt" in read mode.
+# No such file or directory. (errno = ENOENT)    : tb/top_sim.sv(124)
+#    Time: 440850 ns  Iteration: 1  Instance: /top_sim
+# ** Warning: (vsim-7) Failed to open readmem file "../../inputs/reference_model/testdata/test_data_0031.txt" in read mode.
+# No such file or directory. (errno = ENOENT)    : tb/top_sim.sv(124)
+#    Time: 489490 ns  Iteration: 1  Instance: /top_sim
+# FAIL sample=25 detected=0 expected=x
+# FAIL sample=26 detected=0 expected=x
+# FAIL sample=27 detected=0 expected=x
+# FAIL sample=28 detected=0 expected=x
+# FAIL sample=29 detected=0 expected=x
+# ** Warning: (vsim-7) Failed to open readmem file "../../inputs/reference_model/testdata/test_data_0032.txt" in read mode.
+# No such file or directory. (errno = ENOENT)    : tb/top_sim.sv(124)
+#    Time: 497590 ns  Iteration: 1  Instance: /top_sim
+# ** Warning: (vsim-7) Failed to open readmem file "../../inputs/reference_model/testdata/test_data_0033.txt" in read mode.
+# No such file or directory. (errno = ENOENT)    : tb/top_sim.sv(124)
+#    Time: 505440 ns  Iteration: 1  Instance: /top_sim
+# ** Warning: (vsim-7) Failed to open readmem file "../../inputs/reference_model/testdata/test_data_0034.txt" in read mode.
+# No such file or directory. (errno = ENOENT)    : tb/top_sim.sv(124)
+#    Time: 513290 ns  Iteration: 1  Instance: /top_sim
+# ** Warning: (vsim-7) Failed to open readmem file "../../inputs/reference_model/testdata/test_data_0035.txt" in read mode.
+# No such file or directory. (errno = ENOENT)    : tb/top_sim.sv(124)
+#    Time: 521140 ns  Iteration: 1  Instance: /top_sim
+# ** Warning: (vsim-7) Failed to open readmem file "../../inputs/reference_model/testdata/test_data_0036.txt" in read mode.
+# No such file or directory. (errno = ENOENT)    : tb/top_sim.sv(124)
+#    Time: 569780 ns  Iteration: 1  Instance: /top_sim
+# FAIL sample=30 detected=0 expected=x
+# FAIL sample=31 detected=0 expected=x
+# FAIL sample=32 detected=0 expected=x
+# FAIL sample=33 detected=0 expected=x
+# FAIL sample=34 detected=0 expected=x
+# ** Warning: (vsim-7) Failed to open readmem file "../../inputs/reference_model/testdata/test_data_0037.txt" in read mode.
+# No such file or directory. (errno = ENOENT)    : tb/top_sim.sv(124)
+#    Time: 577880 ns  Iteration: 1  Instance: /top_sim
+# ** Warning: (vsim-7) Failed to open readmem file "../../inputs/reference_model/testdata/test_data_0038.txt" in read mode.
+# No such file or directory. (errno = ENOENT)    : tb/top_sim.sv(124)
+#    Time: 585730 ns  Iteration: 1  Instance: /top_sim
+# ** Warning: (vsim-7) Failed to open readmem file "../../inputs/reference_model/testdata/test_data_0039.txt" in read mode.
+# No such file or directory. (errno = ENOENT)    : tb/top_sim.sv(124)
+#    Time: 593580 ns  Iteration: 1  Instance: /top_sim
+# ** Warning: (vsim-7) Failed to open readmem file "../../inputs/reference_model/testdata/test_data_0040.txt" in read mode.
+# No such file or directory. (errno = ENOENT)    : tb/top_sim.sv(124)
+#    Time: 601430 ns  Iteration: 1  Instance: /top_sim
+# ** Warning: (vsim-7) Failed to open readmem file "../../inputs/reference_model/testdata/test_data_0041.txt" in read mode.
+# No such file or directory. (errno = ENOENT)    : tb/top_sim.sv(124)
+#    Time: 650070 ns  Iteration: 1  Instance: /top_sim
+# FAIL sample=35 detected=0 expected=x
+# FAIL sample=36 detected=0 expected=x
+# FAIL sample=37 detected=0 expected=x
+# FAIL sample=38 detected=0 expected=x
+# FAIL sample=39 detected=0 expected=x
+# ** Warning: (vsim-7) Failed to open readmem file "../../inputs/reference_model/testdata/test_data_0042.txt" in read mode.
+# No such file or directory. (errno = ENOENT)    : tb/top_sim.sv(124)
+#    Time: 658170 ns  Iteration: 1  Instance: /top_sim
+# ** Warning: (vsim-7) Failed to open readmem file "../../inputs/reference_model/testdata/test_data_0043.txt" in read mode.
+# No such file or directory. (errno = ENOENT)    : tb/top_sim.sv(124)
+#    Time: 666020 ns  Iteration: 1  Instance: /top_sim
+# ** Warning: (vsim-7) Failed to open readmem file "../../inputs/reference_model/testdata/test_data_0044.txt" in read mode.
+# No such file or directory. (errno = ENOENT)    : tb/top_sim.sv(124)
+#    Time: 673870 ns  Iteration: 1  Instance: /top_sim
+# ** Warning: (vsim-7) Failed to open readmem file "../../inputs/reference_model/testdata/test_data_0045.txt" in read mode.
+# No such file or directory. (errno = ENOENT)    : tb/top_sim.sv(124)
+#    Time: 681720 ns  Iteration: 1  Instance: /top_sim
+# ** Warning: (vsim-7) Failed to open readmem file "../../inputs/reference_model/testdata/test_data_0046.txt" in read mode.
+# No such file or directory. (errno = ENOENT)    : tb/top_sim.sv(124)
+#    Time: 730360 ns  Iteration: 1  Instance: /top_sim
+# FAIL sample=40 detected=0 expected=x
+# FAIL sample=41 detected=0 expected=x
+# FAIL sample=42 detected=0 expected=x
+# FAIL sample=43 detected=0 expected=x
+# FAIL sample=44 detected=0 expected=x
+# ** Warning: (vsim-7) Failed to open readmem file "../../inputs/reference_model/testdata/test_data_0047.txt" in read mode.
+# No such file or directory. (errno = ENOENT)    : tb/top_sim.sv(124)
+#    Time: 738460 ns  Iteration: 1  Instance: /top_sim
+# ** Warning: (vsim-7) Failed to open readmem file "../../inputs/reference_model/testdata/test_data_0048.txt" in read mode.
+# No such file or directory. (errno = ENOENT)    : tb/top_sim.sv(124)
+#    Time: 746310 ns  Iteration: 1  Instance: /top_sim
+# ** Warning: (vsim-7) Failed to open readmem file "../../inputs/reference_model/testdata/test_data_0049.txt" in read mode.
+# No such file or directory. (errno = ENOENT)    : tb/top_sim.sv(124)
+#    Time: 754160 ns  Iteration: 1  Instance: /top_sim
+# ** Warning: (vsim-7) Failed to open readmem file "../../inputs/reference_model/testdata/test_data_0050.txt" in read mode.
+# No such file or directory. (errno = ENOENT)    : tb/top_sim.sv(124)
+#    Time: 762010 ns  Iteration: 1  Instance: /top_sim
+# ** Warning: (vsim-7) Failed to open readmem file "../../inputs/reference_model/testdata/test_data_0051.txt" in read mode.
+# No such file or directory. (errno = ENOENT)    : tb/top_sim.sv(124)
+#    Time: 810650 ns  Iteration: 1  Instance: /top_sim
+# FAIL sample=45 detected=0 expected=x
+# FAIL sample=46 detected=0 expected=x
+# FAIL sample=47 detected=0 expected=x
+# FAIL sample=48 detected=0 expected=x
+# FAIL sample=49 detected=0 expected=x
+# ** Warning: (vsim-7) Failed to open readmem file "../../inputs/reference_model/testdata/test_data_0052.txt" in read mode.
+# No such file or directory. (errno = ENOENT)    : tb/top_sim.sv(124)
+#    Time: 818750 ns  Iteration: 1  Instance: /top_sim
+# ** Warning: (vsim-7) Failed to open readmem file "../../inputs/reference_model/testdata/test_data_0053.txt" in read mode.
+# No such file or directory. (errno = ENOENT)    : tb/top_sim.sv(124)
+#    Time: 826600 ns  Iteration: 1  Instance: /top_sim
+# ** Warning: (vsim-7) Failed to open readmem file "../../inputs/reference_model/testdata/test_data_0054.txt" in read mode.
+# No such file or directory. (errno = ENOENT)    : tb/top_sim.sv(124)
+#    Time: 834450 ns  Iteration: 1  Instance: /top_sim
+# ** Warning: (vsim-7) Failed to open readmem file "../../inputs/reference_model/testdata/test_data_0055.txt" in read mode.
+# No such file or directory. (errno = ENOENT)    : tb/top_sim.sv(124)
+#    Time: 842300 ns  Iteration: 1  Instance: /top_sim
+# ** Warning: (vsim-7) Failed to open readmem file "../../inputs/reference_model/testdata/test_data_0056.txt" in read mode.
+# No such file or directory. (errno = ENOENT)    : tb/top_sim.sv(124)
+#    Time: 890940 ns  Iteration: 1  Instance: /top_sim
+# FAIL sample=50 detected=0 expected=x
+# FAIL sample=51 detected=0 expected=x
+# FAIL sample=52 detected=0 expected=x
+# FAIL sample=53 detected=0 expected=x
+# FAIL sample=54 detected=0 expected=x
+# ** Warning: (vsim-7) Failed to open readmem file "../../inputs/reference_model/testdata/test_data_0057.txt" in read mode.
+# No such file or directory. (errno = ENOENT)    : tb/top_sim.sv(124)
+#    Time: 899040 ns  Iteration: 1  Instance: /top_sim
+# ** Warning: (vsim-7) Failed to open readmem file "../../inputs/reference_model/testdata/test_data_0058.txt" in read mode.
+# No such file or directory. (errno = ENOENT)    : tb/top_sim.sv(124)
+#    Time: 906890 ns  Iteration: 1  Instance: /top_sim
+# ** Warning: (vsim-7) Failed to open readmem file "../../inputs/reference_model/testdata/test_data_0059.txt" in read mode.
+# No such file or directory. (errno = ENOENT)    : tb/top_sim.sv(124)
+#    Time: 914740 ns  Iteration: 1  Instance: /top_sim
+# ** Warning: (vsim-7) Failed to open readmem file "../../inputs/reference_model/testdata/test_data_0060.txt" in read mode.
+# No such file or directory. (errno = ENOENT)    : tb/top_sim.sv(124)
+#    Time: 922590 ns  Iteration: 1  Instance: /top_sim
+# ** Warning: (vsim-7) Failed to open readmem file "../../inputs/reference_model/testdata/test_data_0061.txt" in read mode.
+# No such file or directory. (errno = ENOENT)    : tb/top_sim.sv(124)
+#    Time: 971230 ns  Iteration: 1  Instance: /top_sim
+# FAIL sample=55 detected=0 expected=x
+# FAIL sample=56 detected=0 expected=x
+# FAIL sample=57 detected=0 expected=x
+# FAIL sample=58 detected=0 expected=x
+# FAIL sample=59 detected=0 expected=x
+# ** Warning: (vsim-7) Failed to open readmem file "../../inputs/reference_model/testdata/test_data_0062.txt" in read mode.
+# No such file or directory. (errno = ENOENT)    : tb/top_sim.sv(124)
+#    Time: 979330 ns  Iteration: 1  Instance: /top_sim
+# ** Warning: (vsim-7) Failed to open readmem file "../../inputs/reference_model/testdata/test_data_0063.txt" in read mode.
+# No such file or directory. (errno = ENOENT)    : tb/top_sim.sv(124)
+#    Time: 987180 ns  Iteration: 1  Instance: /top_sim
+# ** Warning: (vsim-7) Failed to open readmem file "../../inputs/reference_model/testdata/test_data_0064.txt" in read mode.
+# No such file or directory. (errno = ENOENT)    : tb/top_sim.sv(124)
+#    Time: 995030 ns  Iteration: 1  Instance: /top_sim
+# ** Warning: (vsim-7) Failed to open readmem file "../../inputs/reference_model/testdata/test_data_0065.txt" in read mode.
+# No such file or directory. (errno = ENOENT)    : tb/top_sim.sv(124)
+#    Time: 1002880 ns  Iteration: 1  Instance: /top_sim
+# ** Warning: (vsim-7) Failed to open readmem file "../../inputs/reference_model/testdata/test_data_0066.txt" in read mode.
+# No such file or directory. (errno = ENOENT)    : tb/top_sim.sv(124)
+#    Time: 1051520 ns  Iteration: 1  Instance: /top_sim
+# FAIL sample=60 detected=0 expected=x
+# FAIL sample=61 detected=0 expected=x
+# FAIL sample=62 detected=0 expected=x
+# FAIL sample=63 detected=0 expected=x
+# FAIL sample=64 detected=0 expected=x
+# ** Warning: (vsim-7) Failed to open readmem file "../../inputs/reference_model/testdata/test_data_0067.txt" in read mode.
+# No such file or directory. (errno = ENOENT)    : tb/top_sim.sv(124)
+#    Time: 1059620 ns  Iteration: 1  Instance: /top_sim
+# ** Warning: (vsim-7) Failed to open readmem file "../../inputs/reference_model/testdata/test_data_0068.txt" in read mode.
+# No such file or directory. (errno = ENOENT)    : tb/top_sim.sv(124)
+#    Time: 1067470 ns  Iteration: 1  Instance: /top_sim
+# ** Warning: (vsim-7) Failed to open readmem file "../../inputs/reference_model/testdata/test_data_0069.txt" in read mode.
+# No such file or directory. (errno = ENOENT)    : tb/top_sim.sv(124)
+#    Time: 1075320 ns  Iteration: 1  Instance: /top_sim
+# ** Warning: (vsim-7) Failed to open readmem file "../../inputs/reference_model/testdata/test_data_0070.txt" in read mode.
+# No such file or directory. (errno = ENOENT)    : tb/top_sim.sv(124)
+#    Time: 1083170 ns  Iteration: 1  Instance: /top_sim
+# ** Warning: (vsim-7) Failed to open readmem file "../../inputs/reference_model/testdata/test_data_0071.txt" in read mode.
+# No such file or directory. (errno = ENOENT)    : tb/top_sim.sv(124)
+#    Time: 1131810 ns  Iteration: 1  Instance: /top_sim
+# FAIL sample=65 detected=0 expected=x
+# FAIL sample=66 detected=0 expected=x
+# FAIL sample=67 detected=0 expected=x
+# FAIL sample=68 detected=0 expected=x
+# FAIL sample=69 detected=0 expected=x
+# ** Warning: (vsim-7) Failed to open readmem file "../../inputs/reference_model/testdata/test_data_0072.txt" in read mode.
+# No such file or directory. (errno = ENOENT)    : tb/top_sim.sv(124)
+#    Time: 1139910 ns  Iteration: 1  Instance: /top_sim
+# ** Warning: (vsim-7) Failed to open readmem file "../../inputs/reference_model/testdata/test_data_0073.txt" in read mode.
+# No such file or directory. (errno = ENOENT)    : tb/top_sim.sv(124)
+#    Time: 1147760 ns  Iteration: 1  Instance: /top_sim
+# ** Warning: (vsim-7) Failed to open readmem file "../../inputs/reference_model/testdata/test_data_0074.txt" in read mode.
+# No such file or directory. (errno = ENOENT)    : tb/top_sim.sv(124)
+#    Time: 1155610 ns  Iteration: 1  Instance: /top_sim
+# ** Warning: (vsim-7) Failed to open readmem file "../../inputs/reference_model/testdata/test_data_0075.txt" in read mode.
+# No such file or directory. (errno = ENOENT)    : tb/top_sim.sv(124)
+#    Time: 1163460 ns  Iteration: 1  Instance: /top_sim
+# ** Warning: (vsim-7) Failed to open readmem file "../../inputs/reference_model/testdata/test_data_0076.txt" in read mode.
+# No such file or directory. (errno = ENOENT)    : tb/top_sim.sv(124)
+#    Time: 1212100 ns  Iteration: 1  Instance: /top_sim
+# FAIL sample=70 detected=0 expected=x
+# FAIL sample=71 detected=0 expected=x
+# FAIL sample=72 detected=0 expected=x
+# FAIL sample=73 detected=0 expected=x
+# FAIL sample=74 detected=0 expected=x
+# ** Warning: (vsim-7) Failed to open readmem file "../../inputs/reference_model/testdata/test_data_0077.txt" in read mode.
+# No such file or directory. (errno = ENOENT)    : tb/top_sim.sv(124)
+#    Time: 1220200 ns  Iteration: 1  Instance: /top_sim
+# ** Warning: (vsim-7) Failed to open readmem file "../../inputs/reference_model/testdata/test_data_0078.txt" in read mode.
+# No such file or directory. (errno = ENOENT)    : tb/top_sim.sv(124)
+#    Time: 1228050 ns  Iteration: 1  Instance: /top_sim
+# ** Warning: (vsim-7) Failed to open readmem file "../../inputs/reference_model/testdata/test_data_0079.txt" in read mode.
+# No such file or directory. (errno = ENOENT)    : tb/top_sim.sv(124)
+#    Time: 1235900 ns  Iteration: 1  Instance: /top_sim
+# ** Warning: (vsim-7) Failed to open readmem file "../../inputs/reference_model/testdata/test_data_0080.txt" in read mode.
+# No such file or directory. (errno = ENOENT)    : tb/top_sim.sv(124)
+#    Time: 1243750 ns  Iteration: 1  Instance: /top_sim
+# ** Warning: (vsim-7) Failed to open readmem file "../../inputs/reference_model/testdata/test_data_0081.txt" in read mode.
+# No such file or directory. (errno = ENOENT)    : tb/top_sim.sv(124)
+#    Time: 1292390 ns  Iteration: 1  Instance: /top_sim
+# FAIL sample=75 detected=0 expected=x
+# FAIL sample=76 detected=0 expected=x
+# FAIL sample=77 detected=0 expected=x
+# FAIL sample=78 detected=0 expected=x
+# FAIL sample=79 detected=0 expected=x
+# ** Warning: (vsim-7) Failed to open readmem file "../../inputs/reference_model/testdata/test_data_0082.txt" in read mode.
+# No such file or directory. (errno = ENOENT)    : tb/top_sim.sv(124)
+#    Time: 1300490 ns  Iteration: 1  Instance: /top_sim
+# ** Warning: (vsim-7) Failed to open readmem file "../../inputs/reference_model/testdata/test_data_0083.txt" in read mode.
+# No such file or directory. (errno = ENOENT)    : tb/top_sim.sv(124)
+#    Time: 1308340 ns  Iteration: 1  Instance: /top_sim
+# ** Warning: (vsim-7) Failed to open readmem file "../../inputs/reference_model/testdata/test_data_0084.txt" in read mode.
+# No such file or directory. (errno = ENOENT)    : tb/top_sim.sv(124)
+#    Time: 1316190 ns  Iteration: 1  Instance: /top_sim
+# ** Warning: (vsim-7) Failed to open readmem file "../../inputs/reference_model/testdata/test_data_0085.txt" in read mode.
+# No such file or directory. (errno = ENOENT)    : tb/top_sim.sv(124)
+#    Time: 1324040 ns  Iteration: 1  Instance: /top_sim
+# ** Warning: (vsim-7) Failed to open readmem file "../../inputs/reference_model/testdata/test_data_0086.txt" in read mode.
+# No such file or directory. (errno = ENOENT)    : tb/top_sim.sv(124)
+#    Time: 1372680 ns  Iteration: 1  Instance: /top_sim
+# FAIL sample=80 detected=0 expected=x
+# FAIL sample=81 detected=0 expected=x
+# FAIL sample=82 detected=0 expected=x
+# FAIL sample=83 detected=0 expected=x
+# FAIL sample=84 detected=0 expected=x
+# ** Warning: (vsim-7) Failed to open readmem file "../../inputs/reference_model/testdata/test_data_0087.txt" in read mode.
+# No such file or directory. (errno = ENOENT)    : tb/top_sim.sv(124)
+#    Time: 1380780 ns  Iteration: 1  Instance: /top_sim
+# ** Warning: (vsim-7) Failed to open readmem file "../../inputs/reference_model/testdata/test_data_0088.txt" in read mode.
+# No such file or directory. (errno = ENOENT)    : tb/top_sim.sv(124)
+#    Time: 1388630 ns  Iteration: 1  Instance: /top_sim
+# ** Warning: (vsim-7) Failed to open readmem file "../../inputs/reference_model/testdata/test_data_0089.txt" in read mode.
+# No such file or directory. (errno = ENOENT)    : tb/top_sim.sv(124)
+#    Time: 1396480 ns  Iteration: 1  Instance: /top_sim
+# ** Warning: (vsim-7) Failed to open readmem file "../../inputs/reference_model/testdata/test_data_0090.txt" in read mode.
+# No such file or directory. (errno = ENOENT)    : tb/top_sim.sv(124)
+#    Time: 1404330 ns  Iteration: 1  Instance: /top_sim
+# ** Warning: (vsim-7) Failed to open readmem file "../../inputs/reference_model/testdata/test_data_0091.txt" in read mode.
+# No such file or directory. (errno = ENOENT)    : tb/top_sim.sv(124)
+#    Time: 1452970 ns  Iteration: 1  Instance: /top_sim
+# FAIL sample=85 detected=0 expected=x
+# FAIL sample=86 detected=0 expected=x
+# FAIL sample=87 detected=0 expected=x
+# FAIL sample=88 detected=0 expected=x
+# FAIL sample=89 detected=0 expected=x
+# ** Warning: (vsim-7) Failed to open readmem file "../../inputs/reference_model/testdata/test_data_0092.txt" in read mode.
+# No such file or directory. (errno = ENOENT)    : tb/top_sim.sv(124)
+#    Time: 1461070 ns  Iteration: 1  Instance: /top_sim
+# ** Warning: (vsim-7) Failed to open readmem file "../../inputs/reference_model/testdata/test_data_0093.txt" in read mode.
+# No such file or directory. (errno = ENOENT)    : tb/top_sim.sv(124)
+#    Time: 1468920 ns  Iteration: 1  Instance: /top_sim
+# ** Warning: (vsim-7) Failed to open readmem file "../../inputs/reference_model/testdata/test_data_0094.txt" in read mode.
+# No such file or directory. (errno = ENOENT)    : tb/top_sim.sv(124)
+#    Time: 1476770 ns  Iteration: 1  Instance: /top_sim
+# ** Warning: (vsim-7) Failed to open readmem file "../../inputs/reference_model/testdata/test_data_0095.txt" in read mode.
+# No such file or directory. (errno = ENOENT)    : tb/top_sim.sv(124)
+#    Time: 1484620 ns  Iteration: 1  Instance: /top_sim
+# ** Warning: (vsim-7) Failed to open readmem file "../../inputs/reference_model/testdata/test_data_0096.txt" in read mode.
+# No such file or directory. (errno = ENOENT)    : tb/top_sim.sv(124)
+#    Time: 1533260 ns  Iteration: 1  Instance: /top_sim
+# FAIL sample=90 detected=0 expected=x
+# FAIL sample=91 detected=0 expected=x
+# FAIL sample=92 detected=0 expected=x
+# FAIL sample=93 detected=0 expected=x
+# FAIL sample=94 detected=0 expected=x
+# ** Warning: (vsim-7) Failed to open readmem file "../../inputs/reference_model/testdata/test_data_0097.txt" in read mode.
+# No such file or directory. (errno = ENOENT)    : tb/top_sim.sv(124)
+#    Time: 1541360 ns  Iteration: 1  Instance: /top_sim
+# ** Warning: (vsim-7) Failed to open readmem file "../../inputs/reference_model/testdata/test_data_0098.txt" in read mode.
+# No such file or directory. (errno = ENOENT)    : tb/top_sim.sv(124)
+#    Time: 1549210 ns  Iteration: 1  Instance: /top_sim
+# ** Warning: (vsim-7) Failed to open readmem file "../../inputs/reference_model/testdata/test_data_0099.txt" in read mode.
+# No such file or directory. (errno = ENOENT)    : tb/top_sim.sv(124)
+#    Time: 1557060 ns  Iteration: 1  Instance: /top_sim
+# FAIL sample=95 detected=0 expected=x
+# FAIL sample=96 detected=0 expected=x
+# FAIL sample=97 detected=0 expected=x
+# FAIL sample=98 detected=0 expected=x
+# FAIL sample=99 detected=0 expected=x
+# FINAL_RESULT PASS=0 FAIL=100 ACCURACY=0.000000%
+# TOTAL_INFERENCE_CYCLES=161735
+# AXI_BACKPRESSURE_CYCLES=77977
+# ** Fatal: REFERENCE_GOLDEN_MATCH FAIL
+#    Time: 1617525 ns  Scope: top_sim File: tb/top_sim.sv Line: 212
+# ** Note: $finish    : tb/top_sim.sv(212)
+#    Time: 1617525 ns  Iteration: 1  Instance: /top_sim
+# End time: 16:43:23 on Sep 07,2026, Elapsed time: 0:00:17
+# Errors: 1, Warnings: 100

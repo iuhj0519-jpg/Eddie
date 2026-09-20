@@ -1,0 +1,1808 @@
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2022.1 (win64) Build 3526262 Mon Apr 18 15:48:16 MDT 2022
+| Date         : Sat Sep 19 18:10:43 2026
+| Host         : BOOK-P2O9FRPHFQ running 64-bit major release  (build 9200)
+| Command      : report_timing -delay_type max -max_paths 20 -file C:/Users/iuhj0/Eddie/rag_db_project/artifacts/implementation/optimized_accelerator/run_004/reference/critical_paths.rpt
+| Design       : zyNet
+| Device       : 7z020-clg400
+| Speed File   : -1  PRODUCTION 1.12 2019-11-22
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Timing Report
+
+Slack (VIOLATED) :        -4.576ns  (required time - arrival time)
+  Source:                 systolic_controller_instance/cycle_count_reg[3]_replica_4/C
+                            (rising edge-triggered cell FDCE clocked by s_axi_aclk  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Destination:            weight_sram_instance/read_data_reg[15]/D
+                            (rising edge-triggered cell FDRE clocked by s_axi_aclk  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Path Group:             s_axi_aclk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            10.000ns  (s_axi_aclk rise@10.000ns - s_axi_aclk rise@0.000ns)
+  Data Path Delay:        14.538ns  (logic 5.522ns (37.984%)  route 9.016ns (62.016%))
+  Logic Levels:           17  (CARRY4=3 DSP48E1=1 LUT3=1 LUT5=1 LUT6=6 MUXF7=3 MUXF8=2)
+  Clock Path Skew:        -0.035ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    4.546ns = ( 14.546 - 10.000 ) 
+    Source Clock Delay      (SCD):    5.039ns
+    Clock Pessimism Removal (CPR):    0.458ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock s_axi_aclk rise edge)
+                                                      0.000     0.000 r  
+    U7                                                0.000     0.000 r  s_axi_aclk (IN)
+                         net (fo=0)                   0.000     0.000    s_axi_aclk
+    U7                   IBUF (Prop_ibuf_I_O)         1.058     1.058 r  s_axi_aclk_IBUF_inst/O
+                         net (fo=1, routed)           2.171     3.229    s_axi_aclk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.101     3.330 r  s_axi_aclk_IBUF_BUFG_inst/O
+                         net (fo=1546, routed)        1.709     5.039    systolic_controller_instance/s_axi_aclk_IBUF_BUFG
+    SLICE_X59Y22         FDCE                                         r  systolic_controller_instance/cycle_count_reg[3]_replica_4/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X59Y22         FDCE (Prop_fdce_C_Q)         0.456     5.495 r  systolic_controller_instance/cycle_count_reg[3]_replica_4/Q
+                         net (fo=1, routed)           0.655     6.151    systolic_controller_instance/Q[3]_repN_4
+    SLICE_X59Y22         LUT5 (Prop_lut5_I0_O)        0.124     6.275 r  systolic_controller_instance/consumed_feature_count_1[7]_i_3/O
+                         net (fo=9, routed)           0.198     6.473    systolic_controller_instance/consumed_feature_count_1[7]_i_3_n_0
+    SLICE_X59Y22         LUT3 (Prop_lut3_I2_O)        0.124     6.597 r  systolic_controller_instance/consumed_feature_count_1[10]_i_3/O
+                         net (fo=23, routed)          0.627     7.224    systolic_controller_instance/consumed_feature_count_1[10]_i_3_n_0
+    SLICE_X60Y22         LUT6 (Prop_lut6_I0_O)        0.124     7.348 r  systolic_controller_instance/read_valid[1]_i_18/O
+                         net (fo=1, routed)           0.000     7.348    systolic_controller_instance/read_valid[1]_i_18_n_0
+    SLICE_X60Y22         CARRY4 (Prop_carry4_S[0]_CO[3])
+                                                      0.532     7.880 r  systolic_controller_instance/read_valid_reg[1]_i_8/CO[3]
+                         net (fo=1, routed)           0.000     7.880    systolic_controller_instance/read_valid_reg[1]_i_8_n_0
+    SLICE_X60Y23         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     7.994 r  systolic_controller_instance/read_valid_reg[1]_i_3/CO[3]
+                         net (fo=1, routed)           0.000     7.994    systolic_controller_instance/read_valid_reg[1]_i_3_n_0
+    SLICE_X60Y24         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.108 r  systolic_controller_instance/read_valid_reg[1]_i_2/CO[3]
+                         net (fo=10, routed)          1.128     9.236    systolic_controller_instance/operand_read_address2
+    SLICE_X67Y25         LUT6 (Prop_lut6_I4_O)        0.124     9.360 r  systolic_controller_instance/read_data1__0_i_12_comp/O
+                         net (fo=14, routed)          1.530    10.890    weight_sram_instance/operand_read_address[14]
+    DSP48_X3Y12          DSP48E1 (Prop_dsp48e1_C[4]_P[4])
+                                                      1.820    12.710 r  weight_sram_instance/read_data1__0/P[4]
+                         net (fo=2415, routed)        2.386    15.097    weight_sram_instance/read_data1__0_n_101
+    SLICE_X64Y35         LUT6 (Prop_lut6_I4_O)        0.124    15.221 r  weight_sram_instance/g76_b6__0/O
+                         net (fo=1, routed)           0.000    15.221    weight_sram_instance/g76_b6__0_n_0
+    SLICE_X64Y35         MUXF7 (Prop_muxf7_I0_O)      0.238    15.459 r  weight_sram_instance/read_data_reg[15]_i_271/O
+                         net (fo=1, routed)           0.000    15.459    weight_sram_instance/read_data_reg[15]_i_271_n_0
+    SLICE_X64Y35         MUXF8 (Prop_muxf8_I0_O)      0.104    15.563 r  weight_sram_instance/read_data_reg[15]_i_210/O
+                         net (fo=1, routed)           0.797    16.360    weight_sram_instance/read_data_reg[15]_i_210_n_0
+    SLICE_X67Y35         LUT6 (Prop_lut6_I0_O)        0.316    16.676 r  weight_sram_instance/read_data[15]_i_125/O
+                         net (fo=1, routed)           0.000    16.676    weight_sram_instance/read_data[15]_i_125_n_0
+    SLICE_X67Y35         MUXF7 (Prop_muxf7_I1_O)      0.245    16.921 r  weight_sram_instance/read_data_reg[15]_i_52/O
+                         net (fo=1, routed)           0.868    17.789    weight_sram_instance/read_data_reg[15]_i_52_n_0
+    SLICE_X74Y35         LUT6 (Prop_lut6_I5_O)        0.298    18.087 r  weight_sram_instance/read_data[15]_i_19/O
+                         net (fo=1, routed)           0.000    18.087    weight_sram_instance/read_data[15]_i_19_n_0
+    SLICE_X74Y35         MUXF7 (Prop_muxf7_I1_O)      0.245    18.332 r  weight_sram_instance/read_data_reg[15]_i_7/O
+                         net (fo=1, routed)           0.000    18.332    weight_sram_instance/read_data_reg[15]_i_7_n_0
+    SLICE_X74Y35         MUXF8 (Prop_muxf8_I0_O)      0.104    18.436 r  weight_sram_instance/read_data_reg[15]_i_3/O
+                         net (fo=2, routed)           0.825    19.261    weight_sram_instance/read_data_reg[15]_i_3_n_0
+    SLICE_X85Y43         LUT6 (Prop_lut6_I4_O)        0.316    19.577 r  weight_sram_instance/read_data[15]_i_1/O
+                         net (fo=1, routed)           0.000    19.577    weight_sram_instance/p_14_out[15]
+    SLICE_X85Y43         FDRE                                         r  weight_sram_instance/read_data_reg[15]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock s_axi_aclk rise edge)
+                                                     10.000    10.000 r  
+    U7                                                0.000    10.000 r  s_axi_aclk (IN)
+                         net (fo=0)                   0.000    10.000    s_axi_aclk
+    U7                   IBUF (Prop_ibuf_I_O)         0.924    10.924 r  s_axi_aclk_IBUF_inst/O
+                         net (fo=1, routed)           1.972    12.896    s_axi_aclk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.091    12.987 r  s_axi_aclk_IBUF_BUFG_inst/O
+                         net (fo=1546, routed)        1.559    14.546    weight_sram_instance/s_axi_aclk_IBUF_BUFG
+    SLICE_X85Y43         FDRE                                         r  weight_sram_instance/read_data_reg[15]/C
+                         clock pessimism              0.458    15.004    
+                         clock uncertainty           -0.035    14.969    
+    SLICE_X85Y43         FDRE (Setup_fdre_C_D)        0.032    15.001    weight_sram_instance/read_data_reg[15]
+  -------------------------------------------------------------------
+                         required time                         15.001    
+                         arrival time                         -19.577    
+  -------------------------------------------------------------------
+                         slack                                 -4.576    
+
+Slack (VIOLATED) :        -4.566ns  (required time - arrival time)
+  Source:                 systolic_controller_instance/cycle_count_reg[4]/C
+                            (rising edge-triggered cell FDCE clocked by s_axi_aclk  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Destination:            weight_sram_instance/read_data_reg[22]/D
+                            (rising edge-triggered cell FDRE clocked by s_axi_aclk  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Path Group:             s_axi_aclk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            10.000ns  (s_axi_aclk rise@10.000ns - s_axi_aclk rise@0.000ns)
+  Data Path Delay:        14.509ns  (logic 5.353ns (36.893%)  route 9.156ns (63.107%))
+  Logic Levels:           16  (CARRY4=3 DSP48E1=1 LUT6=7 MUXF7=3 MUXF8=2)
+  Clock Path Skew:        -0.052ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    4.533ns = ( 14.533 - 10.000 ) 
+    Source Clock Delay      (SCD):    5.043ns
+    Clock Pessimism Removal (CPR):    0.458ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock s_axi_aclk rise edge)
+                                                      0.000     0.000 r  
+    U7                                                0.000     0.000 r  s_axi_aclk (IN)
+                         net (fo=0)                   0.000     0.000    s_axi_aclk
+    U7                   IBUF (Prop_ibuf_I_O)         1.058     1.058 r  s_axi_aclk_IBUF_inst/O
+                         net (fo=1, routed)           2.171     3.229    s_axi_aclk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.101     3.330 r  s_axi_aclk_IBUF_BUFG_inst/O
+                         net (fo=1546, routed)        1.713     5.043    systolic_controller_instance/s_axi_aclk_IBUF_BUFG
+    SLICE_X54Y19         FDCE                                         r  systolic_controller_instance/cycle_count_reg[4]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X54Y19         FDCE (Prop_fdce_C_Q)         0.518     5.561 r  systolic_controller_instance/cycle_count_reg[4]/Q
+                         net (fo=46, routed)          0.975     6.536    systolic_controller_instance/cycle_count_reg_n_0_[4]
+    SLICE_X54Y19         LUT6 (Prop_lut6_I2_O)        0.124     6.660 r  systolic_controller_instance/consumed_feature_count_2[10]_i_4/O
+                         net (fo=24, routed)          0.223     6.883    systolic_controller_instance/consumed_feature_count_2[10]_i_4_n_0
+    SLICE_X54Y19         LUT6 (Prop_lut6_I3_O)        0.124     7.007 r  systolic_controller_instance/read_valid[2]_i_14/O
+                         net (fo=1, routed)           0.560     7.567    systolic_controller_instance/read_valid[2]_i_14_n_0
+    SLICE_X53Y18         CARRY4 (Prop_carry4_DI[0]_CO[3])
+                                                      0.526     8.093 r  systolic_controller_instance/read_valid_reg[2]_i_8/CO[3]
+                         net (fo=1, routed)           0.000     8.093    systolic_controller_instance/read_valid_reg[2]_i_8_n_0
+    SLICE_X53Y19         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.207 r  systolic_controller_instance/read_valid_reg[2]_i_3/CO[3]
+                         net (fo=1, routed)           0.000     8.207    systolic_controller_instance/read_valid_reg[2]_i_3_n_0
+    SLICE_X53Y20         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.321 r  systolic_controller_instance/read_valid_reg[2]_i_2/CO[3]
+                         net (fo=12, routed)          1.209     9.530    systolic_controller_instance/operand_read_address21_in
+    SLICE_X44Y17         LUT6 (Prop_lut6_I4_O)        0.124     9.654 r  systolic_controller_instance/read_data1__1_i_7_comp/O
+                         net (fo=7, routed)           0.975    10.629    weight_sram_instance/operand_read_address[28]
+    DSP48_X2Y2           DSP48E1 (Prop_dsp48e1_C[8]_P[0])
+                                                      1.820    12.449 r  weight_sram_instance/read_data1__1/P[0]
+                         net (fo=2401, routed)        2.679    15.127    weight_sram_instance/read_data1__1_n_105
+    SLICE_X70Y12         LUT6 (Prop_lut6_I0_O)        0.124    15.251 r  weight_sram_instance/g191_b6__1/O
+                         net (fo=1, routed)           0.000    15.251    weight_sram_instance/g191_b6__1_n_0
+    SLICE_X70Y12         MUXF7 (Prop_muxf7_I1_O)      0.217    15.468 r  weight_sram_instance/read_data_reg[23]_i_274/O
+                         net (fo=1, routed)           0.000    15.468    weight_sram_instance/read_data_reg[23]_i_274_n_0
+    SLICE_X70Y12         MUXF8 (Prop_muxf8_I1_O)      0.094    15.562 r  weight_sram_instance/read_data_reg[23]_i_216/O
+                         net (fo=1, routed)           0.899    16.462    weight_sram_instance/read_data_reg[23]_i_216_n_0
+    SLICE_X68Y12         LUT6 (Prop_lut6_I0_O)        0.316    16.778 r  weight_sram_instance/read_data[23]_i_127/O
+                         net (fo=1, routed)           0.000    16.778    weight_sram_instance/read_data[23]_i_127_n_0
+    SLICE_X68Y12         MUXF7 (Prop_muxf7_I1_O)      0.217    16.995 r  weight_sram_instance/read_data_reg[23]_i_53/O
+                         net (fo=1, routed)           0.888    17.883    weight_sram_instance/read_data_reg[23]_i_53_n_0
+    SLICE_X65Y14         LUT6 (Prop_lut6_I0_O)        0.299    18.182 r  weight_sram_instance/read_data[23]_i_20/O
+                         net (fo=1, routed)           0.000    18.182    weight_sram_instance/read_data[23]_i_20_n_0
+    SLICE_X65Y14         MUXF7 (Prop_muxf7_I0_O)      0.212    18.394 r  weight_sram_instance/read_data_reg[23]_i_8/O
+                         net (fo=1, routed)           0.000    18.394    weight_sram_instance/read_data_reg[23]_i_8_n_0
+    SLICE_X65Y14         MUXF8 (Prop_muxf8_I1_O)      0.094    18.488 r  weight_sram_instance/read_data_reg[23]_i_3/O
+                         net (fo=2, routed)           0.749    19.237    weight_sram_instance/read_data_reg[23]_i_3_n_0
+    SLICE_X57Y13         LUT6 (Prop_lut6_I4_O)        0.316    19.553 r  weight_sram_instance/read_data[22]_i_1/O
+                         net (fo=1, routed)           0.000    19.553    weight_sram_instance/p_14_out[22]
+    SLICE_X57Y13         FDRE                                         r  weight_sram_instance/read_data_reg[22]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock s_axi_aclk rise edge)
+                                                     10.000    10.000 r  
+    U7                                                0.000    10.000 r  s_axi_aclk (IN)
+                         net (fo=0)                   0.000    10.000    s_axi_aclk
+    U7                   IBUF (Prop_ibuf_I_O)         0.924    10.924 r  s_axi_aclk_IBUF_inst/O
+                         net (fo=1, routed)           1.972    12.896    s_axi_aclk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.091    12.987 r  s_axi_aclk_IBUF_BUFG_inst/O
+                         net (fo=1546, routed)        1.546    14.533    weight_sram_instance/s_axi_aclk_IBUF_BUFG
+    SLICE_X57Y13         FDRE                                         r  weight_sram_instance/read_data_reg[22]/C
+                         clock pessimism              0.458    14.991    
+                         clock uncertainty           -0.035    14.956    
+    SLICE_X57Y13         FDRE (Setup_fdre_C_D)        0.031    14.987    weight_sram_instance/read_data_reg[22]
+  -------------------------------------------------------------------
+                         required time                         14.987    
+                         arrival time                         -19.553    
+  -------------------------------------------------------------------
+                         slack                                 -4.566    
+
+Slack (VIOLATED) :        -4.415ns  (required time - arrival time)
+  Source:                 systolic_controller_instance/cycle_count_reg[4]/C
+                            (rising edge-triggered cell FDCE clocked by s_axi_aclk  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Destination:            weight_sram_instance/read_data_reg[23]/D
+                            (rising edge-triggered cell FDRE clocked by s_axi_aclk  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Path Group:             s_axi_aclk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            10.000ns  (s_axi_aclk rise@10.000ns - s_axi_aclk rise@0.000ns)
+  Data Path Delay:        14.359ns  (logic 5.353ns (37.280%)  route 9.006ns (62.720%))
+  Logic Levels:           16  (CARRY4=3 DSP48E1=1 LUT6=7 MUXF7=3 MUXF8=2)
+  Clock Path Skew:        -0.052ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    4.533ns = ( 14.533 - 10.000 ) 
+    Source Clock Delay      (SCD):    5.043ns
+    Clock Pessimism Removal (CPR):    0.458ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock s_axi_aclk rise edge)
+                                                      0.000     0.000 r  
+    U7                                                0.000     0.000 r  s_axi_aclk (IN)
+                         net (fo=0)                   0.000     0.000    s_axi_aclk
+    U7                   IBUF (Prop_ibuf_I_O)         1.058     1.058 r  s_axi_aclk_IBUF_inst/O
+                         net (fo=1, routed)           2.171     3.229    s_axi_aclk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.101     3.330 r  s_axi_aclk_IBUF_BUFG_inst/O
+                         net (fo=1546, routed)        1.713     5.043    systolic_controller_instance/s_axi_aclk_IBUF_BUFG
+    SLICE_X54Y19         FDCE                                         r  systolic_controller_instance/cycle_count_reg[4]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X54Y19         FDCE (Prop_fdce_C_Q)         0.518     5.561 r  systolic_controller_instance/cycle_count_reg[4]/Q
+                         net (fo=46, routed)          0.975     6.536    systolic_controller_instance/cycle_count_reg_n_0_[4]
+    SLICE_X54Y19         LUT6 (Prop_lut6_I2_O)        0.124     6.660 r  systolic_controller_instance/consumed_feature_count_2[10]_i_4/O
+                         net (fo=24, routed)          0.223     6.883    systolic_controller_instance/consumed_feature_count_2[10]_i_4_n_0
+    SLICE_X54Y19         LUT6 (Prop_lut6_I3_O)        0.124     7.007 r  systolic_controller_instance/read_valid[2]_i_14/O
+                         net (fo=1, routed)           0.560     7.567    systolic_controller_instance/read_valid[2]_i_14_n_0
+    SLICE_X53Y18         CARRY4 (Prop_carry4_DI[0]_CO[3])
+                                                      0.526     8.093 r  systolic_controller_instance/read_valid_reg[2]_i_8/CO[3]
+                         net (fo=1, routed)           0.000     8.093    systolic_controller_instance/read_valid_reg[2]_i_8_n_0
+    SLICE_X53Y19         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.207 r  systolic_controller_instance/read_valid_reg[2]_i_3/CO[3]
+                         net (fo=1, routed)           0.000     8.207    systolic_controller_instance/read_valid_reg[2]_i_3_n_0
+    SLICE_X53Y20         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.321 r  systolic_controller_instance/read_valid_reg[2]_i_2/CO[3]
+                         net (fo=12, routed)          1.209     9.530    systolic_controller_instance/operand_read_address21_in
+    SLICE_X44Y17         LUT6 (Prop_lut6_I4_O)        0.124     9.654 r  systolic_controller_instance/read_data1__1_i_7_comp/O
+                         net (fo=7, routed)           0.975    10.629    weight_sram_instance/operand_read_address[28]
+    DSP48_X2Y2           DSP48E1 (Prop_dsp48e1_C[8]_P[0])
+                                                      1.820    12.449 r  weight_sram_instance/read_data1__1/P[0]
+                         net (fo=2401, routed)        2.679    15.127    weight_sram_instance/read_data1__1_n_105
+    SLICE_X70Y12         LUT6 (Prop_lut6_I0_O)        0.124    15.251 r  weight_sram_instance/g191_b6__1/O
+                         net (fo=1, routed)           0.000    15.251    weight_sram_instance/g191_b6__1_n_0
+    SLICE_X70Y12         MUXF7 (Prop_muxf7_I1_O)      0.217    15.468 r  weight_sram_instance/read_data_reg[23]_i_274/O
+                         net (fo=1, routed)           0.000    15.468    weight_sram_instance/read_data_reg[23]_i_274_n_0
+    SLICE_X70Y12         MUXF8 (Prop_muxf8_I1_O)      0.094    15.562 r  weight_sram_instance/read_data_reg[23]_i_216/O
+                         net (fo=1, routed)           0.899    16.462    weight_sram_instance/read_data_reg[23]_i_216_n_0
+    SLICE_X68Y12         LUT6 (Prop_lut6_I0_O)        0.316    16.778 r  weight_sram_instance/read_data[23]_i_127/O
+                         net (fo=1, routed)           0.000    16.778    weight_sram_instance/read_data[23]_i_127_n_0
+    SLICE_X68Y12         MUXF7 (Prop_muxf7_I1_O)      0.217    16.995 r  weight_sram_instance/read_data_reg[23]_i_53/O
+                         net (fo=1, routed)           0.888    17.883    weight_sram_instance/read_data_reg[23]_i_53_n_0
+    SLICE_X65Y14         LUT6 (Prop_lut6_I0_O)        0.299    18.182 r  weight_sram_instance/read_data[23]_i_20/O
+                         net (fo=1, routed)           0.000    18.182    weight_sram_instance/read_data[23]_i_20_n_0
+    SLICE_X65Y14         MUXF7 (Prop_muxf7_I0_O)      0.212    18.394 r  weight_sram_instance/read_data_reg[23]_i_8/O
+                         net (fo=1, routed)           0.000    18.394    weight_sram_instance/read_data_reg[23]_i_8_n_0
+    SLICE_X65Y14         MUXF8 (Prop_muxf8_I1_O)      0.094    18.488 r  weight_sram_instance/read_data_reg[23]_i_3/O
+                         net (fo=2, routed)           0.598    19.086    weight_sram_instance/read_data_reg[23]_i_3_n_0
+    SLICE_X56Y14         LUT6 (Prop_lut6_I4_O)        0.316    19.402 r  weight_sram_instance/read_data[23]_i_1/O
+                         net (fo=1, routed)           0.000    19.402    weight_sram_instance/p_14_out[23]
+    SLICE_X56Y14         FDRE                                         r  weight_sram_instance/read_data_reg[23]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock s_axi_aclk rise edge)
+                                                     10.000    10.000 r  
+    U7                                                0.000    10.000 r  s_axi_aclk (IN)
+                         net (fo=0)                   0.000    10.000    s_axi_aclk
+    U7                   IBUF (Prop_ibuf_I_O)         0.924    10.924 r  s_axi_aclk_IBUF_inst/O
+                         net (fo=1, routed)           1.972    12.896    s_axi_aclk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.091    12.987 r  s_axi_aclk_IBUF_BUFG_inst/O
+                         net (fo=1546, routed)        1.546    14.533    weight_sram_instance/s_axi_aclk_IBUF_BUFG
+    SLICE_X56Y14         FDRE                                         r  weight_sram_instance/read_data_reg[23]/C
+                         clock pessimism              0.458    14.991    
+                         clock uncertainty           -0.035    14.956    
+    SLICE_X56Y14         FDRE (Setup_fdre_C_D)        0.031    14.987    weight_sram_instance/read_data_reg[23]
+  -------------------------------------------------------------------
+                         required time                         14.987    
+                         arrival time                         -19.402    
+  -------------------------------------------------------------------
+                         slack                                 -4.415    
+
+Slack (VIOLATED) :        -4.340ns  (required time - arrival time)
+  Source:                 systolic_controller_instance/cycle_count_reg[3]_replica_4/C
+                            (rising edge-triggered cell FDCE clocked by s_axi_aclk  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Destination:            weight_sram_instance/read_data_reg[9]/D
+                            (rising edge-triggered cell FDRE clocked by s_axi_aclk  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Path Group:             s_axi_aclk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            10.000ns  (s_axi_aclk rise@10.000ns - s_axi_aclk rise@0.000ns)
+  Data Path Delay:        14.284ns  (logic 5.310ns (37.174%)  route 8.974ns (62.826%))
+  Logic Levels:           16  (CARRY4=3 DSP48E1=1 LUT3=1 LUT5=1 LUT6=6 MUXF7=3 MUXF8=1)
+  Clock Path Skew:        -0.051ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    4.530ns = ( 14.530 - 10.000 ) 
+    Source Clock Delay      (SCD):    5.039ns
+    Clock Pessimism Removal (CPR):    0.458ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock s_axi_aclk rise edge)
+                                                      0.000     0.000 r  
+    U7                                                0.000     0.000 r  s_axi_aclk (IN)
+                         net (fo=0)                   0.000     0.000    s_axi_aclk
+    U7                   IBUF (Prop_ibuf_I_O)         1.058     1.058 r  s_axi_aclk_IBUF_inst/O
+                         net (fo=1, routed)           2.171     3.229    s_axi_aclk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.101     3.330 r  s_axi_aclk_IBUF_BUFG_inst/O
+                         net (fo=1546, routed)        1.709     5.039    systolic_controller_instance/s_axi_aclk_IBUF_BUFG
+    SLICE_X59Y22         FDCE                                         r  systolic_controller_instance/cycle_count_reg[3]_replica_4/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X59Y22         FDCE (Prop_fdce_C_Q)         0.456     5.495 r  systolic_controller_instance/cycle_count_reg[3]_replica_4/Q
+                         net (fo=1, routed)           0.655     6.151    systolic_controller_instance/Q[3]_repN_4
+    SLICE_X59Y22         LUT5 (Prop_lut5_I0_O)        0.124     6.275 r  systolic_controller_instance/consumed_feature_count_1[7]_i_3/O
+                         net (fo=9, routed)           0.198     6.473    systolic_controller_instance/consumed_feature_count_1[7]_i_3_n_0
+    SLICE_X59Y22         LUT3 (Prop_lut3_I2_O)        0.124     6.597 r  systolic_controller_instance/consumed_feature_count_1[10]_i_3/O
+                         net (fo=23, routed)          0.627     7.224    systolic_controller_instance/consumed_feature_count_1[10]_i_3_n_0
+    SLICE_X60Y22         LUT6 (Prop_lut6_I0_O)        0.124     7.348 r  systolic_controller_instance/read_valid[1]_i_18/O
+                         net (fo=1, routed)           0.000     7.348    systolic_controller_instance/read_valid[1]_i_18_n_0
+    SLICE_X60Y22         CARRY4 (Prop_carry4_S[0]_CO[3])
+                                                      0.532     7.880 r  systolic_controller_instance/read_valid_reg[1]_i_8/CO[3]
+                         net (fo=1, routed)           0.000     7.880    systolic_controller_instance/read_valid_reg[1]_i_8_n_0
+    SLICE_X60Y23         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     7.994 r  systolic_controller_instance/read_valid_reg[1]_i_3/CO[3]
+                         net (fo=1, routed)           0.000     7.994    systolic_controller_instance/read_valid_reg[1]_i_3_n_0
+    SLICE_X60Y24         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.108 r  systolic_controller_instance/read_valid_reg[1]_i_2/CO[3]
+                         net (fo=10, routed)          1.128     9.236    systolic_controller_instance/operand_read_address2
+    SLICE_X67Y25         LUT6 (Prop_lut6_I4_O)        0.124     9.360 r  systolic_controller_instance/read_data1__0_i_12_comp/O
+                         net (fo=14, routed)          1.530    10.890    weight_sram_instance/operand_read_address[14]
+    DSP48_X3Y12          DSP48E1 (Prop_dsp48e1_C[4]_P[1])
+                                                      1.820    12.710 r  weight_sram_instance/read_data1__0/P[1]
+                         net (fo=2400, routed)        2.129    14.839    weight_sram_instance/read_data1__0_n_104
+    SLICE_X88Y19         LUT6 (Prop_lut6_I1_O)        0.124    14.963 r  weight_sram_instance/g243_b1__0/O
+                         net (fo=1, routed)           0.000    14.963    weight_sram_instance/g243_b1__0_n_0
+    SLICE_X88Y19         MUXF7 (Prop_muxf7_I1_O)      0.217    15.180 r  weight_sram_instance/read_data_reg[9]_i_274/O
+                         net (fo=1, routed)           0.000    15.180    weight_sram_instance/read_data_reg[9]_i_274_n_0
+    SLICE_X88Y19         MUXF8 (Prop_muxf8_I1_O)      0.094    15.274 r  weight_sram_instance/read_data_reg[9]_i_184/O
+                         net (fo=1, routed)           0.783    16.057    weight_sram_instance/read_data_reg[9]_i_184_n_0
+    SLICE_X87Y22         LUT6 (Prop_lut6_I5_O)        0.316    16.373 r  weight_sram_instance/read_data[9]_i_82/O
+                         net (fo=1, routed)           0.000    16.373    weight_sram_instance/read_data[9]_i_82_n_0
+    SLICE_X87Y22         MUXF7 (Prop_muxf7_I0_O)      0.212    16.585 r  weight_sram_instance/read_data_reg[9]_i_38/O
+                         net (fo=1, routed)           0.950    17.535    weight_sram_instance/read_data_reg[9]_i_38_n_0
+    SLICE_X81Y23         LUT6 (Prop_lut6_I0_O)        0.299    17.834 r  weight_sram_instance/read_data[9]_i_16/O
+                         net (fo=1, routed)           0.000    17.834    weight_sram_instance/read_data[9]_i_16_n_0
+    SLICE_X81Y23         MUXF7 (Prop_muxf7_I1_O)      0.217    18.051 r  weight_sram_instance/read_data_reg[9]_i_6/O
+                         net (fo=1, routed)           0.974    19.025    weight_sram_instance/read_data_reg[9]_i_6_n_0
+    SLICE_X79Y23         LUT6 (Prop_lut6_I1_O)        0.299    19.324 r  weight_sram_instance/read_data[9]_i_1_comp_1/O
+                         net (fo=1, routed)           0.000    19.324    weight_sram_instance/p_14_out[9]
+    SLICE_X79Y23         FDRE                                         r  weight_sram_instance/read_data_reg[9]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock s_axi_aclk rise edge)
+                                                     10.000    10.000 r  
+    U7                                                0.000    10.000 r  s_axi_aclk (IN)
+                         net (fo=0)                   0.000    10.000    s_axi_aclk
+    U7                   IBUF (Prop_ibuf_I_O)         0.924    10.924 r  s_axi_aclk_IBUF_inst/O
+                         net (fo=1, routed)           1.972    12.896    s_axi_aclk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.091    12.987 r  s_axi_aclk_IBUF_BUFG_inst/O
+                         net (fo=1546, routed)        1.543    14.530    weight_sram_instance/s_axi_aclk_IBUF_BUFG
+    SLICE_X79Y23         FDRE                                         r  weight_sram_instance/read_data_reg[9]/C
+                         clock pessimism              0.458    14.988    
+                         clock uncertainty           -0.035    14.953    
+    SLICE_X79Y23         FDRE (Setup_fdre_C_D)        0.031    14.984    weight_sram_instance/read_data_reg[9]
+  -------------------------------------------------------------------
+                         required time                         14.984    
+                         arrival time                         -19.324    
+  -------------------------------------------------------------------
+                         slack                                 -4.340    
+
+Slack (VIOLATED) :        -4.309ns  (required time - arrival time)
+  Source:                 systolic_controller_instance/cycle_count_reg[4]_replica_6/C
+                            (rising edge-triggered cell FDCE clocked by s_axi_aclk  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Destination:            weight_sram_instance/read_data_reg[33]/D
+                            (rising edge-triggered cell FDRE clocked by s_axi_aclk  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Path Group:             s_axi_aclk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            10.000ns  (s_axi_aclk rise@10.000ns - s_axi_aclk rise@0.000ns)
+  Data Path Delay:        14.261ns  (logic 5.216ns (36.576%)  route 9.045ns (63.424%))
+  Logic Levels:           16  (CARRY4=3 DSP48E1=1 LUT3=1 LUT4=2 LUT5=1 LUT6=5 MUXF7=3)
+  Clock Path Skew:        -0.044ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    4.540ns = ( 14.540 - 10.000 ) 
+    Source Clock Delay      (SCD):    5.042ns
+    Clock Pessimism Removal (CPR):    0.458ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock s_axi_aclk rise edge)
+                                                      0.000     0.000 r  
+    U7                                                0.000     0.000 r  s_axi_aclk (IN)
+                         net (fo=0)                   0.000     0.000    s_axi_aclk
+    U7                   IBUF (Prop_ibuf_I_O)         1.058     1.058 r  s_axi_aclk_IBUF_inst/O
+                         net (fo=1, routed)           2.171     3.229    s_axi_aclk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.101     3.330 r  s_axi_aclk_IBUF_BUFG_inst/O
+                         net (fo=1546, routed)        1.712     5.042    systolic_controller_instance/s_axi_aclk_IBUF_BUFG
+    SLICE_X59Y21         FDCE                                         r  systolic_controller_instance/cycle_count_reg[4]_replica_6/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X59Y21         FDCE (Prop_fdce_C_Q)         0.456     5.498 r  systolic_controller_instance/cycle_count_reg[4]_replica_6/Q
+                         net (fo=10, routed)          0.866     6.365    systolic_controller_instance/cycle_count_reg_n_0_[4]_repN_6
+    SLICE_X58Y19         LUT5 (Prop_lut5_I2_O)        0.124     6.489 r  systolic_controller_instance/consumed_feature_count_4[10]_i_5/O
+                         net (fo=25, routed)          0.873     7.361    systolic_controller_instance/consumed_feature_count_4[10]_i_5_n_0
+    SLICE_X59Y19         LUT4 (Prop_lut4_I3_O)        0.124     7.485 r  systolic_controller_instance/read_valid[4]_i_18/O
+                         net (fo=1, routed)           0.000     7.485    systolic_controller_instance/read_valid[4]_i_18_n_0
+    SLICE_X59Y19         CARRY4 (Prop_carry4_S[2]_CO[3])
+                                                      0.398     7.883 r  systolic_controller_instance/read_valid_reg[4]_i_10/CO[3]
+                         net (fo=1, routed)           0.000     7.883    systolic_controller_instance/read_valid_reg[4]_i_10_n_0
+    SLICE_X59Y20         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     7.997 r  systolic_controller_instance/read_valid_reg[4]_i_5/CO[3]
+                         net (fo=1, routed)           0.000     7.997    systolic_controller_instance/read_valid_reg[4]_i_5_n_0
+    SLICE_X59Y21         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.111 r  systolic_controller_instance/read_valid_reg[4]_i_3/CO[3]
+                         net (fo=8, routed)           0.689     8.800    systolic_controller_instance/operand_read_address29_in
+    SLICE_X58Y20         LUT4 (Prop_lut4_I1_O)        0.124     8.924 r  systolic_controller_instance/read_valid[4]_i_1/O
+                         net (fo=44, routed)          0.691     9.615    systolic_controller_instance/cycle_count_reg[2]_0[4]
+    SLICE_X71Y21         LUT3 (Prop_lut3_I0_O)        0.124     9.739 r  systolic_controller_instance/read_data1__3_i_5/O
+                         net (fo=1, routed)           1.010    10.749    weight_sram_instance/operand_read_address[47]
+    DSP48_X3Y8           DSP48E1 (Prop_dsp48e1_C[7]_P[2])
+                                                      1.820    12.569 r  weight_sram_instance/read_data1__3/P[2]
+                         net (fo=2410, routed)        2.071    14.640    weight_sram_instance/read_data1__3_n_103
+    SLICE_X88Y9          LUT6 (Prop_lut6_I2_O)        0.124    14.764 r  weight_sram_instance/g13_b1__3/O
+                         net (fo=1, routed)           0.000    14.764    weight_sram_instance/g13_b1__3_n_0
+    SLICE_X88Y9          MUXF7 (Prop_muxf7_I1_O)      0.217    14.981 r  weight_sram_instance/read_data_reg[33]_i_228/O
+                         net (fo=1, routed)           0.823    15.805    weight_sram_instance/read_data_reg[33]_i_228_n_0
+    SLICE_X88Y9          LUT6 (Prop_lut6_I1_O)        0.299    16.104 r  weight_sram_instance/read_data[33]_i_101/O
+                         net (fo=1, routed)           0.000    16.104    weight_sram_instance/read_data[33]_i_101_n_0
+    SLICE_X88Y9          MUXF7 (Prop_muxf7_I1_O)      0.245    16.349 r  weight_sram_instance/read_data_reg[33]_i_45/O
+                         net (fo=1, routed)           0.936    17.285    weight_sram_instance/read_data_reg[33]_i_45_n_0
+    SLICE_X91Y14         LUT6 (Prop_lut6_I5_O)        0.298    17.583 r  weight_sram_instance/read_data[33]_i_17/O
+                         net (fo=1, routed)           0.000    17.583    weight_sram_instance/read_data[33]_i_17_n_0
+    SLICE_X91Y14         MUXF7 (Prop_muxf7_I0_O)      0.212    17.795 r  weight_sram_instance/read_data_reg[33]_i_7/O
+                         net (fo=1, routed)           0.823    18.617    weight_sram_instance/read_data_reg[33]_i_7_n_0
+    SLICE_X81Y15         LUT6 (Prop_lut6_I4_O)        0.299    18.916 r  weight_sram_instance/read_data[33]_i_2_comp/O
+                         net (fo=1, routed)           0.263    19.179    weight_sram_instance/read_data[33]_i_2_n_0
+    SLICE_X81Y15         LUT6 (Prop_lut6_I4_O)        0.124    19.303 r  weight_sram_instance/read_data[33]_i_1_comp/O
+                         net (fo=1, routed)           0.000    19.303    weight_sram_instance/p_14_out[33]
+    SLICE_X81Y15         FDRE                                         r  weight_sram_instance/read_data_reg[33]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock s_axi_aclk rise edge)
+                                                     10.000    10.000 r  
+    U7                                                0.000    10.000 r  s_axi_aclk (IN)
+                         net (fo=0)                   0.000    10.000    s_axi_aclk
+    U7                   IBUF (Prop_ibuf_I_O)         0.924    10.924 r  s_axi_aclk_IBUF_inst/O
+                         net (fo=1, routed)           1.972    12.896    s_axi_aclk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.091    12.987 r  s_axi_aclk_IBUF_BUFG_inst/O
+                         net (fo=1546, routed)        1.553    14.540    weight_sram_instance/s_axi_aclk_IBUF_BUFG
+    SLICE_X81Y15         FDRE                                         r  weight_sram_instance/read_data_reg[33]/C
+                         clock pessimism              0.458    14.998    
+                         clock uncertainty           -0.035    14.963    
+    SLICE_X81Y15         FDRE (Setup_fdre_C_D)        0.031    14.994    weight_sram_instance/read_data_reg[33]
+  -------------------------------------------------------------------
+                         required time                         14.994    
+                         arrival time                         -19.303    
+  -------------------------------------------------------------------
+                         slack                                 -4.309    
+
+Slack (VIOLATED) :        -4.301ns  (required time - arrival time)
+  Source:                 systolic_controller_instance/cycle_count_reg[3]_replica_4/C
+                            (rising edge-triggered cell FDCE clocked by s_axi_aclk  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Destination:            weight_sram_instance/read_data_reg[14]/D
+                            (rising edge-triggered cell FDRE clocked by s_axi_aclk  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Path Group:             s_axi_aclk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            10.000ns  (s_axi_aclk rise@10.000ns - s_axi_aclk rise@0.000ns)
+  Data Path Delay:        14.253ns  (logic 5.373ns (37.696%)  route 8.880ns (62.304%))
+  Logic Levels:           16  (CARRY4=3 DSP48E1=1 LUT3=1 LUT5=1 LUT6=6 MUXF7=3 MUXF8=1)
+  Clock Path Skew:        -0.043ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    4.538ns = ( 14.538 - 10.000 ) 
+    Source Clock Delay      (SCD):    5.039ns
+    Clock Pessimism Removal (CPR):    0.458ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock s_axi_aclk rise edge)
+                                                      0.000     0.000 r  
+    U7                                                0.000     0.000 r  s_axi_aclk (IN)
+                         net (fo=0)                   0.000     0.000    s_axi_aclk
+    U7                   IBUF (Prop_ibuf_I_O)         1.058     1.058 r  s_axi_aclk_IBUF_inst/O
+                         net (fo=1, routed)           2.171     3.229    s_axi_aclk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.101     3.330 r  s_axi_aclk_IBUF_BUFG_inst/O
+                         net (fo=1546, routed)        1.709     5.039    systolic_controller_instance/s_axi_aclk_IBUF_BUFG
+    SLICE_X59Y22         FDCE                                         r  systolic_controller_instance/cycle_count_reg[3]_replica_4/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X59Y22         FDCE (Prop_fdce_C_Q)         0.456     5.495 r  systolic_controller_instance/cycle_count_reg[3]_replica_4/Q
+                         net (fo=1, routed)           0.655     6.151    systolic_controller_instance/Q[3]_repN_4
+    SLICE_X59Y22         LUT5 (Prop_lut5_I0_O)        0.124     6.275 r  systolic_controller_instance/consumed_feature_count_1[7]_i_3/O
+                         net (fo=9, routed)           0.198     6.473    systolic_controller_instance/consumed_feature_count_1[7]_i_3_n_0
+    SLICE_X59Y22         LUT3 (Prop_lut3_I2_O)        0.124     6.597 r  systolic_controller_instance/consumed_feature_count_1[10]_i_3/O
+                         net (fo=23, routed)          0.627     7.224    systolic_controller_instance/consumed_feature_count_1[10]_i_3_n_0
+    SLICE_X60Y22         LUT6 (Prop_lut6_I0_O)        0.124     7.348 r  systolic_controller_instance/read_valid[1]_i_18/O
+                         net (fo=1, routed)           0.000     7.348    systolic_controller_instance/read_valid[1]_i_18_n_0
+    SLICE_X60Y22         CARRY4 (Prop_carry4_S[0]_CO[3])
+                                                      0.532     7.880 r  systolic_controller_instance/read_valid_reg[1]_i_8/CO[3]
+                         net (fo=1, routed)           0.000     7.880    systolic_controller_instance/read_valid_reg[1]_i_8_n_0
+    SLICE_X60Y23         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     7.994 r  systolic_controller_instance/read_valid_reg[1]_i_3/CO[3]
+                         net (fo=1, routed)           0.000     7.994    systolic_controller_instance/read_valid_reg[1]_i_3_n_0
+    SLICE_X60Y24         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.108 r  systolic_controller_instance/read_valid_reg[1]_i_2/CO[3]
+                         net (fo=10, routed)          1.128     9.236    systolic_controller_instance/operand_read_address2
+    SLICE_X67Y25         LUT6 (Prop_lut6_I4_O)        0.124     9.360 r  systolic_controller_instance/read_data1__0_i_12_comp/O
+                         net (fo=14, routed)          1.530    10.890    weight_sram_instance/operand_read_address[14]
+    DSP48_X3Y12          DSP48E1 (Prop_dsp48e1_C[4]_P[1])
+                                                      1.820    12.710 r  weight_sram_instance/read_data1__0/P[1]
+                         net (fo=2400, routed)        1.839    14.549    weight_sram_instance/read_data1__0_n_104
+    SLICE_X97Y36         LUT6 (Prop_lut6_I1_O)        0.124    14.673 r  weight_sram_instance/g265_b6__0/O
+                         net (fo=1, routed)           0.000    14.673    weight_sram_instance/g265_b6__0_n_0
+    SLICE_X97Y36         MUXF7 (Prop_muxf7_I1_O)      0.245    14.918 r  weight_sram_instance/read_data_reg[15]_i_155/O
+                         net (fo=1, routed)           0.000    14.918    weight_sram_instance/read_data_reg[15]_i_155_n_0
+    SLICE_X97Y36         MUXF8 (Prop_muxf8_I0_O)      0.104    15.022 r  weight_sram_instance/read_data_reg[15]_i_87/O
+                         net (fo=1, routed)           1.021    16.043    weight_sram_instance/read_data_reg[15]_i_87_n_0
+    SLICE_X88Y36         LUT6 (Prop_lut6_I5_O)        0.316    16.359 r  weight_sram_instance/read_data[15]_i_36/O
+                         net (fo=1, routed)           0.000    16.359    weight_sram_instance/read_data[15]_i_36_n_0
+    SLICE_X88Y36         MUXF7 (Prop_muxf7_I1_O)      0.217    16.576 r  weight_sram_instance/read_data_reg[15]_i_14/O
+                         net (fo=1, routed)           0.935    17.510    weight_sram_instance/read_data_reg[15]_i_14_n_0
+    SLICE_X84Y44         LUT6 (Prop_lut6_I5_O)        0.299    17.809 r  weight_sram_instance/read_data[15]_i_5/O
+                         net (fo=1, routed)           0.000    17.809    weight_sram_instance/read_data[15]_i_5_n_0
+    SLICE_X84Y44         MUXF7 (Prop_muxf7_I0_O)      0.238    18.047 r  weight_sram_instance/read_data_reg[15]_i_2/O
+                         net (fo=2, routed)           0.948    18.995    weight_sram_instance/read_data_reg[15]_i_2_n_0
+    SLICE_X75Y35         LUT6 (Prop_lut6_I1_O)        0.298    19.293 r  weight_sram_instance/read_data[14]_i_1/O
+                         net (fo=1, routed)           0.000    19.293    weight_sram_instance/p_14_out[14]
+    SLICE_X75Y35         FDRE                                         r  weight_sram_instance/read_data_reg[14]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock s_axi_aclk rise edge)
+                                                     10.000    10.000 r  
+    U7                                                0.000    10.000 r  s_axi_aclk (IN)
+                         net (fo=0)                   0.000    10.000    s_axi_aclk
+    U7                   IBUF (Prop_ibuf_I_O)         0.924    10.924 r  s_axi_aclk_IBUF_inst/O
+                         net (fo=1, routed)           1.972    12.896    s_axi_aclk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.091    12.987 r  s_axi_aclk_IBUF_BUFG_inst/O
+                         net (fo=1546, routed)        1.551    14.538    weight_sram_instance/s_axi_aclk_IBUF_BUFG
+    SLICE_X75Y35         FDRE                                         r  weight_sram_instance/read_data_reg[14]/C
+                         clock pessimism              0.458    14.996    
+                         clock uncertainty           -0.035    14.961    
+    SLICE_X75Y35         FDRE (Setup_fdre_C_D)        0.031    14.992    weight_sram_instance/read_data_reg[14]
+  -------------------------------------------------------------------
+                         required time                         14.992    
+                         arrival time                         -19.293    
+  -------------------------------------------------------------------
+                         slack                                 -4.301    
+
+Slack (VIOLATED) :        -4.300ns  (required time - arrival time)
+  Source:                 dnn_scheduler_instance/layer_index_reg[0]_replica/C
+                            (rising edge-triggered cell FDSE clocked by s_axi_aclk  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Destination:            weight_sram_instance/read_data_reg[26]/D
+                            (rising edge-triggered cell FDRE clocked by s_axi_aclk  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Path Group:             s_axi_aclk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            10.000ns  (s_axi_aclk rise@10.000ns - s_axi_aclk rise@0.000ns)
+  Data Path Delay:        14.239ns  (logic 5.225ns (36.694%)  route 9.014ns (63.306%))
+  Logic Levels:           15  (CARRY4=3 DSP48E1=1 LUT2=1 LUT5=3 LUT6=4 MUXF7=3)
+  Clock Path Skew:        -0.058ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    4.551ns = ( 14.551 - 10.000 ) 
+    Source Clock Delay      (SCD):    4.966ns
+    Clock Pessimism Removal (CPR):    0.357ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock s_axi_aclk rise edge)
+                                                      0.000     0.000 r  
+    U7                                                0.000     0.000 r  s_axi_aclk (IN)
+                         net (fo=0)                   0.000     0.000    s_axi_aclk
+    U7                   IBUF (Prop_ibuf_I_O)         1.058     1.058 r  s_axi_aclk_IBUF_inst/O
+                         net (fo=1, routed)           2.171     3.229    s_axi_aclk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.101     3.330 r  s_axi_aclk_IBUF_BUFG_inst/O
+                         net (fo=1546, routed)        1.636     4.966    dnn_scheduler_instance/s_axi_aclk_IBUF_BUFG
+    SLICE_X52Y22         FDSE                                         r  dnn_scheduler_instance/layer_index_reg[0]_replica/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X52Y22         FDSE (Prop_fdse_C_Q)         0.456     5.422 r  dnn_scheduler_instance/layer_index_reg[0]_replica/Q
+                         net (fo=6, routed)           0.763     6.185    dnn_scheduler_instance/layer_index[0]_repN
+    SLICE_X50Y18         LUT2 (Prop_lut2_I0_O)        0.124     6.309 r  dnn_scheduler_instance/target_cycle_count[4]_i_1/O
+                         net (fo=35, routed)          0.624     6.933    systolic_controller_instance/D[2]
+    SLICE_X44Y19         LUT6 (Prop_lut6_I1_O)        0.124     7.057 r  systolic_controller_instance/read_valid[3]_i_14/O
+                         net (fo=1, routed)           0.333     7.391    systolic_controller_instance/read_valid[3]_i_14_n_0
+    SLICE_X45Y17         CARRY4 (Prop_carry4_DI[0]_CO[3])
+                                                      0.526     7.917 r  systolic_controller_instance/read_valid_reg[3]_i_8/CO[3]
+                         net (fo=1, routed)           0.000     7.917    systolic_controller_instance/read_valid_reg[3]_i_8_n_0
+    SLICE_X45Y18         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.031 r  systolic_controller_instance/read_valid_reg[3]_i_3/CO[3]
+                         net (fo=1, routed)           0.000     8.031    systolic_controller_instance/read_valid_reg[3]_i_3_n_0
+    SLICE_X45Y19         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.145 r  systolic_controller_instance/read_valid_reg[3]_i_2/CO[3]
+                         net (fo=12, routed)          1.245     9.390    systolic_controller_instance/operand_read_address24_in
+    SLICE_X44Y19         LUT5 (Prop_lut5_I2_O)        0.124     9.514 r  systolic_controller_instance/read_data1__2_i_4_comp/O
+                         net (fo=7, routed)           1.303    10.816    weight_sram_instance/operand_read_address[39]
+    DSP48_X1Y6           DSP48E1 (Prop_dsp48e1_C[9]_P[1])
+                                                      1.820    12.636 r  weight_sram_instance/read_data1__2/P[1]
+                         net (fo=2400, routed)        1.778    14.414    weight_sram_instance/read_data1__2_n_104
+    SLICE_X19Y12         LUT6 (Prop_lut6_I1_O)        0.124    14.538 r  weight_sram_instance/g121_b2__2/O
+                         net (fo=1, routed)           0.000    14.538    weight_sram_instance/g121_b2__2_n_0
+    SLICE_X19Y12         MUXF7 (Prop_muxf7_I1_O)      0.217    14.755 r  weight_sram_instance/read_data_reg[26]_i_226/O
+                         net (fo=1, routed)           0.976    15.731    weight_sram_instance/read_data_reg[26]_i_226_n_0
+    SLICE_X23Y12         LUT6 (Prop_lut6_I5_O)        0.299    16.030 r  weight_sram_instance/read_data[26]_i_99/O
+                         net (fo=1, routed)           0.000    16.030    weight_sram_instance/read_data[26]_i_99_n_0
+    SLICE_X23Y12         MUXF7 (Prop_muxf7_I1_O)      0.245    16.275 r  weight_sram_instance/read_data_reg[26]_i_48/O
+                         net (fo=1, routed)           1.119    17.394    weight_sram_instance/read_data_reg[26]_i_48_n_0
+    SLICE_X28Y12         LUT6 (Prop_lut6_I0_O)        0.298    17.692 r  weight_sram_instance/read_data[26]_i_19/O
+                         net (fo=1, routed)           0.000    17.692    weight_sram_instance/read_data[26]_i_19_n_0
+    SLICE_X28Y12         MUXF7 (Prop_muxf7_I1_O)      0.217    17.909 r  weight_sram_instance/read_data_reg[26]_i_7/O
+                         net (fo=1, routed)           0.441    18.349    weight_sram_instance/read_data_reg[26]_i_7_n_0
+    SLICE_X28Y12         LUT5 (Prop_lut5_I4_O)        0.299    18.648 r  weight_sram_instance/read_data[26]_i_2/O
+                         net (fo=1, routed)           0.433    19.082    weight_sram_instance/read_data[26]_i_2_n_0
+    SLICE_X28Y12         LUT5 (Prop_lut5_I0_O)        0.124    19.206 r  weight_sram_instance/read_data[26]_i_1/O
+                         net (fo=1, routed)           0.000    19.206    weight_sram_instance/p_14_out[26]
+    SLICE_X28Y12         FDRE                                         r  weight_sram_instance/read_data_reg[26]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock s_axi_aclk rise edge)
+                                                     10.000    10.000 r  
+    U7                                                0.000    10.000 r  s_axi_aclk (IN)
+                         net (fo=0)                   0.000    10.000    s_axi_aclk
+    U7                   IBUF (Prop_ibuf_I_O)         0.924    10.924 r  s_axi_aclk_IBUF_inst/O
+                         net (fo=1, routed)           1.972    12.896    s_axi_aclk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.091    12.987 r  s_axi_aclk_IBUF_BUFG_inst/O
+                         net (fo=1546, routed)        1.564    14.551    weight_sram_instance/s_axi_aclk_IBUF_BUFG
+    SLICE_X28Y12         FDRE                                         r  weight_sram_instance/read_data_reg[26]/C
+                         clock pessimism              0.357    14.909    
+                         clock uncertainty           -0.035    14.874    
+    SLICE_X28Y12         FDRE (Setup_fdre_C_D)        0.032    14.906    weight_sram_instance/read_data_reg[26]
+  -------------------------------------------------------------------
+                         required time                         14.906    
+                         arrival time                         -19.206    
+  -------------------------------------------------------------------
+                         slack                                 -4.300    
+
+Slack (VIOLATED) :        -4.294ns  (required time - arrival time)
+  Source:                 dnn_scheduler_instance/layer_index_reg[0]_replica/C
+                            (rising edge-triggered cell FDSE clocked by s_axi_aclk  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Destination:            weight_sram_instance/read_data_reg[27]/D
+                            (rising edge-triggered cell FDRE clocked by s_axi_aclk  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Path Group:             s_axi_aclk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            10.000ns  (s_axi_aclk rise@10.000ns - s_axi_aclk rise@0.000ns)
+  Data Path Delay:        14.291ns  (logic 5.316ns (37.199%)  route 8.975ns (62.801%))
+  Logic Levels:           16  (CARRY4=3 DSP48E1=1 LUT2=1 LUT5=1 LUT6=5 MUXF7=3 MUXF8=2)
+  Clock Path Skew:        -0.047ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    4.562ns = ( 14.562 - 10.000 ) 
+    Source Clock Delay      (SCD):    4.966ns
+    Clock Pessimism Removal (CPR):    0.357ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock s_axi_aclk rise edge)
+                                                      0.000     0.000 r  
+    U7                                                0.000     0.000 r  s_axi_aclk (IN)
+                         net (fo=0)                   0.000     0.000    s_axi_aclk
+    U7                   IBUF (Prop_ibuf_I_O)         1.058     1.058 r  s_axi_aclk_IBUF_inst/O
+                         net (fo=1, routed)           2.171     3.229    s_axi_aclk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.101     3.330 r  s_axi_aclk_IBUF_BUFG_inst/O
+                         net (fo=1546, routed)        1.636     4.966    dnn_scheduler_instance/s_axi_aclk_IBUF_BUFG
+    SLICE_X52Y22         FDSE                                         r  dnn_scheduler_instance/layer_index_reg[0]_replica/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X52Y22         FDSE (Prop_fdse_C_Q)         0.456     5.422 r  dnn_scheduler_instance/layer_index_reg[0]_replica/Q
+                         net (fo=6, routed)           0.763     6.185    dnn_scheduler_instance/layer_index[0]_repN
+    SLICE_X50Y18         LUT2 (Prop_lut2_I0_O)        0.124     6.309 r  dnn_scheduler_instance/target_cycle_count[4]_i_1/O
+                         net (fo=35, routed)          0.624     6.933    systolic_controller_instance/D[2]
+    SLICE_X44Y19         LUT6 (Prop_lut6_I1_O)        0.124     7.057 r  systolic_controller_instance/read_valid[3]_i_14/O
+                         net (fo=1, routed)           0.333     7.391    systolic_controller_instance/read_valid[3]_i_14_n_0
+    SLICE_X45Y17         CARRY4 (Prop_carry4_DI[0]_CO[3])
+                                                      0.526     7.917 r  systolic_controller_instance/read_valid_reg[3]_i_8/CO[3]
+                         net (fo=1, routed)           0.000     7.917    systolic_controller_instance/read_valid_reg[3]_i_8_n_0
+    SLICE_X45Y18         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.031 r  systolic_controller_instance/read_valid_reg[3]_i_3/CO[3]
+                         net (fo=1, routed)           0.000     8.031    systolic_controller_instance/read_valid_reg[3]_i_3_n_0
+    SLICE_X45Y19         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.145 r  systolic_controller_instance/read_valid_reg[3]_i_2/CO[3]
+                         net (fo=12, routed)          1.245     9.390    systolic_controller_instance/operand_read_address24_in
+    SLICE_X44Y19         LUT5 (Prop_lut5_I2_O)        0.124     9.514 r  systolic_controller_instance/read_data1__2_i_4_comp/O
+                         net (fo=7, routed)           1.303    10.816    weight_sram_instance/operand_read_address[39]
+    DSP48_X1Y6           DSP48E1 (Prop_dsp48e1_C[9]_P[0])
+                                                      1.820    12.636 r  weight_sram_instance/read_data1__2/P[0]
+                         net (fo=2401, routed)        2.320    14.956    weight_sram_instance/read_data1__2_n_105
+    SLICE_X4Y21          LUT6 (Prop_lut6_I0_O)        0.124    15.080 r  weight_sram_instance/g58_b3__2/O
+                         net (fo=1, routed)           0.000    15.080    weight_sram_instance/g58_b3__2_n_0
+    SLICE_X4Y21          MUXF7 (Prop_muxf7_I0_O)      0.209    15.289 r  weight_sram_instance/read_data_reg[27]_i_259/O
+                         net (fo=1, routed)           0.000    15.289    weight_sram_instance/read_data_reg[27]_i_259_n_0
+    SLICE_X4Y21          MUXF8 (Prop_muxf8_I1_O)      0.088    15.377 r  weight_sram_instance/read_data_reg[27]_i_164/O
+                         net (fo=1, routed)           0.720    16.098    weight_sram_instance/read_data_reg[27]_i_164_n_0
+    SLICE_X5Y19          LUT6 (Prop_lut6_I5_O)        0.319    16.417 r  weight_sram_instance/read_data[27]_i_106/O
+                         net (fo=1, routed)           0.000    16.417    weight_sram_instance/read_data[27]_i_106_n_0
+    SLICE_X5Y19          MUXF7 (Prop_muxf7_I1_O)      0.217    16.634 r  weight_sram_instance/read_data_reg[27]_i_46/O
+                         net (fo=1, routed)           0.944    17.578    weight_sram_instance/read_data_reg[27]_i_46_n_0
+    SLICE_X6Y15          LUT6 (Prop_lut6_I0_O)        0.299    17.877 r  weight_sram_instance/read_data[27]_i_19/O
+                         net (fo=1, routed)           0.000    17.877    weight_sram_instance/read_data[27]_i_19_n_0
+    SLICE_X6Y15          MUXF7 (Prop_muxf7_I0_O)      0.241    18.118 r  weight_sram_instance/read_data_reg[27]_i_7/O
+                         net (fo=1, routed)           0.000    18.118    weight_sram_instance/read_data_reg[27]_i_7_n_0
+    SLICE_X6Y15          MUXF8 (Prop_muxf8_I0_O)      0.098    18.216 r  weight_sram_instance/read_data_reg[27]_i_3/O
+                         net (fo=1, routed)           0.723    18.938    weight_sram_instance/read_data_reg[27]_i_3_n_0
+    SLICE_X8Y10          LUT6 (Prop_lut6_I4_O)        0.319    19.257 r  weight_sram_instance/read_data[27]_i_1/O
+                         net (fo=1, routed)           0.000    19.257    weight_sram_instance/p_14_out[27]
+    SLICE_X8Y10          FDRE                                         r  weight_sram_instance/read_data_reg[27]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock s_axi_aclk rise edge)
+                                                     10.000    10.000 r  
+    U7                                                0.000    10.000 r  s_axi_aclk (IN)
+                         net (fo=0)                   0.000    10.000    s_axi_aclk
+    U7                   IBUF (Prop_ibuf_I_O)         0.924    10.924 r  s_axi_aclk_IBUF_inst/O
+                         net (fo=1, routed)           1.972    12.896    s_axi_aclk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.091    12.987 r  s_axi_aclk_IBUF_BUFG_inst/O
+                         net (fo=1546, routed)        1.575    14.562    weight_sram_instance/s_axi_aclk_IBUF_BUFG
+    SLICE_X8Y10          FDRE                                         r  weight_sram_instance/read_data_reg[27]/C
+                         clock pessimism              0.357    14.920    
+                         clock uncertainty           -0.035    14.885    
+    SLICE_X8Y10          FDRE (Setup_fdre_C_D)        0.079    14.964    weight_sram_instance/read_data_reg[27]
+  -------------------------------------------------------------------
+                         required time                         14.964    
+                         arrival time                         -19.257    
+  -------------------------------------------------------------------
+                         slack                                 -4.294    
+
+Slack (VIOLATED) :        -4.277ns  (required time - arrival time)
+  Source:                 dnn_scheduler_instance/layer_index_reg[0]_replica/C
+                            (rising edge-triggered cell FDSE clocked by s_axi_aclk  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Destination:            weight_sram_instance/read_data_reg[29]/D
+                            (rising edge-triggered cell FDRE clocked by s_axi_aclk  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Path Group:             s_axi_aclk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            10.000ns  (s_axi_aclk rise@10.000ns - s_axi_aclk rise@0.000ns)
+  Data Path Delay:        14.305ns  (logic 5.323ns (37.211%)  route 8.982ns (62.789%))
+  Logic Levels:           16  (CARRY4=3 DSP48E1=1 LUT2=1 LUT5=1 LUT6=5 MUXF7=3 MUXF8=2)
+  Clock Path Skew:        0.032ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    4.641ns = ( 14.641 - 10.000 ) 
+    Source Clock Delay      (SCD):    4.966ns
+    Clock Pessimism Removal (CPR):    0.357ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock s_axi_aclk rise edge)
+                                                      0.000     0.000 r  
+    U7                                                0.000     0.000 r  s_axi_aclk (IN)
+                         net (fo=0)                   0.000     0.000    s_axi_aclk
+    U7                   IBUF (Prop_ibuf_I_O)         1.058     1.058 r  s_axi_aclk_IBUF_inst/O
+                         net (fo=1, routed)           2.171     3.229    s_axi_aclk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.101     3.330 r  s_axi_aclk_IBUF_BUFG_inst/O
+                         net (fo=1546, routed)        1.636     4.966    dnn_scheduler_instance/s_axi_aclk_IBUF_BUFG
+    SLICE_X52Y22         FDSE                                         r  dnn_scheduler_instance/layer_index_reg[0]_replica/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X52Y22         FDSE (Prop_fdse_C_Q)         0.456     5.422 r  dnn_scheduler_instance/layer_index_reg[0]_replica/Q
+                         net (fo=6, routed)           0.763     6.185    dnn_scheduler_instance/layer_index[0]_repN
+    SLICE_X50Y18         LUT2 (Prop_lut2_I0_O)        0.124     6.309 r  dnn_scheduler_instance/target_cycle_count[4]_i_1/O
+                         net (fo=35, routed)          0.624     6.933    systolic_controller_instance/D[2]
+    SLICE_X44Y19         LUT6 (Prop_lut6_I1_O)        0.124     7.057 r  systolic_controller_instance/read_valid[3]_i_14/O
+                         net (fo=1, routed)           0.333     7.391    systolic_controller_instance/read_valid[3]_i_14_n_0
+    SLICE_X45Y17         CARRY4 (Prop_carry4_DI[0]_CO[3])
+                                                      0.526     7.917 r  systolic_controller_instance/read_valid_reg[3]_i_8/CO[3]
+                         net (fo=1, routed)           0.000     7.917    systolic_controller_instance/read_valid_reg[3]_i_8_n_0
+    SLICE_X45Y18         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.031 r  systolic_controller_instance/read_valid_reg[3]_i_3/CO[3]
+                         net (fo=1, routed)           0.000     8.031    systolic_controller_instance/read_valid_reg[3]_i_3_n_0
+    SLICE_X45Y19         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.145 r  systolic_controller_instance/read_valid_reg[3]_i_2/CO[3]
+                         net (fo=12, routed)          1.245     9.390    systolic_controller_instance/operand_read_address24_in
+    SLICE_X44Y19         LUT5 (Prop_lut5_I2_O)        0.124     9.514 r  systolic_controller_instance/read_data1__2_i_4_comp/O
+                         net (fo=7, routed)           1.303    10.816    weight_sram_instance/operand_read_address[39]
+    DSP48_X1Y6           DSP48E1 (Prop_dsp48e1_C[9]_P[1])
+                                                      1.820    12.636 r  weight_sram_instance/read_data1__2/P[1]
+                         net (fo=2400, routed)        2.332    14.969    weight_sram_instance/read_data1__2_n_104
+    SLICE_X1Y11          LUT6 (Prop_lut6_I1_O)        0.124    15.093 r  weight_sram_instance/g106_b5__2/O
+                         net (fo=1, routed)           0.000    15.093    weight_sram_instance/g106_b5__2_n_0
+    SLICE_X1Y11          MUXF7 (Prop_muxf7_I0_O)      0.212    15.305 r  weight_sram_instance/read_data_reg[29]_i_275/O
+                         net (fo=1, routed)           0.000    15.305    weight_sram_instance/read_data_reg[29]_i_275_n_0
+    SLICE_X1Y11          MUXF8 (Prop_muxf8_I1_O)      0.094    15.399 r  weight_sram_instance/read_data_reg[29]_i_207/O
+                         net (fo=1, routed)           0.786    16.185    weight_sram_instance/read_data_reg[29]_i_207_n_0
+    SLICE_X0Y10          LUT6 (Prop_lut6_I5_O)        0.316    16.501 r  weight_sram_instance/read_data[29]_i_130/O
+                         net (fo=1, routed)           0.000    16.501    weight_sram_instance/read_data[29]_i_130_n_0
+    SLICE_X0Y10          MUXF7 (Prop_muxf7_I1_O)      0.214    16.715 r  weight_sram_instance/read_data_reg[29]_i_58/O
+                         net (fo=1, routed)           1.092    17.807    weight_sram_instance/read_data_reg[29]_i_58_n_0
+    SLICE_X6Y8           LUT6 (Prop_lut6_I1_O)        0.297    18.104 r  weight_sram_instance/read_data[29]_i_21/O
+                         net (fo=1, routed)           0.000    18.104    weight_sram_instance/read_data[29]_i_21_n_0
+    SLICE_X6Y8           MUXF7 (Prop_muxf7_I1_O)      0.247    18.351 r  weight_sram_instance/read_data_reg[29]_i_7/O
+                         net (fo=1, routed)           0.000    18.351    weight_sram_instance/read_data_reg[29]_i_7_n_0
+    SLICE_X6Y8           MUXF8 (Prop_muxf8_I0_O)      0.098    18.449 r  weight_sram_instance/read_data_reg[29]_i_3/O
+                         net (fo=1, routed)           0.504    18.952    weight_sram_instance/read_data_reg[29]_i_3_n_0
+    SLICE_X7Y8           LUT6 (Prop_lut6_I4_O)        0.319    19.271 r  weight_sram_instance/read_data[29]_i_1/O
+                         net (fo=1, routed)           0.000    19.271    weight_sram_instance/p_14_out[29]
+    SLICE_X7Y8           FDRE                                         r  weight_sram_instance/read_data_reg[29]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock s_axi_aclk rise edge)
+                                                     10.000    10.000 r  
+    U7                                                0.000    10.000 r  s_axi_aclk (IN)
+                         net (fo=0)                   0.000    10.000    s_axi_aclk
+    U7                   IBUF (Prop_ibuf_I_O)         0.924    10.924 r  s_axi_aclk_IBUF_inst/O
+                         net (fo=1, routed)           1.972    12.896    s_axi_aclk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.091    12.987 r  s_axi_aclk_IBUF_BUFG_inst/O
+                         net (fo=1546, routed)        1.654    14.641    weight_sram_instance/s_axi_aclk_IBUF_BUFG
+    SLICE_X7Y8           FDRE                                         r  weight_sram_instance/read_data_reg[29]/C
+                         clock pessimism              0.357    14.999    
+                         clock uncertainty           -0.035    14.964    
+    SLICE_X7Y8           FDRE (Setup_fdre_C_D)        0.031    14.995    weight_sram_instance/read_data_reg[29]
+  -------------------------------------------------------------------
+                         required time                         14.995    
+                         arrival time                         -19.271    
+  -------------------------------------------------------------------
+                         slack                                 -4.277    
+
+Slack (VIOLATED) :        -4.262ns  (required time - arrival time)
+  Source:                 dnn_scheduler_instance/layer_index_reg[0]_replica/C
+                            (rising edge-triggered cell FDSE clocked by s_axi_aclk  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Destination:            weight_sram_instance/read_data_reg[31]/D
+                            (rising edge-triggered cell FDRE clocked by s_axi_aclk  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Path Group:             s_axi_aclk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            10.000ns  (s_axi_aclk rise@10.000ns - s_axi_aclk rise@0.000ns)
+  Data Path Delay:        14.196ns  (logic 5.084ns (35.813%)  route 9.112ns (64.187%))
+  Logic Levels:           14  (CARRY4=3 DSP48E1=1 LUT2=1 LUT5=1 LUT6=5 MUXF7=3)
+  Clock Path Skew:        -0.062ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    4.547ns = ( 14.547 - 10.000 ) 
+    Source Clock Delay      (SCD):    4.966ns
+    Clock Pessimism Removal (CPR):    0.357ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock s_axi_aclk rise edge)
+                                                      0.000     0.000 r  
+    U7                                                0.000     0.000 r  s_axi_aclk (IN)
+                         net (fo=0)                   0.000     0.000    s_axi_aclk
+    U7                   IBUF (Prop_ibuf_I_O)         1.058     1.058 r  s_axi_aclk_IBUF_inst/O
+                         net (fo=1, routed)           2.171     3.229    s_axi_aclk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.101     3.330 r  s_axi_aclk_IBUF_BUFG_inst/O
+                         net (fo=1546, routed)        1.636     4.966    dnn_scheduler_instance/s_axi_aclk_IBUF_BUFG
+    SLICE_X52Y22         FDSE                                         r  dnn_scheduler_instance/layer_index_reg[0]_replica/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X52Y22         FDSE (Prop_fdse_C_Q)         0.456     5.422 r  dnn_scheduler_instance/layer_index_reg[0]_replica/Q
+                         net (fo=6, routed)           0.763     6.185    dnn_scheduler_instance/layer_index[0]_repN
+    SLICE_X50Y18         LUT2 (Prop_lut2_I0_O)        0.124     6.309 r  dnn_scheduler_instance/target_cycle_count[4]_i_1/O
+                         net (fo=35, routed)          0.624     6.933    systolic_controller_instance/D[2]
+    SLICE_X44Y19         LUT6 (Prop_lut6_I1_O)        0.124     7.057 r  systolic_controller_instance/read_valid[3]_i_14/O
+                         net (fo=1, routed)           0.333     7.391    systolic_controller_instance/read_valid[3]_i_14_n_0
+    SLICE_X45Y17         CARRY4 (Prop_carry4_DI[0]_CO[3])
+                                                      0.526     7.917 r  systolic_controller_instance/read_valid_reg[3]_i_8/CO[3]
+                         net (fo=1, routed)           0.000     7.917    systolic_controller_instance/read_valid_reg[3]_i_8_n_0
+    SLICE_X45Y18         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.031 r  systolic_controller_instance/read_valid_reg[3]_i_3/CO[3]
+                         net (fo=1, routed)           0.000     8.031    systolic_controller_instance/read_valid_reg[3]_i_3_n_0
+    SLICE_X45Y19         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.145 r  systolic_controller_instance/read_valid_reg[3]_i_2/CO[3]
+                         net (fo=12, routed)          1.245     9.390    systolic_controller_instance/operand_read_address24_in
+    SLICE_X44Y19         LUT5 (Prop_lut5_I2_O)        0.124     9.514 r  systolic_controller_instance/read_data1__2_i_4_comp/O
+                         net (fo=7, routed)           1.303    10.816    weight_sram_instance/operand_read_address[39]
+    DSP48_X1Y6           DSP48E1 (Prop_dsp48e1_C[9]_P[2])
+                                                      1.820    12.636 r  weight_sram_instance/read_data1__2/P[2]
+                         net (fo=2410, routed)        2.217    14.854    weight_sram_instance/read_data1__2_n_103
+    SLICE_X31Y6          LUT6 (Prop_lut6_I2_O)        0.124    14.978 r  weight_sram_instance/g316_b6__2/O
+                         net (fo=1, routed)           0.000    14.978    weight_sram_instance/g316_b6__2_n_0
+    SLICE_X31Y6          MUXF7 (Prop_muxf7_I0_O)      0.238    15.216 r  weight_sram_instance/read_data_reg[31]_i_70/O
+                         net (fo=1, routed)           0.995    16.211    weight_sram_instance/read_data_reg[31]_i_70_n_0
+    SLICE_X30Y6          LUT6 (Prop_lut6_I1_O)        0.298    16.509 r  weight_sram_instance/read_data[31]_i_30/O
+                         net (fo=1, routed)           0.000    16.509    weight_sram_instance/read_data[31]_i_30_n_0
+    SLICE_X30Y6          MUXF7 (Prop_muxf7_I1_O)      0.214    16.723 r  weight_sram_instance/read_data_reg[31]_i_11/O
+                         net (fo=1, routed)           0.804    17.526    weight_sram_instance/read_data_reg[31]_i_11_n_0
+    SLICE_X29Y6          LUT6 (Prop_lut6_I0_O)        0.297    17.823 r  weight_sram_instance/read_data[31]_i_5/O
+                         net (fo=1, routed)           0.000    17.823    weight_sram_instance/read_data[31]_i_5_n_0
+    SLICE_X29Y6          MUXF7 (Prop_muxf7_I0_O)      0.212    18.035 r  weight_sram_instance/read_data_reg[31]_i_2/O
+                         net (fo=2, routed)           0.828    18.863    weight_sram_instance/read_data_reg[31]_i_2_n_0
+    SLICE_X29Y17         LUT6 (Prop_lut6_I1_O)        0.299    19.162 r  weight_sram_instance/read_data[31]_i_1/O
+                         net (fo=1, routed)           0.000    19.162    weight_sram_instance/p_14_out[31]
+    SLICE_X29Y17         FDRE                                         r  weight_sram_instance/read_data_reg[31]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock s_axi_aclk rise edge)
+                                                     10.000    10.000 r  
+    U7                                                0.000    10.000 r  s_axi_aclk (IN)
+                         net (fo=0)                   0.000    10.000    s_axi_aclk
+    U7                   IBUF (Prop_ibuf_I_O)         0.924    10.924 r  s_axi_aclk_IBUF_inst/O
+                         net (fo=1, routed)           1.972    12.896    s_axi_aclk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.091    12.987 r  s_axi_aclk_IBUF_BUFG_inst/O
+                         net (fo=1546, routed)        1.560    14.547    weight_sram_instance/s_axi_aclk_IBUF_BUFG
+    SLICE_X29Y17         FDRE                                         r  weight_sram_instance/read_data_reg[31]/C
+                         clock pessimism              0.357    14.905    
+                         clock uncertainty           -0.035    14.870    
+    SLICE_X29Y17         FDRE (Setup_fdre_C_D)        0.031    14.901    weight_sram_instance/read_data_reg[31]
+  -------------------------------------------------------------------
+                         required time                         14.901    
+                         arrival time                         -19.162    
+  -------------------------------------------------------------------
+                         slack                                 -4.262    
+
+Slack (VIOLATED) :        -4.261ns  (required time - arrival time)
+  Source:                 dnn_scheduler_instance/layer_index_reg[0]_replica/C
+                            (rising edge-triggered cell FDSE clocked by s_axi_aclk  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Destination:            weight_sram_instance/read_data_reg[28]/D
+                            (rising edge-triggered cell FDRE clocked by s_axi_aclk  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Path Group:             s_axi_aclk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            10.000ns  (s_axi_aclk rise@10.000ns - s_axi_aclk rise@0.000ns)
+  Data Path Delay:        14.208ns  (logic 5.228ns (36.795%)  route 8.980ns (63.205%))
+  Logic Levels:           15  (CARRY4=3 DSP48E1=1 LUT2=1 LUT5=1 LUT6=5 MUXF7=3 MUXF8=1)
+  Clock Path Skew:        -0.050ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    4.559ns = ( 14.559 - 10.000 ) 
+    Source Clock Delay      (SCD):    4.966ns
+    Clock Pessimism Removal (CPR):    0.357ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock s_axi_aclk rise edge)
+                                                      0.000     0.000 r  
+    U7                                                0.000     0.000 r  s_axi_aclk (IN)
+                         net (fo=0)                   0.000     0.000    s_axi_aclk
+    U7                   IBUF (Prop_ibuf_I_O)         1.058     1.058 r  s_axi_aclk_IBUF_inst/O
+                         net (fo=1, routed)           2.171     3.229    s_axi_aclk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.101     3.330 r  s_axi_aclk_IBUF_BUFG_inst/O
+                         net (fo=1546, routed)        1.636     4.966    dnn_scheduler_instance/s_axi_aclk_IBUF_BUFG
+    SLICE_X52Y22         FDSE                                         r  dnn_scheduler_instance/layer_index_reg[0]_replica/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X52Y22         FDSE (Prop_fdse_C_Q)         0.456     5.422 r  dnn_scheduler_instance/layer_index_reg[0]_replica/Q
+                         net (fo=6, routed)           0.763     6.185    dnn_scheduler_instance/layer_index[0]_repN
+    SLICE_X50Y18         LUT2 (Prop_lut2_I0_O)        0.124     6.309 r  dnn_scheduler_instance/target_cycle_count[4]_i_1/O
+                         net (fo=35, routed)          0.624     6.933    systolic_controller_instance/D[2]
+    SLICE_X44Y19         LUT6 (Prop_lut6_I1_O)        0.124     7.057 r  systolic_controller_instance/read_valid[3]_i_14/O
+                         net (fo=1, routed)           0.333     7.391    systolic_controller_instance/read_valid[3]_i_14_n_0
+    SLICE_X45Y17         CARRY4 (Prop_carry4_DI[0]_CO[3])
+                                                      0.526     7.917 r  systolic_controller_instance/read_valid_reg[3]_i_8/CO[3]
+                         net (fo=1, routed)           0.000     7.917    systolic_controller_instance/read_valid_reg[3]_i_8_n_0
+    SLICE_X45Y18         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.031 r  systolic_controller_instance/read_valid_reg[3]_i_3/CO[3]
+                         net (fo=1, routed)           0.000     8.031    systolic_controller_instance/read_valid_reg[3]_i_3_n_0
+    SLICE_X45Y19         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.145 r  systolic_controller_instance/read_valid_reg[3]_i_2/CO[3]
+                         net (fo=12, routed)          1.245     9.390    systolic_controller_instance/operand_read_address24_in
+    SLICE_X44Y19         LUT5 (Prop_lut5_I2_O)        0.124     9.514 r  systolic_controller_instance/read_data1__2_i_4_comp/O
+                         net (fo=7, routed)           1.303    10.816    weight_sram_instance/operand_read_address[39]
+    DSP48_X1Y6           DSP48E1 (Prop_dsp48e1_C[9]_P[1])
+                                                      1.820    12.636 r  weight_sram_instance/read_data1__2/P[1]
+                         net (fo=2400, routed)        2.062    14.698    weight_sram_instance/read_data1__2_n_104
+    SLICE_X19Y20         LUT6 (Prop_lut6_I1_O)        0.124    14.822 r  weight_sram_instance/g252_b4__2/O
+                         net (fo=1, routed)           0.000    14.822    weight_sram_instance/g252_b4__2_n_0
+    SLICE_X19Y20         MUXF7 (Prop_muxf7_I0_O)      0.238    15.060 r  weight_sram_instance/read_data_reg[28]_i_239/O
+                         net (fo=1, routed)           1.110    16.170    weight_sram_instance/read_data_reg[28]_i_239_n_0
+    SLICE_X22Y20         LUT6 (Prop_lut6_I1_O)        0.298    16.468 r  weight_sram_instance/read_data[28]_i_136/O
+                         net (fo=1, routed)           0.000    16.468    weight_sram_instance/read_data[28]_i_136_n_0
+    SLICE_X22Y20         MUXF7 (Prop_muxf7_I1_O)      0.247    16.715 r  weight_sram_instance/read_data_reg[28]_i_58/O
+                         net (fo=1, routed)           0.928    17.643    weight_sram_instance/read_data_reg[28]_i_58_n_0
+    SLICE_X16Y20         LUT6 (Prop_lut6_I0_O)        0.298    17.941 r  weight_sram_instance/read_data[28]_i_22/O
+                         net (fo=1, routed)           0.000    17.941    weight_sram_instance/read_data[28]_i_22_n_0
+    SLICE_X16Y20         MUXF7 (Prop_muxf7_I1_O)      0.214    18.155 r  weight_sram_instance/read_data_reg[28]_i_8/O
+                         net (fo=1, routed)           0.000    18.155    weight_sram_instance/read_data_reg[28]_i_8_n_0
+    SLICE_X16Y20         MUXF8 (Prop_muxf8_I1_O)      0.088    18.243 r  weight_sram_instance/read_data_reg[28]_i_3/O
+                         net (fo=1, routed)           0.613    18.856    weight_sram_instance/read_data_reg[28]_i_3_n_0
+    SLICE_X17Y13         LUT6 (Prop_lut6_I4_O)        0.319    19.175 r  weight_sram_instance/read_data[28]_i_1/O
+                         net (fo=1, routed)           0.000    19.175    weight_sram_instance/p_14_out[28]
+    SLICE_X17Y13         FDRE                                         r  weight_sram_instance/read_data_reg[28]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock s_axi_aclk rise edge)
+                                                     10.000    10.000 r  
+    U7                                                0.000    10.000 r  s_axi_aclk (IN)
+                         net (fo=0)                   0.000    10.000    s_axi_aclk
+    U7                   IBUF (Prop_ibuf_I_O)         0.924    10.924 r  s_axi_aclk_IBUF_inst/O
+                         net (fo=1, routed)           1.972    12.896    s_axi_aclk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.091    12.987 r  s_axi_aclk_IBUF_BUFG_inst/O
+                         net (fo=1546, routed)        1.572    14.559    weight_sram_instance/s_axi_aclk_IBUF_BUFG
+    SLICE_X17Y13         FDRE                                         r  weight_sram_instance/read_data_reg[28]/C
+                         clock pessimism              0.357    14.917    
+                         clock uncertainty           -0.035    14.882    
+    SLICE_X17Y13         FDRE (Setup_fdre_C_D)        0.032    14.914    weight_sram_instance/read_data_reg[28]
+  -------------------------------------------------------------------
+                         required time                         14.914    
+                         arrival time                         -19.175    
+  -------------------------------------------------------------------
+                         slack                                 -4.261    
+
+Slack (VIOLATED) :        -4.260ns  (required time - arrival time)
+  Source:                 dnn_scheduler_instance/layer_index_reg[0]_replica/C
+                            (rising edge-triggered cell FDSE clocked by s_axi_aclk  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Destination:            weight_sram_instance/read_data_reg[30]/D
+                            (rising edge-triggered cell FDRE clocked by s_axi_aclk  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Path Group:             s_axi_aclk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            10.000ns  (s_axi_aclk rise@10.000ns - s_axi_aclk rise@0.000ns)
+  Data Path Delay:        14.195ns  (logic 5.084ns (35.816%)  route 9.111ns (64.184%))
+  Logic Levels:           14  (CARRY4=3 DSP48E1=1 LUT2=1 LUT5=1 LUT6=5 MUXF7=3)
+  Clock Path Skew:        -0.062ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    4.547ns = ( 14.547 - 10.000 ) 
+    Source Clock Delay      (SCD):    4.966ns
+    Clock Pessimism Removal (CPR):    0.357ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock s_axi_aclk rise edge)
+                                                      0.000     0.000 r  
+    U7                                                0.000     0.000 r  s_axi_aclk (IN)
+                         net (fo=0)                   0.000     0.000    s_axi_aclk
+    U7                   IBUF (Prop_ibuf_I_O)         1.058     1.058 r  s_axi_aclk_IBUF_inst/O
+                         net (fo=1, routed)           2.171     3.229    s_axi_aclk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.101     3.330 r  s_axi_aclk_IBUF_BUFG_inst/O
+                         net (fo=1546, routed)        1.636     4.966    dnn_scheduler_instance/s_axi_aclk_IBUF_BUFG
+    SLICE_X52Y22         FDSE                                         r  dnn_scheduler_instance/layer_index_reg[0]_replica/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X52Y22         FDSE (Prop_fdse_C_Q)         0.456     5.422 r  dnn_scheduler_instance/layer_index_reg[0]_replica/Q
+                         net (fo=6, routed)           0.763     6.185    dnn_scheduler_instance/layer_index[0]_repN
+    SLICE_X50Y18         LUT2 (Prop_lut2_I0_O)        0.124     6.309 r  dnn_scheduler_instance/target_cycle_count[4]_i_1/O
+                         net (fo=35, routed)          0.624     6.933    systolic_controller_instance/D[2]
+    SLICE_X44Y19         LUT6 (Prop_lut6_I1_O)        0.124     7.057 r  systolic_controller_instance/read_valid[3]_i_14/O
+                         net (fo=1, routed)           0.333     7.391    systolic_controller_instance/read_valid[3]_i_14_n_0
+    SLICE_X45Y17         CARRY4 (Prop_carry4_DI[0]_CO[3])
+                                                      0.526     7.917 r  systolic_controller_instance/read_valid_reg[3]_i_8/CO[3]
+                         net (fo=1, routed)           0.000     7.917    systolic_controller_instance/read_valid_reg[3]_i_8_n_0
+    SLICE_X45Y18         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.031 r  systolic_controller_instance/read_valid_reg[3]_i_3/CO[3]
+                         net (fo=1, routed)           0.000     8.031    systolic_controller_instance/read_valid_reg[3]_i_3_n_0
+    SLICE_X45Y19         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.145 r  systolic_controller_instance/read_valid_reg[3]_i_2/CO[3]
+                         net (fo=12, routed)          1.245     9.390    systolic_controller_instance/operand_read_address24_in
+    SLICE_X44Y19         LUT5 (Prop_lut5_I2_O)        0.124     9.514 r  systolic_controller_instance/read_data1__2_i_4_comp/O
+                         net (fo=7, routed)           1.303    10.816    weight_sram_instance/operand_read_address[39]
+    DSP48_X1Y6           DSP48E1 (Prop_dsp48e1_C[9]_P[2])
+                                                      1.820    12.636 r  weight_sram_instance/read_data1__2/P[2]
+                         net (fo=2410, routed)        2.217    14.854    weight_sram_instance/read_data1__2_n_103
+    SLICE_X31Y6          LUT6 (Prop_lut6_I2_O)        0.124    14.978 r  weight_sram_instance/g316_b6__2/O
+                         net (fo=1, routed)           0.000    14.978    weight_sram_instance/g316_b6__2_n_0
+    SLICE_X31Y6          MUXF7 (Prop_muxf7_I0_O)      0.238    15.216 r  weight_sram_instance/read_data_reg[31]_i_70/O
+                         net (fo=1, routed)           0.995    16.211    weight_sram_instance/read_data_reg[31]_i_70_n_0
+    SLICE_X30Y6          LUT6 (Prop_lut6_I1_O)        0.298    16.509 r  weight_sram_instance/read_data[31]_i_30/O
+                         net (fo=1, routed)           0.000    16.509    weight_sram_instance/read_data[31]_i_30_n_0
+    SLICE_X30Y6          MUXF7 (Prop_muxf7_I1_O)      0.214    16.723 r  weight_sram_instance/read_data_reg[31]_i_11/O
+                         net (fo=1, routed)           0.804    17.526    weight_sram_instance/read_data_reg[31]_i_11_n_0
+    SLICE_X29Y6          LUT6 (Prop_lut6_I0_O)        0.297    17.823 r  weight_sram_instance/read_data[31]_i_5/O
+                         net (fo=1, routed)           0.000    17.823    weight_sram_instance/read_data[31]_i_5_n_0
+    SLICE_X29Y6          MUXF7 (Prop_muxf7_I0_O)      0.212    18.035 r  weight_sram_instance/read_data_reg[31]_i_2/O
+                         net (fo=2, routed)           0.827    18.862    weight_sram_instance/read_data_reg[31]_i_2_n_0
+    SLICE_X29Y17         LUT6 (Prop_lut6_I1_O)        0.299    19.161 r  weight_sram_instance/read_data[30]_i_1/O
+                         net (fo=1, routed)           0.000    19.161    weight_sram_instance/p_14_out[30]
+    SLICE_X29Y17         FDRE                                         r  weight_sram_instance/read_data_reg[30]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock s_axi_aclk rise edge)
+                                                     10.000    10.000 r  
+    U7                                                0.000    10.000 r  s_axi_aclk (IN)
+                         net (fo=0)                   0.000    10.000    s_axi_aclk
+    U7                   IBUF (Prop_ibuf_I_O)         0.924    10.924 r  s_axi_aclk_IBUF_inst/O
+                         net (fo=1, routed)           1.972    12.896    s_axi_aclk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.091    12.987 r  s_axi_aclk_IBUF_BUFG_inst/O
+                         net (fo=1546, routed)        1.560    14.547    weight_sram_instance/s_axi_aclk_IBUF_BUFG
+    SLICE_X29Y17         FDRE                                         r  weight_sram_instance/read_data_reg[30]/C
+                         clock pessimism              0.357    14.905    
+                         clock uncertainty           -0.035    14.870    
+    SLICE_X29Y17         FDRE (Setup_fdre_C_D)        0.032    14.902    weight_sram_instance/read_data_reg[30]
+  -------------------------------------------------------------------
+                         required time                         14.902    
+                         arrival time                         -19.161    
+  -------------------------------------------------------------------
+                         slack                                 -4.260    
+
+Slack (VIOLATED) :        -4.258ns  (required time - arrival time)
+  Source:                 systolic_controller_instance/cycle_count_reg[3]_replica_4/C
+                            (rising edge-triggered cell FDCE clocked by s_axi_aclk  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Destination:            weight_sram_instance/read_data_reg[12]/D
+                            (rising edge-triggered cell FDRE clocked by s_axi_aclk  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Path Group:             s_axi_aclk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            10.000ns  (s_axi_aclk rise@10.000ns - s_axi_aclk rise@0.000ns)
+  Data Path Delay:        14.207ns  (logic 5.452ns (38.375%)  route 8.755ns (61.625%))
+  Logic Levels:           17  (CARRY4=3 DSP48E1=1 LUT3=1 LUT5=1 LUT6=6 MUXF7=3 MUXF8=2)
+  Clock Path Skew:        -0.046ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    4.535ns = ( 14.535 - 10.000 ) 
+    Source Clock Delay      (SCD):    5.039ns
+    Clock Pessimism Removal (CPR):    0.458ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock s_axi_aclk rise edge)
+                                                      0.000     0.000 r  
+    U7                                                0.000     0.000 r  s_axi_aclk (IN)
+                         net (fo=0)                   0.000     0.000    s_axi_aclk
+    U7                   IBUF (Prop_ibuf_I_O)         1.058     1.058 r  s_axi_aclk_IBUF_inst/O
+                         net (fo=1, routed)           2.171     3.229    s_axi_aclk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.101     3.330 r  s_axi_aclk_IBUF_BUFG_inst/O
+                         net (fo=1546, routed)        1.709     5.039    systolic_controller_instance/s_axi_aclk_IBUF_BUFG
+    SLICE_X59Y22         FDCE                                         r  systolic_controller_instance/cycle_count_reg[3]_replica_4/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X59Y22         FDCE (Prop_fdce_C_Q)         0.456     5.495 r  systolic_controller_instance/cycle_count_reg[3]_replica_4/Q
+                         net (fo=1, routed)           0.655     6.151    systolic_controller_instance/Q[3]_repN_4
+    SLICE_X59Y22         LUT5 (Prop_lut5_I0_O)        0.124     6.275 r  systolic_controller_instance/consumed_feature_count_1[7]_i_3/O
+                         net (fo=9, routed)           0.198     6.473    systolic_controller_instance/consumed_feature_count_1[7]_i_3_n_0
+    SLICE_X59Y22         LUT3 (Prop_lut3_I2_O)        0.124     6.597 r  systolic_controller_instance/consumed_feature_count_1[10]_i_3/O
+                         net (fo=23, routed)          0.627     7.224    systolic_controller_instance/consumed_feature_count_1[10]_i_3_n_0
+    SLICE_X60Y22         LUT6 (Prop_lut6_I0_O)        0.124     7.348 r  systolic_controller_instance/read_valid[1]_i_18/O
+                         net (fo=1, routed)           0.000     7.348    systolic_controller_instance/read_valid[1]_i_18_n_0
+    SLICE_X60Y22         CARRY4 (Prop_carry4_S[0]_CO[3])
+                                                      0.532     7.880 r  systolic_controller_instance/read_valid_reg[1]_i_8/CO[3]
+                         net (fo=1, routed)           0.000     7.880    systolic_controller_instance/read_valid_reg[1]_i_8_n_0
+    SLICE_X60Y23         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     7.994 r  systolic_controller_instance/read_valid_reg[1]_i_3/CO[3]
+                         net (fo=1, routed)           0.000     7.994    systolic_controller_instance/read_valid_reg[1]_i_3_n_0
+    SLICE_X60Y24         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.108 r  systolic_controller_instance/read_valid_reg[1]_i_2/CO[3]
+                         net (fo=10, routed)          1.128     9.236    systolic_controller_instance/operand_read_address2
+    SLICE_X67Y25         LUT6 (Prop_lut6_I4_O)        0.124     9.360 r  systolic_controller_instance/read_data1__0_i_12_comp/O
+                         net (fo=14, routed)          1.530    10.890    weight_sram_instance/operand_read_address[14]
+    DSP48_X3Y12          DSP48E1 (Prop_dsp48e1_C[4]_P[1])
+                                                      1.820    12.710 r  weight_sram_instance/read_data1__0/P[1]
+                         net (fo=2400, routed)        2.460    15.170    weight_sram_instance/read_data1__0_n_104
+    SLICE_X63Y31         LUT6 (Prop_lut6_I1_O)        0.124    15.294 r  weight_sram_instance/g168_b4__0/O
+                         net (fo=1, routed)           0.000    15.294    weight_sram_instance/g168_b4__0_n_0
+    SLICE_X63Y31         MUXF7 (Prop_muxf7_I0_O)      0.238    15.532 r  weight_sram_instance/read_data_reg[12]_i_272/O
+                         net (fo=1, routed)           0.000    15.532    weight_sram_instance/read_data_reg[12]_i_272_n_0
+    SLICE_X63Y31         MUXF8 (Prop_muxf8_I0_O)      0.104    15.636 r  weight_sram_instance/read_data_reg[12]_i_221/O
+                         net (fo=1, routed)           0.782    16.418    weight_sram_instance/read_data_reg[12]_i_221_n_0
+    SLICE_X67Y30         LUT6 (Prop_lut6_I5_O)        0.316    16.734 r  weight_sram_instance/read_data[12]_i_128/O
+                         net (fo=1, routed)           0.000    16.734    weight_sram_instance/read_data[12]_i_128_n_0
+    SLICE_X67Y30         MUXF7 (Prop_muxf7_I1_O)      0.217    16.951 r  weight_sram_instance/read_data_reg[12]_i_55/O
+                         net (fo=1, routed)           0.770    17.722    weight_sram_instance/read_data_reg[12]_i_55_n_0
+    SLICE_X71Y30         LUT6 (Prop_lut6_I1_O)        0.299    18.021 r  weight_sram_instance/read_data[12]_i_21/O
+                         net (fo=1, routed)           0.000    18.021    weight_sram_instance/read_data[12]_i_21_n_0
+    SLICE_X71Y30         MUXF7 (Prop_muxf7_I0_O)      0.212    18.233 r  weight_sram_instance/read_data_reg[12]_i_8/O
+                         net (fo=1, routed)           0.000    18.233    weight_sram_instance/read_data_reg[12]_i_8_n_0
+    SLICE_X71Y30         MUXF8 (Prop_muxf8_I1_O)      0.094    18.327 r  weight_sram_instance/read_data_reg[12]_i_3/O
+                         net (fo=1, routed)           0.604    18.931    weight_sram_instance/read_data_reg[12]_i_3_n_0
+    SLICE_X78Y31         LUT6 (Prop_lut6_I4_O)        0.316    19.247 r  weight_sram_instance/read_data[12]_i_1/O
+                         net (fo=1, routed)           0.000    19.247    weight_sram_instance/p_14_out[12]
+    SLICE_X78Y31         FDRE                                         r  weight_sram_instance/read_data_reg[12]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock s_axi_aclk rise edge)
+                                                     10.000    10.000 r  
+    U7                                                0.000    10.000 r  s_axi_aclk (IN)
+                         net (fo=0)                   0.000    10.000    s_axi_aclk
+    U7                   IBUF (Prop_ibuf_I_O)         0.924    10.924 r  s_axi_aclk_IBUF_inst/O
+                         net (fo=1, routed)           1.972    12.896    s_axi_aclk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.091    12.987 r  s_axi_aclk_IBUF_BUFG_inst/O
+                         net (fo=1546, routed)        1.548    14.535    weight_sram_instance/s_axi_aclk_IBUF_BUFG
+    SLICE_X78Y31         FDRE                                         r  weight_sram_instance/read_data_reg[12]/C
+                         clock pessimism              0.458    14.993    
+                         clock uncertainty           -0.035    14.958    
+    SLICE_X78Y31         FDRE (Setup_fdre_C_D)        0.031    14.989    weight_sram_instance/read_data_reg[12]
+  -------------------------------------------------------------------
+                         required time                         14.989    
+                         arrival time                         -19.247    
+  -------------------------------------------------------------------
+                         slack                                 -4.258    
+
+Slack (VIOLATED) :        -4.199ns  (required time - arrival time)
+  Source:                 systolic_controller_instance/cycle_count_reg[4]/C
+                            (rising edge-triggered cell FDCE clocked by s_axi_aclk  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Destination:            weight_sram_instance/read_data_reg[19]/D
+                            (rising edge-triggered cell FDRE clocked by s_axi_aclk  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Path Group:             s_axi_aclk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            10.000ns  (s_axi_aclk rise@10.000ns - s_axi_aclk rise@0.000ns)
+  Data Path Delay:        14.150ns  (logic 5.174ns (36.565%)  route 8.976ns (63.435%))
+  Logic Levels:           14  (CARRY4=3 DSP48E1=1 LUT6=7 MUXF7=3)
+  Clock Path Skew:        -0.045ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    4.540ns = ( 14.540 - 10.000 ) 
+    Source Clock Delay      (SCD):    5.043ns
+    Clock Pessimism Removal (CPR):    0.458ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock s_axi_aclk rise edge)
+                                                      0.000     0.000 r  
+    U7                                                0.000     0.000 r  s_axi_aclk (IN)
+                         net (fo=0)                   0.000     0.000    s_axi_aclk
+    U7                   IBUF (Prop_ibuf_I_O)         1.058     1.058 r  s_axi_aclk_IBUF_inst/O
+                         net (fo=1, routed)           2.171     3.229    s_axi_aclk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.101     3.330 r  s_axi_aclk_IBUF_BUFG_inst/O
+                         net (fo=1546, routed)        1.713     5.043    systolic_controller_instance/s_axi_aclk_IBUF_BUFG
+    SLICE_X54Y19         FDCE                                         r  systolic_controller_instance/cycle_count_reg[4]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X54Y19         FDCE (Prop_fdce_C_Q)         0.518     5.561 r  systolic_controller_instance/cycle_count_reg[4]/Q
+                         net (fo=46, routed)          0.975     6.536    systolic_controller_instance/cycle_count_reg_n_0_[4]
+    SLICE_X54Y19         LUT6 (Prop_lut6_I2_O)        0.124     6.660 r  systolic_controller_instance/consumed_feature_count_2[10]_i_4/O
+                         net (fo=24, routed)          0.223     6.883    systolic_controller_instance/consumed_feature_count_2[10]_i_4_n_0
+    SLICE_X54Y19         LUT6 (Prop_lut6_I3_O)        0.124     7.007 r  systolic_controller_instance/read_valid[2]_i_14/O
+                         net (fo=1, routed)           0.560     7.567    systolic_controller_instance/read_valid[2]_i_14_n_0
+    SLICE_X53Y18         CARRY4 (Prop_carry4_DI[0]_CO[3])
+                                                      0.526     8.093 r  systolic_controller_instance/read_valid_reg[2]_i_8/CO[3]
+                         net (fo=1, routed)           0.000     8.093    systolic_controller_instance/read_valid_reg[2]_i_8_n_0
+    SLICE_X53Y19         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.207 r  systolic_controller_instance/read_valid_reg[2]_i_3/CO[3]
+                         net (fo=1, routed)           0.000     8.207    systolic_controller_instance/read_valid_reg[2]_i_3_n_0
+    SLICE_X53Y20         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.321 r  systolic_controller_instance/read_valid_reg[2]_i_2/CO[3]
+                         net (fo=12, routed)          1.209     9.530    systolic_controller_instance/operand_read_address21_in
+    SLICE_X44Y17         LUT6 (Prop_lut6_I4_O)        0.124     9.654 r  systolic_controller_instance/read_data1__1_i_7_comp/O
+                         net (fo=7, routed)           0.975    10.629    weight_sram_instance/operand_read_address[28]
+    DSP48_X2Y2           DSP48E1 (Prop_dsp48e1_C[8]_P[0])
+                                                      1.820    12.449 r  weight_sram_instance/read_data1__1/P[0]
+                         net (fo=2401, routed)        2.652    15.101    weight_sram_instance/read_data1__1_n_105
+    SLICE_X78Y0          LUT6 (Prop_lut6_I0_O)        0.124    15.225 r  weight_sram_instance/g258_b3__1/O
+                         net (fo=1, routed)           0.000    15.225    weight_sram_instance/g258_b3__1_n_0
+    SLICE_X78Y0          MUXF7 (Prop_muxf7_I0_O)      0.212    15.437 r  weight_sram_instance/read_data_reg[19]_i_85/O
+                         net (fo=1, routed)           0.688    16.124    weight_sram_instance/read_data_reg[19]_i_85_n_0
+    SLICE_X78Y0          LUT6 (Prop_lut6_I2_O)        0.299    16.423 r  weight_sram_instance/read_data[19]_i_36/O
+                         net (fo=1, routed)           0.000    16.423    weight_sram_instance/read_data[19]_i_36_n_0
+    SLICE_X78Y0          MUXF7 (Prop_muxf7_I0_O)      0.238    16.661 r  weight_sram_instance/read_data_reg[19]_i_15/O
+                         net (fo=1, routed)           1.144    17.806    weight_sram_instance/read_data_reg[19]_i_15_n_0
+    SLICE_X62Y2          LUT6 (Prop_lut6_I5_O)        0.298    18.104 r  weight_sram_instance/read_data[19]_i_5/O
+                         net (fo=1, routed)           0.000    18.104    weight_sram_instance/read_data[19]_i_5_n_0
+    SLICE_X62Y2          MUXF7 (Prop_muxf7_I0_O)      0.241    18.345 r  weight_sram_instance/read_data_reg[19]_i_2/O
+                         net (fo=1, routed)           0.551    18.896    weight_sram_instance/read_data_reg[19]_i_2_n_0
+    SLICE_X63Y4          LUT6 (Prop_lut6_I1_O)        0.298    19.194 r  weight_sram_instance/read_data[19]_i_1/O
+                         net (fo=1, routed)           0.000    19.194    weight_sram_instance/p_14_out[19]
+    SLICE_X63Y4          FDRE                                         r  weight_sram_instance/read_data_reg[19]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock s_axi_aclk rise edge)
+                                                     10.000    10.000 r  
+    U7                                                0.000    10.000 r  s_axi_aclk (IN)
+                         net (fo=0)                   0.000    10.000    s_axi_aclk
+    U7                   IBUF (Prop_ibuf_I_O)         0.924    10.924 r  s_axi_aclk_IBUF_inst/O
+                         net (fo=1, routed)           1.972    12.896    s_axi_aclk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.091    12.987 r  s_axi_aclk_IBUF_BUFG_inst/O
+                         net (fo=1546, routed)        1.553    14.540    weight_sram_instance/s_axi_aclk_IBUF_BUFG
+    SLICE_X63Y4          FDRE                                         r  weight_sram_instance/read_data_reg[19]/C
+                         clock pessimism              0.458    14.998    
+                         clock uncertainty           -0.035    14.963    
+    SLICE_X63Y4          FDRE (Setup_fdre_C_D)        0.031    14.994    weight_sram_instance/read_data_reg[19]
+  -------------------------------------------------------------------
+                         required time                         14.994    
+                         arrival time                         -19.194    
+  -------------------------------------------------------------------
+                         slack                                 -4.199    
+
+Slack (VIOLATED) :        -4.180ns  (required time - arrival time)
+  Source:                 systolic_controller_instance/cycle_count_reg[4]/C
+                            (rising edge-triggered cell FDCE clocked by s_axi_aclk  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Destination:            weight_sram_instance/read_data_reg[18]/D
+                            (rising edge-triggered cell FDRE clocked by s_axi_aclk  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Path Group:             s_axi_aclk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            10.000ns  (s_axi_aclk rise@10.000ns - s_axi_aclk rise@0.000ns)
+  Data Path Delay:        14.123ns  (logic 5.148ns (36.450%)  route 8.975ns (63.550%))
+  Logic Levels:           14  (CARRY4=3 DSP48E1=1 LUT6=7 MUXF7=3)
+  Clock Path Skew:        -0.053ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    4.532ns = ( 14.532 - 10.000 ) 
+    Source Clock Delay      (SCD):    5.043ns
+    Clock Pessimism Removal (CPR):    0.458ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock s_axi_aclk rise edge)
+                                                      0.000     0.000 r  
+    U7                                                0.000     0.000 r  s_axi_aclk (IN)
+                         net (fo=0)                   0.000     0.000    s_axi_aclk
+    U7                   IBUF (Prop_ibuf_I_O)         1.058     1.058 r  s_axi_aclk_IBUF_inst/O
+                         net (fo=1, routed)           2.171     3.229    s_axi_aclk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.101     3.330 r  s_axi_aclk_IBUF_BUFG_inst/O
+                         net (fo=1546, routed)        1.713     5.043    systolic_controller_instance/s_axi_aclk_IBUF_BUFG
+    SLICE_X54Y19         FDCE                                         r  systolic_controller_instance/cycle_count_reg[4]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X54Y19         FDCE (Prop_fdce_C_Q)         0.518     5.561 r  systolic_controller_instance/cycle_count_reg[4]/Q
+                         net (fo=46, routed)          0.975     6.536    systolic_controller_instance/cycle_count_reg_n_0_[4]
+    SLICE_X54Y19         LUT6 (Prop_lut6_I2_O)        0.124     6.660 r  systolic_controller_instance/consumed_feature_count_2[10]_i_4/O
+                         net (fo=24, routed)          0.223     6.883    systolic_controller_instance/consumed_feature_count_2[10]_i_4_n_0
+    SLICE_X54Y19         LUT6 (Prop_lut6_I3_O)        0.124     7.007 r  systolic_controller_instance/read_valid[2]_i_14/O
+                         net (fo=1, routed)           0.560     7.567    systolic_controller_instance/read_valid[2]_i_14_n_0
+    SLICE_X53Y18         CARRY4 (Prop_carry4_DI[0]_CO[3])
+                                                      0.526     8.093 r  systolic_controller_instance/read_valid_reg[2]_i_8/CO[3]
+                         net (fo=1, routed)           0.000     8.093    systolic_controller_instance/read_valid_reg[2]_i_8_n_0
+    SLICE_X53Y19         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.207 r  systolic_controller_instance/read_valid_reg[2]_i_3/CO[3]
+                         net (fo=1, routed)           0.000     8.207    systolic_controller_instance/read_valid_reg[2]_i_3_n_0
+    SLICE_X53Y20         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.321 r  systolic_controller_instance/read_valid_reg[2]_i_2/CO[3]
+                         net (fo=12, routed)          1.209     9.530    systolic_controller_instance/operand_read_address21_in
+    SLICE_X44Y17         LUT6 (Prop_lut6_I4_O)        0.124     9.654 r  systolic_controller_instance/read_data1__1_i_7_comp/O
+                         net (fo=7, routed)           0.975    10.629    weight_sram_instance/operand_read_address[28]
+    DSP48_X2Y2           DSP48E1 (Prop_dsp48e1_C[8]_P[2])
+                                                      1.820    12.449 r  weight_sram_instance/read_data1__1/P[2]
+                         net (fo=2410, routed)        2.361    14.809    weight_sram_instance/read_data1__1_n_103
+    SLICE_X56Y8          LUT6 (Prop_lut6_I2_O)        0.124    14.933 r  weight_sram_instance/g279_b2__1/O
+                         net (fo=1, routed)           0.000    14.933    weight_sram_instance/g279_b2__1_n_0
+    SLICE_X56Y8          MUXF7 (Prop_muxf7_I1_O)      0.245    15.178 r  weight_sram_instance/read_data_reg[18]_i_120/O
+                         net (fo=1, routed)           0.963    16.141    weight_sram_instance/read_data_reg[18]_i_120_n_0
+    SLICE_X55Y8          LUT6 (Prop_lut6_I0_O)        0.298    16.439 r  weight_sram_instance/read_data[18]_i_56/O
+                         net (fo=1, routed)           0.000    16.439    weight_sram_instance/read_data[18]_i_56_n_0
+    SLICE_X55Y8          MUXF7 (Prop_muxf7_I0_O)      0.212    16.651 r  weight_sram_instance/read_data_reg[18]_i_31/O
+                         net (fo=1, routed)           0.882    17.534    weight_sram_instance/read_data_reg[18]_i_31_n_0
+    SLICE_X54Y14         LUT6 (Prop_lut6_I3_O)        0.299    17.833 r  weight_sram_instance/read_data[18]_i_14/O
+                         net (fo=1, routed)           0.000    17.833    weight_sram_instance/read_data[18]_i_14_n_0
+    SLICE_X54Y14         MUXF7 (Prop_muxf7_I0_O)      0.209    18.042 r  weight_sram_instance/read_data_reg[18]_i_5/O
+                         net (fo=1, routed)           0.828    18.870    weight_sram_instance/read_data_reg[18]_i_5_n_0
+    SLICE_X57Y15         LUT6 (Prop_lut6_I2_O)        0.297    19.167 r  weight_sram_instance/read_data[18]_i_1_comp_1/O
+                         net (fo=1, routed)           0.000    19.167    weight_sram_instance/p_14_out[18]
+    SLICE_X57Y15         FDRE                                         r  weight_sram_instance/read_data_reg[18]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock s_axi_aclk rise edge)
+                                                     10.000    10.000 r  
+    U7                                                0.000    10.000 r  s_axi_aclk (IN)
+                         net (fo=0)                   0.000    10.000    s_axi_aclk
+    U7                   IBUF (Prop_ibuf_I_O)         0.924    10.924 r  s_axi_aclk_IBUF_inst/O
+                         net (fo=1, routed)           1.972    12.896    s_axi_aclk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.091    12.987 r  s_axi_aclk_IBUF_BUFG_inst/O
+                         net (fo=1546, routed)        1.545    14.532    weight_sram_instance/s_axi_aclk_IBUF_BUFG
+    SLICE_X57Y15         FDRE                                         r  weight_sram_instance/read_data_reg[18]/C
+                         clock pessimism              0.458    14.990    
+                         clock uncertainty           -0.035    14.955    
+    SLICE_X57Y15         FDRE (Setup_fdre_C_D)        0.032    14.987    weight_sram_instance/read_data_reg[18]
+  -------------------------------------------------------------------
+                         required time                         14.987    
+                         arrival time                         -19.167    
+  -------------------------------------------------------------------
+                         slack                                 -4.180    
+
+Slack (VIOLATED) :        -4.175ns  (required time - arrival time)
+  Source:                 systolic_controller_instance/cycle_count_reg[4]/C
+                            (rising edge-triggered cell FDCE clocked by s_axi_aclk  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Destination:            weight_sram_instance/read_data_reg[21]/D
+                            (rising edge-triggered cell FDRE clocked by s_axi_aclk  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Path Group:             s_axi_aclk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            10.000ns  (s_axi_aclk rise@10.000ns - s_axi_aclk rise@0.000ns)
+  Data Path Delay:        14.128ns  (logic 5.318ns (37.643%)  route 8.810ns (62.357%))
+  Logic Levels:           15  (CARRY4=3 DSP48E1=1 LUT6=7 MUXF7=3 MUXF8=1)
+  Clock Path Skew:        -0.044ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    4.541ns = ( 14.541 - 10.000 ) 
+    Source Clock Delay      (SCD):    5.043ns
+    Clock Pessimism Removal (CPR):    0.458ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock s_axi_aclk rise edge)
+                                                      0.000     0.000 r  
+    U7                                                0.000     0.000 r  s_axi_aclk (IN)
+                         net (fo=0)                   0.000     0.000    s_axi_aclk
+    U7                   IBUF (Prop_ibuf_I_O)         1.058     1.058 r  s_axi_aclk_IBUF_inst/O
+                         net (fo=1, routed)           2.171     3.229    s_axi_aclk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.101     3.330 r  s_axi_aclk_IBUF_BUFG_inst/O
+                         net (fo=1546, routed)        1.713     5.043    systolic_controller_instance/s_axi_aclk_IBUF_BUFG
+    SLICE_X54Y19         FDCE                                         r  systolic_controller_instance/cycle_count_reg[4]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X54Y19         FDCE (Prop_fdce_C_Q)         0.518     5.561 r  systolic_controller_instance/cycle_count_reg[4]/Q
+                         net (fo=46, routed)          0.975     6.536    systolic_controller_instance/cycle_count_reg_n_0_[4]
+    SLICE_X54Y19         LUT6 (Prop_lut6_I2_O)        0.124     6.660 r  systolic_controller_instance/consumed_feature_count_2[10]_i_4/O
+                         net (fo=24, routed)          0.223     6.883    systolic_controller_instance/consumed_feature_count_2[10]_i_4_n_0
+    SLICE_X54Y19         LUT6 (Prop_lut6_I3_O)        0.124     7.007 r  systolic_controller_instance/read_valid[2]_i_14/O
+                         net (fo=1, routed)           0.560     7.567    systolic_controller_instance/read_valid[2]_i_14_n_0
+    SLICE_X53Y18         CARRY4 (Prop_carry4_DI[0]_CO[3])
+                                                      0.526     8.093 r  systolic_controller_instance/read_valid_reg[2]_i_8/CO[3]
+                         net (fo=1, routed)           0.000     8.093    systolic_controller_instance/read_valid_reg[2]_i_8_n_0
+    SLICE_X53Y19         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.207 r  systolic_controller_instance/read_valid_reg[2]_i_3/CO[3]
+                         net (fo=1, routed)           0.000     8.207    systolic_controller_instance/read_valid_reg[2]_i_3_n_0
+    SLICE_X53Y20         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.321 r  systolic_controller_instance/read_valid_reg[2]_i_2/CO[3]
+                         net (fo=12, routed)          1.209     9.530    systolic_controller_instance/operand_read_address21_in
+    SLICE_X44Y17         LUT6 (Prop_lut6_I4_O)        0.124     9.654 r  systolic_controller_instance/read_data1__1_i_7_comp/O
+                         net (fo=7, routed)           0.975    10.629    weight_sram_instance/operand_read_address[28]
+    DSP48_X2Y2           DSP48E1 (Prop_dsp48e1_C[8]_P[0])
+                                                      1.820    12.449 r  weight_sram_instance/read_data1__1/P[0]
+                         net (fo=2401, routed)        2.881    15.330    weight_sram_instance/read_data1__1_n_105
+    SLICE_X80Y4          LUT6 (Prop_lut6_I0_O)        0.124    15.454 r  weight_sram_instance/g2_b5__4/O
+                         net (fo=1, routed)           0.000    15.454    weight_sram_instance/g2_b5__4_n_0
+    SLICE_X80Y4          MUXF7 (Prop_muxf7_I0_O)      0.238    15.692 r  weight_sram_instance/read_data_reg[21]_i_191/O
+                         net (fo=1, routed)           0.759    16.451    weight_sram_instance/read_data_reg[21]_i_191_n_0
+    SLICE_X70Y4          LUT6 (Prop_lut6_I2_O)        0.298    16.749 r  weight_sram_instance/read_data[21]_i_124/O
+                         net (fo=1, routed)           0.000    16.749    weight_sram_instance/read_data[21]_i_124_n_0
+    SLICE_X70Y4          MUXF7 (Prop_muxf7_I0_O)      0.238    16.987 r  weight_sram_instance/read_data_reg[21]_i_55/O
+                         net (fo=1, routed)           0.817    17.804    weight_sram_instance/read_data_reg[21]_i_55_n_0
+    SLICE_X70Y6          LUT6 (Prop_lut6_I5_O)        0.298    18.102 r  weight_sram_instance/read_data[21]_i_20/O
+                         net (fo=1, routed)           0.000    18.102    weight_sram_instance/read_data[21]_i_20_n_0
+    SLICE_X70Y6          MUXF7 (Prop_muxf7_I0_O)      0.238    18.340 r  weight_sram_instance/read_data_reg[21]_i_7/O
+                         net (fo=1, routed)           0.000    18.340    weight_sram_instance/read_data_reg[21]_i_7_n_0
+    SLICE_X70Y6          MUXF8 (Prop_muxf8_I0_O)      0.104    18.444 r  weight_sram_instance/read_data_reg[21]_i_3/O
+                         net (fo=1, routed)           0.411    18.855    weight_sram_instance/read_data_reg[21]_i_3_n_0
+    SLICE_X71Y7          LUT6 (Prop_lut6_I4_O)        0.316    19.171 r  weight_sram_instance/read_data[21]_i_1/O
+                         net (fo=1, routed)           0.000    19.171    weight_sram_instance/p_14_out[21]
+    SLICE_X71Y7          FDRE                                         r  weight_sram_instance/read_data_reg[21]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock s_axi_aclk rise edge)
+                                                     10.000    10.000 r  
+    U7                                                0.000    10.000 r  s_axi_aclk (IN)
+                         net (fo=0)                   0.000    10.000    s_axi_aclk
+    U7                   IBUF (Prop_ibuf_I_O)         0.924    10.924 r  s_axi_aclk_IBUF_inst/O
+                         net (fo=1, routed)           1.972    12.896    s_axi_aclk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.091    12.987 r  s_axi_aclk_IBUF_BUFG_inst/O
+                         net (fo=1546, routed)        1.554    14.541    weight_sram_instance/s_axi_aclk_IBUF_BUFG
+    SLICE_X71Y7          FDRE                                         r  weight_sram_instance/read_data_reg[21]/C
+                         clock pessimism              0.458    14.999    
+                         clock uncertainty           -0.035    14.964    
+    SLICE_X71Y7          FDRE (Setup_fdre_C_D)        0.032    14.996    weight_sram_instance/read_data_reg[21]
+  -------------------------------------------------------------------
+                         required time                         14.996    
+                         arrival time                         -19.171    
+  -------------------------------------------------------------------
+                         slack                                 -4.175    
+
+Slack (VIOLATED) :        -4.171ns  (required time - arrival time)
+  Source:                 systolic_controller_instance/cycle_count_reg[4]/C
+                            (rising edge-triggered cell FDCE clocked by s_axi_aclk  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Destination:            weight_sram_instance/read_data_reg[20]/D
+                            (rising edge-triggered cell FDRE clocked by s_axi_aclk  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Path Group:             s_axi_aclk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            10.000ns  (s_axi_aclk rise@10.000ns - s_axi_aclk rise@0.000ns)
+  Data Path Delay:        14.171ns  (logic 5.301ns (37.407%)  route 8.870ns (62.593%))
+  Logic Levels:           15  (CARRY4=3 DSP48E1=1 LUT6=7 MUXF7=3 MUXF8=1)
+  Clock Path Skew:        -0.044ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    4.541ns = ( 14.541 - 10.000 ) 
+    Source Clock Delay      (SCD):    5.043ns
+    Clock Pessimism Removal (CPR):    0.458ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock s_axi_aclk rise edge)
+                                                      0.000     0.000 r  
+    U7                                                0.000     0.000 r  s_axi_aclk (IN)
+                         net (fo=0)                   0.000     0.000    s_axi_aclk
+    U7                   IBUF (Prop_ibuf_I_O)         1.058     1.058 r  s_axi_aclk_IBUF_inst/O
+                         net (fo=1, routed)           2.171     3.229    s_axi_aclk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.101     3.330 r  s_axi_aclk_IBUF_BUFG_inst/O
+                         net (fo=1546, routed)        1.713     5.043    systolic_controller_instance/s_axi_aclk_IBUF_BUFG
+    SLICE_X54Y19         FDCE                                         r  systolic_controller_instance/cycle_count_reg[4]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X54Y19         FDCE (Prop_fdce_C_Q)         0.518     5.561 r  systolic_controller_instance/cycle_count_reg[4]/Q
+                         net (fo=46, routed)          0.975     6.536    systolic_controller_instance/cycle_count_reg_n_0_[4]
+    SLICE_X54Y19         LUT6 (Prop_lut6_I2_O)        0.124     6.660 r  systolic_controller_instance/consumed_feature_count_2[10]_i_4/O
+                         net (fo=24, routed)          0.223     6.883    systolic_controller_instance/consumed_feature_count_2[10]_i_4_n_0
+    SLICE_X54Y19         LUT6 (Prop_lut6_I3_O)        0.124     7.007 r  systolic_controller_instance/read_valid[2]_i_14/O
+                         net (fo=1, routed)           0.560     7.567    systolic_controller_instance/read_valid[2]_i_14_n_0
+    SLICE_X53Y18         CARRY4 (Prop_carry4_DI[0]_CO[3])
+                                                      0.526     8.093 r  systolic_controller_instance/read_valid_reg[2]_i_8/CO[3]
+                         net (fo=1, routed)           0.000     8.093    systolic_controller_instance/read_valid_reg[2]_i_8_n_0
+    SLICE_X53Y19         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.207 r  systolic_controller_instance/read_valid_reg[2]_i_3/CO[3]
+                         net (fo=1, routed)           0.000     8.207    systolic_controller_instance/read_valid_reg[2]_i_3_n_0
+    SLICE_X53Y20         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.321 r  systolic_controller_instance/read_valid_reg[2]_i_2/CO[3]
+                         net (fo=12, routed)          1.209     9.530    systolic_controller_instance/operand_read_address21_in
+    SLICE_X44Y17         LUT6 (Prop_lut6_I4_O)        0.124     9.654 r  systolic_controller_instance/read_data1__1_i_7_comp/O
+                         net (fo=7, routed)           0.975    10.629    weight_sram_instance/operand_read_address[28]
+    DSP48_X2Y2           DSP48E1 (Prop_dsp48e1_C[8]_P[0])
+                                                      1.820    12.449 r  weight_sram_instance/read_data1__1/P[0]
+                         net (fo=2401, routed)        2.909    15.358    weight_sram_instance/read_data1__1_n_105
+    SLICE_X82Y1          LUT6 (Prop_lut6_I0_O)        0.124    15.482 r  weight_sram_instance/g62_b4__1/O
+                         net (fo=1, routed)           0.000    15.482    weight_sram_instance/g62_b4__1_n_0
+    SLICE_X82Y1          MUXF7 (Prop_muxf7_I0_O)      0.241    15.723 r  weight_sram_instance/read_data_reg[20]_i_163/O
+                         net (fo=1, routed)           0.646    16.369    weight_sram_instance/read_data_reg[20]_i_163_n_0
+    SLICE_X81Y1          LUT6 (Prop_lut6_I0_O)        0.298    16.667 r  weight_sram_instance/read_data[20]_i_106/O
+                         net (fo=1, routed)           0.000    16.667    weight_sram_instance/read_data[20]_i_106_n_0
+    SLICE_X81Y1          MUXF7 (Prop_muxf7_I1_O)      0.217    16.884 r  weight_sram_instance/read_data_reg[20]_i_46/O
+                         net (fo=1, routed)           0.920    17.804    weight_sram_instance/read_data_reg[20]_i_46_n_0
+    SLICE_X70Y3          LUT6 (Prop_lut6_I0_O)        0.299    18.103 r  weight_sram_instance/read_data[20]_i_19/O
+                         net (fo=1, routed)           0.000    18.103    weight_sram_instance/read_data[20]_i_19_n_0
+    SLICE_X70Y3          MUXF7 (Prop_muxf7_I0_O)      0.238    18.341 r  weight_sram_instance/read_data_reg[20]_i_7/O
+                         net (fo=1, routed)           0.000    18.341    weight_sram_instance/read_data_reg[20]_i_7_n_0
+    SLICE_X70Y3          MUXF8 (Prop_muxf8_I0_O)      0.104    18.445 r  weight_sram_instance/read_data_reg[20]_i_3/O
+                         net (fo=1, routed)           0.454    18.898    weight_sram_instance/read_data_reg[20]_i_3_n_0
+    SLICE_X66Y3          LUT6 (Prop_lut6_I4_O)        0.316    19.214 r  weight_sram_instance/read_data[20]_i_1/O
+                         net (fo=1, routed)           0.000    19.214    weight_sram_instance/p_14_out[20]
+    SLICE_X66Y3          FDRE                                         r  weight_sram_instance/read_data_reg[20]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock s_axi_aclk rise edge)
+                                                     10.000    10.000 r  
+    U7                                                0.000    10.000 r  s_axi_aclk (IN)
+                         net (fo=0)                   0.000    10.000    s_axi_aclk
+    U7                   IBUF (Prop_ibuf_I_O)         0.924    10.924 r  s_axi_aclk_IBUF_inst/O
+                         net (fo=1, routed)           1.972    12.896    s_axi_aclk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.091    12.987 r  s_axi_aclk_IBUF_BUFG_inst/O
+                         net (fo=1546, routed)        1.554    14.541    weight_sram_instance/s_axi_aclk_IBUF_BUFG
+    SLICE_X66Y3          FDRE                                         r  weight_sram_instance/read_data_reg[20]/C
+                         clock pessimism              0.458    14.999    
+                         clock uncertainty           -0.035    14.964    
+    SLICE_X66Y3          FDRE (Setup_fdre_C_D)        0.079    15.043    weight_sram_instance/read_data_reg[20]
+  -------------------------------------------------------------------
+                         required time                         15.043    
+                         arrival time                         -19.214    
+  -------------------------------------------------------------------
+                         slack                                 -4.171    
+
+Slack (VIOLATED) :        -4.169ns  (required time - arrival time)
+  Source:                 dnn_scheduler_instance/layer_index_reg[0]_replica/C
+                            (rising edge-triggered cell FDSE clocked by s_axi_aclk  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Destination:            weight_sram_instance/read_data_reg[25]/D
+                            (rising edge-triggered cell FDRE clocked by s_axi_aclk  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Path Group:             s_axi_aclk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            10.000ns  (s_axi_aclk rise@10.000ns - s_axi_aclk rise@0.000ns)
+  Data Path Delay:        14.111ns  (logic 5.074ns (35.957%)  route 9.037ns (64.043%))
+  Logic Levels:           14  (CARRY4=3 DSP48E1=1 LUT2=1 LUT5=1 LUT6=5 MUXF7=3)
+  Clock Path Skew:        -0.054ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    4.555ns = ( 14.555 - 10.000 ) 
+    Source Clock Delay      (SCD):    4.966ns
+    Clock Pessimism Removal (CPR):    0.357ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock s_axi_aclk rise edge)
+                                                      0.000     0.000 r  
+    U7                                                0.000     0.000 r  s_axi_aclk (IN)
+                         net (fo=0)                   0.000     0.000    s_axi_aclk
+    U7                   IBUF (Prop_ibuf_I_O)         1.058     1.058 r  s_axi_aclk_IBUF_inst/O
+                         net (fo=1, routed)           2.171     3.229    s_axi_aclk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.101     3.330 r  s_axi_aclk_IBUF_BUFG_inst/O
+                         net (fo=1546, routed)        1.636     4.966    dnn_scheduler_instance/s_axi_aclk_IBUF_BUFG
+    SLICE_X52Y22         FDSE                                         r  dnn_scheduler_instance/layer_index_reg[0]_replica/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X52Y22         FDSE (Prop_fdse_C_Q)         0.456     5.422 r  dnn_scheduler_instance/layer_index_reg[0]_replica/Q
+                         net (fo=6, routed)           0.763     6.185    dnn_scheduler_instance/layer_index[0]_repN
+    SLICE_X50Y18         LUT2 (Prop_lut2_I0_O)        0.124     6.309 r  dnn_scheduler_instance/target_cycle_count[4]_i_1/O
+                         net (fo=35, routed)          0.624     6.933    systolic_controller_instance/D[2]
+    SLICE_X44Y19         LUT6 (Prop_lut6_I1_O)        0.124     7.057 r  systolic_controller_instance/read_valid[3]_i_14/O
+                         net (fo=1, routed)           0.333     7.391    systolic_controller_instance/read_valid[3]_i_14_n_0
+    SLICE_X45Y17         CARRY4 (Prop_carry4_DI[0]_CO[3])
+                                                      0.526     7.917 r  systolic_controller_instance/read_valid_reg[3]_i_8/CO[3]
+                         net (fo=1, routed)           0.000     7.917    systolic_controller_instance/read_valid_reg[3]_i_8_n_0
+    SLICE_X45Y18         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.031 r  systolic_controller_instance/read_valid_reg[3]_i_3/CO[3]
+                         net (fo=1, routed)           0.000     8.031    systolic_controller_instance/read_valid_reg[3]_i_3_n_0
+    SLICE_X45Y19         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.145 r  systolic_controller_instance/read_valid_reg[3]_i_2/CO[3]
+                         net (fo=12, routed)          1.245     9.390    systolic_controller_instance/operand_read_address24_in
+    SLICE_X44Y19         LUT5 (Prop_lut5_I2_O)        0.124     9.514 r  systolic_controller_instance/read_data1__2_i_4_comp/O
+                         net (fo=7, routed)           1.303    10.816    weight_sram_instance/operand_read_address[39]
+    DSP48_X1Y6           DSP48E1 (Prop_dsp48e1_C[9]_P[2])
+                                                      1.820    12.636 r  weight_sram_instance/read_data1__2/P[2]
+                         net (fo=2410, routed)        2.080    14.717    weight_sram_instance/read_data1__2_n_103
+    SLICE_X24Y7          LUT6 (Prop_lut6_I2_O)        0.124    14.841 r  weight_sram_instance/g253_b1__2/O
+                         net (fo=1, routed)           0.000    14.841    weight_sram_instance/g253_b1__2_n_0
+    SLICE_X24Y7          MUXF7 (Prop_muxf7_I1_O)      0.217    15.058 r  weight_sram_instance/read_data_reg[25]_i_186/O
+                         net (fo=1, routed)           0.962    16.020    weight_sram_instance/read_data_reg[25]_i_186_n_0
+    SLICE_X25Y8          LUT6 (Prop_lut6_I1_O)        0.299    16.319 r  weight_sram_instance/read_data[25]_i_83/O
+                         net (fo=1, routed)           0.000    16.319    weight_sram_instance/read_data[25]_i_83_n_0
+    SLICE_X25Y8          MUXF7 (Prop_muxf7_I1_O)      0.217    16.536 r  weight_sram_instance/read_data_reg[25]_i_38/O
+                         net (fo=1, routed)           0.941    17.477    weight_sram_instance/read_data_reg[25]_i_38_n_0
+    SLICE_X25Y7          LUT6 (Prop_lut6_I0_O)        0.299    17.776 r  weight_sram_instance/read_data[25]_i_16/O
+                         net (fo=1, routed)           0.000    17.776    weight_sram_instance/read_data[25]_i_16_n_0
+    SLICE_X25Y7          MUXF7 (Prop_muxf7_I1_O)      0.217    17.993 r  weight_sram_instance/read_data_reg[25]_i_6/O
+                         net (fo=1, routed)           0.786    18.779    weight_sram_instance/read_data_reg[25]_i_6_n_0
+    SLICE_X25Y8          LUT6 (Prop_lut6_I2_O)        0.299    19.078 r  weight_sram_instance/read_data[25]_i_1_comp_1/O
+                         net (fo=1, routed)           0.000    19.078    weight_sram_instance/p_14_out[25]
+    SLICE_X25Y8          FDRE                                         r  weight_sram_instance/read_data_reg[25]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock s_axi_aclk rise edge)
+                                                     10.000    10.000 r  
+    U7                                                0.000    10.000 r  s_axi_aclk (IN)
+                         net (fo=0)                   0.000    10.000    s_axi_aclk
+    U7                   IBUF (Prop_ibuf_I_O)         0.924    10.924 r  s_axi_aclk_IBUF_inst/O
+                         net (fo=1, routed)           1.972    12.896    s_axi_aclk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.091    12.987 r  s_axi_aclk_IBUF_BUFG_inst/O
+                         net (fo=1546, routed)        1.568    14.555    weight_sram_instance/s_axi_aclk_IBUF_BUFG
+    SLICE_X25Y8          FDRE                                         r  weight_sram_instance/read_data_reg[25]/C
+                         clock pessimism              0.357    14.913    
+                         clock uncertainty           -0.035    14.878    
+    SLICE_X25Y8          FDRE (Setup_fdre_C_D)        0.031    14.909    weight_sram_instance/read_data_reg[25]
+  -------------------------------------------------------------------
+                         required time                         14.909    
+                         arrival time                         -19.078    
+  -------------------------------------------------------------------
+                         slack                                 -4.169    
+
+Slack (VIOLATED) :        -4.164ns  (required time - arrival time)
+  Source:                 systolic_controller_instance/cycle_count_reg[4]/C
+                            (rising edge-triggered cell FDCE clocked by s_axi_aclk  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Destination:            weight_sram_instance/read_data_reg[16]/D
+                            (rising edge-triggered cell FDRE clocked by s_axi_aclk  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Path Group:             s_axi_aclk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            10.000ns  (s_axi_aclk rise@10.000ns - s_axi_aclk rise@0.000ns)
+  Data Path Delay:        14.037ns  (logic 5.071ns (36.126%)  route 8.966ns (63.874%))
+  Logic Levels:           15  (CARRY4=3 DSP48E1=1 LUT5=1 LUT6=6 MUXF7=2 MUXF8=2)
+  Clock Path Skew:        -0.210ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    4.476ns = ( 14.476 - 10.000 ) 
+    Source Clock Delay      (SCD):    5.043ns
+    Clock Pessimism Removal (CPR):    0.357ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock s_axi_aclk rise edge)
+                                                      0.000     0.000 r  
+    U7                                                0.000     0.000 r  s_axi_aclk (IN)
+                         net (fo=0)                   0.000     0.000    s_axi_aclk
+    U7                   IBUF (Prop_ibuf_I_O)         1.058     1.058 r  s_axi_aclk_IBUF_inst/O
+                         net (fo=1, routed)           2.171     3.229    s_axi_aclk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.101     3.330 r  s_axi_aclk_IBUF_BUFG_inst/O
+                         net (fo=1546, routed)        1.713     5.043    systolic_controller_instance/s_axi_aclk_IBUF_BUFG
+    SLICE_X54Y19         FDCE                                         r  systolic_controller_instance/cycle_count_reg[4]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X54Y19         FDCE (Prop_fdce_C_Q)         0.518     5.561 r  systolic_controller_instance/cycle_count_reg[4]/Q
+                         net (fo=46, routed)          0.975     6.536    systolic_controller_instance/cycle_count_reg_n_0_[4]
+    SLICE_X54Y19         LUT6 (Prop_lut6_I2_O)        0.124     6.660 r  systolic_controller_instance/consumed_feature_count_2[10]_i_4/O
+                         net (fo=24, routed)          0.223     6.883    systolic_controller_instance/consumed_feature_count_2[10]_i_4_n_0
+    SLICE_X54Y19         LUT6 (Prop_lut6_I3_O)        0.124     7.007 r  systolic_controller_instance/read_valid[2]_i_14/O
+                         net (fo=1, routed)           0.560     7.567    systolic_controller_instance/read_valid[2]_i_14_n_0
+    SLICE_X53Y18         CARRY4 (Prop_carry4_DI[0]_CO[3])
+                                                      0.526     8.093 r  systolic_controller_instance/read_valid_reg[2]_i_8/CO[3]
+                         net (fo=1, routed)           0.000     8.093    systolic_controller_instance/read_valid_reg[2]_i_8_n_0
+    SLICE_X53Y19         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.207 r  systolic_controller_instance/read_valid_reg[2]_i_3/CO[3]
+                         net (fo=1, routed)           0.000     8.207    systolic_controller_instance/read_valid_reg[2]_i_3_n_0
+    SLICE_X53Y20         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.321 r  systolic_controller_instance/read_valid_reg[2]_i_2/CO[3]
+                         net (fo=12, routed)          1.209     9.530    systolic_controller_instance/operand_read_address21_in
+    SLICE_X44Y17         LUT6 (Prop_lut6_I4_O)        0.124     9.654 r  systolic_controller_instance/read_data1__1_i_7_comp/O
+                         net (fo=7, routed)           0.975    10.629    weight_sram_instance/operand_read_address[28]
+    DSP48_X2Y2           DSP48E1 (Prop_dsp48e1_C[8]_P[0])
+                                                      1.820    12.449 r  weight_sram_instance/read_data1__1/P[0]
+                         net (fo=2401, routed)        2.462    14.911    weight_sram_instance/read_data1__1_n_105
+    SLICE_X56Y5          LUT6 (Prop_lut6_I0_O)        0.124    15.035 r  weight_sram_instance/g237_b0__1/O
+                         net (fo=1, routed)           0.000    15.035    weight_sram_instance/g237_b0__1_n_0
+    SLICE_X56Y5          MUXF7 (Prop_muxf7_I1_O)      0.245    15.280 r  weight_sram_instance/read_data_reg[16]_i_291/O
+                         net (fo=1, routed)           0.000    15.280    weight_sram_instance/read_data_reg[16]_i_291_n_0
+    SLICE_X56Y5          MUXF8 (Prop_muxf8_I0_O)      0.104    15.384 r  weight_sram_instance/read_data_reg[16]_i_169/O
+                         net (fo=1, routed)           0.674    16.057    weight_sram_instance/read_data_reg[16]_i_169_n_0
+    SLICE_X55Y4          LUT6 (Prop_lut6_I0_O)        0.316    16.373 r  weight_sram_instance/read_data[16]_i_73/O
+                         net (fo=1, routed)           0.000    16.373    weight_sram_instance/read_data[16]_i_73_n_0
+    SLICE_X55Y4          MUXF7 (Prop_muxf7_I1_O)      0.245    16.618 r  weight_sram_instance/read_data_reg[16]_i_36/O
+                         net (fo=1, routed)           0.000    16.618    weight_sram_instance/read_data_reg[16]_i_36_n_0
+    SLICE_X55Y4          MUXF8 (Prop_muxf8_I0_O)      0.104    16.722 r  weight_sram_instance/read_data_reg[16]_i_15/O
+                         net (fo=1, routed)           1.372    18.095    weight_sram_instance/read_data_reg[16]_i_15_n_0
+    SLICE_X47Y9          LUT6 (Prop_lut6_I4_O)        0.316    18.411 r  weight_sram_instance/read_data[16]_i_2_comp/O
+                         net (fo=1, routed)           0.517    18.928    weight_sram_instance/read_data[16]_i_2_n_0
+    SLICE_X46Y9          LUT5 (Prop_lut5_I0_O)        0.153    19.081 r  weight_sram_instance/read_data[16]_i_1/O
+                         net (fo=1, routed)           0.000    19.081    weight_sram_instance/p_14_out[16]
+    SLICE_X46Y9          FDRE                                         r  weight_sram_instance/read_data_reg[16]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock s_axi_aclk rise edge)
+                                                     10.000    10.000 r  
+    U7                                                0.000    10.000 r  s_axi_aclk (IN)
+                         net (fo=0)                   0.000    10.000    s_axi_aclk
+    U7                   IBUF (Prop_ibuf_I_O)         0.924    10.924 r  s_axi_aclk_IBUF_inst/O
+                         net (fo=1, routed)           1.972    12.896    s_axi_aclk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.091    12.987 r  s_axi_aclk_IBUF_BUFG_inst/O
+                         net (fo=1546, routed)        1.489    14.476    weight_sram_instance/s_axi_aclk_IBUF_BUFG
+    SLICE_X46Y9          FDRE                                         r  weight_sram_instance/read_data_reg[16]/C
+                         clock pessimism              0.357    14.834    
+                         clock uncertainty           -0.035    14.799    
+    SLICE_X46Y9          FDRE (Setup_fdre_C_D)        0.118    14.917    weight_sram_instance/read_data_reg[16]
+  -------------------------------------------------------------------
+                         required time                         14.917    
+                         arrival time                         -19.081    
+  -------------------------------------------------------------------
+                         slack                                 -4.164    
+
+Slack (VIOLATED) :        -4.160ns  (required time - arrival time)
+  Source:                 dnn_scheduler_instance/layer_index_reg[0]_replica/C
+                            (rising edge-triggered cell FDSE clocked by s_axi_aclk  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Destination:            weight_sram_instance/read_data_reg[24]/D
+                            (rising edge-triggered cell FDRE clocked by s_axi_aclk  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Path Group:             s_axi_aclk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            10.000ns  (s_axi_aclk rise@10.000ns - s_axi_aclk rise@0.000ns)
+  Data Path Delay:        14.091ns  (logic 4.935ns (35.023%)  route 9.156ns (64.977%))
+  Logic Levels:           15  (CARRY4=3 DSP48E1=1 LUT2=1 LUT5=1 LUT6=6 MUXF7=2 MUXF8=1)
+  Clock Path Skew:        -0.065ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    4.544ns = ( 14.544 - 10.000 ) 
+    Source Clock Delay      (SCD):    4.966ns
+    Clock Pessimism Removal (CPR):    0.357ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock s_axi_aclk rise edge)
+                                                      0.000     0.000 r  
+    U7                                                0.000     0.000 r  s_axi_aclk (IN)
+                         net (fo=0)                   0.000     0.000    s_axi_aclk
+    U7                   IBUF (Prop_ibuf_I_O)         1.058     1.058 r  s_axi_aclk_IBUF_inst/O
+                         net (fo=1, routed)           2.171     3.229    s_axi_aclk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.101     3.330 r  s_axi_aclk_IBUF_BUFG_inst/O
+                         net (fo=1546, routed)        1.636     4.966    dnn_scheduler_instance/s_axi_aclk_IBUF_BUFG
+    SLICE_X52Y22         FDSE                                         r  dnn_scheduler_instance/layer_index_reg[0]_replica/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X52Y22         FDSE (Prop_fdse_C_Q)         0.456     5.422 r  dnn_scheduler_instance/layer_index_reg[0]_replica/Q
+                         net (fo=6, routed)           0.763     6.185    dnn_scheduler_instance/layer_index[0]_repN
+    SLICE_X50Y18         LUT2 (Prop_lut2_I0_O)        0.124     6.309 r  dnn_scheduler_instance/target_cycle_count[4]_i_1/O
+                         net (fo=35, routed)          0.624     6.933    systolic_controller_instance/D[2]
+    SLICE_X44Y19         LUT6 (Prop_lut6_I1_O)        0.124     7.057 r  systolic_controller_instance/read_valid[3]_i_14/O
+                         net (fo=1, routed)           0.333     7.391    systolic_controller_instance/read_valid[3]_i_14_n_0
+    SLICE_X45Y17         CARRY4 (Prop_carry4_DI[0]_CO[3])
+                                                      0.526     7.917 r  systolic_controller_instance/read_valid_reg[3]_i_8/CO[3]
+                         net (fo=1, routed)           0.000     7.917    systolic_controller_instance/read_valid_reg[3]_i_8_n_0
+    SLICE_X45Y18         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.031 r  systolic_controller_instance/read_valid_reg[3]_i_3/CO[3]
+                         net (fo=1, routed)           0.000     8.031    systolic_controller_instance/read_valid_reg[3]_i_3_n_0
+    SLICE_X45Y19         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.145 r  systolic_controller_instance/read_valid_reg[3]_i_2/CO[3]
+                         net (fo=12, routed)          1.245     9.390    systolic_controller_instance/operand_read_address24_in
+    SLICE_X44Y19         LUT5 (Prop_lut5_I2_O)        0.124     9.514 r  systolic_controller_instance/read_data1__2_i_4_comp/O
+                         net (fo=7, routed)           1.303    10.816    weight_sram_instance/operand_read_address[39]
+    DSP48_X1Y6           DSP48E1 (Prop_dsp48e1_C[9]_P[1])
+                                                      1.820    12.636 r  weight_sram_instance/read_data1__2/P[1]
+                         net (fo=2400, routed)        1.948    14.585    weight_sram_instance/read_data1__2_n_104
+    SLICE_X12Y16         LUT6 (Prop_lut6_I1_O)        0.124    14.709 r  weight_sram_instance/g214_b0__2/O
+                         net (fo=1, routed)           0.000    14.709    weight_sram_instance/g214_b0__2_n_0
+    SLICE_X12Y16         MUXF7 (Prop_muxf7_I0_O)      0.241    14.950 r  weight_sram_instance/read_data_reg[24]_i_183/O
+                         net (fo=1, routed)           0.788    15.737    weight_sram_instance/read_data_reg[24]_i_183_n_0
+    SLICE_X15Y18         LUT6 (Prop_lut6_I0_O)        0.298    16.035 r  weight_sram_instance/read_data[24]_i_78/O
+                         net (fo=1, routed)           0.000    16.035    weight_sram_instance/read_data[24]_i_78_n_0
+    SLICE_X15Y18         MUXF7 (Prop_muxf7_I0_O)      0.212    16.247 r  weight_sram_instance/read_data_reg[24]_i_39/O
+                         net (fo=1, routed)           0.000    16.247    weight_sram_instance/read_data_reg[24]_i_39_n_0
+    SLICE_X15Y18         MUXF8 (Prop_muxf8_I1_O)      0.094    16.341 r  weight_sram_instance/read_data_reg[24]_i_16/O
+                         net (fo=1, routed)           1.255    17.596    weight_sram_instance/read_data_reg[24]_i_16_n_0
+    SLICE_X26Y20         LUT6 (Prop_lut6_I1_O)        0.316    17.912 r  weight_sram_instance/read_data[24]_i_6/O
+                         net (fo=1, routed)           0.414    18.326    weight_sram_instance/read_data[24]_i_6_n_0
+    SLICE_X24Y20         LUT6 (Prop_lut6_I5_O)        0.124    18.450 r  weight_sram_instance/read_data[24]_i_2_comp/O
+                         net (fo=1, routed)           0.483    18.933    weight_sram_instance/read_data[24]_i_2_n_0
+    SLICE_X29Y20         LUT6 (Prop_lut6_I4_O)        0.124    19.057 r  weight_sram_instance/read_data[24]_i_1_comp/O
+                         net (fo=1, routed)           0.000    19.057    weight_sram_instance/p_14_out[24]
+    SLICE_X29Y20         FDRE                                         r  weight_sram_instance/read_data_reg[24]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock s_axi_aclk rise edge)
+                                                     10.000    10.000 r  
+    U7                                                0.000    10.000 r  s_axi_aclk (IN)
+                         net (fo=0)                   0.000    10.000    s_axi_aclk
+    U7                   IBUF (Prop_ibuf_I_O)         0.924    10.924 r  s_axi_aclk_IBUF_inst/O
+                         net (fo=1, routed)           1.972    12.896    s_axi_aclk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.091    12.987 r  s_axi_aclk_IBUF_BUFG_inst/O
+                         net (fo=1546, routed)        1.557    14.544    weight_sram_instance/s_axi_aclk_IBUF_BUFG
+    SLICE_X29Y20         FDRE                                         r  weight_sram_instance/read_data_reg[24]/C
+                         clock pessimism              0.357    14.902    
+                         clock uncertainty           -0.035    14.867    
+    SLICE_X29Y20         FDRE (Setup_fdre_C_D)        0.031    14.898    weight_sram_instance/read_data_reg[24]
+  -------------------------------------------------------------------
+                         required time                         14.898    
+                         arrival time                         -19.057    
+  -------------------------------------------------------------------
+                         slack                                 -4.160    
+
+
+
+

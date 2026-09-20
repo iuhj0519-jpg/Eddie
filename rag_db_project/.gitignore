@@ -1,4 +1,5 @@
 # FPGA simulation output
+.automation_debug/
 **/work/
 **/transcript
 **/modelsim.ini
@@ -11,6 +12,12 @@
 **/.Xil/
 **/*.jou
 **/*.log
+# Preserve deliberately archived run evidence, not temporary tool work directories.
+!artifacts/automation_system_tests/**/*.log
+!artifacts/verification/**/*.log
+!artifacts/synthesis/**/*.log
+!artifacts/implementation/**/*.log
+!artifacts/power/**/*.log
 **/db/
 **/incremental_db/
 **/output_files/

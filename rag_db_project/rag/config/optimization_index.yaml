@@ -1,0 +1,63 @@
+schema_version: "1.0"
+index_id: optimization_generation_v1
+source_manifest: manifests/source_manifest.yaml
+access_policy: manifests/phase_access_policy.yaml
+checksum_inventory: manifests/checksums/source_files.sha256
+phase: optimization_generation
+source_git_tag: rag-optimization-input-v1.0
+
+chunking:
+  markdown_max_chars: 6000
+  rtl_max_lines: 100
+  rtl_context_lines: 40
+
+dense_index:
+  algorithm: deterministic_feature_hash_v1
+  dimension: 384
+  features: [lowercase_tokens, identifier_subtokens, character_trigrams]
+
+sparse_index:
+  engine: sqlite_fts5
+  ranking: bm25
+
+hybrid_retrieval:
+  dense_weight: 0.55
+  sparse_weight: 0.45
+  default_top_k: 8
+
+smoke_test:
+  denied_prefixes:
+    - historical_baselines/
+    - workspace/optimized_accelerator/
+    - verification/
+    - experiments/
+    - artifacts/
+  cases:
+    - id: unified_buffer_capacity
+      query: REQ-OPT-002 Data Lifetime Unified Buffer capacity BRAM mapping
+      expected_path: inputs/specifications/03_architecture_optimization/
+      expected_token: REQ-OPT-002
+    - id: disadvantage_minimization
+      query: REQ-OPT-023 Unified Buffer port competition address MUX Fmax power candidate comparison
+      expected_path: inputs/specifications/03_architecture_optimization/
+      expected_token: REQ-OPT-023
+    - id: axi_latency_hiding
+      query: next Batch AXI prefetch compute overlap ready backpressure
+      expected_path: inputs/specifications/03_architecture_optimization/
+      expected_token: axis_in_data_ready
+    - id: verified_prototype_top
+      query: zyNet input_buffer global_buffer scheduler AXI stream prototype
+      expected_path: workspace/systolic_prototype/rtl/
+      expected_token: input_buffer
+    - id: controller_cycles
+      query: 797 43 33 controller target cycle layer
+      expected_path: inputs/specifications/02_systolic_accelerator/
+      expected_token: "797"
+    - id: fixed_point_saturation
+      query: Q15.11 Q5.5 saturation LUT overflow
+      expected_path: inputs/specifications/02_systolic_accelerator/
+      expected_token: Q5.5
+    - id: result_protocol
+      query: AXI-Lite 0x08 five class results one cycle intr
+      expected_path: inputs/specifications/
+      expected_token: 0x08

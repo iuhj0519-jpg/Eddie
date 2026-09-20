@@ -1,0 +1,7 @@
+{
+  "status": "PASS",
+  "exit_code": 0,
+  "kind": "automation_fixtures_not_production_rtl",
+  "production_spec_approval": false,
+  "production_debugging_run_003": "not_created"
+}

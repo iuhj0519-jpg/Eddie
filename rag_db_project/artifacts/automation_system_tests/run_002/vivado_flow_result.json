@@ -1,0 +1,25 @@
+{
+  "fixture_only": true,
+  "stages": [
+    {
+      "stage": "compile",
+      "exit_code": 0
+    },
+    {
+      "stage": "simulation",
+      "exit_code": 0
+    },
+    {
+      "stage": "synthesis",
+      "exit_code": 0
+    },
+    {
+      "stage": "implementation",
+      "exit_code": 0
+    },
+    {
+      "stage": "power",
+      "exit_code": 0
+    }
+  ]
+}

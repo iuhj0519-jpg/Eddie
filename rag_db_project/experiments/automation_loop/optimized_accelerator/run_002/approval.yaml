@@ -1,0 +1,21 @@
+schema_version: '1.0'
+target: optimized_accelerator
+run_id: run_002
+overall_state: pending_human_approval
+items:
+  PPA-DSP-001:
+    decision: pending
+    rtl_change_allowed: false
+    approved_spec_requirement: null
+  PPA-WEIGHT-001:
+    decision: pending
+    rtl_change_allowed: false
+    approved_spec_requirement: null
+  PPA-TIMING-001:
+    decision: pending
+    rtl_change_allowed: false
+    approved_spec_requirement: null
+  PPA-POWER-001:
+    decision: pending
+    rtl_change_allowed: false
+    approved_spec_requirement: null

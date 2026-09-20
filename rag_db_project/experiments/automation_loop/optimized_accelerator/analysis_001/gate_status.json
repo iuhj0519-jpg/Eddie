@@ -1,0 +1,5 @@
+{
+  "status": "not_approved",
+  "message": "Run is not approved for patch generation.",
+  "migration_note": "Identifier/reference migration only. Previous hash binding is historical; re-analyze before approval."
+}

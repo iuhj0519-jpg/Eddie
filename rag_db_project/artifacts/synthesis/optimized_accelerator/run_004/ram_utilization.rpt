@@ -1,0 +1,175 @@
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+--------------------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2022.1 (win64) Build 3526262 Mon Apr 18 15:48:16 MDT 2022
+| Date         : Sat Sep 19 17:25:36 2026
+| Host         : BOOK-P2O9FRPHFQ running 64-bit major release  (build 9200)
+| Command      : report_ram_utilization -file C:/Users/iuhj0/Eddie/rag_db_project/artifacts/synthesis/optimized_accelerator/run_004/ram_utilization.rpt
+| Design       : zyNet
+| Device       : xc7z020clg400-1
+| Speed File   : -1
+--------------------------------------------------------------------------------------------------------------------------------------------------------
+
+RAM Usage Information
+
+Table of Contents
+-----------------
+1. Summary
+2. Memory Description
+3. Memory Utilization - Inferred
+4. Memory Performance - Inferred
+5. Block Ram / URAM Memory Power - Inferred
+
+1. Summary
+----------
+
++--------------------------+------------+-----------+-------+-----------+
+| Memory Type              | Total Used | Available | Util% | Inferred% |
++--------------------------+------------+-----------+-------+-----------+
+| URAM                     |          0 |         0 |  0.00 |      0.00 |
+| BlockRAM                 |       12.5 |       140 |  8.93 |    100.00 |
+|  RAMB36E1                |         10 |           |       |    100.00 |
+|  RAMB18E1                |          5 |           |       |    100.00 |
+| LUTMs as Distributed RAM |          0 |     17400 |  0.00 |      0.00 |
+| XRAM                     |          0 |         0 |  0.00 |      0.00 |
++--------------------------+------------+-----------+-------+-----------+
+*  Each RAMB18 is calculated as 0.5 BlockRAM
+**  Tables 2, 3, 4 and 5 cover RAMs inferred by Vivado Synthesis using XPMs or RTL inference
+***  XRAMs are not reported for detailed tables
+
+
+2. Memory Description
+---------------------
+
++----------------------------------------------------------+------------+-------------+------------------------+------------------------+
+| Memory Name                                              | Array Size | Memory Type | Port 1 Dimension / Map | Port 2 Dimension / Map |
++----------------------------------------------------------+------------+-------------+------------------------+------------------------+
+| weight_sram_instance/WEIGHT_BANK[2].read_register        |      65536 | RAM_SP      |                        | 8192x8                 |
+|  weight_sram_instance/WEIGHT_BANK[2].read_register_reg_0 |      32768 |             |                        |  A:A:8192x4            |
+|  weight_sram_instance/WEIGHT_BANK[2].read_register_reg_1 |      32768 |             |                        |  A:A:8192x4            |
+| weight_sram_instance/WEIGHT_BANK[3].read_register        |      65536 | RAM_SP      |                        | 8192x8                 |
+|  weight_sram_instance/WEIGHT_BANK[3].read_register_reg_0 |      32768 |             |                        |  A:A:8192x4            |
+|  weight_sram_instance/WEIGHT_BANK[3].read_register_reg_1 |      32768 |             |                        |  A:A:8192x4            |
+| weight_sram_instance/WEIGHT_BANK[4].read_register        |      65536 | RAM_SP      |                        | 8192x8                 |
+|  weight_sram_instance/WEIGHT_BANK[4].read_register_reg_0 |      32768 |             |                        |  A:A:8192x4            |
+|  weight_sram_instance/WEIGHT_BANK[4].read_register_reg_1 |      32768 |             |                        |  A:A:8192x4            |
+| weight_sram_instance/WEIGHT_BANK[0].read_register        |      57344 | RAM_SP      |                        | 8192x7                 |
+|  weight_sram_instance/WEIGHT_BANK[0].read_register_reg_0 |      32768 |             |                        |  A:A:8192x4            |
+|  weight_sram_instance/WEIGHT_BANK[0].read_register_reg_1 |      24576 |             |                        |  A:A:8192x3            |
+| weight_sram_instance/WEIGHT_BANK[1].read_register        |      57344 | RAM_SP      |                        | 8192x7                 |
+|  weight_sram_instance/WEIGHT_BANK[1].read_register_reg_0 |      32768 |             |                        |  A:A:8192x4            |
+|  weight_sram_instance/WEIGHT_BANK[1].read_register_reg_1 |      24576 |             |                        |  A:A:8192x3            |
+| unified_buffer_instance/memory_bank_0                    |       6672 | RAM_SDP     | 1024x8                 | 1024x8                 |
+|  unified_buffer_instance/memory_bank_0_reg               |       8192 |             |  A:A:1024x8            |  B:B:1024x8            |
+| unified_buffer_instance/memory_bank_1                    |       6672 | RAM_SDP     | 1024x8                 | 1024x8                 |
+|  unified_buffer_instance/memory_bank_1_reg               |       8192 |             |  A:A:1024x8            |  B:B:1024x8            |
+| unified_buffer_instance/memory_bank_2                    |       6672 | RAM_SDP     | 1024x8                 | 1024x8                 |
+|  unified_buffer_instance/memory_bank_2_reg               |       8192 |             |  A:A:1024x8            |  B:B:1024x8            |
+| unified_buffer_instance/memory_bank_3                    |       6672 | RAM_SDP     | 1024x8                 | 1024x8                 |
+|  unified_buffer_instance/memory_bank_3_reg               |       8192 |             |  A:A:1024x8            |  B:B:1024x8            |
+| unified_buffer_instance/memory_bank_4                    |       6672 | RAM_SDP     | 1024x8                 | 1024x8                 |
+|  unified_buffer_instance/memory_bank_4_reg               |       8192 |             |  A:A:1024x8            |  B:B:1024x8            |
++----------------------------------------------------------+------------+-------------+------------------------+------------------------+
+
+
+3. Memory Utilization - Inferred
+--------------------------------
+
++----------------------------------------------------------+-----------+----------------+-----------+-----------+---------+---------------+---------------+---------+---------------+---------------+---------+---------------+---------------+---------+---------------+---------------+
+| Memory Name                                              | Primitive | Available Bits | Used Bits | Bit Util% | A Depth | A Depth Avail | A Depth Util% | A Width | A Width Avail | A Width Util% | B Depth | B Depth Avail | B Depth Util% | B Width | B Width Avail | B Width Util% |
++----------------------------------------------------------+-----------+----------------+-----------+-----------+---------+---------------+---------------+---------+---------------+---------------+---------+---------------+---------------+---------+---------------+---------------+
+| weight_sram_instance/WEIGHT_BANK[2].read_register        |           |                |           |           |         |               |               |         |               |               |         |               |               |         |               |               |
+|  weight_sram_instance/WEIGHT_BANK[2].read_register_reg_0 | RAMB36E1  |          36864 |     32768 |     88.89 |    8192 |          8192 |        100.00 |       4 |             4 |        100.00 |         |               |               |         |               |               |
+|  weight_sram_instance/WEIGHT_BANK[2].read_register_reg_1 | RAMB36E1  |          36864 |     32768 |     88.89 |    8192 |          8192 |        100.00 |       4 |             4 |        100.00 |         |               |               |         |               |               |
+| weight_sram_instance/WEIGHT_BANK[3].read_register        |           |                |           |           |         |               |               |         |               |               |         |               |               |         |               |               |
+|  weight_sram_instance/WEIGHT_BANK[3].read_register_reg_0 | RAMB36E1  |          36864 |     32768 |     88.89 |    8192 |          8192 |        100.00 |       4 |             4 |        100.00 |         |               |               |         |               |               |
+|  weight_sram_instance/WEIGHT_BANK[3].read_register_reg_1 | RAMB36E1  |          36864 |     32768 |     88.89 |    8192 |          8192 |        100.00 |       4 |             4 |        100.00 |         |               |               |         |               |               |
+| weight_sram_instance/WEIGHT_BANK[4].read_register        |           |                |           |           |         |               |               |         |               |               |         |               |               |         |               |               |
+|  weight_sram_instance/WEIGHT_BANK[4].read_register_reg_0 | RAMB36E1  |          36864 |     32768 |     88.89 |    8192 |          8192 |        100.00 |       4 |             4 |        100.00 |         |               |               |         |               |               |
+|  weight_sram_instance/WEIGHT_BANK[4].read_register_reg_1 | RAMB36E1  |          36864 |     32768 |     88.89 |    8192 |          8192 |        100.00 |       4 |             4 |        100.00 |         |               |               |         |               |               |
+| weight_sram_instance/WEIGHT_BANK[0].read_register        |           |                |           |           |         |               |               |         |               |               |         |               |               |         |               |               |
+|  weight_sram_instance/WEIGHT_BANK[0].read_register_reg_0 | RAMB36E1  |          36864 |     32768 |     88.89 |    8192 |          8192 |        100.00 |       4 |             4 |        100.00 |         |               |               |         |               |               |
+|  weight_sram_instance/WEIGHT_BANK[0].read_register_reg_1 | RAMB36E1  |          36864 |     24576 |     66.67 |    8192 |          8192 |        100.00 |       3 |             4 |         75.00 |         |               |               |         |               |               |
+| weight_sram_instance/WEIGHT_BANK[1].read_register        |           |                |           |           |         |               |               |         |               |               |         |               |               |         |               |               |
+|  weight_sram_instance/WEIGHT_BANK[1].read_register_reg_0 | RAMB36E1  |          36864 |     32768 |     88.89 |    8192 |          8192 |        100.00 |       4 |             4 |        100.00 |         |               |               |         |               |               |
+|  weight_sram_instance/WEIGHT_BANK[1].read_register_reg_1 | RAMB36E1  |          36864 |     24576 |     66.67 |    8192 |          8192 |        100.00 |       3 |             4 |         75.00 |         |               |               |         |               |               |
+| unified_buffer_instance/memory_bank_0                    |           |                |           |           |         |               |               |         |               |               |         |               |               |         |               |               |
+|  unified_buffer_instance/memory_bank_0_reg               | RAMB18E1  |          18432 |      8192 |     44.44 |    1024 |          1024 |        100.00 |       8 |            18 |         44.44 |    1024 |          1024 |        100.00 |       8 |            18 |         44.44 |
+| unified_buffer_instance/memory_bank_1                    |           |                |           |           |         |               |               |         |               |               |         |               |               |         |               |               |
+|  unified_buffer_instance/memory_bank_1_reg               | RAMB18E1  |          18432 |      8192 |     44.44 |    1024 |          1024 |        100.00 |       8 |            18 |         44.44 |    1024 |          1024 |        100.00 |       8 |            18 |         44.44 |
+| unified_buffer_instance/memory_bank_2                    |           |                |           |           |         |               |               |         |               |               |         |               |               |         |               |               |
+|  unified_buffer_instance/memory_bank_2_reg               | RAMB18E1  |          18432 |      8192 |     44.44 |    1024 |          1024 |        100.00 |       8 |            18 |         44.44 |    1024 |          1024 |        100.00 |       8 |            18 |         44.44 |
+| unified_buffer_instance/memory_bank_3                    |           |                |           |           |         |               |               |         |               |               |         |               |               |         |               |               |
+|  unified_buffer_instance/memory_bank_3_reg               | RAMB18E1  |          18432 |      8192 |     44.44 |    1024 |          1024 |        100.00 |       8 |            18 |         44.44 |    1024 |          1024 |        100.00 |       8 |            18 |         44.44 |
+| unified_buffer_instance/memory_bank_4                    |           |                |           |           |         |               |               |         |               |               |         |               |               |         |               |               |
+|  unified_buffer_instance/memory_bank_4_reg               | RAMB18E1  |          18432 |      8192 |     44.44 |    1024 |          1024 |        100.00 |       8 |            18 |         44.44 |    1024 |          1024 |        100.00 |       8 |            18 |         44.44 |
++----------------------------------------------------------+-----------+----------------+-----------+-----------+---------+---------------+---------------+---------+---------------+---------------+---------+---------------+---------------+---------+---------------+---------------+
+
+
+4. Memory Performance - Inferred
+--------------------------------
+
++----------------------------------------------------------+-----------+------------------------+------------------------+-------------+-------------------------+-------------+-------------------------+-----------+--------+--------+---------+-----------+--------+--------+---------+
+| Memory Name                                              | Primitive | Port 1 Dimension / Map | Port 2 Dimension / Map | Port A Type | Port A Requirement (ns) | Port B Type | Port B Requirement (ns) | A Cascade | IREG_A | OREG_A | DOA_REG | B Cascade | IREG_B | OREG_B | DOB_REG |
++----------------------------------------------------------+-----------+------------------------+------------------------+-------------+-------------------------+-------------+-------------------------+-----------+--------+--------+---------+-----------+--------+--------+---------+
+| weight_sram_instance/WEIGHT_BANK[2].read_register        |           |                        | 8192x8                 |             |                         |             |                         |           |        |        |         |           |        |        |         |
+|  weight_sram_instance/WEIGHT_BANK[2].read_register_reg_0 | RAMB36E1  |                        |  A:A:8192x4            |        Read |                    10.0 |             |                         |           |        |        |       0 |           |        |        |         |
+|  weight_sram_instance/WEIGHT_BANK[2].read_register_reg_1 | RAMB36E1  |                        |  A:A:8192x4            |        Read |                    10.0 |             |                         |           |        |        |       0 |           |        |        |         |
+| weight_sram_instance/WEIGHT_BANK[3].read_register        |           |                        | 8192x8                 |             |                         |             |                         |           |        |        |         |           |        |        |         |
+|  weight_sram_instance/WEIGHT_BANK[3].read_register_reg_0 | RAMB36E1  |                        |  A:A:8192x4            |        Read |                    10.0 |             |                         |           |        |        |       0 |           |        |        |         |
+|  weight_sram_instance/WEIGHT_BANK[3].read_register_reg_1 | RAMB36E1  |                        |  A:A:8192x4            |        Read |                    10.0 |             |                         |           |        |        |       0 |           |        |        |         |
+| weight_sram_instance/WEIGHT_BANK[4].read_register        |           |                        | 8192x8                 |             |                         |             |                         |           |        |        |         |           |        |        |         |
+|  weight_sram_instance/WEIGHT_BANK[4].read_register_reg_0 | RAMB36E1  |                        |  A:A:8192x4            |        Read |                    10.0 |             |                         |           |        |        |       0 |           |        |        |         |
+|  weight_sram_instance/WEIGHT_BANK[4].read_register_reg_1 | RAMB36E1  |                        |  A:A:8192x4            |        Read |                    10.0 |             |                         |           |        |        |       0 |           |        |        |         |
+| weight_sram_instance/WEIGHT_BANK[0].read_register        |           |                        | 8192x7                 |             |                         |             |                         |           |        |        |         |           |        |        |         |
+|  weight_sram_instance/WEIGHT_BANK[0].read_register_reg_0 | RAMB36E1  |                        |  A:A:8192x4            |        Read |                    10.0 |             |                         |           |        |        |       0 |           |        |        |         |
+|  weight_sram_instance/WEIGHT_BANK[0].read_register_reg_1 | RAMB36E1  |                        |  A:A:8192x3            |        Read |                    10.0 |             |                         |           |        |        |       0 |           |        |        |         |
+| weight_sram_instance/WEIGHT_BANK[1].read_register        |           |                        | 8192x7                 |             |                         |             |                         |           |        |        |         |           |        |        |         |
+|  weight_sram_instance/WEIGHT_BANK[1].read_register_reg_0 | RAMB36E1  |                        |  A:A:8192x4            |        Read |                    10.0 |             |                         |           |        |        |       0 |           |        |        |         |
+|  weight_sram_instance/WEIGHT_BANK[1].read_register_reg_1 | RAMB36E1  |                        |  A:A:8192x3            |        Read |                    10.0 |             |                         |           |        |        |       0 |           |        |        |         |
+| unified_buffer_instance/memory_bank_0                    |           | 1024x8                 | 1024x8                 |             |                         |             |                         |           |        |        |         |           |        |        |         |
+|  unified_buffer_instance/memory_bank_0_reg               | RAMB18E1  |  A:A:1024x8            |  B:B:1024x8            |       Write |                    10.0 |        Read |                    10.0 |           |        |        |       0 |           |        |        |       0 |
+| unified_buffer_instance/memory_bank_1                    |           | 1024x8                 | 1024x8                 |             |                         |             |                         |           |        |        |         |           |        |        |         |
+|  unified_buffer_instance/memory_bank_1_reg               | RAMB18E1  |  A:A:1024x8            |  B:B:1024x8            |       Write |                    10.0 |        Read |                    10.0 |           |        |        |       0 |           |        |        |       0 |
+| unified_buffer_instance/memory_bank_2                    |           | 1024x8                 | 1024x8                 |             |                         |             |                         |           |        |        |         |           |        |        |         |
+|  unified_buffer_instance/memory_bank_2_reg               | RAMB18E1  |  A:A:1024x8            |  B:B:1024x8            |       Write |                    10.0 |        Read |                    10.0 |           |        |        |       0 |           |        |        |       0 |
+| unified_buffer_instance/memory_bank_3                    |           | 1024x8                 | 1024x8                 |             |                         |             |                         |           |        |        |         |           |        |        |         |
+|  unified_buffer_instance/memory_bank_3_reg               | RAMB18E1  |  A:A:1024x8            |  B:B:1024x8            |       Write |                    10.0 |        Read |                    10.0 |           |        |        |       0 |           |        |        |       0 |
+| unified_buffer_instance/memory_bank_4                    |           | 1024x8                 | 1024x8                 |             |                         |             |                         |           |        |        |         |           |        |        |         |
+|  unified_buffer_instance/memory_bank_4_reg               | RAMB18E1  |  A:A:1024x8            |  B:B:1024x8            |       Write |                    10.0 |        Read |                    10.0 |           |        |        |       0 |           |        |        |       0 |
++----------------------------------------------------------+-----------+------------------------+------------------------+-------------+-------------------------+-------------+-------------------------+-----------+--------+--------+---------+-----------+--------+--------+---------+
+
+
+5. Block Ram / URAM Memory Power - Inferred
+-------------------------------------------
+
++----------------------------------------------------------+-----------+------------------------+------------------------+--------------------+---------------+-------------------+-----------+--------------------+---------------+-------------------+-----------+
+| Memory Name                                              | Primitive | Port 1 Dimension / Map | Port 2 Dimension / Map | Port A Power Gated | Port A Enable | Port A WRITE_MODE | A Cascade | Port B Power Gated | Port B Enable | Port B WRITE_MODE | B Cascade |
++----------------------------------------------------------+-----------+------------------------+------------------------+--------------------+---------------+-------------------+-----------+--------------------+---------------+-------------------+-----------+
+| weight_sram_instance/WEIGHT_BANK[2].read_register        |           | 8192x8                 |                        |                    |               |                   |           |                    |               |                   |           |
+|  weight_sram_instance/WEIGHT_BANK[2].read_register_reg_0 | RAMB36E1  |                        |  A:A:8192x4            |                    |        SIGNAL |       WRITE_FIRST |           |                    |               |                   |           |
+|  weight_sram_instance/WEIGHT_BANK[2].read_register_reg_1 | RAMB36E1  |                        |  A:A:8192x4            |                    |        SIGNAL |       WRITE_FIRST |           |                    |               |                   |           |
+| weight_sram_instance/WEIGHT_BANK[3].read_register        |           | 8192x8                 |                        |                    |               |                   |           |                    |               |                   |           |
+|  weight_sram_instance/WEIGHT_BANK[3].read_register_reg_0 | RAMB36E1  |                        |  A:A:8192x4            |                    |        SIGNAL |       WRITE_FIRST |           |                    |               |                   |           |
+|  weight_sram_instance/WEIGHT_BANK[3].read_register_reg_1 | RAMB36E1  |                        |  A:A:8192x4            |                    |        SIGNAL |       WRITE_FIRST |           |                    |               |                   |           |
+| weight_sram_instance/WEIGHT_BANK[4].read_register        |           | 8192x8                 |                        |                    |               |                   |           |                    |               |                   |           |
+|  weight_sram_instance/WEIGHT_BANK[4].read_register_reg_0 | RAMB36E1  |                        |  A:A:8192x4            |                    |        SIGNAL |       WRITE_FIRST |           |                    |               |                   |           |
+|  weight_sram_instance/WEIGHT_BANK[4].read_register_reg_1 | RAMB36E1  |                        |  A:A:8192x4            |                    |        SIGNAL |       WRITE_FIRST |           |                    |               |                   |           |
+| weight_sram_instance/WEIGHT_BANK[0].read_register        |           | 8192x7                 |                        |                    |               |                   |           |                    |               |                   |           |
+|  weight_sram_instance/WEIGHT_BANK[0].read_register_reg_0 | RAMB36E1  |                        |  A:A:8192x4            |                    |        SIGNAL |       WRITE_FIRST |           |                    |               |                   |           |
+|  weight_sram_instance/WEIGHT_BANK[0].read_register_reg_1 | RAMB36E1  |                        |  A:A:8192x3            |                    |        SIGNAL |       WRITE_FIRST |           |                    |               |                   |           |
+| weight_sram_instance/WEIGHT_BANK[1].read_register        |           | 8192x7                 |                        |                    |               |                   |           |                    |               |                   |           |
+|  weight_sram_instance/WEIGHT_BANK[1].read_register_reg_0 | RAMB36E1  |                        |  A:A:8192x4            |                    |        SIGNAL |       WRITE_FIRST |           |                    |               |                   |           |
+|  weight_sram_instance/WEIGHT_BANK[1].read_register_reg_1 | RAMB36E1  |                        |  A:A:8192x3            |                    |        SIGNAL |       WRITE_FIRST |           |                    |               |                   |           |
+| unified_buffer_instance/memory_bank_0                    |           | 1024x8                 | 1024x8                 |                    |               |                   |           |                    |               |                   |           |
+|  unified_buffer_instance/memory_bank_0_reg               | RAMB18E1  |  A:A:1024x8            |  B:B:1024x8            |                    |        SIGNAL |        READ_FIRST |           |                    |        SIGNAL |       WRITE_FIRST |           |
+| unified_buffer_instance/memory_bank_1                    |           | 1024x8                 | 1024x8                 |                    |               |                   |           |                    |               |                   |           |
+|  unified_buffer_instance/memory_bank_1_reg               | RAMB18E1  |  A:A:1024x8            |  B:B:1024x8            |                    |        SIGNAL |        READ_FIRST |           |                    |        SIGNAL |       WRITE_FIRST |           |
+| unified_buffer_instance/memory_bank_2                    |           | 1024x8                 | 1024x8                 |                    |               |                   |           |                    |               |                   |           |
+|  unified_buffer_instance/memory_bank_2_reg               | RAMB18E1  |  A:A:1024x8            |  B:B:1024x8            |                    |        SIGNAL |        READ_FIRST |           |                    |        SIGNAL |       WRITE_FIRST |           |
+| unified_buffer_instance/memory_bank_3                    |           | 1024x8                 | 1024x8                 |                    |               |                   |           |                    |               |                   |           |
+|  unified_buffer_instance/memory_bank_3_reg               | RAMB18E1  |  A:A:1024x8            |  B:B:1024x8            |                    |        SIGNAL |        READ_FIRST |           |                    |        SIGNAL |       WRITE_FIRST |           |
+| unified_buffer_instance/memory_bank_4                    |           | 1024x8                 | 1024x8                 |                    |               |                   |           |                    |               |                   |           |
+|  unified_buffer_instance/memory_bank_4_reg               | RAMB18E1  |  A:A:1024x8            |  B:B:1024x8            |                    |        SIGNAL |        READ_FIRST |           |                    |        SIGNAL |       WRITE_FIRST |           |
++----------------------------------------------------------+-----------+------------------------+------------------------+--------------------+---------------+-------------------+-----------+--------------------+---------------+-------------------+-----------+
+
+

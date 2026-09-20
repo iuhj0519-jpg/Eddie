@@ -22,7 +22,7 @@ from rag_index import dense_feature_vector, dump_json, sha256_file, stable_id  #
 
 
 HEADING_RE = re.compile(r"^(#{1,6})\s+(.+?)\s*$")
-REQUIREMENT_RE = re.compile(r"\bREQ-[A-Z]+-[0-9]+\b")
+REQUIREMENT_RE = re.compile(r"\bREQ-(?:[A-Z0-9]+-)+[0-9]+\b")
 MODULE_RE = re.compile(r"^\s*module\s+([A-Za-z_][A-Za-z0-9_$]*)", re.MULTILINE)
 RTL_BOUNDARY_RE = re.compile(r"^\s*(always\b|initial\b|function\b|task\b|generate\b|endmodule\b)")
 
@@ -90,11 +90,13 @@ def retrieval_patterns(access_policy: dict, phase: str) -> list[str]:
     return list(phase_policy["retrieval_allow"])
 
 
-def expand_retrieval_sources(project_root: Path, patterns: list[str]) -> list[Path]:
+def expand_retrieval_sources(project_root: Path, patterns: list[str], optional_patterns=()) -> list[Path]:
     sources: set[Path] = set()
     for pattern in patterns:
         matches = sorted(project_root.glob(pattern))
         if not matches:
+            if pattern in optional_patterns:
+                continue
             raise RuntimeError(f"retrieval allow pattern matched no files: {pattern}")
         sources.update(path for path in matches if path.is_file())
     return sorted(sources, key=lambda item: item.as_posix().lower())
@@ -247,6 +249,33 @@ def chunk_markdown(path: Path, project_root: Path, source_hash: str, max_chars: 
                     symbol=f"section_part_{part}" if len(ranges) > 1 else None,
                 )
             )
+    return chunks
+
+
+def chunk_structured(path: Path, project_root: Path, source_hash: str) -> list[dict[str, object]]:
+    """Create one searchable record per Finding, or one record for other YAML/JSON files."""
+    source_path = path.relative_to(project_root).as_posix()
+    text = path.read_text(encoding="utf-8-sig")
+    parsed = json.loads(text) if path.suffix.lower() == ".json" else yaml.safe_load(text)
+    metadata = {
+        "title": f"Structured run record {path.name}",
+        "doc_id": "RUN-" + stable_id(source_path, source_hash),
+        "version": str(parsed.get("schema_version")) if isinstance(parsed, dict) else None,
+        "status": parsed.get("state", parsed.get("status")) if isinstance(parsed, dict) else None,
+    }
+    records = parsed.get("findings") if isinstance(parsed, dict) else None
+    if not isinstance(records, list) and isinstance(parsed, dict):
+        records = parsed.get("requirements")
+    if not isinstance(records, list):
+        records = [parsed]
+    chunks: list[dict[str, object]] = []
+    for index, record in enumerate(records, 1):
+        content = json.dumps(record, ensure_ascii=False, indent=2, sort_keys=True)
+        symbol = record.get("requirement_id", record.get("finding_id")) if isinstance(record, dict) else f"record_{index}"
+        chunks.append(base_chunk(
+            source_path, source_hash, metadata, "structured_record", index, index,
+            content, heading=path.name, symbol=str(symbol or f"record_{index}"),
+        ))
     return chunks
 
 
@@ -470,7 +499,10 @@ def main() -> int:
 
     policy = yaml.safe_load((project_root / config["access_policy"]).read_text(encoding="utf-8"))
     patterns = retrieval_patterns(policy, config["phase"])
-    sources = expand_retrieval_sources(project_root, patterns)
+    optional = policy["phases"][config["phase"]].get("retrieval_optional", [])
+    if not set(optional) <= set(patterns):
+        raise RuntimeError("Optional sources must still be explicitly allowlisted")
+    sources = expand_retrieval_sources(project_root, patterns, optional)
     denied_roots = tuple(
         entry.split("/**", 1)[0].rstrip("/")
         for entry in policy["phases"][config["phase"]].get("deny", [])
@@ -492,7 +524,7 @@ def main() -> int:
                     int(config["chunking"]["markdown_max_chars"]),
                 )
             )
-        elif path.suffix.lower() in {".v", ".sv"}:
+        elif path.suffix.lower() in {".v", ".sv", ".svh"}:
             chunks.extend(
                 chunk_rtl(
                     path,
@@ -502,6 +534,8 @@ def main() -> int:
                     int(config["chunking"]["rtl_context_lines"]),
                 )
             )
+        elif path.suffix.lower() in {".yaml", ".yml", ".json"}:
+            chunks.extend(chunk_structured(path, project_root, checksums[relative_path]))
         else:
             raise RuntimeError(f"unsupported retrieval source type: {relative_path}")
 

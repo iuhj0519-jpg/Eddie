@@ -1,0 +1,115 @@
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2022.1 (win64) Build 3526262 Mon Apr 18 15:48:16 MDT 2022
+| Date         : Mon Sep  7 16:48:50 2026
+| Host         : BOOK-P2O9FRPHFQ running 64-bit major release  (build 9200)
+| Command      : report_utilization -hierarchical -file C:/intelFPGA/18.1/dnn_optimization_project/.automation_build_20260907/artifacts/implementation/optimized_accelerator/run_001/utilization_hierarchical.rpt
+| Design       : zyNet
+| Device       : xc7z020clg400-1
+| Speed File   : -1
+| Design State : Routed
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Utilization Design Information
+
+Table of Contents
+-----------------
+1. Utilization by Hierarchy
+
+1. Utilization by Hierarchy
+---------------------------
+
++--------------------------------------------------------------------+---------------------+------------+------------+---------+------+------+--------+--------+------------+
+|                              Instance                              |        Module       | Total LUTs | Logic LUTs | LUTRAMs | SRLs |  FFs | RAMB36 | RAMB18 | DSP Blocks |
++--------------------------------------------------------------------+---------------------+------------+------------+---------+------+------+--------+--------+------------+
+| zyNet                                                              |               (top) |      18060 |      18060 |       0 |    0 | 1455 |      0 |      5 |          5 |
+|   (zyNet)                                                          |               (top) |          0 |          0 |       0 |    0 |    3 |      0 |      0 |          0 |
+|   activation_unit_instance                                         |     activation_unit |        342 |        342 |       0 |    0 |   36 |      0 |      0 |          0 |
+|   axi_lite_wrapper_instance                                        |    axi_lite_wrapper |         18 |         18 |       0 |    0 |   15 |      0 |      0 |          0 |
+|   bias_sram_instance                                               |           bias_sram |          7 |          7 |       0 |    0 |   35 |      0 |      0 |          0 |
+|   dnn_scheduler_instance                                           |       dnn_scheduler |        397 |        397 |       0 |    0 |   62 |      0 |      0 |          0 |
+|   maxFinder_instance                                               |           maxFinder |          9 |          9 |       0 |    0 |   56 |      0 |      0 |          0 |
+|   systolic_controller_instance                                     | systolic_controller |       3300 |       3300 |       0 |    0 | 1128 |      0 |      0 |          0 |
+|     (systolic_controller_instance)                                 | systolic_controller |        691 |        691 |       0 |    0 |   28 |      0 |      0 |          0 |
+|     systolic_array_2d_instance                                     |   systolic_array_2d |       2610 |       2610 |       0 |    0 | 1100 |      0 |      0 |          0 |
+|       ARRAY_ROWS[0].ARRAY_COLUMNS[0].pe_systolic_cell_instance     |    pe_systolic_cell |         92 |         92 |       0 |    0 |   44 |      0 |      0 |          0 |
+|         (ARRAY_ROWS[0].ARRAY_COLUMNS[0].pe_systolic_cell_instance) |    pe_systolic_cell |          2 |          2 |       0 |    0 |   18 |      0 |      0 |          0 |
+|         mac_pe_instance                                            |           mac_pe_47 |         90 |         90 |       0 |    0 |   26 |      0 |      0 |          0 |
+|       ARRAY_ROWS[0].ARRAY_COLUMNS[1].pe_systolic_cell_instance     |  pe_systolic_cell_0 |         92 |         92 |       0 |    0 |   44 |      0 |      0 |          0 |
+|         (ARRAY_ROWS[0].ARRAY_COLUMNS[1].pe_systolic_cell_instance) |  pe_systolic_cell_0 |          2 |          2 |       0 |    0 |   18 |      0 |      0 |          0 |
+|         mac_pe_instance                                            |           mac_pe_46 |         90 |         90 |       0 |    0 |   26 |      0 |      0 |          0 |
+|       ARRAY_ROWS[0].ARRAY_COLUMNS[2].pe_systolic_cell_instance     |  pe_systolic_cell_1 |         92 |         92 |       0 |    0 |   44 |      0 |      0 |          0 |
+|         (ARRAY_ROWS[0].ARRAY_COLUMNS[2].pe_systolic_cell_instance) |  pe_systolic_cell_1 |          2 |          2 |       0 |    0 |   18 |      0 |      0 |          0 |
+|         mac_pe_instance                                            |           mac_pe_45 |         90 |         90 |       0 |    0 |   26 |      0 |      0 |          0 |
+|       ARRAY_ROWS[0].ARRAY_COLUMNS[3].pe_systolic_cell_instance     |  pe_systolic_cell_2 |        124 |        124 |       0 |    0 |   44 |      0 |      0 |          0 |
+|         (ARRAY_ROWS[0].ARRAY_COLUMNS[3].pe_systolic_cell_instance) |  pe_systolic_cell_2 |          2 |          2 |       0 |    0 |   18 |      0 |      0 |          0 |
+|         mac_pe_instance                                            |           mac_pe_44 |        122 |        122 |       0 |    0 |   26 |      0 |      0 |          0 |
+|       ARRAY_ROWS[0].ARRAY_COLUMNS[4].pe_systolic_cell_instance     |  pe_systolic_cell_3 |         91 |         91 |       0 |    0 |   44 |      0 |      0 |          0 |
+|         (ARRAY_ROWS[0].ARRAY_COLUMNS[4].pe_systolic_cell_instance) |  pe_systolic_cell_3 |          1 |          1 |       0 |    0 |   18 |      0 |      0 |          0 |
+|         mac_pe_instance                                            |           mac_pe_43 |         90 |         90 |       0 |    0 |   26 |      0 |      0 |          0 |
+|       ARRAY_ROWS[1].ARRAY_COLUMNS[0].pe_systolic_cell_instance     |  pe_systolic_cell_4 |         92 |         92 |       0 |    0 |   44 |      0 |      0 |          0 |
+|         (ARRAY_ROWS[1].ARRAY_COLUMNS[0].pe_systolic_cell_instance) |  pe_systolic_cell_4 |          2 |          2 |       0 |    0 |   18 |      0 |      0 |          0 |
+|         mac_pe_instance                                            |           mac_pe_42 |         90 |         90 |       0 |    0 |   26 |      0 |      0 |          0 |
+|       ARRAY_ROWS[1].ARRAY_COLUMNS[1].pe_systolic_cell_instance     |  pe_systolic_cell_5 |         91 |         91 |       0 |    0 |   44 |      0 |      0 |          0 |
+|         (ARRAY_ROWS[1].ARRAY_COLUMNS[1].pe_systolic_cell_instance) |  pe_systolic_cell_5 |          1 |          1 |       0 |    0 |   18 |      0 |      0 |          0 |
+|         mac_pe_instance                                            |           mac_pe_41 |         90 |         90 |       0 |    0 |   26 |      0 |      0 |          0 |
+|       ARRAY_ROWS[1].ARRAY_COLUMNS[2].pe_systolic_cell_instance     |  pe_systolic_cell_6 |        135 |        135 |       0 |    0 |   44 |      0 |      0 |          0 |
+|         (ARRAY_ROWS[1].ARRAY_COLUMNS[2].pe_systolic_cell_instance) |  pe_systolic_cell_6 |          1 |          1 |       0 |    0 |   18 |      0 |      0 |          0 |
+|         mac_pe_instance                                            |           mac_pe_40 |        134 |        134 |       0 |    0 |   26 |      0 |      0 |          0 |
+|       ARRAY_ROWS[1].ARRAY_COLUMNS[3].pe_systolic_cell_instance     |  pe_systolic_cell_7 |        123 |        123 |       0 |    0 |   44 |      0 |      0 |          0 |
+|         (ARRAY_ROWS[1].ARRAY_COLUMNS[3].pe_systolic_cell_instance) |  pe_systolic_cell_7 |          1 |          1 |       0 |    0 |   18 |      0 |      0 |          0 |
+|         mac_pe_instance                                            |           mac_pe_39 |        122 |        122 |       0 |    0 |   26 |      0 |      0 |          0 |
+|       ARRAY_ROWS[1].ARRAY_COLUMNS[4].pe_systolic_cell_instance     |  pe_systolic_cell_8 |         91 |         91 |       0 |    0 |   44 |      0 |      0 |          0 |
+|         (ARRAY_ROWS[1].ARRAY_COLUMNS[4].pe_systolic_cell_instance) |  pe_systolic_cell_8 |          1 |          1 |       0 |    0 |   18 |      0 |      0 |          0 |
+|         mac_pe_instance                                            |           mac_pe_38 |         90 |         90 |       0 |    0 |   26 |      0 |      0 |          0 |
+|       ARRAY_ROWS[2].ARRAY_COLUMNS[0].pe_systolic_cell_instance     |  pe_systolic_cell_9 |         92 |         92 |       0 |    0 |   44 |      0 |      0 |          0 |
+|         (ARRAY_ROWS[2].ARRAY_COLUMNS[0].pe_systolic_cell_instance) |  pe_systolic_cell_9 |          2 |          2 |       0 |    0 |   18 |      0 |      0 |          0 |
+|         mac_pe_instance                                            |           mac_pe_37 |         90 |         90 |       0 |    0 |   26 |      0 |      0 |          0 |
+|       ARRAY_ROWS[2].ARRAY_COLUMNS[1].pe_systolic_cell_instance     | pe_systolic_cell_10 |         91 |         91 |       0 |    0 |   44 |      0 |      0 |          0 |
+|         (ARRAY_ROWS[2].ARRAY_COLUMNS[1].pe_systolic_cell_instance) | pe_systolic_cell_10 |          1 |          1 |       0 |    0 |   18 |      0 |      0 |          0 |
+|         mac_pe_instance                                            |           mac_pe_36 |         90 |         90 |       0 |    0 |   26 |      0 |      0 |          0 |
+|       ARRAY_ROWS[2].ARRAY_COLUMNS[2].pe_systolic_cell_instance     | pe_systolic_cell_11 |        135 |        135 |       0 |    0 |   44 |      0 |      0 |          0 |
+|         (ARRAY_ROWS[2].ARRAY_COLUMNS[2].pe_systolic_cell_instance) | pe_systolic_cell_11 |          1 |          1 |       0 |    0 |   18 |      0 |      0 |          0 |
+|         mac_pe_instance                                            |           mac_pe_35 |        134 |        134 |       0 |    0 |   26 |      0 |      0 |          0 |
+|       ARRAY_ROWS[2].ARRAY_COLUMNS[3].pe_systolic_cell_instance     | pe_systolic_cell_12 |        123 |        123 |       0 |    0 |   44 |      0 |      0 |          0 |
+|         (ARRAY_ROWS[2].ARRAY_COLUMNS[3].pe_systolic_cell_instance) | pe_systolic_cell_12 |          1 |          1 |       0 |    0 |   18 |      0 |      0 |          0 |
+|         mac_pe_instance                                            |           mac_pe_34 |        122 |        122 |       0 |    0 |   26 |      0 |      0 |          0 |
+|       ARRAY_ROWS[2].ARRAY_COLUMNS[4].pe_systolic_cell_instance     | pe_systolic_cell_13 |         91 |         91 |       0 |    0 |   44 |      0 |      0 |          0 |
+|         (ARRAY_ROWS[2].ARRAY_COLUMNS[4].pe_systolic_cell_instance) | pe_systolic_cell_13 |          1 |          1 |       0 |    0 |   18 |      0 |      0 |          0 |
+|         mac_pe_instance                                            |           mac_pe_33 |         90 |         90 |       0 |    0 |   26 |      0 |      0 |          0 |
+|       ARRAY_ROWS[3].ARRAY_COLUMNS[0].pe_systolic_cell_instance     | pe_systolic_cell_14 |         93 |         93 |       0 |    0 |   44 |      0 |      0 |          0 |
+|         (ARRAY_ROWS[3].ARRAY_COLUMNS[0].pe_systolic_cell_instance) | pe_systolic_cell_14 |          2 |          2 |       0 |    0 |   18 |      0 |      0 |          0 |
+|         mac_pe_instance                                            |           mac_pe_32 |         91 |         91 |       0 |    0 |   26 |      0 |      0 |          0 |
+|       ARRAY_ROWS[3].ARRAY_COLUMNS[1].pe_systolic_cell_instance     | pe_systolic_cell_15 |         91 |         91 |       0 |    0 |   44 |      0 |      0 |          0 |
+|         (ARRAY_ROWS[3].ARRAY_COLUMNS[1].pe_systolic_cell_instance) | pe_systolic_cell_15 |          1 |          1 |       0 |    0 |   18 |      0 |      0 |          0 |
+|         mac_pe_instance                                            |           mac_pe_31 |         90 |         90 |       0 |    0 |   26 |      0 |      0 |          0 |
+|       ARRAY_ROWS[3].ARRAY_COLUMNS[2].pe_systolic_cell_instance     | pe_systolic_cell_16 |        135 |        135 |       0 |    0 |   44 |      0 |      0 |          0 |
+|         (ARRAY_ROWS[3].ARRAY_COLUMNS[2].pe_systolic_cell_instance) | pe_systolic_cell_16 |          1 |          1 |       0 |    0 |   18 |      0 |      0 |          0 |
+|         mac_pe_instance                                            |           mac_pe_30 |        134 |        134 |       0 |    0 |   26 |      0 |      0 |          0 |
+|       ARRAY_ROWS[3].ARRAY_COLUMNS[3].pe_systolic_cell_instance     | pe_systolic_cell_17 |        123 |        123 |       0 |    0 |   44 |      0 |      0 |          0 |
+|         (ARRAY_ROWS[3].ARRAY_COLUMNS[3].pe_systolic_cell_instance) | pe_systolic_cell_17 |          1 |          1 |       0 |    0 |   18 |      0 |      0 |          0 |
+|         mac_pe_instance                                            |           mac_pe_29 |        122 |        122 |       0 |    0 |   26 |      0 |      0 |          0 |
+|       ARRAY_ROWS[3].ARRAY_COLUMNS[4].pe_systolic_cell_instance     | pe_systolic_cell_18 |         92 |         92 |       0 |    0 |   44 |      0 |      0 |          0 |
+|         (ARRAY_ROWS[3].ARRAY_COLUMNS[4].pe_systolic_cell_instance) | pe_systolic_cell_18 |          1 |          1 |       0 |    0 |   18 |      0 |      0 |          0 |
+|         mac_pe_instance                                            |           mac_pe_28 |         91 |         91 |       0 |    0 |   26 |      0 |      0 |          0 |
+|       ARRAY_ROWS[4].ARRAY_COLUMNS[0].pe_systolic_cell_instance     | pe_systolic_cell_19 |         91 |         91 |       0 |    0 |   44 |      0 |      0 |          0 |
+|         (ARRAY_ROWS[4].ARRAY_COLUMNS[0].pe_systolic_cell_instance) | pe_systolic_cell_19 |          1 |          1 |       0 |    0 |   18 |      0 |      0 |          0 |
+|         mac_pe_instance                                            |           mac_pe_27 |         90 |         90 |       0 |    0 |   26 |      0 |      0 |          0 |
+|       ARRAY_ROWS[4].ARRAY_COLUMNS[1].pe_systolic_cell_instance     | pe_systolic_cell_20 |         91 |         91 |       0 |    0 |   44 |      0 |      0 |          0 |
+|         (ARRAY_ROWS[4].ARRAY_COLUMNS[1].pe_systolic_cell_instance) | pe_systolic_cell_20 |          1 |          1 |       0 |    0 |   18 |      0 |      0 |          0 |
+|         mac_pe_instance                                            |           mac_pe_26 |         90 |         90 |       0 |    0 |   26 |      0 |      0 |          0 |
+|       ARRAY_ROWS[4].ARRAY_COLUMNS[2].pe_systolic_cell_instance     | pe_systolic_cell_21 |        136 |        136 |       0 |    0 |   44 |      0 |      0 |          0 |
+|         (ARRAY_ROWS[4].ARRAY_COLUMNS[2].pe_systolic_cell_instance) | pe_systolic_cell_21 |          1 |          1 |       0 |    0 |   18 |      0 |      0 |          0 |
+|         mac_pe_instance                                            |           mac_pe_25 |        135 |        135 |       0 |    0 |   26 |      0 |      0 |          0 |
+|       ARRAY_ROWS[4].ARRAY_COLUMNS[3].pe_systolic_cell_instance     | pe_systolic_cell_22 |        117 |        117 |       0 |    0 |   44 |      0 |      0 |          0 |
+|         (ARRAY_ROWS[4].ARRAY_COLUMNS[3].pe_systolic_cell_instance) | pe_systolic_cell_22 |          1 |          1 |       0 |    0 |   18 |      0 |      0 |          0 |
+|         mac_pe_instance                                            |           mac_pe_24 |        116 |        116 |       0 |    0 |   26 |      0 |      0 |          0 |
+|       ARRAY_ROWS[4].ARRAY_COLUMNS[4].pe_systolic_cell_instance     | pe_systolic_cell_23 |         93 |         93 |       0 |    0 |   44 |      0 |      0 |          0 |
+|         (ARRAY_ROWS[4].ARRAY_COLUMNS[4].pe_systolic_cell_instance) | pe_systolic_cell_23 |          2 |          2 |       0 |    0 |   18 |      0 |      0 |          0 |
+|         mac_pe_instance                                            |              mac_pe |         91 |         91 |       0 |    0 |   26 |      0 |      0 |          0 |
+|   unified_buffer_instance                                          |      unified_buffer |         60 |         60 |       0 |    0 |   75 |      0 |      5 |          0 |
+|   weight_sram_instance                                             |         weight_sram |      13955 |      13955 |       0 |    0 |   45 |      0 |      0 |          5 |
++--------------------------------------------------------------------+---------------------+------------+------------+---------+------+------+--------+--------+------------+
+* Note: The sum of lower-level cells may be larger than their parent cells total, due to cross-hierarchy LUT combining
+
+

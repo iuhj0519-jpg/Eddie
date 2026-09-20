@@ -1,0 +1,46 @@
+findings_detected_pending_human_approval: experiments\automation_loop\optimized_accelerator\run_001
+approved_for_patch_generation
+findings_detected_pending_human_approval: experiments\automation_loop\optimized_accelerator\run_002
+findings_detected_pending_human_approval: experiments\automation_loop\optimized_accelerator\run_001
+findings_detected_pending_human_approval: experiments\automation_loop\optimized_accelerator\run_001
+approved_for_patch_generation
+findings_detected_pending_human_approval: experiments\automation_loop\optimized_accelerator\run_001
+findings_detected_pending_human_approval: experiments\automation_loop\optimized_accelerator\run_001
+approved_for_patch_generation
+findings_detected_pending_human_approval: experiments\automation_loop\optimized_accelerator\run_002
+findings_detected_pending_human_approval: experiments\automation_loop\optimized_accelerator\run_001
+approved_for_patch_generation
+findings_detected_pending_human_approval: experiments\automation_loop\optimized_accelerator\run_001
+findings_detected_pending_human_approval: experiments\automation_loop\optimized_accelerator\run_001
+findings_detected_pending_human_approval: experiments\automation_loop\optimized_accelerator\run_001
+approved_for_patch_generation
+findings_detected_pending_human_approval: experiments\automation_loop\optimized_accelerator\run_001
+approved_for_patch_generation
+test_bad_identifier (test_automation.Tests.test_bad_identifier) ... ok
+test_complete_stages_still_need_evidence_and_review (test_automation.Tests.test_complete_stages_still_need_evidence_and_review) ... ok
+test_config_change_invalidates_approval (test_automation.Tests.test_config_change_invalidates_approval) ... ok
+test_dsp_is_not_pe_utilization (test_automation.Tests.test_dsp_is_not_pe_utilization) ... ok
+test_empty_commands (test_automation.Tests.test_empty_commands) ... ok
+test_existing_run_preserved (test_automation.Tests.test_existing_run_preserved) ... ok
+test_failed_compile_creates_unapproved_child (test_automation.Tests.test_failed_compile_creates_unapproved_child) ... ok
+test_fatal (test_automation.Tests.test_fatal) ... ok
+test_iteration_limit (test_automation.Tests.test_iteration_limit) ... ok
+test_max_only (test_automation.Tests.test_max_only) ... ok
+test_memory_mapping_not_hotspot_dependent (test_automation.Tests.test_memory_mapping_not_hotspot_dependent) ... ok
+test_memory_missing_unknown (test_automation.Tests.test_memory_missing_unknown) ... ok
+test_min_max (test_automation.Tests.test_min_max) ... ok
+test_missing_spec_id (test_automation.Tests.test_missing_spec_id) ... ok
+test_not_approved (test_automation.Tests.test_not_approved) ... ok
+test_patch_scope (test_automation.Tests.test_patch_scope) ... ok
+test_path_detectors (test_automation.Tests.test_path_detectors) ... ok
+test_repeated_findings_stop (test_automation.Tests.test_repeated_findings_stop) ... ok
+test_sample_regression (test_automation.Tests.test_sample_regression) ... ok
+test_simulation_completion (test_automation.Tests.test_simulation_completion) ... ok
+test_stale (test_automation.Tests.test_stale) ... ok
+test_unknown_never_pass (test_automation.Tests.test_unknown_never_pass) ... ok
+test_zero_errors (test_automation.Tests.test_zero_errors) ... ok
+
+----------------------------------------------------------------------
+Ran 23 tests in 1.650s
+
+OK

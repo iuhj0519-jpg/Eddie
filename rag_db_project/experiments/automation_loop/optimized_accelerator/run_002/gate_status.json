@@ -1,0 +1,8 @@
+{
+  "schema_version": "1.0",
+  "target": "optimized_accelerator",
+  "run_id": "run_002",
+  "status": "not_approved",
+  "message": "Run is not approved for patch generation.",
+  "next_action": "Review every Finding and record an approved or rejected decision in approval.yaml."
+}

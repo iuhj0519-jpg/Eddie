@@ -1,0 +1,87 @@
+--- a/tb/top_sim.sv
++++ b/tb/top_sim.sv
+@@ -157,84 +157,6 @@
+         end
+     end
+ 
+-    zyNet device_under_test (
+-    wire [1:0] s_axi_bresp;
+-    wire s_axi_bvalid;
+-    reg s_axi_bready;
+-    reg [4:0] s_axi_araddr;
+-    reg [2:0] s_axi_arprot;
+-    reg s_axi_arvalid;
+-    wire s_axi_arready;
+-    wire [31:0] s_axi_rdata;
+-    wire [1:0] s_axi_rresp;
+-    wire s_axi_rvalid;
+-    reg s_axi_rready;
+-    wire intr;
+-
+-    reg [7:0] image_memory [0:IMAGE_FEATURE_COUNT];
+-    reg [7:0] expected_class [0:TEST_SAMPLE_COUNT-1];
+-    reg [8*128-1:0] test_filename;
+-    reg [31:0] read_value;
+-    integer batch_index;
+-    integer image_index;
+-    integer feature_index;
+-    integer sample_index;
+-    integer producer_sample_index;
+-    integer consumer_sample_index;
+-    integer pass_count;
+-    integer fail_count;
+-    integer interrupt_count;
+-    integer controller_elapsed_cycles;
+-    integer controller_expected_cycles;
+-    integer total_cycle_count;
+-    integer first_transfer_cycle;
+-    integer last_result_cycle;
+-    integer axi_backpressure_cycles;
+-    reg controller_measurement_active;
+-    reg previous_intr;
+-
+-    always @(posedge clock) begin
+-        if (!reset_n) begin
+-            interrupt_count <= 0;
+-            previous_intr <= 1'b0;
+-            controller_elapsed_cycles <= 0;
+-            controller_expected_cycles <= 0;
+-            controller_measurement_active <= 1'b0;
+-            total_cycle_count <= 0;
+-            first_transfer_cycle <= -1;
+-            last_result_cycle <= -1;
+-            axi_backpressure_cycles <= 0;
+-        end else begin
+-            total_cycle_count <= total_cycle_count + 1;
+-            if (axis_in_data_valid && axis_in_data_ready && (first_transfer_cycle < 0))
+-                first_transfer_cycle <= total_cycle_count;
+-            if (axis_in_data_valid && !axis_in_data_ready)
+-                axi_backpressure_cycles <= axi_backpressure_cycles + 1;
+-            if (intr) begin
+-                if (previous_intr)
+-                    $fatal(1, "intr must be a one-cycle pulse");
+-                interrupt_count <= interrupt_count + 1;
+-            end
+-            previous_intr <= intr;
+-
+-            if (device_under_test.controller_start) begin
+-                controller_measurement_active <= 1'b1;
+-                controller_elapsed_cycles <= 0;
+-                case (device_under_test.layer_index)
+-                    2'd1: controller_expected_cycles <= 797;
+-                    2'd2: controller_expected_cycles <= 43;
+-                    default: controller_expected_cycles <= 33;
+-                endcase
+-            end else if (controller_measurement_active) begin
+-                controller_elapsed_cycles <= controller_elapsed_cycles + 1;
+-                if (device_under_test.controller_done) begin
+-                    if ((controller_elapsed_cycles + 1) != controller_expected_cycles)
+-                        $fatal(1, "controller cycle mismatch: measured=%0d expected=%0d", controller_elapsed_cycles + 1, controller_expected_cycles);
+-                    controller_measurement_active <= 1'b0;
+-                end
+-            end
+-        end
+-    end
+ 
+     zyNet device_under_test (
+         .s_axi_aclk(clock), .s_axi_aresetn(reset_n),

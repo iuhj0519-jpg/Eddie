@@ -1,0 +1,29 @@
+{
+  "schema_version": "1.0",
+  "status": "PASS",
+  "index_id": "workspace_automation_loop_v1",
+  "phase": "automation_loop",
+  "approved_source_count": 14,
+  "retrieval_source_count": 14,
+  "chunk_count": 34,
+  "dense_vector_count": 34,
+  "fts_row_count": 34,
+  "denied_chunk_count": 0,
+  "source_inventory_sha256": "f3f105af2574badfc0174056d5d9a121e7a1f19f95526f2bfb734e343c3cc485",
+  "chunks_sha256": "00def9f3fe57f6dafe238b797149ba833e93b2be956c45d4efa961e972a2d659",
+  "database_sha256": "c2e72c2dd5c57494672905436266ddc3fd3c3aba7e601636551d14fb4a71f11c",
+  "smoke_tests": [
+    {
+      "query_id": "dsp_parallelism_finding",
+      "status": "PASS",
+      "top_chunk_id": "chunk-b86907fd1714e417154d990e",
+      "top_source": "experiments/automation_loop/optimized_accelerator/run_001/findings.yaml"
+    },
+    {
+      "query_id": "weight_storage_bottleneck",
+      "status": "PASS",
+      "top_chunk_id": "chunk-0072bea162ce7e36af7898cb",
+      "top_source": "experiments/automation_loop/optimized_accelerator/run_001/findings.yaml"
+    }
+  ]
+}

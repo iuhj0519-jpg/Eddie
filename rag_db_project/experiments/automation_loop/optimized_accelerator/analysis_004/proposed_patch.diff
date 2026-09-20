@@ -1,0 +1,412 @@
+--- a/rtl/weight_sram.sv
++++ b/rtl/weight_sram.sv
+@@ -1,100 +1,110 @@
+ `timescale 1ns/1ps
+ 
++// Five independent synchronous ROM banks; unchanged MIF data and one-cycle read.
+ module weight_sram (
+-    input  wire               clock,
+-    input  wire [1:0]         layer_index,
+-    input  wire [2:0]         group_index,
+-    input  wire [49:0]        read_address,
+-    input  wire [4:0]         read_enable,
+-    output reg  signed [39:0] read_data,
+-    output reg  [4:0]         read_valid
++    input wire clock,
++    input wire [1:0] layer_index,
++    input wire [2:0] group_index,
++    input wire [49:0] read_address,
++    input wire [4:0] read_enable,
++    output wire signed [39:0] read_data,
++    output reg [4:0] read_valid
+ );
+-    localparam integer LAYER_1_LENGTH = 784;
+-    localparam integer LAYER_2_LENGTH = 30;
+-    localparam integer LAYER_3_LENGTH = 20;
+-
+-    reg signed [7:0] layer_1_weight [0:30*LAYER_1_LENGTH-1];
+-    reg signed [7:0] layer_2_weight [0:20*LAYER_2_LENGTH-1];
+-    reg signed [7:0] layer_3_weight [0:10*LAYER_3_LENGTH-1];
+-    integer column_index;
+-    integer neuron_index;
+-
+-    initial begin
+-        $readmemb("memory/w_1_0.mif",  layer_1_weight, 0*784,  1*784-1);
+-        $readmemb("memory/w_1_1.mif",  layer_1_weight, 1*784,  2*784-1);
+-        $readmemb("memory/w_1_2.mif",  layer_1_weight, 2*784,  3*784-1);
+-        $readmemb("memory/w_1_3.mif",  layer_1_weight, 3*784,  4*784-1);
+-        $readmemb("memory/w_1_4.mif",  layer_1_weight, 4*784,  5*784-1);
+-        $readmemb("memory/w_1_5.mif",  layer_1_weight, 5*784,  6*784-1);
+-        $readmemb("memory/w_1_6.mif",  layer_1_weight, 6*784,  7*784-1);
+-        $readmemb("memory/w_1_7.mif",  layer_1_weight, 7*784,  8*784-1);
+-        $readmemb("memory/w_1_8.mif",  layer_1_weight, 8*784,  9*784-1);
+-        $readmemb("memory/w_1_9.mif",  layer_1_weight, 9*784, 10*784-1);
+-        $readmemb("memory/w_1_10.mif", layer_1_weight,10*784, 11*784-1);
+-        $readmemb("memory/w_1_11.mif", layer_1_weight,11*784, 12*784-1);
+-        $readmemb("memory/w_1_12.mif", layer_1_weight,12*784, 13*784-1);
+-        $readmemb("memory/w_1_13.mif", layer_1_weight,13*784, 14*784-1);
+-        $readmemb("memory/w_1_14.mif", layer_1_weight,14*784, 15*784-1);
+-        $readmemb("memory/w_1_15.mif", layer_1_weight,15*784, 16*784-1);
+-        $readmemb("memory/w_1_16.mif", layer_1_weight,16*784, 17*784-1);
+-        $readmemb("memory/w_1_17.mif", layer_1_weight,17*784, 18*784-1);
+-        $readmemb("memory/w_1_18.mif", layer_1_weight,18*784, 19*784-1);
+-        $readmemb("memory/w_1_19.mif", layer_1_weight,19*784, 20*784-1);
+-        $readmemb("memory/w_1_20.mif", layer_1_weight,20*784, 21*784-1);
+-        $readmemb("memory/w_1_21.mif", layer_1_weight,21*784, 22*784-1);
+-        $readmemb("memory/w_1_22.mif", layer_1_weight,22*784, 23*784-1);
+-        $readmemb("memory/w_1_23.mif", layer_1_weight,23*784, 24*784-1);
+-        $readmemb("memory/w_1_24.mif", layer_1_weight,24*784, 25*784-1);
+-        $readmemb("memory/w_1_25.mif", layer_1_weight,25*784, 26*784-1);
+-        $readmemb("memory/w_1_26.mif", layer_1_weight,26*784, 27*784-1);
+-        $readmemb("memory/w_1_27.mif", layer_1_weight,27*784, 28*784-1);
+-        $readmemb("memory/w_1_28.mif", layer_1_weight,28*784, 29*784-1);
+-        $readmemb("memory/w_1_29.mif", layer_1_weight,29*784, 30*784-1);
+-
+-        $readmemb("memory/w_2_0.mif",  layer_2_weight, 0*30,  1*30-1);
+-        $readmemb("memory/w_2_1.mif",  layer_2_weight, 1*30,  2*30-1);
+-        $readmemb("memory/w_2_2.mif",  layer_2_weight, 2*30,  3*30-1);
+-        $readmemb("memory/w_2_3.mif",  layer_2_weight, 3*30,  4*30-1);
+-        $readmemb("memory/w_2_4.mif",  layer_2_weight, 4*30,  5*30-1);
+-        $readmemb("memory/w_2_5.mif",  layer_2_weight, 5*30,  6*30-1);
+-        $readmemb("memory/w_2_6.mif",  layer_2_weight, 6*30,  7*30-1);
+-        $readmemb("memory/w_2_7.mif",  layer_2_weight, 7*30,  8*30-1);
+-        $readmemb("memory/w_2_8.mif",  layer_2_weight, 8*30,  9*30-1);
+-        $readmemb("memory/w_2_9.mif",  layer_2_weight, 9*30, 10*30-1);
+-        $readmemb("memory/w_2_10.mif", layer_2_weight,10*30, 11*30-1);
+-        $readmemb("memory/w_2_11.mif", layer_2_weight,11*30, 12*30-1);
+-        $readmemb("memory/w_2_12.mif", layer_2_weight,12*30, 13*30-1);
+-        $readmemb("memory/w_2_13.mif", layer_2_weight,13*30, 14*30-1);
+-        $readmemb("memory/w_2_14.mif", layer_2_weight,14*30, 15*30-1);
+-        $readmemb("memory/w_2_15.mif", layer_2_weight,15*30, 16*30-1);
+-        $readmemb("memory/w_2_16.mif", layer_2_weight,16*30, 17*30-1);
+-        $readmemb("memory/w_2_17.mif", layer_2_weight,17*30, 18*30-1);
+-        $readmemb("memory/w_2_18.mif", layer_2_weight,18*30, 19*30-1);
+-        $readmemb("memory/w_2_19.mif", layer_2_weight,19*30, 20*30-1);
+-
+-        $readmemb("memory/w_3_0.mif", layer_3_weight,0*20,  1*20-1);
+-        $readmemb("memory/w_3_1.mif", layer_3_weight,1*20,  2*20-1);
+-        $readmemb("memory/w_3_2.mif", layer_3_weight,2*20,  3*20-1);
+-        $readmemb("memory/w_3_3.mif", layer_3_weight,3*20,  4*20-1);
+-        $readmemb("memory/w_3_4.mif", layer_3_weight,4*20,  5*20-1);
+-        $readmemb("memory/w_3_5.mif", layer_3_weight,5*20,  6*20-1);
+-        $readmemb("memory/w_3_6.mif", layer_3_weight,6*20,  7*20-1);
+-        $readmemb("memory/w_3_7.mif", layer_3_weight,7*20,  8*20-1);
+-        $readmemb("memory/w_3_8.mif", layer_3_weight,8*20,  9*20-1);
+-        $readmemb("memory/w_3_9.mif", layer_3_weight,9*20, 10*20-1);
+-    end
+-
+-    always @(posedge clock) begin
+-        read_valid <= read_enable;
+-        for (column_index = 0; column_index < 5; column_index = column_index + 1) begin
+-            neuron_index = group_index * 5 + column_index;
+-            if (read_enable[column_index]) begin
+-                case (layer_index)
+-                    2'd1: read_data[column_index*8 +: 8] <= layer_1_weight[neuron_index*LAYER_1_LENGTH + read_address[column_index*10 +: 10]];
+-                    2'd2: read_data[column_index*8 +: 8] <= layer_2_weight[neuron_index*LAYER_2_LENGTH + read_address[column_index*10 +: 10]];
+-                    default: read_data[column_index*8 +: 8] <= layer_3_weight[neuron_index*LAYER_3_LENGTH + read_address[column_index*10 +: 10]];
+-                endcase
+-            end
++    always @(posedge clock) read_valid <= read_enable;
++    genvar bank_index;
++    generate for (bank_index=0; bank_index<5; bank_index=bank_index+1) begin : WEIGHT_BANK
++        // L1: six 1024-word slots; L2: four 32-word slots; L3: two 32-word slots.
++        (* rom_style = "block", ram_style = "block" *) reg [7:0] memory [0:6335];
++        reg [7:0] read_register;
++        reg [12:0] bank_address;
++        wire [9:0] feature_address = read_address[bank_index*10 +: 10];
++        integer init_index;
++        initial begin
++            for (init_index=0; init_index<6336; init_index=init_index+1)
++                memory[init_index] = 8'd0;
++            case (bank_index)
++                0: begin
++                    $readmemb("memory/w_1_0.mif", memory, 0, 783);
++                    $readmemb("memory/w_1_5.mif", memory, 1024, 1807);
++                    $readmemb("memory/w_1_10.mif", memory, 2048, 2831);
++                    $readmemb("memory/w_1_15.mif", memory, 3072, 3855);
++                    $readmemb("memory/w_1_20.mif", memory, 4096, 4879);
++                    $readmemb("memory/w_1_25.mif", memory, 5120, 5903);
++                    $readmemb("memory/w_2_0.mif", memory, 6144, 6173);
++                    $readmemb("memory/w_2_5.mif", memory, 6176, 6205);
++                    $readmemb("memory/w_2_10.mif", memory, 6208, 6237);
++                    $readmemb("memory/w_2_15.mif", memory, 6240, 6269);
++                    $readmemb("memory/w_3_0.mif", memory, 6272, 6291);
++                    $readmemb("memory/w_3_5.mif", memory, 6304, 6323);
++                end
++                1: begin
++                    $readmemb("memory/w_1_1.mif", memory, 0, 783);
++                    $readmemb("memory/w_1_6.mif", memory, 1024, 1807);
++                    $readmemb("memory/w_1_11.mif", memory, 2048, 2831);
++                    $readmemb("memory/w_1_16.mif", memory, 3072, 3855);
++                    $readmemb("memory/w_1_21.mif", memory, 4096, 4879);
++                    $readmemb("memory/w_1_26.mif", memory, 5120, 5903);
++                    $readmemb("memory/w_2_1.mif", memory, 6144, 6173);
++                    $readmemb("memory/w_2_6.mif", memory, 6176, 6205);
++                    $readmemb("memory/w_2_11.mif", memory, 6208, 6237);
++                    $readmemb("memory/w_2_16.mif", memory, 6240, 6269);
++                    $readmemb("memory/w_3_1.mif", memory, 6272, 6291);
++                    $readmemb("memory/w_3_6.mif", memory, 6304, 6323);
++                end
++                2: begin
++                    $readmemb("memory/w_1_2.mif", memory, 0, 783);
++                    $readmemb("memory/w_1_7.mif", memory, 1024, 1807);
++                    $readmemb("memory/w_1_12.mif", memory, 2048, 2831);
++                    $readmemb("memory/w_1_17.mif", memory, 3072, 3855);
++                    $readmemb("memory/w_1_22.mif", memory, 4096, 4879);
++                    $readmemb("memory/w_1_27.mif", memory, 5120, 5903);
++                    $readmemb("memory/w_2_2.mif", memory, 6144, 6173);
++                    $readmemb("memory/w_2_7.mif", memory, 6176, 6205);
++                    $readmemb("memory/w_2_12.mif", memory, 6208, 6237);
++                    $readmemb("memory/w_2_17.mif", memory, 6240, 6269);
++                    $readmemb("memory/w_3_2.mif", memory, 6272, 6291);
++                    $readmemb("memory/w_3_7.mif", memory, 6304, 6323);
++                end
++                3: begin
++                    $readmemb("memory/w_1_3.mif", memory, 0, 783);
++                    $readmemb("memory/w_1_8.mif", memory, 1024, 1807);
++                    $readmemb("memory/w_1_13.mif", memory, 2048, 2831);
++                    $readmemb("memory/w_1_18.mif", memory, 3072, 3855);
++                    $readmemb("memory/w_1_23.mif", memory, 4096, 4879);
++                    $readmemb("memory/w_1_28.mif", memory, 5120, 5903);
++                    $readmemb("memory/w_2_3.mif", memory, 6144, 6173);
++                    $readmemb("memory/w_2_8.mif", memory, 6176, 6205);
++                    $readmemb("memory/w_2_13.mif", memory, 6208, 6237);
++                    $readmemb("memory/w_2_18.mif", memory, 6240, 6269);
++                    $readmemb("memory/w_3_3.mif", memory, 6272, 6291);
++                    $readmemb("memory/w_3_8.mif", memory, 6304, 6323);
++                end
++                4: begin
++                    $readmemb("memory/w_1_4.mif", memory, 0, 783);
++                    $readmemb("memory/w_1_9.mif", memory, 1024, 1807);
++                    $readmemb("memory/w_1_14.mif", memory, 2048, 2831);
++                    $readmemb("memory/w_1_19.mif", memory, 3072, 3855);
++                    $readmemb("memory/w_1_24.mif", memory, 4096, 4879);
++                    $readmemb("memory/w_1_29.mif", memory, 5120, 5903);
++                    $readmemb("memory/w_2_4.mif", memory, 6144, 6173);
++                    $readmemb("memory/w_2_9.mif", memory, 6176, 6205);
++                    $readmemb("memory/w_2_14.mif", memory, 6208, 6237);
++                    $readmemb("memory/w_2_19.mif", memory, 6240, 6269);
++                    $readmemb("memory/w_3_4.mif", memory, 6272, 6291);
++                    $readmemb("memory/w_3_9.mif", memory, 6304, 6323);
++                end
++            endcase
+         end
+-    end
++        always @(*) begin
++            case (layer_index)
++                2'd1: bank_address = {group_index, feature_address};
++                2'd2: bank_address = 13'd6144 + {5'd0, group_index, 5'd0} + {8'd0, feature_address[4:0]};
++                default: bank_address = 13'd6272 + {5'd0, group_index, 5'd0} + {8'd0, feature_address[4:0]};
++            endcase
++        end
++        always @(posedge clock)
++            if (read_enable[bank_index])
++                read_register <= memory[bank_address];
++        assign read_data[bank_index*8 +: 8] = read_register;
++    end endgenerate
+ endmodule
+--- a/rtl/mac_pe.sv
++++ b/rtl/mac_pe.sv
+@@ -1,6 +1,6 @@
+ `timescale 1ns/1ps
+ 
+-module mac_pe #(
++(* use_dsp = "yes" *) module mac_pe #(
+     parameter integer DATA_W = 8,
+     parameter integer ACC_W  = 26
+ ) (
+@@ -16,7 +16,8 @@
+     wire signed [(2*DATA_W)-1:0] product = $signed(a) * $signed(b);
+     assign mul = {{(ACC_W-(2*DATA_W)){product[(2*DATA_W)-1]}}, product};
+ 
+-    always @(posedge clk or negedge rst_n) begin
++    // Synchronous reset permits the DSP accumulator register without extra cycles.
++    always @(posedge clk) begin
+         if (!rst_n)
+             acc_sum <= {ACC_W{1'b0}};
+         else if (clr)
+--- a/rtl/pe_systolic_cell.sv
++++ b/rtl/pe_systolic_cell.sv
+@@ -39,8 +39,8 @@
+             a_valid_register <= 1'b0;
+             b_valid_register <= 1'b0;
+         end else if (en) begin
+-            a_register       <= a_in;
+-            b_register       <= b_in;
++            if (a_in_valid) a_register <= a_in;
++            if (b_in_valid) b_register <= b_in;
+             a_valid_register <= a_in_valid;
+             b_valid_register <= b_in_valid;
+         end
+--- a/rtl/systolic_controller.sv
++++ b/rtl/systolic_controller.sv
+@@ -35,7 +35,7 @@
+     reg [9:0] target_cycle_count;
+     integer row_index;
+     integer column_index;
+-    integer reduction_index;
++    reg [9:0] reduction_index;
+ 
+     assign o_busy    = (state == RUN);
+     assign o_done    = (state == DONE_STATE);
+--- a/tb/top_sim.sv
++++ b/tb/top_sim.sv
+@@ -18,6 +18,146 @@
+     reg [3:0] s_axi_wstrb;
+     reg s_axi_wvalid;
+     wire s_axi_wready;
++
++    wire [1:0] s_axi_bresp;
++    wire s_axi_bvalid;
++    reg s_axi_bready;
++    reg [4:0] s_axi_araddr;
++    reg [2:0] s_axi_arprot;
++    reg s_axi_arvalid;
++    wire s_axi_arready;
++    wire [31:0] s_axi_rdata;
++    wire [1:0] s_axi_rresp;
++    wire s_axi_rvalid;
++    reg s_axi_rready;
++    wire intr;
++    reg [7:0] image_memory [0:IMAGE_FEATURE_COUNT];
++    reg [7:0] expected_class [0:TEST_SAMPLE_COUNT-1];
++    reg [8*128-1:0] test_filename;
++    reg [31:0] read_value;
++    integer batch_index, image_index, feature_index;
++    integer producer_sample_index, consumer_sample_index;
++    integer pass_count, fail_count, interrupt_count;
++    integer total_cycle_count, first_transfer_cycle, last_result_cycle;
++    integer axi_backpressure_cycles;
++    integer controller_elapsed_cycles, controller_expected_cycles;
++    reg controller_measurement_active;
++    reg previous_intr, previous_stream_stall, previous_read_stall;
++    reg [7:0] previous_stream_data;
++    reg [31:0] previous_read_data;
++    integer protocol_errors, peak_active_pe_count, active_pe_count, monitor_index;
++    wire [24:0] pe_active;
++
++    // Independently check all 24,320 source weight bytes after ROM initialization.
++    genvar check_bank;
++    generate for (check_bank=0; check_bank<5; check_bank=check_bank+1) begin : CHECK_WEIGHT_CONTENT
++        reg [7:0] expected_weight [0:783];
++        reg [8*128-1:0] weight_filename;
++        integer layer, group_number, word_number, length, groups, base, stride, word_total;
++        initial begin
++            #1;
++            word_total=0;
++            for (layer=1; layer<=3; layer=layer+1) begin
++                length=(layer==1)?784:(layer==2)?30:20;
++                groups=(layer==1)?6:(layer==2)?4:2;
++                base=(layer==1)?0:(layer==2)?6144:6272;
++                stride=(layer==1)?1024:32;
++                for (group_number=0; group_number<groups; group_number=group_number+1) begin
++                    $sformat(weight_filename,"memory/w_%0d_%0d.mif",layer,group_number*5+check_bank);
++                    $readmemb(weight_filename,expected_weight,0,length-1);
++                    for (word_number=0; word_number<length; word_number=word_number+1) begin
++                        if (device_under_test.weight_sram_instance.WEIGHT_BANK[check_bank].memory[base+group_number*stride+word_number] !== expected_weight[word_number])
++                            $fatal(1,"Weight mapping mismatch bank=%0d layer=%0d group=%0d word=%0d",check_bank,layer,group_number,word_number);
++                        word_total=word_total+1;
++                    end
++                end
++            end
++            $display("WEIGHT_CONTENT_VERIFIED bank=%0d bytes=%0d",check_bank,word_total);
++        end
++    end endgenerate
++
++    genvar monitor_row, monitor_column;
++    generate for (monitor_row=0; monitor_row<5; monitor_row=monitor_row+1) begin : MONITOR_ROW
++        for (monitor_column=0; monitor_column<5; monitor_column=monitor_column+1) begin : MONITOR_COL
++            wire clear_pe = device_under_test.systolic_controller_instance.systolic_array_2d_instance.ARRAY_ROWS[monitor_row].ARRAY_COLUMNS[monitor_column].pe_systolic_cell_instance.mac_pe_instance.clr;
++            wire enable_pe = device_under_test.systolic_controller_instance.systolic_array_2d_instance.ARRAY_ROWS[monitor_row].ARRAY_COLUMNS[monitor_column].pe_systolic_cell_instance.mac_pe_instance.en;
++            wire signed [7:0] operand_a = device_under_test.systolic_controller_instance.systolic_array_2d_instance.ARRAY_ROWS[monitor_row].ARRAY_COLUMNS[monitor_column].pe_systolic_cell_instance.mac_pe_instance.a;
++            wire signed [7:0] operand_b = device_under_test.systolic_controller_instance.systolic_array_2d_instance.ARRAY_ROWS[monitor_row].ARRAY_COLUMNS[monitor_column].pe_systolic_cell_instance.mac_pe_instance.b;
++            wire signed [25:0] actual_acc = device_under_test.systolic_controller_instance.systolic_array_2d_instance.ARRAY_ROWS[monitor_row].ARRAY_COLUMNS[monitor_column].pe_systolic_cell_instance.mac_pe_instance.acc_sum;
++            reg signed [25:0] expected_acc;
++            assign pe_active[monitor_row*5+monitor_column] = enable_pe;
++            always @(posedge clock) begin
++                if (!reset_n) expected_acc <= 26'sd0;
++                else begin
++                    if (actual_acc !== expected_acc) $fatal(1,"MAC numeric mismatch row=%0d col=%0d",monitor_row,monitor_column);
++                    if (clear_pe) expected_acc <= 26'sd0;
++                    else if (enable_pe) expected_acc <= expected_acc + operand_a*operand_b;
++                end
++            end
++        end
++    end endgenerate
++
++    always @(posedge clock) begin
++        if (!reset_n) begin
++            interrupt_count <= 0;
++            total_cycle_count <= 0;
++            first_transfer_cycle <= -1;
++            axi_backpressure_cycles <= 0;
++            previous_intr <= 0;
++            previous_stream_stall <= 0;
++            previous_read_stall <= 0;
++            protocol_errors <= 0;
++            peak_active_pe_count <= 0;
++            controller_elapsed_cycles <= 0;
++            controller_expected_cycles <= 0;
++            controller_measurement_active <= 0;
++        end else begin
++            total_cycle_count <= total_cycle_count+1;
++            if (axis_in_data_valid && axis_in_data_ready && first_transfer_cycle < 0)
++                first_transfer_cycle <= total_cycle_count;
++            if (axis_in_data_valid && !axis_in_data_ready)
++                axi_backpressure_cycles <= axi_backpressure_cycles+1;
++            if (previous_stream_stall && (!axis_in_data_valid || axis_in_data !== previous_stream_data)) begin
++                protocol_errors <= protocol_errors+1;
++                $fatal(1,"AXIS data/valid changed under backpressure");
++            end
++            if (previous_read_stall && (!s_axi_rvalid || s_axi_rdata !== previous_read_data)) begin
++                protocol_errors <= protocol_errors+1;
++                $fatal(1,"AXI read response changed under backpressure");
++            end
++            previous_stream_stall <= axis_in_data_valid && !axis_in_data_ready;
++            previous_stream_data <= axis_in_data;
++            previous_read_stall <= s_axi_rvalid && !s_axi_rready;
++            previous_read_data <= s_axi_rdata;
++            if (intr) begin
++                if (previous_intr) $fatal(1,"intr must be a one-cycle pulse");
++                interrupt_count <= interrupt_count+1;
++            end
++            previous_intr <= intr;
++            active_pe_count = 0;
++            for (monitor_index=0; monitor_index<25; monitor_index=monitor_index+1)
++                if (pe_active[monitor_index]) active_pe_count=active_pe_count+1;
++            if (active_pe_count>peak_active_pe_count) peak_active_pe_count<=active_pe_count;
++            if (device_under_test.controller_start) begin
++                controller_measurement_active <= 1;
++                controller_elapsed_cycles <= 0;
++                case (device_under_test.layer_index)
++                    2'd1: controller_expected_cycles <= 797;
++                    2'd2: controller_expected_cycles <= 43;
++                    default: controller_expected_cycles <= 33;
++                endcase
++            end else if (controller_measurement_active) begin
++                controller_elapsed_cycles <= controller_elapsed_cycles+1;
++                if (device_under_test.controller_done) begin
++                    if (controller_elapsed_cycles+1 != controller_expected_cycles)
++                        $fatal(1,"controller cycle contract changed");
++                    controller_measurement_active <= 0;
++                end
++            end
++        end
++    end
++
++    zyNet device_under_test (
+     wire [1:0] s_axi_bresp;
+     wire s_axi_bvalid;
+     reg s_axi_bready;
+@@ -204,8 +344,11 @@
+         $display("FINAL_RESULT PASS=%0d FAIL=%0d ACCURACY=%0.6f%%", pass_count, fail_count, pass_count*100.0/TEST_SAMPLE_COUNT);
+         $display("TOTAL_INFERENCE_CYCLES=%0d", last_result_cycle-first_transfer_cycle+1);
+         $display("AXI_BACKPRESSURE_CYCLES=%0d", axi_backpressure_cycles);
++        $display("PROTOCOL_ERRORS=%0d", protocol_errors);
++        $display("PEAK_ACTIVE_PE_COUNT=%0d", peak_active_pe_count);
+         if (interrupt_count != TEST_SAMPLE_COUNT/BATCH_SIZE)
+             $fatal(1, "interrupt count mismatch: measured=%0d expected=%0d", interrupt_count, TEST_SAMPLE_COUNT/BATCH_SIZE);
++        $display("INTERRUPT_COUNT_PER_BATCH=%0d", interrupt_count/(TEST_SAMPLE_COUNT/BATCH_SIZE));
+         if ((pass_count == 99) && (fail_count == 1))
+             $display("REFERENCE_GOLDEN_MATCH PASS");
+         else

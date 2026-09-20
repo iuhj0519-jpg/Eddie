@@ -1,0 +1,181 @@
+schema_version: '1.0'
+target: optimized_accelerator
+run_id: run_004
+overall_state: pending_human_approval
+items:
+  PPA-HOTSPOT-001:
+    decision: pending
+    rtl_change_allowed: false
+    approved_spec_requirement: null
+  IMPL-DRC-001:
+    decision: pending
+    rtl_change_allowed: false
+    approved_spec_requirement: null
+  PPA-FANOUT-001:
+    decision: pending
+    rtl_change_allowed: false
+    approved_spec_requirement: null
+  DRC-NSTD-1:
+    decision: pending
+    rtl_change_allowed: false
+    approved_spec_requirement: null
+  DRC-UCIO-1:
+    decision: pending
+    rtl_change_allowed: false
+    approved_spec_requirement: null
+  DRC-CHECK-3:
+    decision: pending
+    rtl_change_allowed: false
+    approved_spec_requirement: null
+  DRC-DPIP-1:
+    decision: pending
+    rtl_change_allowed: false
+    approved_spec_requirement: null
+  DRC-DPOP-2:
+    decision: pending
+    rtl_change_allowed: false
+    approved_spec_requirement: null
+  DRC-RBOR-1:
+    decision: pending
+    rtl_change_allowed: false
+    approved_spec_requirement: null
+  DRC-REQP-1839:
+    decision: pending
+    rtl_change_allowed: false
+    approved_spec_requirement: null
+  DRC-REQP-1840:
+    decision: pending
+    rtl_change_allowed: false
+    approved_spec_requirement: null
+  DRC-ZPS7-1:
+    decision: pending
+    rtl_change_allowed: false
+    approved_spec_requirement: null
+  PPA-CONSTRAINT-001:
+    decision: pending
+    rtl_change_allowed: false
+    approved_spec_requirement: null
+  TOOL-WARNING-001:
+    decision: pending
+    rtl_change_allowed: false
+    approved_spec_requirement: null
+  SPEC-CHECK-REQ-LOOP-PPA-DSP-001:
+    decision: pending
+    rtl_change_allowed: false
+    approved_spec_requirement: null
+  SPEC-CHECK-REQ-LOOP-PPA-WEIGHT-001:
+    decision: pending
+    rtl_change_allowed: false
+    approved_spec_requirement: null
+  SPEC-CHECK-REQ-LOOP-PPA-TIMING-001:
+    decision: pending
+    rtl_change_allowed: false
+    approved_spec_requirement: null
+  SPEC-CHECK-REQ-LOOP-PPA-POWER-001:
+    decision: pending
+    rtl_change_allowed: false
+    approved_spec_requirement: null
+  SPEC-CHECK-REQ-LOOP-IMPL-DRC-001:
+    decision: pending
+    rtl_change_allowed: false
+    approved_spec_requirement: null
+  SPEC-CHECK-REQ-LOOP-PPA-MEMORY-MAPPING-001:
+    decision: pending
+    rtl_change_allowed: false
+    approved_spec_requirement: null
+  SPEC-CHECK-REQ-LOOP-PPA-ADDRESS-001:
+    decision: pending
+    rtl_change_allowed: false
+    approved_spec_requirement: null
+  SPEC-CHECK-REQ-LOOP-PPA-MUX-001:
+    decision: pending
+    rtl_change_allowed: false
+    approved_spec_requirement: null
+  SPEC-CHECK-REQ-LOOP-PPA-PIPELINE-001:
+    decision: pending
+    rtl_change_allowed: false
+    approved_spec_requirement: null
+  SPEC-CHECK-REQ-LOOP-PPA-ROUTE-DELAY-001:
+    decision: pending
+    rtl_change_allowed: false
+    approved_spec_requirement: null
+  SPEC-CHECK-REQ-LOOP-PPA-FANOUT-001:
+    decision: pending
+    rtl_change_allowed: false
+    approved_spec_requirement: null
+  SPEC-CHECK-REQ-LOOP-DRC-NSTD-1:
+    decision: pending
+    rtl_change_allowed: false
+    approved_spec_requirement: null
+  SPEC-CHECK-REQ-LOOP-DRC-UCIO-1:
+    decision: pending
+    rtl_change_allowed: false
+    approved_spec_requirement: null
+  SPEC-CHECK-REQ-LOOP-DRC-CHECK-3:
+    decision: pending
+    rtl_change_allowed: false
+    approved_spec_requirement: null
+  SPEC-CHECK-REQ-LOOP-DRC-DPIP-1:
+    decision: pending
+    rtl_change_allowed: false
+    approved_spec_requirement: null
+  SPEC-CHECK-REQ-LOOP-DRC-DPOP-1:
+    decision: pending
+    rtl_change_allowed: false
+    approved_spec_requirement: null
+  SPEC-CHECK-REQ-LOOP-DRC-DPOP-2:
+    decision: pending
+    rtl_change_allowed: false
+    approved_spec_requirement: null
+  SPEC-CHECK-REQ-LOOP-DRC-RBOR-1:
+    decision: pending
+    rtl_change_allowed: false
+    approved_spec_requirement: null
+  SPEC-CHECK-REQ-LOOP-DRC-REQP-1840:
+    decision: pending
+    rtl_change_allowed: false
+    approved_spec_requirement: null
+  SPEC-CHECK-REQ-LOOP-DRC-ZPS7-1:
+    decision: pending
+    rtl_change_allowed: false
+    approved_spec_requirement: null
+  SPEC-CHECK-REQ-LOOP-PPA-CONSTRAINT-001:
+    decision: pending
+    rtl_change_allowed: false
+    approved_spec_requirement: null
+  SPEC-CHECK-REQ-LOOP-EVIDENCE-PROVENANCE-001:
+    decision: pending
+    rtl_change_allowed: false
+    approved_spec_requirement: null
+  SPEC-CHECK-REQ-LOOP-EVIDENCE-COVERAGE-001:
+    decision: pending
+    rtl_change_allowed: false
+    approved_spec_requirement: null
+  SPEC-CHECK-REQ-LOOP-APPROVED-CYCLE-001:
+    decision: pending
+    rtl_change_allowed: false
+    approved_spec_requirement: null
+  SPEC-CHECK-REQ-LOOP-APPROVED-FUNCTION-001:
+    decision: pending
+    rtl_change_allowed: false
+    approved_spec_requirement: null
+  SPEC-CHECK-REQ-LOOP-REGRESSION-TOTAL-ON-CHIP-POWER-W:
+    decision: pending
+    rtl_change_allowed: false
+    approved_spec_requirement: null
+  SPEC-CHECK-REQ-LOOP-VERIFY-COMPILE-001:
+    decision: pending
+    rtl_change_allowed: false
+    approved_spec_requirement: null
+  SPEC-CHECK-REQ-LOOP-EVIDENCE-MEMORY-MAPPING-001:
+    decision: pending
+    rtl_change_allowed: false
+    approved_spec_requirement: null
+  SPEC-CHECK-REQ-LOOP-TOOL-WARNING-001:
+    decision: pending
+    rtl_change_allowed: false
+    approved_spec_requirement: null
+  SPEC-CHECK-REQ-LOOP-VERIFY-EXECUTION-001:
+    decision: pending
+    rtl_change_allowed: false
+    approved_spec_requirement: null

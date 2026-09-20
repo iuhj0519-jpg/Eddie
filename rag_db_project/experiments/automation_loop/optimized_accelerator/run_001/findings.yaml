@@ -1,0 +1,40 @@
+schema_version: "1.0"
+target: optimized_accelerator
+run_id: run_001
+
+findings:
+  - finding_id: PPA-DSP-001
+    category: architecture_parallelism
+    severity: high
+    state: detected_pending_human_approval
+    evidence:
+      report: artifacts/synthesis/optimized_accelerator/run_001/utilization.rpt
+      hierarchical_report: artifacts/synthesis/optimized_accelerator/run_001/utilization_hierarchical.rpt
+      array_rows: 5
+      array_columns: 5
+      expected_concurrent_pe_count: 25
+      preferred_dsp48_count: 25
+      observed_dsp48_count: 5
+    interpretation: >-
+      The synthesis result does not demonstrate one independent DSP MAC for every PE.
+      DSP count is a structural proxy and must be paired with cycle-level PE activity measurement.
+    automatic_action: generate_diagnosis_and_spec_change_proposal
+    prohibited_action: modify_rtl_or_approved_spec_without_human_approval
+
+  - finding_id: PPA-WEIGHT-001
+    category: memory_inference_bottleneck
+    severity: high
+    state: detected_pending_human_approval
+    evidence:
+      report: artifacts/synthesis/optimized_accelerator/run_001/utilization_hierarchical.rpt
+      total_lut: 18059
+      weight_sram_lut: 13930
+      weight_sram_lut_ratio: 0.7714
+      weight_sram_f7_mux: 6345
+      weight_sram_f8_mux: 1615
+      weight_sram_bram_tile: 0
+    interpretation: >-
+      Weight storage is implemented primarily as LUT and deep MUX logic instead of Block RAM,
+      creating an area, routing, timing, and scalability bottleneck.
+    automatic_action: generate_diagnosis_and_spec_change_proposal
+    prohibited_action: modify_rtl_or_approved_spec_without_human_approval

@@ -1,0 +1,610 @@
+{
+  "compliance": [
+    {
+      "requirement_id": "REQ-LOOP-PPA-DSP-001",
+      "checks": [
+        {
+          "metric": "utilization.dsp",
+          "op": "eq",
+          "value": 25,
+          "observed": 25.0,
+          "state": "pass"
+        },
+        {
+          "metric": "verification.peak_active_pe_count",
+          "op": "eq",
+          "value": 25,
+          "observed": 25,
+          "state": "pass"
+        },
+        {
+          "metric": "review.REQ-LOOP-PPA-DSP-001",
+          "op": "eq",
+          "value": true,
+          "observed": null,
+          "state": "unknown"
+        }
+      ],
+      "state": "unknown"
+    },
+    {
+      "requirement_id": "REQ-LOOP-PPA-WEIGHT-001",
+      "checks": [
+        {
+          "metric": "review.REQ-LOOP-PPA-WEIGHT-001",
+          "op": "eq",
+          "value": true,
+          "observed": null,
+          "state": "unknown"
+        },
+        {
+          "metric": "utilization.lut",
+          "op": "le",
+          "value": 12642,
+          "observed": 1199.0,
+          "state": "pass"
+        },
+        {
+          "metric": "utilization.ff",
+          "op": "le",
+          "value": 2000,
+          "observed": 714.0,
+          "state": "pass"
+        }
+      ],
+      "state": "unknown"
+    },
+    {
+      "requirement_id": "REQ-LOOP-PPA-TIMING-001",
+      "checks": [
+        {
+          "metric": "timing.wns_ns",
+          "op": "ge",
+          "value": 0,
+          "observed": 0.12,
+          "state": "pass"
+        },
+        {
+          "metric": "timing.tns_ns",
+          "op": "ge",
+          "value": 0,
+          "observed": 0.0,
+          "state": "pass"
+        },
+        {
+          "metric": "review.REQ-LOOP-PPA-TIMING-001",
+          "op": "eq",
+          "value": true,
+          "observed": null,
+          "state": "unknown"
+        },
+        {
+          "metric": "timing.whs_ns",
+          "op": "ge",
+          "value": 0,
+          "observed": 0.027,
+          "state": "pass"
+        },
+        {
+          "metric": "timing.wpws_ns",
+          "op": "ge",
+          "value": 0,
+          "observed": 4.5,
+          "state": "pass"
+        }
+      ],
+      "state": "unknown"
+    },
+    {
+      "requirement_id": "REQ-LOOP-PPA-POWER-001",
+      "checks": [
+        {
+          "metric": "review.REQ-LOOP-PPA-POWER-001",
+          "op": "eq",
+          "value": true,
+          "observed": null,
+          "state": "unknown"
+        }
+      ],
+      "state": "unknown"
+    },
+    {
+      "requirement_id": "REQ-LOOP-IMPL-DRC-001",
+      "checks": [
+        {
+          "metric": "review.REQ-LOOP-IMPL-DRC-001",
+          "op": "eq",
+          "value": true,
+          "observed": null,
+          "state": "unknown"
+        }
+      ],
+      "state": "unknown"
+    },
+    {
+      "requirement_id": "REQ-LOOP-PPA-MEMORY-MAPPING-001",
+      "checks": [
+        {
+          "metric": "ram.weight_block_count",
+          "op": "gt",
+          "value": 0,
+          "observed": 10.0,
+          "state": "pass"
+        },
+        {
+          "metric": "review.REQ-LOOP-PPA-MEMORY-MAPPING-001",
+          "op": "eq",
+          "value": true,
+          "observed": null,
+          "state": "unknown"
+        }
+      ],
+      "state": "unknown"
+    },
+    {
+      "requirement_id": "REQ-LOOP-PPA-ADDRESS-001",
+      "checks": [
+        {
+          "metric": "review.REQ-LOOP-PPA-ADDRESS-001",
+          "op": "eq",
+          "value": true,
+          "observed": null,
+          "state": "unknown"
+        }
+      ],
+      "state": "unknown"
+    },
+    {
+      "requirement_id": "REQ-LOOP-PPA-MUX-001",
+      "checks": [
+        {
+          "metric": "review.REQ-LOOP-PPA-MUX-001",
+          "op": "eq",
+          "value": true,
+          "observed": null,
+          "state": "unknown"
+        }
+      ],
+      "state": "unknown"
+    },
+    {
+      "requirement_id": "REQ-LOOP-PPA-PIPELINE-001",
+      "checks": [
+        {
+          "metric": "review.REQ-LOOP-PPA-PIPELINE-001",
+          "op": "eq",
+          "value": true,
+          "observed": null,
+          "state": "unknown"
+        }
+      ],
+      "state": "unknown"
+    },
+    {
+      "requirement_id": "REQ-LOOP-PPA-ROUTE-DELAY-001",
+      "checks": [
+        {
+          "metric": "review.REQ-LOOP-PPA-ROUTE-DELAY-001",
+          "op": "eq",
+          "value": true,
+          "observed": null,
+          "state": "unknown"
+        }
+      ],
+      "state": "unknown"
+    },
+    {
+      "requirement_id": "REQ-LOOP-PPA-FANOUT-001",
+      "checks": [
+        {
+          "metric": "review.REQ-LOOP-PPA-FANOUT-001",
+          "op": "eq",
+          "value": true,
+          "observed": null,
+          "state": "unknown"
+        }
+      ],
+      "state": "unknown"
+    },
+    {
+      "requirement_id": "REQ-LOOP-DRC-NSTD-1",
+      "checks": [
+        {
+          "metric": "review.REQ-LOOP-DRC-NSTD-1",
+          "op": "eq",
+          "value": true,
+          "observed": null,
+          "state": "unknown"
+        }
+      ],
+      "state": "unknown"
+    },
+    {
+      "requirement_id": "REQ-LOOP-DRC-UCIO-1",
+      "checks": [
+        {
+          "metric": "review.REQ-LOOP-DRC-UCIO-1",
+          "op": "eq",
+          "value": true,
+          "observed": null,
+          "state": "unknown"
+        }
+      ],
+      "state": "unknown"
+    },
+    {
+      "requirement_id": "REQ-LOOP-DRC-CHECK-3",
+      "checks": [
+        {
+          "metric": "review.REQ-LOOP-DRC-CHECK-3",
+          "op": "eq",
+          "value": true,
+          "observed": null,
+          "state": "unknown"
+        }
+      ],
+      "state": "unknown"
+    },
+    {
+      "requirement_id": "REQ-LOOP-DRC-DPIP-1",
+      "checks": [
+        {
+          "metric": "review.REQ-LOOP-DRC-DPIP-1",
+          "op": "eq",
+          "value": true,
+          "observed": null,
+          "state": "unknown"
+        }
+      ],
+      "state": "unknown"
+    },
+    {
+      "requirement_id": "REQ-LOOP-DRC-DPOP-1",
+      "checks": [
+        {
+          "metric": "review.REQ-LOOP-DRC-DPOP-1",
+          "op": "eq",
+          "value": true,
+          "observed": null,
+          "state": "unknown"
+        }
+      ],
+      "state": "unknown"
+    },
+    {
+      "requirement_id": "REQ-LOOP-DRC-DPOP-2",
+      "checks": [
+        {
+          "metric": "review.REQ-LOOP-DRC-DPOP-2",
+          "op": "eq",
+          "value": true,
+          "observed": null,
+          "state": "unknown"
+        }
+      ],
+      "state": "unknown"
+    },
+    {
+      "requirement_id": "REQ-LOOP-DRC-RBOR-1",
+      "checks": [
+        {
+          "metric": "review.REQ-LOOP-DRC-RBOR-1",
+          "op": "eq",
+          "value": true,
+          "observed": null,
+          "state": "unknown"
+        }
+      ],
+      "state": "unknown"
+    },
+    {
+      "requirement_id": "REQ-LOOP-DRC-REQP-1840",
+      "checks": [
+        {
+          "metric": "review.REQ-LOOP-DRC-REQP-1840",
+          "op": "eq",
+          "value": true,
+          "observed": null,
+          "state": "unknown"
+        }
+      ],
+      "state": "unknown"
+    },
+    {
+      "requirement_id": "REQ-LOOP-DRC-ZPS7-1",
+      "checks": [
+        {
+          "metric": "review.REQ-LOOP-DRC-ZPS7-1",
+          "op": "eq",
+          "value": true,
+          "observed": null,
+          "state": "unknown"
+        }
+      ],
+      "state": "unknown"
+    },
+    {
+      "requirement_id": "REQ-LOOP-PPA-CONSTRAINT-001",
+      "checks": [
+        {
+          "metric": "review.REQ-LOOP-PPA-CONSTRAINT-001",
+          "op": "eq",
+          "value": true,
+          "observed": null,
+          "state": "unknown"
+        }
+      ],
+      "state": "unknown"
+    },
+    {
+      "requirement_id": "REQ-LOOP-EVIDENCE-PROVENANCE-001",
+      "checks": [
+        {
+          "metric": "review.REQ-LOOP-EVIDENCE-PROVENANCE-001",
+          "op": "eq",
+          "value": true,
+          "observed": null,
+          "state": "unknown"
+        }
+      ],
+      "state": "unknown"
+    },
+    {
+      "requirement_id": "REQ-LOOP-EVIDENCE-COVERAGE-001",
+      "checks": [
+        {
+          "metric": "review.REQ-LOOP-EVIDENCE-COVERAGE-001",
+          "op": "eq",
+          "value": true,
+          "observed": null,
+          "state": "unknown"
+        }
+      ],
+      "state": "unknown"
+    },
+    {
+      "requirement_id": "REQ-LOOP-APPROVED-CYCLE-001",
+      "checks": [
+        {
+          "metric": "verification.total_inference_cycles",
+          "op": "le",
+          "value": 161735,
+          "observed": 161735,
+          "state": "pass"
+        },
+        {
+          "metric": "review.REQ-LOOP-APPROVED-CYCLE-001",
+          "op": "eq",
+          "value": true,
+          "observed": null,
+          "state": "unknown"
+        }
+      ],
+      "state": "unknown"
+    },
+    {
+      "requirement_id": "REQ-LOOP-APPROVED-FUNCTION-001",
+      "checks": [
+        {
+          "metric": "verification.image_count",
+          "op": "eq",
+          "value": 100,
+          "observed": 100,
+          "state": "pass"
+        },
+        {
+          "metric": "verification.failure_count",
+          "op": "eq",
+          "value": 1,
+          "observed": 1,
+          "state": "pass"
+        },
+        {
+          "metric": "verification.protocol_errors",
+          "op": "eq",
+          "value": 0,
+          "observed": 0,
+          "state": "pass"
+        },
+        {
+          "metric": "verification.interrupt_count_per_batch",
+          "op": "eq",
+          "value": 1,
+          "observed": 1,
+          "state": "pass"
+        },
+        {
+          "metric": "review.REQ-LOOP-APPROVED-FUNCTION-001",
+          "op": "eq",
+          "value": true,
+          "observed": null,
+          "state": "unknown"
+        }
+      ],
+      "state": "unknown"
+    },
+    {
+      "requirement_id": "REQ-LOOP-REGRESSION-TOTAL-ON-CHIP-POWER-W",
+      "checks": [
+        {
+          "metric": "review.REQ-LOOP-REGRESSION-TOTAL-ON-CHIP-POWER-W",
+          "op": "eq",
+          "value": true,
+          "observed": null,
+          "state": "unknown"
+        },
+        {
+          "metric": "power.total_on_chip_power_w",
+          "op": "le",
+          "value": 0.544,
+          "observed": 0.169,
+          "state": "pass"
+        },
+        {
+          "metric": "power.energy_per_workload_uj",
+          "op": "le",
+          "value": 900.0,
+          "observed": 273.36172500000004,
+          "state": "pass"
+        }
+      ],
+      "state": "unknown"
+    },
+    {
+      "requirement_id": "REQ-LOOP-VERIFY-COMPILE-001",
+      "checks": [
+        {
+          "metric": "review.REQ-LOOP-VERIFY-COMPILE-001",
+          "op": "eq",
+          "value": true,
+          "observed": null,
+          "state": "unknown"
+        }
+      ],
+      "state": "unknown"
+    },
+    {
+      "requirement_id": "REQ-LOOP-EVIDENCE-MEMORY-MAPPING-001",
+      "checks": [
+        {
+          "metric": "review.REQ-LOOP-EVIDENCE-MEMORY-MAPPING-001",
+          "op": "eq",
+          "value": true,
+          "observed": null,
+          "state": "unknown"
+        }
+      ],
+      "state": "unknown"
+    },
+    {
+      "requirement_id": "REQ-LOOP-TOOL-WARNING-001",
+      "checks": [
+        {
+          "metric": "review.REQ-LOOP-TOOL-WARNING-001",
+          "op": "eq",
+          "value": true,
+          "observed": null,
+          "state": "unknown"
+        }
+      ],
+      "state": "unknown"
+    },
+    {
+      "requirement_id": "REQ-LOOP-VERIFY-EXECUTION-001",
+      "checks": [
+        {
+          "metric": "review.REQ-LOOP-VERIFY-EXECUTION-001",
+          "op": "eq",
+          "value": true,
+          "observed": null,
+          "state": "unknown"
+        }
+      ],
+      "state": "unknown"
+    }
+  ],
+  "ppa_comparison": {
+    "metrics": [
+      {
+        "metric": "timing.wns_ns",
+        "before": -4.576,
+        "after": 0.12,
+        "comparison_validated": true,
+        "delta": 4.696,
+        "direction": "better"
+      },
+      {
+        "metric": "utilization.lut",
+        "before": 18094.0,
+        "after": 1199.0,
+        "comparison_validated": true,
+        "delta": -16895.0,
+        "direction": "better"
+      },
+      {
+        "metric": "utilization.ff",
+        "before": 1536.0,
+        "after": 714.0,
+        "comparison_validated": true,
+        "delta": -822.0,
+        "direction": "better"
+      },
+      {
+        "metric": "power.total_on_chip_power_w",
+        "before": 0.614,
+        "after": 0.169,
+        "comparison_validated": true,
+        "delta": -0.44499999999999995,
+        "direction": "better"
+      },
+      {
+        "metric": "power.energy_per_workload_uj",
+        "before": 993.16035,
+        "after": 273.36172500000004,
+        "comparison_validated": true,
+        "delta": -719.7986249999999,
+        "direction": "better"
+      },
+      {
+        "metric": "verification.total_inference_cycles",
+        "before": 161735,
+        "after": 161735,
+        "comparison_validated": true,
+        "delta": 0,
+        "direction": "unchanged"
+      }
+    ],
+    "comparison_context_validated": true,
+    "decision": "human_tradeoff_review",
+    "note": "Raw deltas do not prove an improvement when stage/clock/workload/activity differ or are missing."
+  },
+  "improvement_candidates": [
+    "PPA-HOTSPOT-001",
+    "IMPL-DRC-001",
+    "PPA-FANOUT-001",
+    "DRC-NSTD-1",
+    "DRC-UCIO-1",
+    "DRC-CHECK-3",
+    "DRC-DPIP-1",
+    "DRC-DPOP-2",
+    "DRC-RBOR-1",
+    "DRC-REQP-1839",
+    "DRC-REQP-1840",
+    "DRC-ZPS7-1",
+    "PPA-CONSTRAINT-001",
+    "TOOL-WARNING-001",
+    "SPEC-CHECK-REQ-LOOP-PPA-DSP-001",
+    "SPEC-CHECK-REQ-LOOP-PPA-WEIGHT-001",
+    "SPEC-CHECK-REQ-LOOP-PPA-TIMING-001",
+    "SPEC-CHECK-REQ-LOOP-PPA-POWER-001",
+    "SPEC-CHECK-REQ-LOOP-IMPL-DRC-001",
+    "SPEC-CHECK-REQ-LOOP-PPA-MEMORY-MAPPING-001",
+    "SPEC-CHECK-REQ-LOOP-PPA-ADDRESS-001",
+    "SPEC-CHECK-REQ-LOOP-PPA-MUX-001",
+    "SPEC-CHECK-REQ-LOOP-PPA-PIPELINE-001",
+    "SPEC-CHECK-REQ-LOOP-PPA-ROUTE-DELAY-001",
+    "SPEC-CHECK-REQ-LOOP-PPA-FANOUT-001",
+    "SPEC-CHECK-REQ-LOOP-DRC-NSTD-1",
+    "SPEC-CHECK-REQ-LOOP-DRC-UCIO-1",
+    "SPEC-CHECK-REQ-LOOP-DRC-CHECK-3",
+    "SPEC-CHECK-REQ-LOOP-DRC-DPIP-1",
+    "SPEC-CHECK-REQ-LOOP-DRC-DPOP-1",
+    "SPEC-CHECK-REQ-LOOP-DRC-DPOP-2",
+    "SPEC-CHECK-REQ-LOOP-DRC-RBOR-1",
+    "SPEC-CHECK-REQ-LOOP-DRC-REQP-1840",
+    "SPEC-CHECK-REQ-LOOP-DRC-ZPS7-1",
+    "SPEC-CHECK-REQ-LOOP-PPA-CONSTRAINT-001",
+    "SPEC-CHECK-REQ-LOOP-EVIDENCE-PROVENANCE-001",
+    "SPEC-CHECK-REQ-LOOP-EVIDENCE-COVERAGE-001",
+    "SPEC-CHECK-REQ-LOOP-APPROVED-CYCLE-001",
+    "SPEC-CHECK-REQ-LOOP-APPROVED-FUNCTION-001",
+    "SPEC-CHECK-REQ-LOOP-REGRESSION-TOTAL-ON-CHIP-POWER-W",
+    "SPEC-CHECK-REQ-LOOP-VERIFY-COMPILE-001",
+    "SPEC-CHECK-REQ-LOOP-EVIDENCE-MEMORY-MAPPING-001",
+    "SPEC-CHECK-REQ-LOOP-TOOL-WARNING-001",
+    "SPEC-CHECK-REQ-LOOP-VERIFY-EXECUTION-001"
+  ],
+  "decision": "propose_and_reapprove",
+  "tradeoff_policy": "An area/power regression is not automatically a rejection; require same-stage, clock, workload and activity evidence plus human disposition.",
+  "post_route": "required_before_final_acceptance"
+}

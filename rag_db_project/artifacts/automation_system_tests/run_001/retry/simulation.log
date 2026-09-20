@@ -1,0 +1,134 @@
+COMMAND ["C:/intelFPGA/18.1/modelsim_ase/win32aloem/vsim.exe", "-c", "-t", "1ps", "work.top_sim", "-do", "onerror {quit -code 1 -f}; onbreak {quit -code 1 -f}; run -all; quit -code 0 -f"]
+Reading C:/intelFPGA/18.1/modelsim_ase/tcl/vsim/pref.tcl
+
+# 10.5b
+
+# vsim -c -t 1ps work.top_sim -do "onerror {quit -code 1 -f}; onbreak {quit -code 1 -f}; run -all; quit -code 0 -f" 
+# Start time: 16:46:05 on Sep 07,2026
+# Loading sv_std.std
+# Loading work.top_sim
+# Loading work.zyNet
+# Loading work.unified_buffer
+# Loading work.weight_sram
+# Loading work.systolic_controller
+# Loading work.systolic_array_2d
+# Loading work.bias_sram
+# Loading work.activation_unit
+# Loading work.maxFinder
+# Loading work.dnn_scheduler
+# Loading work.axi_lite_wrapper
+# Loading work.pe_systolic_cell
+# Loading work.mac_pe
+# onerror {quit -code 1 -f}
+#  Warning: onerror command for use within macro
+#  onbreak {quit -code 1 -f}
+#  Warning: onbreak command for use within macro
+#  run -all
+# PASS sample=0 detected=7 expected=7
+# PASS sample=1 detected=2 expected=2
+# PASS sample=2 detected=1 expected=1
+# PASS sample=3 detected=0 expected=0
+# PASS sample=4 detected=4 expected=4
+# PASS sample=5 detected=1 expected=1
+# PASS sample=6 detected=4 expected=4
+# PASS sample=7 detected=9 expected=9
+# PASS sample=8 detected=5 expected=5
+# PASS sample=9 detected=9 expected=9
+# PASS sample=10 detected=0 expected=0
+# PASS sample=11 detected=6 expected=6
+# PASS sample=12 detected=9 expected=9
+# PASS sample=13 detected=0 expected=0
+# PASS sample=14 detected=1 expected=1
+# PASS sample=15 detected=5 expected=5
+# PASS sample=16 detected=9 expected=9
+# PASS sample=17 detected=7 expected=7
+# FAIL sample=18 detected=8 expected=3
+# PASS sample=19 detected=4 expected=4
+# PASS sample=20 detected=9 expected=9
+# PASS sample=21 detected=6 expected=6
+# PASS sample=22 detected=6 expected=6
+# PASS sample=23 detected=5 expected=5
+# PASS sample=24 detected=4 expected=4
+# PASS sample=25 detected=0 expected=0
+# PASS sample=26 detected=7 expected=7
+# PASS sample=27 detected=4 expected=4
+# PASS sample=28 detected=0 expected=0
+# PASS sample=29 detected=1 expected=1
+# PASS sample=30 detected=3 expected=3
+# PASS sample=31 detected=1 expected=1
+# PASS sample=32 detected=3 expected=3
+# PASS sample=33 detected=4 expected=4
+# PASS sample=34 detected=7 expected=7
+# PASS sample=35 detected=2 expected=2
+# PASS sample=36 detected=7 expected=7
+# PASS sample=37 detected=1 expected=1
+# PASS sample=38 detected=2 expected=2
+# PASS sample=39 detected=1 expected=1
+# PASS sample=40 detected=1 expected=1
+# PASS sample=41 detected=7 expected=7
+# PASS sample=42 detected=4 expected=4
+# PASS sample=43 detected=2 expected=2
+# PASS sample=44 detected=3 expected=3
+# PASS sample=45 detected=5 expected=5
+# PASS sample=46 detected=1 expected=1
+# PASS sample=47 detected=2 expected=2
+# PASS sample=48 detected=4 expected=4
+# PASS sample=49 detected=4 expected=4
+# PASS sample=50 detected=6 expected=6
+# PASS sample=51 detected=3 expected=3
+# PASS sample=52 detected=5 expected=5
+# PASS sample=53 detected=5 expected=5
+# PASS sample=54 detected=6 expected=6
+# PASS sample=55 detected=0 expected=0
+# PASS sample=56 detected=4 expected=4
+# PASS sample=57 detected=1 expected=1
+# PASS sample=58 detected=9 expected=9
+# PASS sample=59 detected=5 expected=5
+# PASS sample=60 detected=7 expected=7
+# PASS sample=61 detected=8 expected=8
+# PASS sample=62 detected=9 expected=9
+# PASS sample=63 detected=3 expected=3
+# PASS sample=64 detected=7 expected=7
+# PASS sample=65 detected=4 expected=4
+# PASS sample=66 detected=6 expected=6
+# PASS sample=67 detected=4 expected=4
+# PASS sample=68 detected=3 expected=3
+# PASS sample=69 detected=0 expected=0
+# PASS sample=70 detected=7 expected=7
+# PASS sample=71 detected=0 expected=0
+# PASS sample=72 detected=2 expected=2
+# PASS sample=73 detected=9 expected=9
+# PASS sample=74 detected=1 expected=1
+# PASS sample=75 detected=7 expected=7
+# PASS sample=76 detected=3 expected=3
+# PASS sample=77 detected=2 expected=2
+# PASS sample=78 detected=9 expected=9
+# PASS sample=79 detected=7 expected=7
+# PASS sample=80 detected=7 expected=7
+# PASS sample=81 detected=6 expected=6
+# PASS sample=82 detected=2 expected=2
+# PASS sample=83 detected=7 expected=7
+# PASS sample=84 detected=8 expected=8
+# PASS sample=85 detected=4 expected=4
+# PASS sample=86 detected=7 expected=7
+# PASS sample=87 detected=3 expected=3
+# PASS sample=88 detected=6 expected=6
+# PASS sample=89 detected=1 expected=1
+# PASS sample=90 detected=3 expected=3
+# PASS sample=91 detected=6 expected=6
+# PASS sample=92 detected=9 expected=9
+# PASS sample=93 detected=3 expected=3
+# PASS sample=94 detected=1 expected=1
+# PASS sample=95 detected=4 expected=4
+# PASS sample=96 detected=1 expected=1
+# PASS sample=97 detected=7 expected=7
+# PASS sample=98 detected=6 expected=6
+# PASS sample=99 detected=9 expected=9
+# FINAL_RESULT PASS=99 FAIL=1 ACCURACY=99.000000%
+# TOTAL_INFERENCE_CYCLES=161735
+# AXI_BACKPRESSURE_CYCLES=77977
+# REFERENCE_GOLDEN_MATCH PASS
+# ** Note: $finish    : tb/top_sim.sv(213)
+#    Time: 1617525 ns  Iteration: 1  Instance: /top_sim
+# End time: 16:46:26 on Sep 07,2026, Elapsed time: 0:00:21
+# Errors: 0, Warnings: 0

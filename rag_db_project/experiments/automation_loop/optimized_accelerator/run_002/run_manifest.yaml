@@ -1,0 +1,24 @@
+schema_version: '1.0'
+experiment_type: automation_loop
+target: optimized_accelerator
+run_id: run_002
+status: findings_detected_pending_human_approval
+source:
+  workspace: workspace/optimized_accelerator
+  artifact_root: artifacts/synthesis/optimized_accelerator/run_001
+  historical_baseline_used: false
+  external_knowledge_used: false
+evidence_hashes:
+  power.rpt: 39a62029f049f49ac349f73eb231d811427292bd47e861aa726b7dbdce5a0dd9
+  ram_utilization.rpt: 71ef302a17930cfe2bea704e3061785b9f0eef2b2b5ee9ba47c104814095d409
+  run_manifest.yaml: fe19fb49f890063bb84a4a6827a0894fc31b510e95f732c85696aebe9e4296d7
+  run_summary.txt: 6bead9b771a66ce024bda2ada129a4be4d6ddc8dfdfcfa563d02585457ffcf34
+  timing_summary.rpt: d36a21e6babfa90b2135b408bdc788facf83587a506c772acb6c4d28a8f1566e
+  utilization.rpt: d4142df76f12681f81bdf85731bb272418ce77bf86f4800405a751fa00388d34
+  utilization_hierarchical.rpt: feb9ab86ca9fbef6b62bd71b335d5356a3ed7b05f1e5dfa183fd7f7b94887248
+finding_ids:
+- PPA-DSP-001
+- PPA-WEIGHT-001
+- PPA-TIMING-001
+- PPA-POWER-001
+next_action: human_review

@@ -1,0 +1,29 @@
+changes:
+- finding_id: PPA-MEMORY-MAPPING-001
+  requirement_id: REQ-LOOP-PPA-MEMORY-MAPPING-001
+  files:
+  - rtl/weight_sram.sv
+  explanation: 5-bank synchronous ROM with unchanged complete weights and one-cycle
+    latency
+- finding_id: PPA-DSP-001
+  requirement_id: REQ-LOOP-PPA-DSP-001
+  files:
+  - rtl/mac_pe.sv
+  explanation: Signed DSP MAC inference with synchronous accumulator reset
+- finding_id: PPA-POWER-001
+  requirement_id: REQ-LOOP-PPA-POWER-001
+  files:
+  - rtl/pe_systolic_cell.sv
+  explanation: Hold invalid operand data while preserving valid propagation
+- finding_id: PPA-ADDRESS-001
+  requirement_id: REQ-LOOP-PPA-ADDRESS-001
+  files:
+  - rtl/systolic_controller.sv
+  explanation: Bound reduction address arithmetic to ten bits with existing range
+    guards
+- finding_id: EVIDENCE-COVERAGE-001
+  requirement_id: REQ-LOOP-EVIDENCE-COVERAGE-001
+  files:
+  - tb/top_sim.sv
+  explanation: Explicitly approved declaration repair, MAC/Weight/protocol/PE/cycle
+    instrumentation; no Golden, data, clock or timeout relaxation

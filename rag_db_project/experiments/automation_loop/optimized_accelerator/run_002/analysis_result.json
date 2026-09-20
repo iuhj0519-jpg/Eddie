@@ -1,0 +1,444 @@
+{
+  "schema_version": "1.0",
+  "target": "optimized_accelerator",
+  "run_id": "run_002",
+  "status": "findings_detected_pending_human_approval",
+  "artifact_root": "artifacts/synthesis/optimized_accelerator/run_001",
+  "metrics": {
+    "utilization": {
+      "lut": 18059.0,
+      "lut_logic": 18059.0,
+      "lut_memory": 0.0,
+      "ff": 1436.0,
+      "bram_tile": 2.5,
+      "ramb18": 5.0,
+      "dsp": 5.0,
+      "io": 64.0
+    },
+    "hierarchy": {
+      "zyNet": {
+        "module": "(top)",
+        "total_lut": 18059.0,
+        "logic_lut": 18059.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 1436.0,
+        "ramb36": 0.0,
+        "ramb18": 5.0,
+        "dsp": 5.0
+      },
+      "activation_unit_instance": {
+        "module": "activation_unit",
+        "total_lut": 330.0,
+        "logic_lut": 330.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 36.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 0.0
+      },
+      "axi_lite_wrapper_instance": {
+        "module": "axi_lite_wrapper",
+        "total_lut": 18.0,
+        "logic_lut": 18.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 15.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 0.0
+      },
+      "bias_sram_instance": {
+        "module": "bias_sram",
+        "total_lut": 7.0,
+        "logic_lut": 7.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 35.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 0.0
+      },
+      "dnn_scheduler_instance": {
+        "module": "dnn_scheduler",
+        "total_lut": 401.0,
+        "logic_lut": 401.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 43.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 0.0
+      },
+      "maxFinder_instance": {
+        "module": "maxFinder",
+        "total_lut": 9.0,
+        "logic_lut": 9.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 56.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 0.0
+      },
+      "systolic_controller_instance": {
+        "module": "systolic_controller",
+        "total_lut": 3331.0,
+        "logic_lut": 3331.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 1128.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 0.0
+      },
+      "systolic_array_2d_instance": {
+        "module": "systolic_array_2d",
+        "total_lut": 2638.0,
+        "logic_lut": 2638.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 1100.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 0.0
+      },
+      "ARRAY_ROWS[0].ARRAY_COLUMNS[0].pe_systolic_cell_instance": {
+        "module": "pe_systolic_cell",
+        "total_lut": 93.0,
+        "logic_lut": 93.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 44.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 0.0
+      },
+      "mac_pe_instance": {
+        "module": "mac_pe",
+        "total_lut": 92.0,
+        "logic_lut": 92.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 26.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 0.0
+      },
+      "ARRAY_ROWS[0].ARRAY_COLUMNS[1].pe_systolic_cell_instance": {
+        "module": "pe_systolic_cell_0",
+        "total_lut": 93.0,
+        "logic_lut": 93.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 44.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 0.0
+      },
+      "ARRAY_ROWS[0].ARRAY_COLUMNS[2].pe_systolic_cell_instance": {
+        "module": "pe_systolic_cell_1",
+        "total_lut": 93.0,
+        "logic_lut": 93.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 44.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 0.0
+      },
+      "ARRAY_ROWS[0].ARRAY_COLUMNS[3].pe_systolic_cell_instance": {
+        "module": "pe_systolic_cell_2",
+        "total_lut": 125.0,
+        "logic_lut": 125.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 44.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 0.0
+      },
+      "ARRAY_ROWS[0].ARRAY_COLUMNS[4].pe_systolic_cell_instance": {
+        "module": "pe_systolic_cell_3",
+        "total_lut": 92.0,
+        "logic_lut": 92.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 44.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 0.0
+      },
+      "ARRAY_ROWS[1].ARRAY_COLUMNS[0].pe_systolic_cell_instance": {
+        "module": "pe_systolic_cell_4",
+        "total_lut": 93.0,
+        "logic_lut": 93.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 44.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 0.0
+      },
+      "ARRAY_ROWS[1].ARRAY_COLUMNS[1].pe_systolic_cell_instance": {
+        "module": "pe_systolic_cell_5",
+        "total_lut": 92.0,
+        "logic_lut": 92.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 44.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 0.0
+      },
+      "ARRAY_ROWS[1].ARRAY_COLUMNS[2].pe_systolic_cell_instance": {
+        "module": "pe_systolic_cell_6",
+        "total_lut": 136.0,
+        "logic_lut": 136.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 44.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 0.0
+      },
+      "ARRAY_ROWS[1].ARRAY_COLUMNS[3].pe_systolic_cell_instance": {
+        "module": "pe_systolic_cell_7",
+        "total_lut": 124.0,
+        "logic_lut": 124.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 44.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 0.0
+      },
+      "ARRAY_ROWS[1].ARRAY_COLUMNS[4].pe_systolic_cell_instance": {
+        "module": "pe_systolic_cell_8",
+        "total_lut": 92.0,
+        "logic_lut": 92.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 44.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 0.0
+      },
+      "ARRAY_ROWS[2].ARRAY_COLUMNS[0].pe_systolic_cell_instance": {
+        "module": "pe_systolic_cell_9",
+        "total_lut": 93.0,
+        "logic_lut": 93.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 44.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 0.0
+      },
+      "ARRAY_ROWS[2].ARRAY_COLUMNS[1].pe_systolic_cell_instance": {
+        "module": "pe_systolic_cell_10",
+        "total_lut": 92.0,
+        "logic_lut": 92.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 44.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 0.0
+      },
+      "ARRAY_ROWS[2].ARRAY_COLUMNS[2].pe_systolic_cell_instance": {
+        "module": "pe_systolic_cell_11",
+        "total_lut": 136.0,
+        "logic_lut": 136.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 44.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 0.0
+      },
+      "ARRAY_ROWS[2].ARRAY_COLUMNS[3].pe_systolic_cell_instance": {
+        "module": "pe_systolic_cell_12",
+        "total_lut": 124.0,
+        "logic_lut": 124.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 44.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 0.0
+      },
+      "ARRAY_ROWS[2].ARRAY_COLUMNS[4].pe_systolic_cell_instance": {
+        "module": "pe_systolic_cell_13",
+        "total_lut": 92.0,
+        "logic_lut": 92.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 44.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 0.0
+      },
+      "ARRAY_ROWS[3].ARRAY_COLUMNS[0].pe_systolic_cell_instance": {
+        "module": "pe_systolic_cell_14",
+        "total_lut": 94.0,
+        "logic_lut": 94.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 44.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 0.0
+      },
+      "ARRAY_ROWS[3].ARRAY_COLUMNS[1].pe_systolic_cell_instance": {
+        "module": "pe_systolic_cell_15",
+        "total_lut": 92.0,
+        "logic_lut": 92.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 44.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 0.0
+      },
+      "ARRAY_ROWS[3].ARRAY_COLUMNS[2].pe_systolic_cell_instance": {
+        "module": "pe_systolic_cell_16",
+        "total_lut": 136.0,
+        "logic_lut": 136.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 44.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 0.0
+      },
+      "ARRAY_ROWS[3].ARRAY_COLUMNS[3].pe_systolic_cell_instance": {
+        "module": "pe_systolic_cell_17",
+        "total_lut": 124.0,
+        "logic_lut": 124.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 44.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 0.0
+      },
+      "ARRAY_ROWS[3].ARRAY_COLUMNS[4].pe_systolic_cell_instance": {
+        "module": "pe_systolic_cell_18",
+        "total_lut": 93.0,
+        "logic_lut": 93.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 44.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 0.0
+      },
+      "ARRAY_ROWS[4].ARRAY_COLUMNS[0].pe_systolic_cell_instance": {
+        "module": "pe_systolic_cell_19",
+        "total_lut": 92.0,
+        "logic_lut": 92.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 44.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 0.0
+      },
+      "ARRAY_ROWS[4].ARRAY_COLUMNS[1].pe_systolic_cell_instance": {
+        "module": "pe_systolic_cell_20",
+        "total_lut": 92.0,
+        "logic_lut": 92.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 44.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 0.0
+      },
+      "ARRAY_ROWS[4].ARRAY_COLUMNS[2].pe_systolic_cell_instance": {
+        "module": "pe_systolic_cell_21",
+        "total_lut": 137.0,
+        "logic_lut": 137.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 44.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 0.0
+      },
+      "ARRAY_ROWS[4].ARRAY_COLUMNS[3].pe_systolic_cell_instance": {
+        "module": "pe_systolic_cell_22",
+        "total_lut": 118.0,
+        "logic_lut": 118.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 44.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 0.0
+      },
+      "ARRAY_ROWS[4].ARRAY_COLUMNS[4].pe_systolic_cell_instance": {
+        "module": "pe_systolic_cell_23",
+        "total_lut": 94.0,
+        "logic_lut": 94.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 44.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 0.0
+      },
+      "unified_buffer_instance": {
+        "module": "unified_buffer",
+        "total_lut": 58.0,
+        "logic_lut": 58.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 75.0,
+        "ramb36": 0.0,
+        "ramb18": 5.0,
+        "dsp": 0.0
+      },
+      "weight_sram_instance": {
+        "module": "weight_sram",
+        "total_lut": 13930.0,
+        "logic_lut": 13930.0,
+        "lutram": 0.0,
+        "srl": 0.0,
+        "ff": 45.0,
+        "ramb36": 0.0,
+        "ramb18": 0.0,
+        "dsp": 5.0
+      }
+    },
+    "timing": {
+      "wns_ns": -4.805,
+      "tns_ns": -135.394,
+      "setup_failing_endpoints": 41,
+      "setup_total_endpoints": 3019,
+      "wpws_ns": 4.5,
+      "tpws_ns": 0.0,
+      "pulse_failing_endpoints": 0
+    },
+    "power": {
+      "total_on_chip_power_w": 0.268,
+      "confidence": "Low",
+      "dynamic_power_w": 0.161,
+      "static_power_w": 0.107
+    },
+    "ram": {
+      "ramb18_instances": 5,
+      "minimum_bram_bit_efficiency_percent": 44.44
+    },
+    "verification": {},
+    "logs": []
+  },
+  "finding_ids": [
+    "PPA-DSP-001",
+    "PPA-WEIGHT-001",
+    "PPA-TIMING-001",
+    "PPA-POWER-001"
+  ]
+}

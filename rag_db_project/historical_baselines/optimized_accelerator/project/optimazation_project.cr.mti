@@ -1,0 +1,98 @@
+C:/intelFPGA/18.1/dnn_optimization_project/mac_pe.sv {1 {vlog -work work -sv -stats=none C:/intelFPGA/18.1/dnn_optimization_project/mac_pe.sv
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+-- Compiling module mac_pe
+
+Top level modules:
+	mac_pe
+
+} {} {}} C:/intelFPGA/18.1/dnn_optimization_project/systolic_array_2d.sv {1 {vlog -work work -sv -stats=none C:/intelFPGA/18.1/dnn_optimization_project/systolic_array_2d.sv
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+-- Compiling module systolic_array_2d
+
+Top level modules:
+	systolic_array_2d
+
+} {} {}} C:/intelFPGA/18.1/dnn_optimization_project/systolic_controller.sv {2 {vlog -work work -sv -stats=none C:/intelFPGA/18.1/dnn_optimization_project/systolic_controller.sv
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+-- Compiling module systolic_controller
+** Warning: C:/intelFPGA/18.1/dnn_optimization_project/systolic_controller.sv(170): (vlog-2583) [SVCHK] - Some checking for conflicts with always_comb and always_latch variables not yet supported. Run vopt to provide additional design-level checks.
+** Warning: C:/intelFPGA/18.1/dnn_optimization_project/systolic_controller.sv(171): (vlog-2583) [SVCHK] - Some checking for conflicts with always_comb and always_latch variables not yet supported. Run vopt to provide additional design-level checks.
+** Warning: C:/intelFPGA/18.1/dnn_optimization_project/systolic_controller.sv(172): (vlog-2583) [SVCHK] - Some checking for conflicts with always_comb and always_latch variables not yet supported. Run vopt to provide additional design-level checks.
+** Warning: C:/intelFPGA/18.1/dnn_optimization_project/systolic_controller.sv(176): (vlog-2583) [SVCHK] - Some checking for conflicts with always_comb and always_latch variables not yet supported. Run vopt to provide additional design-level checks.
+** Warning: C:/intelFPGA/18.1/dnn_optimization_project/systolic_controller.sv(177): (vlog-2583) [SVCHK] - Some checking for conflicts with always_comb and always_latch variables not yet supported. Run vopt to provide additional design-level checks.
+** Warning: C:/intelFPGA/18.1/dnn_optimization_project/systolic_controller.sv(180): (vlog-2583) [SVCHK] - Some checking for conflicts with always_comb and always_latch variables not yet supported. Run vopt to provide additional design-level checks.
+** Warning: C:/intelFPGA/18.1/dnn_optimization_project/systolic_controller.sv(188): (vlog-2583) [SVCHK] - Some checking for conflicts with always_comb and always_latch variables not yet supported. Run vopt to provide additional design-level checks.
+** Warning: C:/intelFPGA/18.1/dnn_optimization_project/systolic_controller.sv(189): (vlog-2583) [SVCHK] - Some checking for conflicts with always_comb and always_latch variables not yet supported. Run vopt to provide additional design-level checks.
+** Warning: C:/intelFPGA/18.1/dnn_optimization_project/systolic_controller.sv(190): (vlog-2583) [SVCHK] - Some checking for conflicts with always_comb and always_latch variables not yet supported. Run vopt to provide additional design-level checks.
+** Warning: C:/intelFPGA/18.1/dnn_optimization_project/systolic_controller.sv(194): (vlog-2583) [SVCHK] - Some checking for conflicts with always_comb and always_latch variables not yet supported. Run vopt to provide additional design-level checks.
+** Warning: C:/intelFPGA/18.1/dnn_optimization_project/systolic_controller.sv(195): (vlog-2583) [SVCHK] - Some checking for conflicts with always_comb and always_latch variables not yet supported. Run vopt to provide additional design-level checks.
+** Warning: C:/intelFPGA/18.1/dnn_optimization_project/systolic_controller.sv(198): (vlog-2583) [SVCHK] - Some checking for conflicts with always_comb and always_latch variables not yet supported. Run vopt to provide additional design-level checks.
+
+Top level modules:
+	systolic_controller
+
+} {} {}} C:/intelFPGA/18.1/dnn_optimization_project/Sig_ROM.sv {1 {vlog -work work -sv -stats=none C:/intelFPGA/18.1/dnn_optimization_project/Sig_ROM.sv
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+-- Compiling module Sig_ROM
+
+Top level modules:
+	Sig_ROM
+
+} {} {}} C:/intelFPGA/18.1/dnn_optimization_project/Activation_Unit.sv {1 {vlog -work work -sv -stats=none C:/intelFPGA/18.1/dnn_optimization_project/Activation_Unit.sv
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+-- Compiling module Activation_Unit
+
+Top level modules:
+	Activation_Unit
+
+} {} {}} C:/intelFPGA/18.1/dnn_optimization_project/Bias_SRAM.sv {1 {vlog -work work -sv -stats=none C:/intelFPGA/18.1/dnn_optimization_project/Bias_SRAM.sv
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+-- Compiling module Bias_SRAM
+
+Top level modules:
+	Bias_SRAM
+
+} {} {}} C:/intelFPGA/18.1/dnn_optimization_project/zyNet.sv {1 {vlog -work work -sv -stats=none C:/intelFPGA/18.1/dnn_optimization_project/zyNet.sv
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+-- Compiling module zyNet
+
+Top level modules:
+	zyNet
+
+} {} {}} C:/intelFPGA/18.1/dnn_optimization_project/Weight_SRAM.sv {1 {vlog -work work -sv -stats=none C:/intelFPGA/18.1/dnn_optimization_project/Weight_SRAM.sv
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+-- Compiling module Weight_SRAM
+
+Top level modules:
+	Weight_SRAM
+
+} {} {}} C:/intelFPGA/18.1/dnn_optimization_project/top_sim.sv {1 {vlog -work work -sv -stats=none C:/intelFPGA/18.1/dnn_optimization_project/top_sim.sv
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+-- Compiling module top_sim
+-- Importing package npu_param_pkg
+
+Top level modules:
+	top_sim
+
+} {} {}} C:/intelFPGA/18.1/dnn_optimization_project/npu_parameter_pkg.sv {1 {vlog -work work -sv -stats=none C:/intelFPGA/18.1/dnn_optimization_project/npu_parameter_pkg.sv
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+-- Compiling package npu_param_pkg
+
+Top level modules:
+	--none--
+
+} {} {}} C:/intelFPGA/18.1/dnn_optimization_project/NPU_Top.sv {1 {vlog -work work -sv -stats=none C:/intelFPGA/18.1/dnn_optimization_project/NPU_Top.sv
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+-- Compiling module NPU_Top
+
+Top level modules:
+	NPU_Top
+
+} {} {}} C:/intelFPGA/18.1/dnn_optimization_project/pe_systolic_cell.sv {1 {vlog -work work -sv -stats=none C:/intelFPGA/18.1/dnn_optimization_project/pe_systolic_cell.sv
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+-- Compiling module pe_systolic_cell
+
+Top level modules:
+	pe_systolic_cell
+
+} {} {}}

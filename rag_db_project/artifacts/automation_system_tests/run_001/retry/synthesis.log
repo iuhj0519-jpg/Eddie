@@ -1,0 +1,747 @@
+COMMAND ["cmd.exe", "/d", "/c", "C:/Xilinx/Vivado/2022.1/bin/vivado.bat", "-mode", "batch", "-source", "C:\\intelFPGA\\18.1\\dnn_optimization_project\\.automation_build_20260907\\rag\\automation\\synthesis.tcl", "-tclargs", "C:\\intelFPGA\\18.1\\dnn_optimization_project\\.automation_smoke_20260907_retry\\evidence"]
+
+****** Vivado v2022.1 (64-bit)
+  **** SW Build 3526262 on Mon Apr 18 15:48:16 MDT 2022
+  **** IP Build 3524634 on Mon Apr 18 20:55:01 MDT 2022
+    ** Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+
+source {C:\intelFPGA\18.1\dnn_optimization_project\.automation_build_20260907\rag\automation\synthesis.tcl}
+# set out [file normalize [lindex $argv 0]]
+# file mkdir $out
+# set_param general.maxThreads 4
+# read_verilog -sv [glob rtl/*.sv]
+read_verilog: Time (s): cpu = 00:00:08 ; elapsed = 00:00:11 . Memory (MB): peak = 1293.758 ; gain = 9.938
+# set_property include_dirs [list [file normalize rtl]] [current_fileset]
+# synth_design -top zyNet -part xc7z020clg400-1
+Command: synth_design -top zyNet -part xc7z020clg400-1
+Starting synth_design
+Attempting to get a license for feature 'Synthesis' and/or device 'xc7z020'
+INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7z020'
+INFO: [Synth 8-7079] Multithreading enabled for synth_design using a maximum of 4 processes.
+INFO: [Synth 8-7078] Launching helper process for spawning children vivado processes
+INFO: [Synth 8-7075] Helper process launched with PID 19464
+---------------------------------------------------------------------------------
+Starting Synthesize : Time (s): cpu = 00:00:12 ; elapsed = 00:00:18 . Memory (MB): peak = 1293.758 ; gain = 0.000
+---------------------------------------------------------------------------------
+INFO: [Synth 8-6157] synthesizing module 'zyNet' [C:/intelFPGA/18.1/dnn_optimization_project/.automation_smoke_20260907_retry/project/workspace/target/rtl/zynet.sv:4]
+INFO: [Synth 8-6157] synthesizing module 'unified_buffer' [C:/intelFPGA/18.1/dnn_optimization_project/.automation_smoke_20260907_retry/project/workspace/target/rtl/unified_buffer.sv:4]
+INFO: [Synth 8-6155] done synthesizing module 'unified_buffer' (0#1) [C:/intelFPGA/18.1/dnn_optimization_project/.automation_smoke_20260907_retry/project/workspace/target/rtl/unified_buffer.sv:4]
+INFO: [Synth 8-6157] synthesizing module 'weight_sram' [C:/intelFPGA/18.1/dnn_optimization_project/.automation_smoke_20260907_retry/project/workspace/target/rtl/weight_sram.sv:3]
+INFO: [Synth 8-3876] $readmem data file 'memory/w_1_0.mif' is read successfully [C:/intelFPGA/18.1/dnn_optimization_project/.automation_smoke_20260907_retry/project/workspace/target/rtl/weight_sram.sv:23]
+INFO: [Synth 8-3876] $readmem data file 'memory/w_1_1.mif' is read successfully [C:/intelFPGA/18.1/dnn_optimization_project/.automation_smoke_20260907_retry/project/workspace/target/rtl/weight_sram.sv:24]
+INFO: [Synth 8-3876] $readmem data file 'memory/w_1_2.mif' is read successfully [C:/intelFPGA/18.1/dnn_optimization_project/.automation_smoke_20260907_retry/project/workspace/target/rtl/weight_sram.sv:25]
+INFO: [Synth 8-3876] $readmem data file 'memory/w_1_3.mif' is read successfully [C:/intelFPGA/18.1/dnn_optimization_project/.automation_smoke_20260907_retry/project/workspace/target/rtl/weight_sram.sv:26]
+INFO: [Synth 8-3876] $readmem data file 'memory/w_1_4.mif' is read successfully [C:/intelFPGA/18.1/dnn_optimization_project/.automation_smoke_20260907_retry/project/workspace/target/rtl/weight_sram.sv:27]
+INFO: [Synth 8-3876] $readmem data file 'memory/w_1_5.mif' is read successfully [C:/intelFPGA/18.1/dnn_optimization_project/.automation_smoke_20260907_retry/project/workspace/target/rtl/weight_sram.sv:28]
+INFO: [Synth 8-3876] $readmem data file 'memory/w_1_6.mif' is read successfully [C:/intelFPGA/18.1/dnn_optimization_project/.automation_smoke_20260907_retry/project/workspace/target/rtl/weight_sram.sv:29]
+INFO: [Synth 8-3876] $readmem data file 'memory/w_1_7.mif' is read successfully [C:/intelFPGA/18.1/dnn_optimization_project/.automation_smoke_20260907_retry/project/workspace/target/rtl/weight_sram.sv:30]
+INFO: [Synth 8-3876] $readmem data file 'memory/w_1_8.mif' is read successfully [C:/intelFPGA/18.1/dnn_optimization_project/.automation_smoke_20260907_retry/project/workspace/target/rtl/weight_sram.sv:31]
+INFO: [Synth 8-3876] $readmem data file 'memory/w_1_9.mif' is read successfully [C:/intelFPGA/18.1/dnn_optimization_project/.automation_smoke_20260907_retry/project/workspace/target/rtl/weight_sram.sv:32]
+INFO: [Synth 8-3876] $readmem data file 'memory/w_1_10.mif' is read successfully [C:/intelFPGA/18.1/dnn_optimization_project/.automation_smoke_20260907_retry/project/workspace/target/rtl/weight_sram.sv:33]
+INFO: [Synth 8-3876] $readmem data file 'memory/w_1_11.mif' is read successfully [C:/intelFPGA/18.1/dnn_optimization_project/.automation_smoke_20260907_retry/project/workspace/target/rtl/weight_sram.sv:34]
+INFO: [Synth 8-3876] $readmem data file 'memory/w_1_12.mif' is read successfully [C:/intelFPGA/18.1/dnn_optimization_project/.automation_smoke_20260907_retry/project/workspace/target/rtl/weight_sram.sv:35]
+INFO: [Synth 8-3876] $readmem data file 'memory/w_1_13.mif' is read successfully [C:/intelFPGA/18.1/dnn_optimization_project/.automation_smoke_20260907_retry/project/workspace/target/rtl/weight_sram.sv:36]
+INFO: [Synth 8-3876] $readmem data file 'memory/w_1_14.mif' is read successfully [C:/intelFPGA/18.1/dnn_optimization_project/.automation_smoke_20260907_retry/project/workspace/target/rtl/weight_sram.sv:37]
+INFO: [Synth 8-3876] $readmem data file 'memory/w_1_15.mif' is read successfully [C:/intelFPGA/18.1/dnn_optimization_project/.automation_smoke_20260907_retry/project/workspace/target/rtl/weight_sram.sv:38]
+INFO: [Synth 8-3876] $readmem data file 'memory/w_1_16.mif' is read successfully [C:/intelFPGA/18.1/dnn_optimization_project/.automation_smoke_20260907_retry/project/workspace/target/rtl/weight_sram.sv:39]
+INFO: [Synth 8-3876] $readmem data file 'memory/w_1_17.mif' is read successfully [C:/intelFPGA/18.1/dnn_optimization_project/.automation_smoke_20260907_retry/project/workspace/target/rtl/weight_sram.sv:40]
+INFO: [Synth 8-3876] $readmem data file 'memory/w_1_18.mif' is read successfully [C:/intelFPGA/18.1/dnn_optimization_project/.automation_smoke_20260907_retry/project/workspace/target/rtl/weight_sram.sv:41]
+INFO: [Synth 8-3876] $readmem data file 'memory/w_1_19.mif' is read successfully [C:/intelFPGA/18.1/dnn_optimization_project/.automation_smoke_20260907_retry/project/workspace/target/rtl/weight_sram.sv:42]
+INFO: [Synth 8-3876] $readmem data file 'memory/w_1_20.mif' is read successfully [C:/intelFPGA/18.1/dnn_optimization_project/.automation_smoke_20260907_retry/project/workspace/target/rtl/weight_sram.sv:43]
+INFO: [Synth 8-3876] $readmem data file 'memory/w_1_21.mif' is read successfully [C:/intelFPGA/18.1/dnn_optimization_project/.automation_smoke_20260907_retry/project/workspace/target/rtl/weight_sram.sv:44]
+INFO: [Synth 8-3876] $readmem data file 'memory/w_1_22.mif' is read successfully [C:/intelFPGA/18.1/dnn_optimization_project/.automation_smoke_20260907_retry/project/workspace/target/rtl/weight_sram.sv:45]
+INFO: [Synth 8-3876] $readmem data file 'memory/w_1_23.mif' is read successfully [C:/intelFPGA/18.1/dnn_optimization_project/.automation_smoke_20260907_retry/project/workspace/target/rtl/weight_sram.sv:46]
+INFO: [Synth 8-3876] $readmem data file 'memory/w_1_24.mif' is read successfully [C:/intelFPGA/18.1/dnn_optimization_project/.automation_smoke_20260907_retry/project/workspace/target/rtl/weight_sram.sv:47]
+INFO: [Synth 8-3876] $readmem data file 'memory/w_1_25.mif' is read successfully [C:/intelFPGA/18.1/dnn_optimization_project/.automation_smoke_20260907_retry/project/workspace/target/rtl/weight_sram.sv:48]
+INFO: [Synth 8-3876] $readmem data file 'memory/w_1_26.mif' is read successfully [C:/intelFPGA/18.1/dnn_optimization_project/.automation_smoke_20260907_retry/project/workspace/target/rtl/weight_sram.sv:49]
+INFO: [Synth 8-3876] $readmem data file 'memory/w_1_27.mif' is read successfully [C:/intelFPGA/18.1/dnn_optimization_project/.automation_smoke_20260907_retry/project/workspace/target/rtl/weight_sram.sv:50]
+INFO: [Synth 8-3876] $readmem data file 'memory/w_1_28.mif' is read successfully [C:/intelFPGA/18.1/dnn_optimization_project/.automation_smoke_20260907_retry/project/workspace/target/rtl/weight_sram.sv:51]
+INFO: [Synth 8-3876] $readmem data file 'memory/w_1_29.mif' is read successfully [C:/intelFPGA/18.1/dnn_optimization_project/.automation_smoke_20260907_retry/project/workspace/target/rtl/weight_sram.sv:52]
+INFO: [Synth 8-3876] $readmem data file 'memory/w_2_0.mif' is read successfully [C:/intelFPGA/18.1/dnn_optimization_project/.automation_smoke_20260907_retry/project/workspace/target/rtl/weight_sram.sv:54]
+INFO: [Synth 8-3876] $readmem data file 'memory/w_2_1.mif' is read successfully [C:/intelFPGA/18.1/dnn_optimization_project/.automation_smoke_20260907_retry/project/workspace/target/rtl/weight_sram.sv:55]
+INFO: [Synth 8-3876] $readmem data file 'memory/w_2_2.mif' is read successfully [C:/intelFPGA/18.1/dnn_optimization_project/.automation_smoke_20260907_retry/project/workspace/target/rtl/weight_sram.sv:56]
+INFO: [Synth 8-3876] $readmem data file 'memory/w_2_3.mif' is read successfully [C:/intelFPGA/18.1/dnn_optimization_project/.automation_smoke_20260907_retry/project/workspace/target/rtl/weight_sram.sv:57]
+INFO: [Synth 8-3876] $readmem data file 'memory/w_2_4.mif' is read successfully [C:/intelFPGA/18.1/dnn_optimization_project/.automation_smoke_20260907_retry/project/workspace/target/rtl/weight_sram.sv:58]
+INFO: [Synth 8-3876] $readmem data file 'memory/w_2_5.mif' is read successfully [C:/intelFPGA/18.1/dnn_optimization_project/.automation_smoke_20260907_retry/project/workspace/target/rtl/weight_sram.sv:59]
+INFO: [Synth 8-3876] $readmem data file 'memory/w_2_6.mif' is read successfully [C:/intelFPGA/18.1/dnn_optimization_project/.automation_smoke_20260907_retry/project/workspace/target/rtl/weight_sram.sv:60]
+INFO: [Synth 8-3876] $readmem data file 'memory/w_2_7.mif' is read successfully [C:/intelFPGA/18.1/dnn_optimization_project/.automation_smoke_20260907_retry/project/workspace/target/rtl/weight_sram.sv:61]
+INFO: [Synth 8-3876] $readmem data file 'memory/w_2_8.mif' is read successfully [C:/intelFPGA/18.1/dnn_optimization_project/.automation_smoke_20260907_retry/project/workspace/target/rtl/weight_sram.sv:62]
+INFO: [Synth 8-3876] $readmem data file 'memory/w_2_9.mif' is read successfully [C:/intelFPGA/18.1/dnn_optimization_project/.automation_smoke_20260907_retry/project/workspace/target/rtl/weight_sram.sv:63]
+INFO: [Synth 8-3876] $readmem data file 'memory/w_2_10.mif' is read successfully [C:/intelFPGA/18.1/dnn_optimization_project/.automation_smoke_20260907_retry/project/workspace/target/rtl/weight_sram.sv:64]
+INFO: [Synth 8-3876] $readmem data file 'memory/w_2_11.mif' is read successfully [C:/intelFPGA/18.1/dnn_optimization_project/.automation_smoke_20260907_retry/project/workspace/target/rtl/weight_sram.sv:65]
+INFO: [Synth 8-3876] $readmem data file 'memory/w_2_12.mif' is read successfully [C:/intelFPGA/18.1/dnn_optimization_project/.automation_smoke_20260907_retry/project/workspace/target/rtl/weight_sram.sv:66]
+INFO: [Synth 8-3876] $readmem data file 'memory/w_2_13.mif' is read successfully [C:/intelFPGA/18.1/dnn_optimization_project/.automation_smoke_20260907_retry/project/workspace/target/rtl/weight_sram.sv:67]
+INFO: [Synth 8-3876] $readmem data file 'memory/w_2_14.mif' is read successfully [C:/intelFPGA/18.1/dnn_optimization_project/.automation_smoke_20260907_retry/project/workspace/target/rtl/weight_sram.sv:68]
+INFO: [Synth 8-3876] $readmem data file 'memory/w_2_15.mif' is read successfully [C:/intelFPGA/18.1/dnn_optimization_project/.automation_smoke_20260907_retry/project/workspace/target/rtl/weight_sram.sv:69]
+INFO: [Synth 8-3876] $readmem data file 'memory/w_2_16.mif' is read successfully [C:/intelFPGA/18.1/dnn_optimization_project/.automation_smoke_20260907_retry/project/workspace/target/rtl/weight_sram.sv:70]
+INFO: [Synth 8-3876] $readmem data file 'memory/w_2_17.mif' is read successfully [C:/intelFPGA/18.1/dnn_optimization_project/.automation_smoke_20260907_retry/project/workspace/target/rtl/weight_sram.sv:71]
+INFO: [Synth 8-3876] $readmem data file 'memory/w_2_18.mif' is read successfully [C:/intelFPGA/18.1/dnn_optimization_project/.automation_smoke_20260907_retry/project/workspace/target/rtl/weight_sram.sv:72]
+INFO: [Synth 8-3876] $readmem data file 'memory/w_2_19.mif' is read successfully [C:/intelFPGA/18.1/dnn_optimization_project/.automation_smoke_20260907_retry/project/workspace/target/rtl/weight_sram.sv:73]
+INFO: [Synth 8-3876] $readmem data file 'memory/w_3_0.mif' is read successfully [C:/intelFPGA/18.1/dnn_optimization_project/.automation_smoke_20260907_retry/project/workspace/target/rtl/weight_sram.sv:75]
+INFO: [Synth 8-3876] $readmem data file 'memory/w_3_1.mif' is read successfully [C:/intelFPGA/18.1/dnn_optimization_project/.automation_smoke_20260907_retry/project/workspace/target/rtl/weight_sram.sv:76]
+INFO: [Synth 8-3876] $readmem data file 'memory/w_3_2.mif' is read successfully [C:/intelFPGA/18.1/dnn_optimization_project/.automation_smoke_20260907_retry/project/workspace/target/rtl/weight_sram.sv:77]
+INFO: [Synth 8-3876] $readmem data file 'memory/w_3_3.mif' is read successfully [C:/intelFPGA/18.1/dnn_optimization_project/.automation_smoke_20260907_retry/project/workspace/target/rtl/weight_sram.sv:78]
+INFO: [Synth 8-3876] $readmem data file 'memory/w_3_4.mif' is read successfully [C:/intelFPGA/18.1/dnn_optimization_project/.automation_smoke_20260907_retry/project/workspace/target/rtl/weight_sram.sv:79]
+INFO: [Synth 8-3876] $readmem data file 'memory/w_3_5.mif' is read successfully [C:/intelFPGA/18.1/dnn_optimization_project/.automation_smoke_20260907_retry/project/workspace/target/rtl/weight_sram.sv:80]
+INFO: [Synth 8-3876] $readmem data file 'memory/w_3_6.mif' is read successfully [C:/intelFPGA/18.1/dnn_optimization_project/.automation_smoke_20260907_retry/project/workspace/target/rtl/weight_sram.sv:81]
+INFO: [Synth 8-3876] $readmem data file 'memory/w_3_7.mif' is read successfully [C:/intelFPGA/18.1/dnn_optimization_project/.automation_smoke_20260907_retry/project/workspace/target/rtl/weight_sram.sv:82]
+INFO: [Synth 8-3876] $readmem data file 'memory/w_3_8.mif' is read successfully [C:/intelFPGA/18.1/dnn_optimization_project/.automation_smoke_20260907_retry/project/workspace/target/rtl/weight_sram.sv:83]
+INFO: [Synth 8-3876] $readmem data file 'memory/w_3_9.mif' is read successfully [C:/intelFPGA/18.1/dnn_optimization_project/.automation_smoke_20260907_retry/project/workspace/target/rtl/weight_sram.sv:84]
+INFO: [Synth 8-6155] done synthesizing module 'weight_sram' (0#1) [C:/intelFPGA/18.1/dnn_optimization_project/.automation_smoke_20260907_retry/project/workspace/target/rtl/weight_sram.sv:3]
+INFO: [Synth 8-6157] synthesizing module 'systolic_controller' [C:/intelFPGA/18.1/dnn_optimization_project/.automation_smoke_20260907_retry/project/workspace/target/rtl/systolic_controller.sv:4]
+INFO: [Synth 8-6157] synthesizing module 'systolic_array_2d' [C:/intelFPGA/18.1/dnn_optimization_project/.automation_smoke_20260907_retry/project/workspace/target/rtl/systolic_array_2d.sv:3]
+	Parameter DATA_W bound to: 8 - type: integer 
+	Parameter ACC_W bound to: 26 - type: integer 
+	Parameter ROWS bound to: 5 - type: integer 
+	Parameter COLS bound to: 5 - type: integer 
+INFO: [Synth 8-6157] synthesizing module 'pe_systolic_cell' [C:/intelFPGA/18.1/dnn_optimization_project/.automation_smoke_20260907_retry/project/workspace/target/rtl/pe_systolic_cell.sv:3]
+	Parameter DATA_W bound to: 8 - type: integer 
+	Parameter ACC_W bound to: 26 - type: integer 
+INFO: [Synth 8-6157] synthesizing module 'mac_pe' [C:/intelFPGA/18.1/dnn_optimization_project/.automation_smoke_20260907_retry/project/workspace/target/rtl/mac_pe.sv:3]
+	Parameter DATA_W bound to: 8 - type: integer 
+	Parameter ACC_W bound to: 26 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'mac_pe' (0#1) [C:/intelFPGA/18.1/dnn_optimization_project/.automation_smoke_20260907_retry/project/workspace/target/rtl/mac_pe.sv:3]
+INFO: [Synth 8-6155] done synthesizing module 'pe_systolic_cell' (0#1) [C:/intelFPGA/18.1/dnn_optimization_project/.automation_smoke_20260907_retry/project/workspace/target/rtl/pe_systolic_cell.sv:3]
+INFO: [Synth 8-6155] done synthesizing module 'systolic_array_2d' (0#1) [C:/intelFPGA/18.1/dnn_optimization_project/.automation_smoke_20260907_retry/project/workspace/target/rtl/systolic_array_2d.sv:3]
+INFO: [Synth 8-6155] done synthesizing module 'systolic_controller' (0#1) [C:/intelFPGA/18.1/dnn_optimization_project/.automation_smoke_20260907_retry/project/workspace/target/rtl/systolic_controller.sv:4]
+INFO: [Synth 8-6157] synthesizing module 'bias_sram' [C:/intelFPGA/18.1/dnn_optimization_project/.automation_smoke_20260907_retry/project/workspace/target/rtl/bias_sram.sv:3]
+INFO: [Synth 8-3876] $readmem data file 'memory/b_1_0.mif' is read successfully [C:/intelFPGA/18.1/dnn_optimization_project/.automation_smoke_20260907_retry/project/workspace/target/rtl/bias_sram.sv:16]
+INFO: [Synth 8-3876] $readmem data file 'memory/b_1_1.mif' is read successfully [C:/intelFPGA/18.1/dnn_optimization_project/.automation_smoke_20260907_retry/project/workspace/target/rtl/bias_sram.sv:16]
+INFO: [Synth 8-3876] $readmem data file 'memory/b_1_2.mif' is read successfully [C:/intelFPGA/18.1/dnn_optimization_project/.automation_smoke_20260907_retry/project/workspace/target/rtl/bias_sram.sv:17]
+INFO: [Synth 8-3876] $readmem data file 'memory/b_1_3.mif' is read successfully [C:/intelFPGA/18.1/dnn_optimization_project/.automation_smoke_20260907_retry/project/workspace/target/rtl/bias_sram.sv:17]
+INFO: [Synth 8-3876] $readmem data file 'memory/b_1_4.mif' is read successfully [C:/intelFPGA/18.1/dnn_optimization_project/.automation_smoke_20260907_retry/project/workspace/target/rtl/bias_sram.sv:18]
+INFO: [Synth 8-3876] $readmem data file 'memory/b_1_5.mif' is read successfully [C:/intelFPGA/18.1/dnn_optimization_project/.automation_smoke_20260907_retry/project/workspace/target/rtl/bias_sram.sv:18]
+INFO: [Synth 8-3876] $readmem data file 'memory/b_1_6.mif' is read successfully [C:/intelFPGA/18.1/dnn_optimization_project/.automation_smoke_20260907_retry/project/workspace/target/rtl/bias_sram.sv:19]
+INFO: [Synth 8-3876] $readmem data file 'memory/b_1_7.mif' is read successfully [C:/intelFPGA/18.1/dnn_optimization_project/.automation_smoke_20260907_retry/project/workspace/target/rtl/bias_sram.sv:19]
+INFO: [Synth 8-3876] $readmem data file 'memory/b_1_8.mif' is read successfully [C:/intelFPGA/18.1/dnn_optimization_project/.automation_smoke_20260907_retry/project/workspace/target/rtl/bias_sram.sv:20]
+INFO: [Synth 8-3876] $readmem data file 'memory/b_1_9.mif' is read successfully [C:/intelFPGA/18.1/dnn_optimization_project/.automation_smoke_20260907_retry/project/workspace/target/rtl/bias_sram.sv:20]
+INFO: [Synth 8-3876] $readmem data file 'memory/b_1_10.mif' is read successfully [C:/intelFPGA/18.1/dnn_optimization_project/.automation_smoke_20260907_retry/project/workspace/target/rtl/bias_sram.sv:21]
+INFO: [Synth 8-3876] $readmem data file 'memory/b_1_11.mif' is read successfully [C:/intelFPGA/18.1/dnn_optimization_project/.automation_smoke_20260907_retry/project/workspace/target/rtl/bias_sram.sv:21]
+INFO: [Synth 8-3876] $readmem data file 'memory/b_1_12.mif' is read successfully [C:/intelFPGA/18.1/dnn_optimization_project/.automation_smoke_20260907_retry/project/workspace/target/rtl/bias_sram.sv:22]
+INFO: [Synth 8-3876] $readmem data file 'memory/b_1_13.mif' is read successfully [C:/intelFPGA/18.1/dnn_optimization_project/.automation_smoke_20260907_retry/project/workspace/target/rtl/bias_sram.sv:22]
+INFO: [Synth 8-3876] $readmem data file 'memory/b_1_14.mif' is read successfully [C:/intelFPGA/18.1/dnn_optimization_project/.automation_smoke_20260907_retry/project/workspace/target/rtl/bias_sram.sv:23]
+INFO: [Synth 8-3876] $readmem data file 'memory/b_1_15.mif' is read successfully [C:/intelFPGA/18.1/dnn_optimization_project/.automation_smoke_20260907_retry/project/workspace/target/rtl/bias_sram.sv:23]
+INFO: [Synth 8-3876] $readmem data file 'memory/b_1_16.mif' is read successfully [C:/intelFPGA/18.1/dnn_optimization_project/.automation_smoke_20260907_retry/project/workspace/target/rtl/bias_sram.sv:24]
+INFO: [Synth 8-3876] $readmem data file 'memory/b_1_17.mif' is read successfully [C:/intelFPGA/18.1/dnn_optimization_project/.automation_smoke_20260907_retry/project/workspace/target/rtl/bias_sram.sv:24]
+INFO: [Synth 8-3876] $readmem data file 'memory/b_1_18.mif' is read successfully [C:/intelFPGA/18.1/dnn_optimization_project/.automation_smoke_20260907_retry/project/workspace/target/rtl/bias_sram.sv:25]
+INFO: [Synth 8-3876] $readmem data file 'memory/b_1_19.mif' is read successfully [C:/intelFPGA/18.1/dnn_optimization_project/.automation_smoke_20260907_retry/project/workspace/target/rtl/bias_sram.sv:25]
+INFO: [Synth 8-3876] $readmem data file 'memory/b_1_20.mif' is read successfully [C:/intelFPGA/18.1/dnn_optimization_project/.automation_smoke_20260907_retry/project/workspace/target/rtl/bias_sram.sv:26]
+INFO: [Synth 8-3876] $readmem data file 'memory/b_1_21.mif' is read successfully [C:/intelFPGA/18.1/dnn_optimization_project/.automation_smoke_20260907_retry/project/workspace/target/rtl/bias_sram.sv:26]
+INFO: [Synth 8-3876] $readmem data file 'memory/b_1_22.mif' is read successfully [C:/intelFPGA/18.1/dnn_optimization_project/.automation_smoke_20260907_retry/project/workspace/target/rtl/bias_sram.sv:27]
+INFO: [Synth 8-3876] $readmem data file 'memory/b_1_23.mif' is read successfully [C:/intelFPGA/18.1/dnn_optimization_project/.automation_smoke_20260907_retry/project/workspace/target/rtl/bias_sram.sv:27]
+INFO: [Synth 8-3876] $readmem data file 'memory/b_1_24.mif' is read successfully [C:/intelFPGA/18.1/dnn_optimization_project/.automation_smoke_20260907_retry/project/workspace/target/rtl/bias_sram.sv:28]
+INFO: [Synth 8-3876] $readmem data file 'memory/b_1_25.mif' is read successfully [C:/intelFPGA/18.1/dnn_optimization_project/.automation_smoke_20260907_retry/project/workspace/target/rtl/bias_sram.sv:28]
+INFO: [Synth 8-3876] $readmem data file 'memory/b_1_26.mif' is read successfully [C:/intelFPGA/18.1/dnn_optimization_project/.automation_smoke_20260907_retry/project/workspace/target/rtl/bias_sram.sv:29]
+INFO: [Synth 8-3876] $readmem data file 'memory/b_1_27.mif' is read successfully [C:/intelFPGA/18.1/dnn_optimization_project/.automation_smoke_20260907_retry/project/workspace/target/rtl/bias_sram.sv:29]
+INFO: [Synth 8-3876] $readmem data file 'memory/b_1_28.mif' is read successfully [C:/intelFPGA/18.1/dnn_optimization_project/.automation_smoke_20260907_retry/project/workspace/target/rtl/bias_sram.sv:30]
+INFO: [Synth 8-3876] $readmem data file 'memory/b_1_29.mif' is read successfully [C:/intelFPGA/18.1/dnn_optimization_project/.automation_smoke_20260907_retry/project/workspace/target/rtl/bias_sram.sv:30]
+INFO: [Synth 8-3876] $readmem data file 'memory/b_2_0.mif' is read successfully [C:/intelFPGA/18.1/dnn_optimization_project/.automation_smoke_20260907_retry/project/workspace/target/rtl/bias_sram.sv:31]
+INFO: [Synth 8-3876] $readmem data file 'memory/b_2_1.mif' is read successfully [C:/intelFPGA/18.1/dnn_optimization_project/.automation_smoke_20260907_retry/project/workspace/target/rtl/bias_sram.sv:31]
+INFO: [Synth 8-3876] $readmem data file 'memory/b_2_2.mif' is read successfully [C:/intelFPGA/18.1/dnn_optimization_project/.automation_smoke_20260907_retry/project/workspace/target/rtl/bias_sram.sv:32]
+INFO: [Synth 8-3876] $readmem data file 'memory/b_2_3.mif' is read successfully [C:/intelFPGA/18.1/dnn_optimization_project/.automation_smoke_20260907_retry/project/workspace/target/rtl/bias_sram.sv:32]
+INFO: [Synth 8-3876] $readmem data file 'memory/b_2_4.mif' is read successfully [C:/intelFPGA/18.1/dnn_optimization_project/.automation_smoke_20260907_retry/project/workspace/target/rtl/bias_sram.sv:33]
+INFO: [Synth 8-3876] $readmem data file 'memory/b_2_5.mif' is read successfully [C:/intelFPGA/18.1/dnn_optimization_project/.automation_smoke_20260907_retry/project/workspace/target/rtl/bias_sram.sv:33]
+INFO: [Synth 8-3876] $readmem data file 'memory/b_2_6.mif' is read successfully [C:/intelFPGA/18.1/dnn_optimization_project/.automation_smoke_20260907_retry/project/workspace/target/rtl/bias_sram.sv:34]
+INFO: [Synth 8-3876] $readmem data file 'memory/b_2_7.mif' is read successfully [C:/intelFPGA/18.1/dnn_optimization_project/.automation_smoke_20260907_retry/project/workspace/target/rtl/bias_sram.sv:34]
+INFO: [Synth 8-3876] $readmem data file 'memory/b_2_8.mif' is read successfully [C:/intelFPGA/18.1/dnn_optimization_project/.automation_smoke_20260907_retry/project/workspace/target/rtl/bias_sram.sv:35]
+INFO: [Synth 8-3876] $readmem data file 'memory/b_2_9.mif' is read successfully [C:/intelFPGA/18.1/dnn_optimization_project/.automation_smoke_20260907_retry/project/workspace/target/rtl/bias_sram.sv:35]
+INFO: [Common 17-14] Message 'Synth 8-3876' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
+INFO: [Synth 8-6155] done synthesizing module 'bias_sram' (0#1) [C:/intelFPGA/18.1/dnn_optimization_project/.automation_smoke_20260907_retry/project/workspace/target/rtl/bias_sram.sv:3]
+INFO: [Synth 8-6157] synthesizing module 'activation_unit' [C:/intelFPGA/18.1/dnn_optimization_project/.automation_smoke_20260907_retry/project/workspace/target/rtl/activation_unit.sv:4]
+INFO: [Synth 8-6155] done synthesizing module 'activation_unit' (0#1) [C:/intelFPGA/18.1/dnn_optimization_project/.automation_smoke_20260907_retry/project/workspace/target/rtl/activation_unit.sv:4]
+INFO: [Synth 8-6157] synthesizing module 'maxFinder' [C:/intelFPGA/18.1/dnn_optimization_project/.automation_smoke_20260907_retry/project/workspace/target/rtl/maxFinder.sv:3]
+INFO: [Synth 8-6155] done synthesizing module 'maxFinder' (0#1) [C:/intelFPGA/18.1/dnn_optimization_project/.automation_smoke_20260907_retry/project/workspace/target/rtl/maxFinder.sv:3]
+INFO: [Synth 8-6157] synthesizing module 'dnn_scheduler' [C:/intelFPGA/18.1/dnn_optimization_project/.automation_smoke_20260907_retry/project/workspace/target/rtl/dnn_scheduler.sv:3]
+INFO: [Synth 8-6155] done synthesizing module 'dnn_scheduler' (0#1) [C:/intelFPGA/18.1/dnn_optimization_project/.automation_smoke_20260907_retry/project/workspace/target/rtl/dnn_scheduler.sv:3]
+INFO: [Synth 8-6157] synthesizing module 'axi_lite_wrapper' [C:/intelFPGA/18.1/dnn_optimization_project/.automation_smoke_20260907_retry/project/workspace/target/rtl/axi_lite_wrapper.sv:3]
+	Parameter C_S_AXI_DATA_WIDTH bound to: 32 - type: integer 
+	Parameter C_S_AXI_ADDR_WIDTH bound to: 5 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'axi_lite_wrapper' (0#1) [C:/intelFPGA/18.1/dnn_optimization_project/.automation_smoke_20260907_retry/project/workspace/target/rtl/axi_lite_wrapper.sv:3]
+INFO: [Synth 8-6155] done synthesizing module 'zyNet' (0#1) [C:/intelFPGA/18.1/dnn_optimization_project/.automation_smoke_20260907_retry/project/workspace/target/rtl/zynet.sv:4]
+WARNING: [Synth 8-6014] Unused sequential element selected_read_address_reg was removed.  [C:/intelFPGA/18.1/dnn_optimization_project/.automation_smoke_20260907_retry/project/workspace/target/rtl/unified_buffer.sv:78]
+WARNING: [Synth 8-6014] Unused sequential element neuron_index_reg was removed.  [C:/intelFPGA/18.1/dnn_optimization_project/.automation_smoke_20260907_retry/project/workspace/target/rtl/weight_sram.sv:90]
+WARNING: [Synth 8-6014] Unused sequential element neuron_index_reg was removed.  [C:/intelFPGA/18.1/dnn_optimization_project/.automation_smoke_20260907_retry/project/workspace/target/rtl/bias_sram.sv:50]
+WARNING: [Synth 8-6014] Unused sequential element biased_accumulator_reg was removed.  [C:/intelFPGA/18.1/dnn_optimization_project/.automation_smoke_20260907_retry/project/workspace/target/rtl/activation_unit.sv:30]
+WARNING: [Synth 8-6014] Unused sequential element saturated_q5_5_reg was removed.  [C:/intelFPGA/18.1/dnn_optimization_project/.automation_smoke_20260907_retry/project/workspace/target/rtl/activation_unit.sv:33]
+WARNING: [Synth 8-6014] Unused sequential element clear_results_reg was removed.  [C:/intelFPGA/18.1/dnn_optimization_project/.automation_smoke_20260907_retry/project/workspace/target/rtl/dnn_scheduler.sv:63]
+WARNING: [Synth 8-7129] Port S_AXI_AWADDR[4] in module axi_lite_wrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_AWADDR[3] in module axi_lite_wrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_AWADDR[2] in module axi_lite_wrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_AWADDR[1] in module axi_lite_wrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_AWADDR[0] in module axi_lite_wrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_AWPROT[2] in module axi_lite_wrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_AWPROT[1] in module axi_lite_wrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_AWPROT[0] in module axi_lite_wrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_WDATA[31] in module axi_lite_wrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_WDATA[30] in module axi_lite_wrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_WDATA[29] in module axi_lite_wrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_WDATA[28] in module axi_lite_wrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_WDATA[27] in module axi_lite_wrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_WDATA[26] in module axi_lite_wrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_WDATA[25] in module axi_lite_wrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_WDATA[24] in module axi_lite_wrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_WDATA[23] in module axi_lite_wrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_WDATA[22] in module axi_lite_wrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_WDATA[21] in module axi_lite_wrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_WDATA[20] in module axi_lite_wrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_WDATA[19] in module axi_lite_wrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_WDATA[18] in module axi_lite_wrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_WDATA[17] in module axi_lite_wrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_WDATA[16] in module axi_lite_wrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_WDATA[15] in module axi_lite_wrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_WDATA[14] in module axi_lite_wrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_WDATA[13] in module axi_lite_wrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_WDATA[12] in module axi_lite_wrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_WDATA[11] in module axi_lite_wrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_WDATA[10] in module axi_lite_wrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_WDATA[9] in module axi_lite_wrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_WDATA[8] in module axi_lite_wrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_WDATA[7] in module axi_lite_wrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_WDATA[6] in module axi_lite_wrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_WDATA[5] in module axi_lite_wrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_WDATA[4] in module axi_lite_wrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_WDATA[3] in module axi_lite_wrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_WDATA[2] in module axi_lite_wrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_WDATA[1] in module axi_lite_wrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_WDATA[0] in module axi_lite_wrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_WSTRB[3] in module axi_lite_wrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_WSTRB[2] in module axi_lite_wrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_WSTRB[1] in module axi_lite_wrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_WSTRB[0] in module axi_lite_wrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_ARPROT[2] in module axi_lite_wrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_ARPROT[1] in module axi_lite_wrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_ARPROT[0] in module axi_lite_wrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port batch_start in module dnn_scheduler is either unconnected or has no load
+---------------------------------------------------------------------------------
+Finished Synthesize : Time (s): cpu = 00:00:17 ; elapsed = 00:00:26 . Memory (MB): peak = 1293.758 ; gain = 0.000
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Constraint Validation : Time (s): cpu = 00:00:20 ; elapsed = 00:00:30 . Memory (MB): peak = 1293.758 ; gain = 0.000
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Loading Part and Timing Information
+---------------------------------------------------------------------------------
+Loading part: xc7z020clg400-1
+---------------------------------------------------------------------------------
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:20 ; elapsed = 00:00:31 . Memory (MB): peak = 1293.758 ; gain = 0.000
+---------------------------------------------------------------------------------
+INFO: [Device 21-403] Loading part xc7z020clg400-1
+INFO: [Synth 8-802] inferred FSM for state register 'state_reg' in module 'systolic_controller'
+INFO: [Synth 8-802] inferred FSM for state register 'scheduler_state_reg' in module 'dnn_scheduler'
+---------------------------------------------------------------------------------------------------
+                   State |                     New Encoding |                Previous Encoding 
+---------------------------------------------------------------------------------------------------
+                    IDLE |                             0001 |                               00
+                     RUN |                             1000 |                               01
+              DONE_STATE |                             0010 |                               10
+                  iSTATE |                             0100 |                               11
+*
+---------------------------------------------------------------------------------------------------
+INFO: [Synth 8-3354] encoded FSM with state register 'state_reg' using encoding 'one-hot' in module 'systolic_controller'
+---------------------------------------------------------------------------------------------------
+                   State |                     New Encoding |                Previous Encoding 
+---------------------------------------------------------------------------------------------------
+                    IDLE |                     000000000001 |                             0000
+              INPUT_LOAD |                     000000000010 |                             0001
+             LAYER_SETUP |                     000000000100 |                             0010
+              TILE_START |                     000000001000 |                             0011
+               TILE_WAIT |                     000000010000 |                             0100
+        ACTIVATION_WRITE |                     000000100000 |                             0101
+             GROUP_CHECK |                     000001000000 |                             0110
+             LAYER_CHECK |                     000010000000 |                             0111
+             OUTPUT_LOAD |                     000100000000 |                             1000
+         MAXFINDER_START |                     001000000000 |                             1001
+          MAXFINDER_WAIT |                     010000000000 |                             1010
+            RESULT_VALID |                     100000000000 |                             1011
+---------------------------------------------------------------------------------------------------
+INFO: [Synth 8-3354] encoded FSM with state register 'scheduler_state_reg' using encoding 'one-hot' in module 'dnn_scheduler'
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:44 ; elapsed = 00:01:01 . Memory (MB): peak = 1318.043 ; gain = 24.285
+---------------------------------------------------------------------------------
+No constraint files found.
+---------------------------------------------------------------------------------
+Start RTL Component Statistics 
+---------------------------------------------------------------------------------
+Detailed RTL Component Info : 
++---Adders : 
+	   2 Input   32 Bit       Adders := 5     
+	   2 Input   26 Bit       Adders := 5     
+	   2 Input   11 Bit       Adders := 5     
+	   2 Input   10 Bit       Adders := 3     
+	   3 Input   10 Bit       Adders := 6     
+	   2 Input    3 Bit       Adders := 4     
+	   2 Input    2 Bit       Adders := 1     
++---Registers : 
+	               40 Bit    Registers := 3     
+	               32 Bit    Registers := 1     
+	               26 Bit    Registers := 25    
+	               20 Bit    Registers := 1     
+	               11 Bit    Registers := 5     
+	               10 Bit    Registers := 3     
+	                8 Bit    Registers := 60    
+	                5 Bit    Registers := 3     
+	                3 Bit    Registers := 6     
+	                2 Bit    Registers := 1     
+	                1 Bit    Registers := 64    
++---RAMs : 
+	               6K Bit	(834 X 8 bit)          RAMs := 5     
++---Muxes : 
+	   2 Input   26 Bit        Muxes := 25    
+	   2 Input   20 Bit        Muxes := 3     
+	  12 Input   12 Bit        Muxes := 1     
+	   2 Input   12 Bit        Muxes := 2     
+	   4 Input   11 Bit        Muxes := 1     
+	   2 Input   11 Bit        Muxes := 1     
+	   2 Input   10 Bit        Muxes := 19    
+	   2 Input    8 Bit        Muxes := 5     
+	   3 Input    8 Bit        Muxes := 10    
+	  11 Input    8 Bit        Muxes := 5     
+	   3 Input    5 Bit        Muxes := 1     
+	   2 Input    5 Bit        Muxes := 2     
+	   4 Input    4 Bit        Muxes := 1     
+	   2 Input    4 Bit        Muxes := 1     
+	  12 Input    4 Bit        Muxes := 1     
+	   2 Input    3 Bit        Muxes := 2     
+	   3 Input    3 Bit        Muxes := 1     
+	  12 Input    3 Bit        Muxes := 2     
+	  12 Input    2 Bit        Muxes := 1     
+	   2 Input    1 Bit        Muxes := 95    
+	   4 Input    1 Bit        Muxes := 5     
+	  12 Input    1 Bit        Muxes := 11    
+---------------------------------------------------------------------------------
+Finished RTL Component Statistics 
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Part Resource Summary
+---------------------------------------------------------------------------------
+Part Resources:
+DSPs: 220 (col length:60)
+BRAMs: 280 (col length: RAMB18 60 RAMB36 30)
+---------------------------------------------------------------------------------
+Finished Part Resource Summary
+---------------------------------------------------------------------------------
+No constraint files found.
+---------------------------------------------------------------------------------
+Start Cross Boundary and Area Optimization
+---------------------------------------------------------------------------------
+WARNING: [Synth 8-7080] Parallel synthesis criteria is not met
+DSP Report: Generating DSP read_data1, operation Mode is: C+(A:0x310)*B.
+DSP Report: operator read_data1 is absorbed into DSP read_data1.
+DSP Report: operator read_data2 is absorbed into DSP read_data1.
+DSP Report: Generating DSP read_data1, operation Mode is: C+(A:0x310)*B.
+DSP Report: operator read_data1 is absorbed into DSP read_data1.
+DSP Report: operator read_data2 is absorbed into DSP read_data1.
+DSP Report: Generating DSP read_data1, operation Mode is: C+(A:0x310)*B.
+DSP Report: operator read_data1 is absorbed into DSP read_data1.
+DSP Report: operator read_data2 is absorbed into DSP read_data1.
+DSP Report: Generating DSP read_data1, operation Mode is: C+(A:0x310)*B.
+DSP Report: operator read_data1 is absorbed into DSP read_data1.
+DSP Report: operator read_data2 is absorbed into DSP read_data1.
+DSP Report: Generating DSP read_data1, operation Mode is: C+(A:0x310)*B.
+DSP Report: operator read_data1 is absorbed into DSP read_data1.
+DSP Report: operator read_data2 is absorbed into DSP read_data1.
+WARNING: [Synth 8-7129] Port S_AXI_AWADDR[4] in module axi_lite_wrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_AWADDR[3] in module axi_lite_wrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_AWADDR[2] in module axi_lite_wrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_AWADDR[1] in module axi_lite_wrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_AWADDR[0] in module axi_lite_wrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_AWPROT[2] in module axi_lite_wrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_AWPROT[1] in module axi_lite_wrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_AWPROT[0] in module axi_lite_wrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_WDATA[31] in module axi_lite_wrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_WDATA[30] in module axi_lite_wrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_WDATA[29] in module axi_lite_wrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_WDATA[28] in module axi_lite_wrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_WDATA[27] in module axi_lite_wrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_WDATA[26] in module axi_lite_wrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_WDATA[25] in module axi_lite_wrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_WDATA[24] in module axi_lite_wrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_WDATA[23] in module axi_lite_wrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_WDATA[22] in module axi_lite_wrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_WDATA[21] in module axi_lite_wrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_WDATA[20] in module axi_lite_wrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_WDATA[19] in module axi_lite_wrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_WDATA[18] in module axi_lite_wrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_WDATA[17] in module axi_lite_wrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_WDATA[16] in module axi_lite_wrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_WDATA[15] in module axi_lite_wrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_WDATA[14] in module axi_lite_wrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_WDATA[13] in module axi_lite_wrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_WDATA[12] in module axi_lite_wrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_WDATA[11] in module axi_lite_wrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_WDATA[10] in module axi_lite_wrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_WDATA[9] in module axi_lite_wrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_WDATA[8] in module axi_lite_wrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_WDATA[7] in module axi_lite_wrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_WDATA[6] in module axi_lite_wrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_WDATA[5] in module axi_lite_wrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_WDATA[4] in module axi_lite_wrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_WDATA[3] in module axi_lite_wrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_WDATA[2] in module axi_lite_wrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_WDATA[1] in module axi_lite_wrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_WDATA[0] in module axi_lite_wrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_WSTRB[3] in module axi_lite_wrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_WSTRB[2] in module axi_lite_wrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_WSTRB[1] in module axi_lite_wrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_WSTRB[0] in module axi_lite_wrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_ARPROT[2] in module axi_lite_wrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_ARPROT[1] in module axi_lite_wrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_ARPROT[0] in module axi_lite_wrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port batch_start in module dnn_scheduler is either unconnected or has no load
+WARNING: [Synth 8-3332] Sequential element (FSM_onehot_state_reg[2]) is unused and will be removed from module systolic_controller.
+---------------------------------------------------------------------------------
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:11:56 ; elapsed = 00:16:10 . Memory (MB): peak = 2364.359 ; gain = 1070.602
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start ROM, RAM, DSP, Shift Register and Retiming Reporting
+---------------------------------------------------------------------------------
+
+ROM: Preliminary Mapping Report
++----------------+----------------+---------------+----------------+
+|Module Name     | RTL Object     | Depth x Width | Implemented As | 
++----------------+----------------+---------------+----------------+
+|weight_sram     | layer_3_weight | 256x8         | LUT            | 
+|weight_sram     | layer_2_weight | 1024x7        | LUT            | 
+|weight_sram     | layer_1_weight | 32768x7       | LUT            | 
+|weight_sram     | layer_3_weight | 256x8         | LUT            | 
+|weight_sram     | layer_2_weight | 1024x7        | LUT            | 
+|weight_sram     | layer_1_weight | 32768x7       | LUT            | 
+|weight_sram     | layer_3_weight | 256x8         | LUT            | 
+|weight_sram     | layer_2_weight | 1024x7        | LUT            | 
+|weight_sram     | layer_1_weight | 32768x7       | LUT            | 
+|weight_sram     | layer_3_weight | 256x8         | LUT            | 
+|weight_sram     | layer_2_weight | 1024x7        | LUT            | 
+|weight_sram     | layer_1_weight | 32768x7       | LUT            | 
+|weight_sram     | layer_3_weight | 256x8         | LUT            | 
+|weight_sram     | layer_2_weight | 1024x7        | LUT            | 
+|weight_sram     | layer_1_weight | 32768x7       | LUT            | 
+|bias_sram       | layer_2_bias   | 32x6          | LUT            | 
+|bias_sram       | layer_1_bias   | 32x6          | LUT            | 
+|bias_sram       | layer_2_bias   | 32x6          | LUT            | 
+|bias_sram       | layer_1_bias   | 32x6          | LUT            | 
+|bias_sram       | layer_2_bias   | 32x6          | LUT            | 
+|bias_sram       | layer_1_bias   | 32x6          | LUT            | 
+|bias_sram       | layer_2_bias   | 32x6          | LUT            | 
+|bias_sram       | layer_1_bias   | 32x6          | LUT            | 
+|bias_sram       | layer_2_bias   | 32x6          | LUT            | 
+|bias_sram       | layer_1_bias   | 32x6          | LUT            | 
+|activation_unit | sigmoid_memory | 1024x8        | LUT            | 
+|activation_unit | sigmoid_memory | 1024x8        | LUT            | 
+|activation_unit | sigmoid_memory | 1024x8        | LUT            | 
+|activation_unit | sigmoid_memory | 1024x8        | LUT            | 
+|activation_unit | sigmoid_memory | 1024x8        | LUT            | 
+|weight_sram     | p_0_out        | 1024x7        | LUT            | 
+|weight_sram     | p_0_out        | 32768x7       | LUT            | 
+|weight_sram     | p_0_out        | 256x8         | LUT            | 
+|weight_sram     | p_0_out        | 1024x7        | LUT            | 
+|weight_sram     | p_0_out        | 32768x7       | LUT            | 
+|weight_sram     | p_0_out        | 256x8         | LUT            | 
+|weight_sram     | p_0_out        | 1024x7        | LUT            | 
+|weight_sram     | p_0_out        | 32768x7       | LUT            | 
+|weight_sram     | p_0_out        | 256x8         | LUT            | 
+|weight_sram     | p_0_out        | 1024x7        | LUT            | 
+|weight_sram     | p_0_out        | 32768x7       | LUT            | 
+|weight_sram     | p_0_out        | 256x8         | LUT            | 
+|weight_sram     | p_0_out        | 1024x7        | LUT            | 
+|weight_sram     | p_0_out        | 32768x7       | LUT            | 
+|weight_sram     | p_0_out        | 256x8         | LUT            | 
+|bias_sram       | p_0_out        | 32x6          | LUT            | 
+|bias_sram       | p_0_out        | 32x6          | LUT            | 
+|bias_sram       | p_0_out        | 32x6          | LUT            | 
+|bias_sram       | p_0_out        | 32x6          | LUT            | 
+|bias_sram       | p_0_out        | 32x6          | LUT            | 
+|bias_sram       | p_0_out        | 32x6          | LUT            | 
+|activation_unit | p_0_out        | 1024x8        | LUT            | 
+|activation_unit | p_0_out        | 1024x8        | LUT            | 
+|activation_unit | p_0_out        | 1024x8        | LUT            | 
+|activation_unit | p_0_out        | 1024x8        | LUT            | 
+|activation_unit | p_0_out        | 1024x8        | LUT            | 
++----------------+----------------+---------------+----------------+
+
+
+Block RAM: Preliminary Mapping Report (see note below)
++------------+-------------------------------------------+------------------------+---+---+------------------------+---+---+------------------+--------+--------+
+|Module Name | RTL Object                                | PORT A (Depth x Width) | W | R | PORT B (Depth x Width) | W | R | Ports driving FF | RAMB18 | RAMB36 | 
++------------+-------------------------------------------+------------------------+---+---+------------------------+---+---+------------------+--------+--------+
+|zyNet       | unified_buffer_instance/memory_bank_0_reg | 0 K x 8(READ_FIRST)    | W |   | 0 K x 8(WRITE_FIRST)   |   | R | Port A and B     | 1      | 0      | 
+|zyNet       | unified_buffer_instance/memory_bank_1_reg | 0 K x 8(READ_FIRST)    | W |   | 0 K x 8(WRITE_FIRST)   |   | R | Port A and B     | 1      | 0      | 
+|zyNet       | unified_buffer_instance/memory_bank_2_reg | 0 K x 8(READ_FIRST)    | W |   | 0 K x 8(WRITE_FIRST)   |   | R | Port A and B     | 1      | 0      | 
+|zyNet       | unified_buffer_instance/memory_bank_3_reg | 0 K x 8(READ_FIRST)    | W |   | 0 K x 8(WRITE_FIRST)   |   | R | Port A and B     | 1      | 0      | 
+|zyNet       | unified_buffer_instance/memory_bank_4_reg | 0 K x 8(READ_FIRST)    | W |   | 0 K x 8(WRITE_FIRST)   |   | R | Port A and B     | 1      | 0      | 
++------------+-------------------------------------------+------------------------+---+---+------------------------+---+---+------------------+--------+--------+
+
+Note: The table above is a preliminary report that shows the Block RAMs at the current stage of the synthesis flow. Some Block RAMs may be reimplemented as non Block RAM primitives later in the synthesis flow. Multiple instantiated Block RAMs are reported only once. 
+
+DSP: Preliminary Mapping Report (see note below. The ' indicates corresponding REG is set)
++------------+---------------+--------+--------+--------+--------+--------+------+------+------+------+-------+------+------+
+|Module Name | DSP Mapping   | A Size | B Size | C Size | D Size | P Size | AREG | BREG | CREG | DREG | ADREG | MREG | PREG | 
++------------+---------------+--------+--------+--------+--------+--------+------+------+------+------+-------+------+------+
+|weight_sram | C+(A:0x310)*B | 6      | 10     | 10     | -      | 15     | 0    | 0    | 0    | -    | -     | 0    | 0    | 
+|weight_sram | C+(A:0x310)*B | 6      | 10     | 10     | -      | 15     | 0    | 0    | 0    | -    | -     | 0    | 0    | 
+|weight_sram | C+(A:0x310)*B | 6      | 10     | 10     | -      | 15     | 0    | 0    | 0    | -    | -     | 0    | 0    | 
+|weight_sram | C+(A:0x310)*B | 6      | 10     | 10     | -      | 15     | 0    | 0    | 0    | -    | -     | 0    | 0    | 
+|weight_sram | C+(A:0x310)*B | 6      | 10     | 10     | -      | 15     | 0    | 0    | 0    | -    | -     | 0    | 0    | 
++------------+---------------+--------+--------+--------+--------+--------+------+------+------+------+-------+------+------+
+
+Note: The table above is a preliminary report that shows the DSPs inferred at the current stage of the synthesis flow. Some DSP may be reimplemented as non DSP primitives later in the synthesis flow. Multiple instantiated DSPs are reported only once.
+---------------------------------------------------------------------------------
+Finished ROM, RAM, DSP, Shift Register and Retiming Reporting
+---------------------------------------------------------------------------------
+No constraint files found.
+---------------------------------------------------------------------------------
+Start Timing Optimization
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Timing Optimization : Time (s): cpu = 00:12:01 ; elapsed = 00:16:16 . Memory (MB): peak = 2364.359 ; gain = 1070.602
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start ROM, RAM, DSP, Shift Register and Retiming Reporting
+---------------------------------------------------------------------------------
+
+Block RAM: Final Mapping Report
++------------+-------------------------------------------+------------------------+---+---+------------------------+---+---+------------------+--------+--------+
+|Module Name | RTL Object                                | PORT A (Depth x Width) | W | R | PORT B (Depth x Width) | W | R | Ports driving FF | RAMB18 | RAMB36 | 
++------------+-------------------------------------------+------------------------+---+---+------------------------+---+---+------------------+--------+--------+
+|zyNet       | unified_buffer_instance/memory_bank_0_reg | 0 K x 8(READ_FIRST)    | W |   | 0 K x 8(WRITE_FIRST)   |   | R | Port A and B     | 1      | 0      | 
+|zyNet       | unified_buffer_instance/memory_bank_1_reg | 0 K x 8(READ_FIRST)    | W |   | 0 K x 8(WRITE_FIRST)   |   | R | Port A and B     | 1      | 0      | 
+|zyNet       | unified_buffer_instance/memory_bank_2_reg | 0 K x 8(READ_FIRST)    | W |   | 0 K x 8(WRITE_FIRST)   |   | R | Port A and B     | 1      | 0      | 
+|zyNet       | unified_buffer_instance/memory_bank_3_reg | 0 K x 8(READ_FIRST)    | W |   | 0 K x 8(WRITE_FIRST)   |   | R | Port A and B     | 1      | 0      | 
+|zyNet       | unified_buffer_instance/memory_bank_4_reg | 0 K x 8(READ_FIRST)    | W |   | 0 K x 8(WRITE_FIRST)   |   | R | Port A and B     | 1      | 0      | 
++------------+-------------------------------------------+------------------------+---+---+------------------------+---+---+------------------+--------+--------+
+
+---------------------------------------------------------------------------------
+Finished ROM, RAM, DSP, Shift Register and Retiming Reporting
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Technology Mapping
+---------------------------------------------------------------------------------
+INFO: [Synth 8-7052] The timing for the instance unified_buffer_instance/memory_bank_0_reg (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance unified_buffer_instance/memory_bank_1_reg (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance unified_buffer_instance/memory_bank_2_reg (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance unified_buffer_instance/memory_bank_3_reg (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance unified_buffer_instance/memory_bank_4_reg (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+---------------------------------------------------------------------------------
+Finished Technology Mapping : Time (s): cpu = 00:12:16 ; elapsed = 00:16:35 . Memory (MB): peak = 2364.359 ; gain = 1070.602
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished IO Insertion : Time (s): cpu = 00:12:28 ; elapsed = 00:16:48 . Memory (MB): peak = 2364.359 ; gain = 1070.602
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Instances
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Instances : Time (s): cpu = 00:12:28 ; elapsed = 00:16:49 . Memory (MB): peak = 2364.359 ; gain = 1070.602
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Rebuilding User Hierarchy
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:12:30 ; elapsed = 00:16:52 . Memory (MB): peak = 2364.359 ; gain = 1070.602
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Ports
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Ports : Time (s): cpu = 00:12:31 ; elapsed = 00:16:52 . Memory (MB): peak = 2364.359 ; gain = 1070.602
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:12:31 ; elapsed = 00:16:53 . Memory (MB): peak = 2364.359 ; gain = 1070.602
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Nets
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Nets : Time (s): cpu = 00:12:31 ; elapsed = 00:16:53 . Memory (MB): peak = 2364.359 ; gain = 1070.602
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Writing Synthesis Report
+---------------------------------------------------------------------------------
+
+DSP Final Report (the ' indicates corresponding REG is set)
++------------+-------------+--------+--------+--------+--------+--------+------+------+------+------+-------+------+------+
+|Module Name | DSP Mapping | A Size | B Size | C Size | D Size | P Size | AREG | BREG | CREG | DREG | ADREG | MREG | PREG | 
++------------+-------------+--------+--------+--------+--------+--------+------+------+------+------+-------+------+------+
+|weight_sram | C+A*B       | 6      | 10     | 10     | -      | 15     | 0    | 0    | 0    | -    | -     | 0    | 0    | 
+|weight_sram | C+A*B       | 6      | 10     | 10     | -      | 15     | 0    | 0    | 0    | -    | -     | 0    | 0    | 
+|weight_sram | C+A*B       | 6      | 10     | 10     | -      | 15     | 0    | 0    | 0    | -    | -     | 0    | 0    | 
+|weight_sram | C+A*B       | 6      | 10     | 10     | -      | 15     | 0    | 0    | 0    | -    | -     | 0    | 0    | 
+|weight_sram | C+A*B       | 6      | 10     | 10     | -      | 15     | 0    | 0    | 0    | -    | -     | 0    | 0    | 
++------------+-------------+--------+--------+--------+--------+--------+------+------+------+------+-------+------+------+
+
+
+Report BlackBoxes: 
++-+--------------+----------+
+| |BlackBox name |Instances |
++-+--------------+----------+
++-+--------------+----------+
+
+Report Cell Usage: 
++------+---------+------+
+|      |Cell     |Count |
++------+---------+------+
+|1     |BUFG     |     1|
+|2     |CARRY4   |   644|
+|3     |DSP48E1  |     5|
+|4     |LUT1     |    26|
+|5     |LUT2     |   801|
+|6     |LUT3     |  1080|
+|7     |LUT4     |  1576|
+|8     |LUT5     |   737|
+|9     |LUT6     | 15375|
+|10    |MUXF7    |  6587|
+|11    |MUXF8    |  1675|
+|12    |RAMB18E1 |     5|
+|13    |FDCE     |  1117|
+|14    |FDPE     |    11|
+|15    |FDRE     |   306|
+|16    |FDSE     |     2|
+|17    |IBUF     |    21|
+|18    |OBUF     |    43|
++------+---------+------+
+
+Report Instance Areas: 
++------+-----------------------------------------------------------------+--------------------+------+
+|      |Instance                                                         |Module              |Cells |
++------+-----------------------------------------------------------------+--------------------+------+
+|1     |top                                                              |                    | 30012|
+|2     |  activation_unit_instance                                       |activation_unit     |   551|
+|3     |  axi_lite_wrapper_instance                                      |axi_lite_wrapper    |    39|
+|4     |  bias_sram_instance                                             |bias_sram           |    42|
+|5     |  dnn_scheduler_instance                                         |dnn_scheduler       |   592|
+|6     |  maxFinder_instance                                             |maxFinder           |    70|
+|7     |  systolic_controller_instance                                   |systolic_controller |  6513|
+|8     |    systolic_array_2d_instance                                   |systolic_array_2d   |  5508|
+|9     |      \ARRAY_ROWS[0].ARRAY_COLUMNS[0].pe_systolic_cell_instance  |pe_systolic_cell    |   205|
+|10    |        mac_pe_instance                                          |mac_pe_47           |   183|
+|11    |      \ARRAY_ROWS[0].ARRAY_COLUMNS[1].pe_systolic_cell_instance  |pe_systolic_cell_0  |   204|
+|12    |        mac_pe_instance                                          |mac_pe_46           |   183|
+|13    |      \ARRAY_ROWS[0].ARRAY_COLUMNS[2].pe_systolic_cell_instance  |pe_systolic_cell_1  |   204|
+|14    |        mac_pe_instance                                          |mac_pe_45           |   183|
+|15    |      \ARRAY_ROWS[0].ARRAY_COLUMNS[3].pe_systolic_cell_instance  |pe_systolic_cell_2  |   247|
+|16    |        mac_pe_instance                                          |mac_pe_44           |   226|
+|17    |      \ARRAY_ROWS[0].ARRAY_COLUMNS[4].pe_systolic_cell_instance  |pe_systolic_cell_3  |   203|
+|18    |        mac_pe_instance                                          |mac_pe_43           |   183|
+|19    |      \ARRAY_ROWS[1].ARRAY_COLUMNS[0].pe_systolic_cell_instance  |pe_systolic_cell_4  |   204|
+|20    |        mac_pe_instance                                          |mac_pe_42           |   183|
+|21    |      \ARRAY_ROWS[1].ARRAY_COLUMNS[1].pe_systolic_cell_instance  |pe_systolic_cell_5  |   203|
+|22    |        mac_pe_instance                                          |mac_pe_41           |   183|
+|23    |      \ARRAY_ROWS[1].ARRAY_COLUMNS[2].pe_systolic_cell_instance  |pe_systolic_cell_6  |   261|
+|24    |        mac_pe_instance                                          |mac_pe_40           |   241|
+|25    |      \ARRAY_ROWS[1].ARRAY_COLUMNS[3].pe_systolic_cell_instance  |pe_systolic_cell_7  |   246|
+|26    |        mac_pe_instance                                          |mac_pe_39           |   226|
+|27    |      \ARRAY_ROWS[1].ARRAY_COLUMNS[4].pe_systolic_cell_instance  |pe_systolic_cell_8  |   202|
+|28    |        mac_pe_instance                                          |mac_pe_38           |   183|
+|29    |      \ARRAY_ROWS[2].ARRAY_COLUMNS[0].pe_systolic_cell_instance  |pe_systolic_cell_9  |   204|
+|30    |        mac_pe_instance                                          |mac_pe_37           |   183|
+|31    |      \ARRAY_ROWS[2].ARRAY_COLUMNS[1].pe_systolic_cell_instance  |pe_systolic_cell_10 |   203|
+|32    |        mac_pe_instance                                          |mac_pe_36           |   183|
+|33    |      \ARRAY_ROWS[2].ARRAY_COLUMNS[2].pe_systolic_cell_instance  |pe_systolic_cell_11 |   261|
+|34    |        mac_pe_instance                                          |mac_pe_35           |   241|
+|35    |      \ARRAY_ROWS[2].ARRAY_COLUMNS[3].pe_systolic_cell_instance  |pe_systolic_cell_12 |   246|
+|36    |        mac_pe_instance                                          |mac_pe_34           |   226|
+|37    |      \ARRAY_ROWS[2].ARRAY_COLUMNS[4].pe_systolic_cell_instance  |pe_systolic_cell_13 |   202|
+|38    |        mac_pe_instance                                          |mac_pe_33           |   183|
+|39    |      \ARRAY_ROWS[3].ARRAY_COLUMNS[0].pe_systolic_cell_instance  |pe_systolic_cell_14 |   204|
+|40    |        mac_pe_instance                                          |mac_pe_32           |   183|
+|41    |      \ARRAY_ROWS[3].ARRAY_COLUMNS[1].pe_systolic_cell_instance  |pe_systolic_cell_15 |   203|
+|42    |        mac_pe_instance                                          |mac_pe_31           |   183|
+|43    |      \ARRAY_ROWS[3].ARRAY_COLUMNS[2].pe_systolic_cell_instance  |pe_systolic_cell_16 |   261|
+|44    |        mac_pe_instance                                          |mac_pe_30           |   241|
+|45    |      \ARRAY_ROWS[3].ARRAY_COLUMNS[3].pe_systolic_cell_instance  |pe_systolic_cell_17 |   246|
+|46    |        mac_pe_instance                                          |mac_pe_29           |   226|
+|47    |      \ARRAY_ROWS[3].ARRAY_COLUMNS[4].pe_systolic_cell_instance  |pe_systolic_cell_18 |   202|
+|48    |        mac_pe_instance                                          |mac_pe_28           |   183|
+|49    |      \ARRAY_ROWS[4].ARRAY_COLUMNS[0].pe_systolic_cell_instance  |pe_systolic_cell_19 |   203|
+|50    |        mac_pe_instance                                          |mac_pe_27           |   183|
+|51    |      \ARRAY_ROWS[4].ARRAY_COLUMNS[1].pe_systolic_cell_instance  |pe_systolic_cell_20 |   202|
+|52    |        mac_pe_instance                                          |mac_pe_26           |   183|
+|53    |      \ARRAY_ROWS[4].ARRAY_COLUMNS[2].pe_systolic_cell_instance  |pe_systolic_cell_21 |   260|
+|54    |        mac_pe_instance                                          |mac_pe_25           |   241|
+|55    |      \ARRAY_ROWS[4].ARRAY_COLUMNS[3].pe_systolic_cell_instance  |pe_systolic_cell_22 |   228|
+|56    |        mac_pe_instance                                          |mac_pe_24           |   209|
+|57    |      \ARRAY_ROWS[4].ARRAY_COLUMNS[4].pe_systolic_cell_instance  |pe_systolic_cell_23 |   204|
+|58    |        mac_pe_instance                                          |mac_pe              |   184|
+|59    |  unified_buffer_instance                                        |unified_buffer      |   172|
+|60    |  weight_sram_instance                                           |weight_sram         | 21965|
++------+-----------------------------------------------------------------+--------------------+------+
+---------------------------------------------------------------------------------
+Finished Writing Synthesis Report : Time (s): cpu = 00:12:32 ; elapsed = 00:16:53 . Memory (MB): peak = 2364.359 ; gain = 1070.602
+---------------------------------------------------------------------------------
+Synthesis finished with 0 errors, 0 critical warnings and 104 warnings.
+Synthesis Optimization Runtime : Time (s): cpu = 00:12:32 ; elapsed = 00:16:53 . Memory (MB): peak = 2364.359 ; gain = 1070.602
+Synthesis Optimization Complete : Time (s): cpu = 00:12:32 ; elapsed = 00:16:53 . Memory (MB): peak = 2364.359 ; gain = 1070.602
+INFO: [Project 1-571] Translating synthesized netlist
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.708 . Memory (MB): peak = 2364.359 ; gain = 0.000
+INFO: [Netlist 29-17] Analyzing 8916 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 1 CPU seconds
+INFO: [Project 1-570] Preparing netlist for logic optimization
+INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.015 . Memory (MB): peak = 2364.359 ; gain = 0.000
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+Synth Design complete, checksum: cefacd88
+INFO: [Common 17-83] Releasing license: Synthesis
+146 Infos, 104 Warnings, 0 Critical Warnings and 0 Errors encountered.
+synth_design completed successfully
+synth_design: Time (s): cpu = 00:12:46 ; elapsed = 00:17:12 . Memory (MB): peak = 2364.359 ; gain = 1070.602
+INFO: [Common 17-600] The following parameters have non-default value.
+general.maxThreads
+# create_clock -name s_axi_aclk -period 10.000 [get_ports s_axi_aclk]
+# report_utilization -file "$out/utilization.rpt"
+# report_utilization -hierarchical -file "$out/utilization_hierarchical.rpt"
+# report_ram_utilization -file "$out/ram_utilization.rpt"
+report_ram_utilization: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2364.359 ; gain = 0.000
+report_ram_utilization: Time (s): cpu = 00:00:19 ; elapsed = 00:00:22 . Memory (MB): peak = 2364.359 ; gain = 0.000
+# report_timing_summary -delay_type min_max -max_paths 20 -file "$out/timing_summary.rpt"
+INFO: [Timing 38-91] UpdateTimingParams: Speed grade: -1, Delay Type: min_max.
+INFO: [Timing 38-191] Multithreading enabled for timing update using a maximum of 4 CPUs
+report_timing_summary: Time (s): cpu = 00:00:09 ; elapsed = 00:00:05 . Memory (MB): peak = 2364.359 ; gain = 0.000
+# report_timing -delay_type max -max_paths 20 -file "$out/critical_paths.rpt"
+INFO: [Timing 38-91] UpdateTimingParams: Speed grade: -1, Delay Type: max.
+INFO: [Timing 38-191] Multithreading enabled for timing update using a maximum of 4 CPUs
+INFO: [Timing 38-78] ReportTimingParams: -max_paths 20 -nworst 1 -delay_type max -sort_by slack.
+# report_high_fanout_nets -timing -max_nets 50 -file "$out/high_fanout_nets.rpt"
+INFO: [Timing 38-91] UpdateTimingParams: Speed grade: -1, Delay Type: max.
+INFO: [Timing 38-191] Multithreading enabled for timing update using a maximum of 4 CPUs
+INFO: [Timing 38-78] ReportTimingParams: -max_paths 10 -nworst 1 -delay_type max -sort_by slack.
+report_high_fanout_nets: Time (s): cpu = 00:00:05 ; elapsed = 00:00:05 . Memory (MB): peak = 2364.359 ; gain = 0.000
+# report_drc -file "$out/drc.rpt"
+Command: report_drc -file C:/intelFPGA/18.1/dnn_optimization_project/.automation_smoke_20260907_retry/evidence/drc.rpt
+INFO: [IP_Flow 19-234] Refreshing IP repositories
+INFO: [IP_Flow 19-1704] No user IP repositories specified
+INFO: [IP_Flow 19-2313] Loaded Vivado IP repository 'C:/Xilinx/Vivado/2022.1/data/ip'.
+INFO: [DRC 23-27] Running DRC with 4 threads
+INFO: [Vivado_Tcl 2-168] The results of DRC are in file C:/intelFPGA/18.1/dnn_optimization_project/.automation_smoke_20260907_retry/evidence/drc.rpt.
+report_drc completed successfully
+# report_power -file "$out/power.rpt"
+Command: report_power -file C:/intelFPGA/18.1/dnn_optimization_project/.automation_smoke_20260907_retry/evidence/power.rpt
+Running Vector-less Activity Propagation...
+
+Finished Running Vector-less Activity Propagation
+0 Infos, 0 Warnings, 0 Critical Warnings and 0 Errors encountered.
+report_power completed successfully
+report_power: Time (s): cpu = 00:00:16 ; elapsed = 00:00:10 . Memory (MB): peak = 2364.359 ; gain = 0.000
+# write_checkpoint "$out/post_synthesis.dcp"
+INFO: [Timing 38-480] Writing timing data to binary archive.
+INFO: [Common 17-1381] The checkpoint 'C:/intelFPGA/18.1/dnn_optimization_project/.automation_smoke_20260907_retry/evidence/post_synthesis.dcp' has been generated.
+# exit
+INFO: [Common 17-206] Exiting Vivado at Mon Sep  7 17:04:51 2026...

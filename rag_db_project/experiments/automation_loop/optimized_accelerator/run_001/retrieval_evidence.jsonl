@@ -1,0 +1,2 @@
+{"query_id":"dsp_parallelism_finding","status":"PASS","rank":1,"chunk_id":"chunk-b86907fd1714e417154d990e","source_path":"experiments/automation_loop/optimized_accelerator/run_001/findings.yaml","evidence_state":"pending_human_approval"}
+{"query_id":"weight_storage_bottleneck","status":"PASS","rank":1,"chunk_id":"chunk-0072bea162ce7e36af7898cb","source_path":"experiments/automation_loop/optimized_accelerator/run_001/findings.yaml","evidence_state":"pending_human_approval"}

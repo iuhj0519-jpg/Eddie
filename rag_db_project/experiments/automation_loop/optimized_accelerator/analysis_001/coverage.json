@@ -1,0 +1,38 @@
+{
+  "critical_paths": {
+    "state": "observed",
+    "artifact_path": "critical_paths.rpt"
+  },
+  "fanout": {
+    "state": "observed",
+    "artifact_path": "high_fanout_nets.rpt"
+  },
+  "drc": {
+    "state": "observed",
+    "artifact_path": "drc.rpt"
+  },
+  "ram": {
+    "state": "observed",
+    "artifact_path": "ram_utilization.rpt"
+  },
+  "verification": {
+    "state": "unknown",
+    "artifact_path": "verification_result.json"
+  },
+  "utilization": {
+    "state": "observed",
+    "artifact_path": "utilization.rpt"
+  },
+  "utilization_hierarchical": {
+    "state": "observed",
+    "artifact_path": "utilization_hierarchical.rpt"
+  },
+  "timing_summary": {
+    "state": "observed",
+    "artifact_path": "timing_summary.rpt"
+  },
+  "power": {
+    "state": "observed",
+    "artifact_path": "power.rpt"
+  }
+}
