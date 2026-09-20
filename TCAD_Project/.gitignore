@@ -1,0 +1,15 @@
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ipynb_checkpoints/
+tmp/
+data/raw/*
+!data/raw/.gitkeep
+*.tmp
+.DS_Store
+.env
+.env.*
+!.env.example
+# 제3자 논문은 초기 Git 배포에서 제외; references/에 URL/DOI 기록
+*.pdf
