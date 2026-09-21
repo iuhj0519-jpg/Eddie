@@ -18,7 +18,7 @@
 핵심 범위:
 
 - 1D capacitor/PN/MOSCAP과 2D planar NMOS의 물리·수치 검증
-- 장채널 검증에서 100 nm, 28 nm로 이어지는 scaling/SCE 분석
+- long channel 검증에서 100 nm, 28 nm로 이어지는 scaling/SCE 분석
 - SiO2 thickness, HfO2/SiO2 또는 HfO2/SiON stack의 층별 두께 탐색
 - effective work-function을 통한 Vth 및 Ion/Ioff 제어
 - 분석적 channel/LDD 도핑 profile
@@ -83,7 +83,7 @@ TiN 이름이나 형상 추가 자체를 metal-gate 성능 개선의 증거로 �
 - Poisson + electron/hole continuity + drift-diffusion; 이산화와 Jacobian 생성 방식 기록
 - 온도 기본값 300 K; nm 입력을 cm 내부 단위로 변환, doping cm^-3, mobility cm^2/(V s)
 - 전류 원시 단위와 2D out-of-plane width 환산을 검증하여 A/um으로 출력
-- 장채널 학습: constant mobility와 비축퇴 통계부터 시작
+- long channel 학습: constant mobility와 비축퇴 통계부터 시작
 - 28 nm 설계 비교 전: doping/field-dependent mobility, SRH,
   고농도 영역의 carrier statistics와 band-gap narrowing 필요성 검토·검증
 - 모든 모델은 implemented / verified / omitted 상태와 파라미터 출처를 명시
@@ -105,7 +105,7 @@ TiN 이름이나 형상 추가 자체를 metal-gate 성능 개선의 증거로 �
 |---|---|---|
 | 0 | WSL2/Python/DEVSIM 환경 | import + 실제 capacitor solve, 버전 기록 |
 | 1 | 물리 검증 및 model specification | capacitor/PN/MOSCAP 오차, 경계조건 |
-| 2 | 공통 extraction library + 장채널 NMOS | 추출법 v1, 단위 테스트, I-V |
+| 2 | 공통 extraction library + long channel NMOS | 추출법 v1, 단위 테스트, I-V |
 | 3 | 문헌 개념 정리 + 100 nm baseline | 입력값 출처·가정·누락 목록, 수렴 |
 | 4A | SiO2 thickness scaling | Cox, SS/DIBL, 전계 |
 | 4B | High-k/IL 층별 두께 + EOT | thickness DOE, matched-EOT 대조 |
@@ -119,7 +119,7 @@ TiN 이름이나 형상 추가 자체를 metal-gate 성능 개선의 증거로 �
 | Optional | La2O3/poly depletion/halo/통계/quantum/FinFET | 독립 후속 보고서 |
 
 모든 단계: 질문 → 가설 → 모델/가정 → 계산 → 수렴/추출 → 검증 → 해석 → 한계 → 기록.
-필요한 부분 모델은 먼저 MOSCAP/장채널에서 검증한다.
+필요한 부분 모델은 먼저 MOSCAP/long channel에서 검증한다.
 초기 stack 탐색 후 28 nm에서도 대표점과 최종 후보를 다시 계산한다.
 100 nm에서의 최적값이 28 nm에서도 최적이라고 가정하지 않는다.
 
@@ -140,9 +140,9 @@ TiN 이름이나 형상 추가 자체를 metal-gate 성능 개선의 증거로 �
 SS = ln(10) (kBT/q) [1 + Cdep/Cox] (이상적 계면, 동일 면적 기준).
 선정 논문 v3 식 (1)의 ln(10) 분모 표기를 구현에 복사하지 않는다.
 
-### 5.2 장채널과 baseline
+### 5.2 long channel과 baseline
 
-- 장채널 검증용 Lg=1 um를 초기 예시로 사용하고 square-law 근사의 적용 조건 확인
+- long channel 검증용 Lg=1 um를 초기 예시로 사용하고 square-law 근사의 적용 조건 확인
 - 수치 개발용: Lg=100 nm, tox=5 nm, NA=1e16–1e17 cm^-3, NSD=1e19 cm^-3
 - 위 값은 교육용 시작값이며 제조 공정값이나 보정된 최적값이 아님
 - Body depth, S/D length, junction depth, LDD geometry, gate overlap도 config에 포함
