@@ -1,7 +1,0 @@
-{
-  "schema_version": "1.0",
-  "target": "optimized_accelerator",
-  "run_id": "analysis_005",
-  "status": "approved_for_patch_generation",
-  "message": "Run is approved for patch generation."
-}

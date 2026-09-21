@@ -1,6 +1,0 @@
-{
-  "stage": "post_route",
-  "clock_period_ns": 10.0,
-  "activity_kind": "behavioral_saif_full_workload",
-  "workload_sha256": "9f8bf6a6377a55d06f4b241751d876bd4a0fb8b35e60c261e5f1a4efcb1d30bd"
-}
