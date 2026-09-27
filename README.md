@@ -1,3 +1,19 @@
+# TradingAgents — 로컬 4B 개발 환경
+
+`tradingagents-local`은 **Ollama + qwen3:4b**를 사용하는 Windows 개발 브랜치입니다. 클라우드 기능을 끄고, 실제 TradingAgents 클라이언트의 JSON 출력과 도구 호출을 로컬에서 검증합니다. 유료 API 키가 필요하지 않습니다.
+
+- [설치·실행 안내](docs/LOCAL_SETUP_KO.md)
+- [검증 결과와 범위](docs/LOCAL_VALIDATION_KO.md)
+- [상세 검증 JSON](docs/validation/local-llm-smoke.json)
+- [분석 보고서 구현 계획](docs/LOCAL_IMPLEMENTATION_KO.md)
+
+현재 실행 진입점은 `scripts/local_llm_smoke.py`입니다. 전체 투자 분석·공시 수집·보고서 발행은 후속 구현 범위입니다. 아래 원본 문서의 `main.py`/CLI 예제는 클라우드 공급자를 사용할 수 있으므로, 이 브랜치에서는 위 로컬 실행 안내를 따릅니다.
+
+원본 TradingAgents 0.5.1의 코드·라이선스와 안내를 아래에 보존합니다.
+
+---
+
+
 <p align="center">
   <img src="assets/TauricResearch.png" style="width: 60%; height: auto;">
 </p>

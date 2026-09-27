@@ -1,0 +1,145 @@
+{
+  "started_utc": "2026-09-27T17:05:02.119332+00:00",
+  "model": "qwen3:4b",
+  "requests": [
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:11434/api/version"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:11434/api/tags"
+    },
+    {
+      "method": "POST",
+      "url": "http://127.0.0.1:11434/api/show"
+    },
+    {
+      "method": "POST",
+      "url": "http://127.0.0.1:11434/api/chat"
+    },
+    {
+      "method": "POST",
+      "url": "http://127.0.0.1:11434/v1/chat/completions"
+    },
+    {
+      "method": "POST",
+      "url": "http://127.0.0.1:11434/v1/chat/completions"
+    },
+    {
+      "method": "POST",
+      "url": "http://127.0.0.1:11434/v1/chat/completions"
+    }
+  ],
+  "checks": [
+    {
+      "name": "reject_external_endpoints",
+      "passed": true,
+      "seconds": 0.0,
+      "result": [
+        "https://api.openai.com/v1/chat/completions",
+        "https://ollama.com/api/chat",
+        "http://127.0.0.1:11434/api/pull"
+      ]
+    },
+    {
+      "name": "native_json_values_and_missing_data",
+      "passed": true,
+      "seconds": 4.037,
+      "result": {
+        "parsed": {
+          "revenue": 1200,
+          "operating_income": 180,
+          "currency": "USD",
+          "debt": null
+        },
+        "prompt_tokens": 45,
+        "output_tokens": 39
+      }
+    },
+    {
+      "name": "tradingagents_adapter_json_schema",
+      "passed": true,
+      "seconds": 4.158,
+      "result": {
+        "revenue": 1200,
+        "operating_income": 180,
+        "currency": "USD",
+        "debt": null
+      }
+    },
+    {
+      "name": "tradingagents_tool_execution_and_result",
+      "passed": true,
+      "seconds": 98.447,
+      "result": {
+        "tool_call": {
+          "name": "calculate_free_cash_flow",
+          "args": {
+            "operating_cash_flow": 123.5,
+            "capital_expenditures": 42.75
+          },
+          "id": "call_5b6edvli",
+          "type": "tool_call"
+        },
+        "executed_result": {
+          "free_cash_flow": "80.75"
+        },
+        "final": "Okay, let me go through the user's request step by step. The user initially asked to call the calculate_free_cash_flow function with operating cash flow 123.50 and capital expenditures 42.75. They specified not to compute it myself, so I just need to generate the correct tool call.\n\nFirst, I check the function's parameters. The tool expects \"operating_cash_flow\" and \"capital_expenditures\" as keys. The user wrote \"operating cash flow\" but the function uses snake_case, so it's \"operating_cash_flow\". The values given are 123.50 and 42.75, which are numbers.\n\nI structure the JSON with the correct keys and values. The tool response came back with \"free_cash_flow\": \"80.75\". So the calculation is 123.50 minus 42.75, which equals 80.75. That matches the result.\n\nThe user probably wants a confirmation that the tool was called correctly and the result is as expected. Since they didn't ask for any further action, just the tool call and the response, I should present the tool call and the result clearly.\n\nI need to make sure the JSON is properly formatted with the right keys and numbers. The tool response shows the free cash flow as a string \"80.75\", but the calculation is straightforward. No errors here. So the answer is just the tool call and the result as provided.\n</think>\n\nThe calculated free cash flow is **80.75**. \n\nThis result was obtained by calling the `calculate_free_cash_flow` tool with the provided values:\n- Operating cash flow: 123.50\n- Capital expenditures: 42.75",
+        "call_usage": {
+          "input_tokens": 196,
+          "output_tokens": 474,
+          "total_tokens": 670,
+          "input_token_details": {
+            "cache_read": 1
+          },
+          "output_token_details": {}
+        },
+        "final_usage": {
+          "input_tokens": 543,
+          "output_tokens": 371,
+          "total_tokens": 914,
+          "input_token_details": {
+            "cache_read": 1
+          },
+          "output_token_details": {}
+        }
+      }
+    }
+  ],
+  "passed": true,
+  "cloud_disabled_log_verified": true,
+  "ollama": {
+    "version": "0.34.4"
+  },
+  "model_metadata": {
+    "name": "qwen3:4b",
+    "model": "qwen3:4b",
+    "modified_at": "2026-09-28T01:59:58.9034232+09:00",
+    "size": 2497293931,
+    "digest": "359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7",
+    "details": {
+      "parent_model": "",
+      "format": "gguf",
+      "family": "qwen3",
+      "families": [
+        "qwen3"
+      ],
+      "parameter_size": "4.0B",
+      "quantization_level": "Q4_K_M",
+      "context_length": 262144,
+      "embedding_length": 2560
+    },
+    "capabilities": [
+      "completion",
+      "tools",
+      "thinking"
+    ]
+  },
+  "capabilities": [
+    "completion",
+    "tools",
+    "thinking"
+  ],
+  "finished_utc": "2026-09-27T17:06:51.600075+00:00"
+}
