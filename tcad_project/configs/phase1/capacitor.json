@@ -1,0 +1,12 @@
+{
+  "thickness_nm": 10.0,
+  "relative_permittivity": 3.9,
+  "epsilon0_F_per_cm": 8.8541878128e-14,
+  "left_V": 0.0,
+  "right_V": 1.0,
+  "mesh_intervals": [10, 20, 40],
+  "capacitance_rtol": 0.01,
+  "field_rtol": 1e-8,
+  "potential_atol_V": 1e-9,
+  "charge_balance_atol_C_per_cm2": 1e-14
+}

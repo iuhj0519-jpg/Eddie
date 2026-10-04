@@ -11,12 +11,14 @@ SiO2/SiON multi-spacer를 자체 대조실험으로 비교·최적화한다.
 tcad 브랜치는 tcad_project/만 추적한다. 완료 후 해당 폴더만 Project_Git에 통합한다.
 다른 프로젝트의 삭제가 전파되지 않도록 tcad를 Project_Git에 직접 merge하지 않는다.
 구체적인 통합 절차는 위 Git 운영 문서를 따른다.
-현재는 폴더 구조·문서 준비 단계이며 소자 구현이나 DEVSIM 설치 성공을 의미하지 않는다.
+2026-10-03 기준 WSL에서 DEVSIM 예제 실행과 cap2, diode, MOSFET, bias sweep, mobility 모델의 경향성 확인을 완료했다.
+자체 소자의 정량 검증·특성 추출·최적화는 아직 완료하지 않았다.
+완료 범위와 한계는 [오픈소스 분석 기록](docs/opensource_analysis.md)을 참고한다.
 이전 README_TCAD_MOSFET_PROJECT.md 및 README_TCAD_MOSFET_PROJECT_수정본.md는 이력용 초안이다.
 
 ## 폴더별 역할
 
-현재는 구조와 문서를 준비한 단계이며, 아래는 구현 시 사용할 역할이다.
+오픈소스 예제 탐색 이후, 아래 구조로 자체 실험과 검증 코드를 구현한다.
 
 | 폴더 | 기능 |
 |---|---|
@@ -39,3 +41,30 @@ tcad 브랜치는 tcad_project/만 추적한다. 완료 후 해당 폴더만 Pro
 | validation/regression/ | 코드 변경 후 기준 결과가 유지되는지 확인 |
 
 빈 폴더는 .gitkeep으로 추적한다. 실험 번호는 식별자이며 실제 진행 순서는 상세 계획서의 단계 표를 따른다.
+
+## 다음 단계와 정량 최적화 실험
+
+다음 단계는 **Phase 1: 기본 물리 검증과 model specification**이다. 예제 실행 성공을
+자체 소자의 검증 완료로 간주하지 않는다. 기존 capacitor·PN 결과를 재사용해 해석식 대비
+오차 검사를 자동화하고, MOSCAP 검증을 추가한다. 단위·접촉/계면 조건·통계·이동도 모델,
+mesh와 solver 설정을 docs/methodology.md에 명시한다. 특히 2D 전류의 폭 정규화를 확인하기 전에는
+기존 raw API 전류를 A 또는 A/um로 단정하지 않는다.
+
+1. **Phase 1:** capacitor·PN·MOSCAP의 정량 검증과 수치 허용오차 기록.
+2. **Phase 2:** 1 um long-channel NMOS와 공통 추출 코드 구현; Vth, SS, Ion/Ioff, DIBL의 추출 규약을 pilot 후 고정.
+3. **Phase 3–7:** 100 nm baseline에서 gate stack·산화막 두께·effective work function·도핑을 대조실험하고, gate length scaling 후 28 nm 기준 소자와 SiO2/SiON spacer 비교.
+4. **Phase 8:** 소수 변수 DOE, 제한 조건 및 Pareto 비교로 후보 선정; 더 미세한 mesh와 bias 간격에서 개선 재검증.
+5. **Phase 9:** 원시 데이터·설정·추출 코드·비교표·재현 명령을 연결해 결과 보고.
+
+Gate Length, 산화막 두께, channel/LDD doping 등의 **소자 설계 파라미터**를 변화시키고,
+동일 온도·바이어스·물리 모델·추출법에서 I-V 및 지표를 비교한다. 변수별 영향 확인 후 조합 실험으로
+trade-off를 평가한다. 이는 공정 레시피 자체를 계산하는 공정 TCAD와 구분한다.
+
+최종 산출물은 baseline/candidate별 설정과 run ID, Vth[V], SS[mV/dec], Ion/Ioff 및 폭 정규화 전류,
+DIBL[mV/V], 수치 오차, 제약 충족 여부와 개선율을 포함한 비교표다.
+최대화 지표 개선율은 100*(후보-기준)/기준, 최소화 지표는 100*(기준-후보)/기준으로 계산한다
+(양의 기준값에 적용; 기준이 0이거나 부호가 달라지면 절대 변화량과 별도 정의 사용).
+목표 지표 A와 제약 지표 B의 한계 Y는 DOE 전에 정하고, 개선율 X는 실제 결과에서 계산한다.
+자기소개서의 '[A 지표]를 [X%] 개선하면서 [B 지표]를 [Y 이하]로 유지'는 **향후 입증할 목표**이며
+아직 달성한 결과가 아니다. 제약을 만족하는 후보가 없거나 수치 오차보다 개선폭이 작으면 그대로 보고한다.
+구체적인 초기 추출 조건·제약·품질 기준은 기준 프로젝트 계획서의 5, 9, 10절을 따른다.
