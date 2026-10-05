@@ -14,7 +14,8 @@ Phase 1의 다층 capacitor·PN·MOSCAP도 이 문서에 이어 기록하며 별
 아직 구현되지 않은 항목은 계획이며, 실제 단층 실행 방법은 뒷부분을 따른다.
 solver_info 저장 코드는 Windows/WSL에 동기화했고, 사용자 실행 sio2_my_run_001에서 12개 검사 PASS를 확인했다.
 2026-10-04 푸시 전 unittest 3개 메서드와 내부 subcase를 재실행해 OK를 확인했다. Phase 1 전체가 완료된 것은 아니다.
-Git 게시 대상은 코드·config·문서이며 data/raw와 임시 run.log는 제외한다.
+Git 게시 대상은 코드·config·문서 및 검토한 작은 기준 결과다. data/raw는 기본 제외하되
+2026-10-05부터 sio2_my_run_001의 명시한 7개 파일만 예외로 허용한다. 임시 run.log는 제외한다.
 
 ## A. 실험 진행 가이드
 
@@ -453,7 +454,7 @@ git commit -m "feat(tcad): validate single-layer SiO2 capacitor"
 Windows VS Code에서도 `data/raw/phase1/sio2_my_run_001/`을 열 수 있도록 WSL 실행 폴더를 복사했다.
 원본은 WSL이며 Windows 쪽은 확인용 스냅샷이다. 자동 동기화가 아니므로 후속 실행 결과는 별도로 복사해야 한다.
 탐색기에서 data → raw → phase1 → sio2_my_run_001을 펼쳐 PNG/CSV/JSON을 연다.
-원시 결과는 Git 제외 정책을 유지하며 GitHub에는 코드·설정·문서의 재현 절차를 게시한다.
+원시 결과는 기본 Git 제외 정책을 유지한다. B.10에서 지정한 기준 실행의 7개 파일만 예외로 공개할 수 있다.
 
 ### B.9. 사용자 직접 실행 기록 양식
 
@@ -483,3 +484,93 @@ Windows VS Code에서도 `data/raw/phase1/sio2_my_run_001/`을 열 수 있도록
 
 실패 시 단위 변환 → 양단 bias → epsilon → 접촉 전하 부호 → solver_info 순서로 확인한다.
 오차가 기준보다 크다고 허용오차부터 늘리지 않는다. 실패 실행도 삭제하지 말고 수정 후 새 run으로 비교한다.
+
+### B.10. 단층 기준 실행의 결과 분석 (2026-10-05 기록)
+
+#### 1. 질문
+
+자체 구현한 전하 없는 단층 SiO2 모델이 선형 전위, 일정한 전계, C/A=epsilon/t 및
+양단 전하 보존을 만족하는가? 10/20/40 구간에서 그 결론이 유지되는가?
+Q–V sweep과 두께 sweep은 이번 실행에서 수행하지 않았다. 단위 테스트의 일부 조건 변경을
+독립적인 sweep 데이터셋이나 sweep 분석 완료로 계산하지 않는다.
+
+#### 2. 예상
+
+t=10 nm=1e-6 cm, epsilon=3.9*8.8541878128e-14=3.453133246992e-13 F/cm이다.
+내부 자유전하가 없고 epsilon이 일정하므로 d²phi/dx²=0이며 phi(x)=x/t V다.
+E=-dphi/dx=-1e6 V/cm, D=epsilon*E=-3.453133246992e-7 C/cm²이다.
+오른쪽 전극 Q/A는 +3.453133246992e-7 C/cm², 왼쪽은 반대 부호다.
+C/A=(Qright/A)/1 V=3.453133246992e-7 F/cm²=3.453133246992 fF/um²이다.
+
+#### 3. 조건과 근거
+
+- 실행: `data/raw/phase1/sio2_my_run_001`, 2026-10-04 16:55 KST.
+- 고정 조건: 10 nm, 상대유전율 3.9, left=0 V/right=1 V, 전하 없는 선형 유전체.
+- 변경 조건: mesh 10/20/40 intervals만 변경; 실제 node는 11/21/41개.
+- 환경: Python 3.14.4, DEVSIM 2.11.0, matplotlib 3.11.2.
+- 근거: 아래 CSV, 실행 당시 config/metadata, mesh JSON, Python 생성 PNG.
+- 실행 당시 Git 상태는 dirty이며 commit은 bf3c7ee였다. 현재 게시 커밋에서 실행했다고 metadata를 바꾸지 않는다.
+- 1D 분석은 Python 정량 그래프 중심으로 진행하며 ParaView는 사용하지 않는다.
+
+#### 4. 결과: 그래프와 수치
+
+![단층 SiO2 전위와 전계](../data/raw/phase1/sio2_my_run_001/capacitor.png)
+
+[검사 CSV](../data/raw/phase1/sio2_my_run_001/validation.csv),
+[입력](../data/raw/phase1/sio2_my_run_001/config.json),
+[실행 metadata](../data/raw/phase1/sio2_my_run_001/metadata.json).
+
+| intervals / nodes | C/A [F/cm²] | C/A 상대오차 | 최대 전위오차 [V] | 최대 전계 상대오차 | 전하 합 절댓값 [C/cm²] |
+|---|---:|---:|---:|---:|---:|
+| 10 / 11 | 3.453133246991999e-7 | 3.33e-16 | 2.78e-17 | 9.31e-16 | 5.29e-23 |
+| 20 / 21 | 3.453133246992000e-7 | 0 | 1.11e-16 | 1.98e-15 | 5.29e-23 |
+| 40 / 41 | 3.453133246992007e-7 | 2.00e-15 | 1.11e-16 | 2.56e-15 | 6.88e-22 |
+
+상대오차는 무차원 비율이며 백분율이 아니다. 각 mesh의 네 검사, 총 12개 행이 True이고 metadata는 PASS다.
+허용오차는 C/A 0.01, 전위 1e-9 V, 전계 1e-8, 전하 합 1e-14 C/cm²이다.
+
+#### 5. 해석
+
+왼쪽은 x=0에서 0 V, x=5 nm에서 약 0.5 V, x=10 nm에서 1 V인 직선이다.
+세 mesh와 검은 해석선이 겹치는 것은 누락된 곡선이 아니라 수치해가 같은 선형 해와 일치하기 때문이다.
+
+오른쪽 전계가 눈금 0에 놓여 보여도 **전계 0을 뜻하지 않는다**.
+상단의 `1e-6`은 눈금의 배율, `−1e6`은 더하는 offset이다.
+즉 실제 E = 표시 눈금*1e-6 − 1e6 V/cm이며 표시 눈금 0은 E=−1e6 V/cm이다.
+전계는 전위 증가 방향과 반대인 −x 방향이고 내부에서 거의 일정하다.
+그래프가 극히 좁은 범위로 자동 확대되어 있으며 CSV상 최대 절대 전계 오차는
+약 2.56e-15*1e6=2.56e-9 V/cm에 불과하다.
+
+같은 epsilon에서 D도 일정하고 양단 전하는 상쇄된다. 측정된 전하 잔여값은 허용오차보다 충분히 작다.
+선형 해를 이산 모델이 거의 정확히 표현하므로 mesh 증가에 따라 오차가 단조 감소하지 않고
+부동소수점 반올림 수준에서 변한다. 20구간의 표시 오차 0은 모든 상황에서 오차가 없음을 보장하지 않는다.
+40구간의 작은 상대오차 증가를 수치적 발산 또는 물리 모델 악화로 해석하지 않는다.
+
+#### 6. 판정·한계·다음 단계
+
+이번 조건에서 단층 정전기 경계조건·전위·전계·정전용량·전하 보존 검증은 PASS다.
+실제 재료 측정값에 대한 calibration, 누설/터널링/절연 파괴/신뢰성, MOS 반전 및 NMOS 성능은 검증하지 않았다.
+Phase 1 전체 완료 또는 B28 대비 성능 개선으로 보고하지 않는다.
+
+현재 순서는 단층 실행 완료 → 공간 분포/CSV 오차 분석 완료 → Q–V sweep 미실시 → 두께 sweep 미실시다.
+후속 Python 그래프는 절대 E를 MV/cm로 표시하고, phi 및 E의 수치해−해석해를 별도 패널로
+그리는 방식을 우선한다. 오차의 단위와 배율을 명시하고 그림을 매끄럽게 만들기 위한 데이터 조작은 하지 않는다.
+이는 다음 구현 방향이며 이번 기록에서 원본 PNG나 simulation 결과를 다시 생성하지 않았다.
+
+#### Git 결과 공개 범위와 기준 문서
+
+`.gitignore`에서 `data/raw/phase1/sio2_my_run_001/`의 validation.csv, capacitor.png,
+config.json, metadata.json, mesh_10.json, mesh_20.json, mesh_40.json만 예외로 허용한다.
+다른 raw 실행과 임시 로그는 계속 제외한다. metadata의 로컬 경로·당시 dirty 상태는 재현 근거로 보존한다.
+ignore 예외 설정만으로 GitHub에 자동 업로드되지는 않으며 검토 후 add/commit/push가 필요하다.
+
+사용자가 지정한 README_TCAD_MOSFET_PROJECT_Github_구조정리본.md를 실행·폴더 구성의 기준,
+TCAD_PROJECT_FINAL_GOAL.md를 최종 목표·KPI 기준으로 읽고 적용한다.
+src는 공통 구현, validation은 물리 검증, experiments는 실험별 실행/조건으로 구분한다.
+후속 gate-stack 실험은 03_gate_stack 아래에 통합하고 doping/spacer/optimization은 최신 Phase–폴더 대응을 따른다.
+기존 WSL 폴더와 새 대응표의 차이는 이동 전 경로·참조를 점검하여 정리하며 이번에는 임의 재배치하지 않는다.
+개발은 기존 tcad 브랜치와 실제 tcad_project 경로를 유지한다. 다른 프로젝트를 보존하기 위해
+Project_Git 통합은 기존 GIT_WORKFLOW의 경로 한정 절차를 따르고 force push·직접 병합하지 않는다.
+최종 목표는 자체 B28 기준, 동일 모델·추출·bias·폭 조건에서 2–3변수 DOE와 feasible Pareto 후보를
+평가하고 fine mesh/작은 step에서 재검증한 개선율과 trade-off를 보고하는 것이다.
+EOT는 층별 두께/유전율에서 계산하는 파생값이다. 목표 문서의 예시 개선율은 실적이나 강제 목표로 사용하지 않는다.

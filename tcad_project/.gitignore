@@ -6,6 +6,18 @@ __pycache__/
 tmp/
 data/raw/*
 !data/raw/.gitkeep
+# Reviewed small Phase 1 baseline only; other raw runs remain ignored.
+!data/raw/phase1/
+data/raw/phase1/*
+!data/raw/phase1/sio2_my_run_001/
+data/raw/phase1/sio2_my_run_001/*
+!data/raw/phase1/sio2_my_run_001/validation.csv
+!data/raw/phase1/sio2_my_run_001/capacitor.png
+!data/raw/phase1/sio2_my_run_001/config.json
+!data/raw/phase1/sio2_my_run_001/metadata.json
+!data/raw/phase1/sio2_my_run_001/mesh_10.json
+!data/raw/phase1/sio2_my_run_001/mesh_20.json
+!data/raw/phase1/sio2_my_run_001/mesh_40.json
 *.tmp
 .DS_Store
 .env
