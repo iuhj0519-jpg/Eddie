@@ -1,0 +1,43 @@
+{
+  "base_config": "pn_junction.json",
+  "transport": {
+    "model": "drift_diffusion_no_recombination",
+    "bias_definition": "V_P_minus_V_N; left=P driven, right=N at 0 V",
+    "assessment": "interface_sided_v1",
+    "stages": {
+      "pilot": {
+        "reverse_segments": [[0.0, -0.10, -0.01]],
+        "forward_segments": [[0.0, 0.10, 0.01]],
+        "vtk_biases_V": [-0.10, 0.0, 0.10]
+      },
+      "extension": {
+        "reverse_segments": [[0.0, -0.20, -0.005]],
+        "forward_segments": [[0.0, 0.65, 0.005]],
+        "vtk_biases_V": [-0.20, 0.0, 0.10, 0.30, 0.50, 0.65]
+      }
+    },
+    "step_refinements": [1, 2],
+    "extended_precision": true,
+    "dd_absolute_error": 1000000.0,
+    "dd_relative_error": 1e-10,
+    "dd_maximum_iterations": 100,
+    "minimum_continuation_step_V": 0.0003125,
+    "maximum_bisection_depth": 6,
+    "current_atol_A_per_cm2": 1e-9,
+    "current_conservation_rtol": 0.0001,
+    "comparison_rtol": 0.02,
+    "potential_atol_V": 1e-8,
+    "width_depletion_rtol": 0.05,
+    "width_gate_max_forward_V": 0.10
+  },
+  "model": "drift_diffusion_srh",
+  "cases": [
+    {"name": "off", "display_name": "SRH OFF", "enabled": false, "tau_n_s": 1e-6, "tau_p_s": 1e-6, "trap_energy_minus_intrinsic_eV": 0.0},
+    {"name": "tau_1us", "display_name": "tau = 1 us", "enabled": true, "tau_n_s": 1e-6, "tau_p_s": 1e-6, "trap_energy_minus_intrinsic_eV": 0.0},
+    {"name": "tau_0p1us", "display_name": "tau = 0.1 us", "enabled": true, "tau_n_s": 1e-7, "tau_p_s": 1e-7, "trap_energy_minus_intrinsic_eV": 0.0},
+    {"name": "tau_10us", "display_name": "tau = 10 us", "enabled": true, "tau_n_s": 1e-5, "tau_p_s": 1e-5, "trap_energy_minus_intrinsic_eV": 0.0}
+  ],
+  "equilibrium_mass_action_rtol": 1e-8,
+  "parameter_provenance": "Educational sensitivity assumptions, not measured Si lifetimes or copied Sentaurus defaults. Single level Et=Ei, tau_n=tau_p; fixed 300 K; no trap charge.",
+  "note": "Inherit only the base structure. Transport settings and bias grids are SRH-specific; no voltage-sweep JSON dependency. No avalanche, BTBT, tunneling or reliability prediction."
+}

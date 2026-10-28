@@ -1,0 +1,32 @@
+{
+  "base_config": "pn_junction.json",
+  "model": "drift_diffusion_no_recombination",
+  "bias_definition": "V_P_minus_V_N; left=P driven, right=N at 0 V",
+  "assessment": "interface_sided_v1",
+  "stages": {
+    "pilot": {
+      "reverse_segments": [[0.0, -0.10, -0.01]],
+      "forward_segments": [[0.0, 0.10, 0.01]],
+      "vtk_biases_V": [-0.10, 0.0, 0.10]
+    },
+    "extension": {
+      "reverse_segments": [[0.0, -0.20, -0.005]],
+      "forward_segments": [[0.0, 0.30, 0.005]],
+      "vtk_biases_V": [-0.20, 0.0, 0.10, 0.30]
+    }
+  },
+  "step_refinements": [1, 2],
+  "extended_precision": true,
+  "dd_absolute_error": 1000000.0,
+  "dd_relative_error": 1e-10,
+  "dd_maximum_iterations": 100,
+  "minimum_continuation_step_V": 0.0003125,
+  "maximum_bisection_depth": 6,
+  "current_atol_A_per_cm2": 1e-9,
+  "current_conservation_rtol": 0.0001,
+  "comparison_rtol": 0.02,
+  "potential_atol_V": 1e-8,
+  "width_depletion_rtol": 0.05,
+  "width_gate_max_forward_V": 0.10, 
+  "note": "Preparation only, not executed. Pilot noise-floor threshold must be reviewed before interpreting tiny reverse currents. DD absolute_error applies to mixed solution updates (including carrier density), not to current or potential accuracy. No SRH/BTBT/avalanche/tunneling; no calibrated leakage prediction."
+}

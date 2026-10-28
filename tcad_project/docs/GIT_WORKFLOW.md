@@ -1,77 +1,58 @@
-# tcad 전용 개발과 Project_Git 통합
+# Project_Git / tcad 브랜치 운영
 
 저장소: https://github.com/iuhj0519-jpg/Eddie.git
-개발 브랜치: `tcad`. 현재 트리는 `tcad_project/`만 추적한다.
-최종 통합 대상: `Project_Git` 브랜치이며 기본 브랜치 `main`과 구분한다.
-초기 분기 기준: `ae1c9928440e29245d22e65e116dc5d64840679a`.
+분기 기준 및 완료 후 통합 대상: Project_Git (저장소 이름이 아닌 브랜치 이름).
+개발 브랜치: tcad. 프로젝트 경로: TCAD_Project/.
+초기 분기 기준 commit: ae1c9928440e29245d22e65e116dc5d64840679a.
+기존 네 개 프로젝트 폴더를 보존하며, main은 이번 작업의 통합 대상이 아니다.
 
-브랜치는 폴더 필터가 아니라 저장소 전체 스냅샷이다. 다른 프로젝트의 추적 제외도
-삭제 변경으로 이력에 남는다. 과거 공통 이력을 유지하며 force push하지 않는다.
-**tcad를 Project_Git에 직접 merge하거나 그대로 PR로 병합하지 않는다.**
-다른 프로젝트를 보존하기 위해 아래 경로 한정 통합을 사용한다.
+## WSL 개발 작업 트리
 
-## WSL 작업 트리
-
-아래 Project_Git은 로컬 clone 폴더 이름이다. 해당 폴더가 아직 없을 때 실행한다.
+tcad 브랜치를 원격에 구성한 이후 Ubuntu에서 실행한다.
+아래 Project_Git은 로컬 clone 폴더 이름이며 원격 저장소 이름은 Eddie이다.
 
 ```bash
 mkdir -p ~/projects
 cd ~/projects
 git clone --branch tcad https://github.com/iuhj0519-jpg/Eddie.git Project_Git
-cd Project_Git/tcad_project
+cd Project_Git
+git status
+git branch --show-current
+cd TCAD_Project
 ```
 
-기존 clone은 저장소 루트에서 git status로 미커밋 변경을 확인·보존한 후
-git switch tcad와 git pull --ff-only origin tcad를 실행한다.
-개발 경로는 ~/projects/Project_Git/tcad_project이다.
-venv는 tcad_project/.venv에 만들고 프로젝트 하위에서 git init을 실행하지 않는다.
-Windows 자료 폴더 이름 TCAD_Project는 변경하지 않았다.
+이미 clone되어 있으면 새로 만들지 않고 해당 경로에서 상태를 확인한다.
+미커밋 변경이 있는 상태에서 무조건 switch/pull하지 않는다.
+Windows의 문서 준비본과 WSL 개발본은 Git commit/push/pull로 교환한다.
+DEVSIM venv는 TCAD_Project/.venv에 만들며 Git에 포함하지 않는다.
+프로젝트 하위에서 git init을 다시 실행하지 않는다.
 
 ## 개발
 
-저장소 루트에서 실행한다. 전체 폴더를 무조건 stage하지 않는다.
+```bash
+cd ~/projects/Project_Git
+git switch tcad
+git status
+git diff
+```
+
+실제 구현한 단계의 입력·코드·검증 결과만 선택하여 stage한다.
+구현 후 테스트가 존재할 때 pytest를 실행한다.
+빈 테스트 폴더의 no tests ran을 PASS라고 기록하지 않는다.
 
 ```bash
-git status
-git diff -- tcad_project
-git add tcad_project
+git add TCAD_Project
 git diff --cached --stat
 git commit -m "feat(tcad): implement and validate the current phase"
-git push origin tcad
+git push -u origin tcad
 ```
 
-구현된 테스트가 있을 때 실행하고 결과를 기록한다. 빈 tests 폴더의
-no tests ran은 검증 성공이 아니다. raw 결과, venv, PDF는 제외 규칙을 따른다.
+## 프로젝트 완료 후 통합
 
-## 완료 후 경로 한정 통합 (지금 실행하지 않음)
+1. tcad 브랜치의 코드·결과·재현성 문서를 검토한다.
+2. Project_Git의 변경을 확인하고 필요 시 tcad에서 통합·충돌 해결 후 재검증한다.
+3. base=Project_Git, compare=tcad인 PR을 열어 변경을 검토한다.
+4. 검증 완료 후 PR merge 또는 일반 merge로 통합한다.
+5. merge 확인 전 tcad 브랜치를 삭제하지 않는다.
 
-1. tcad 코드·결과·재현 문서를 검증하고 작업 트리를 깨끗하게 만든다.
-2. 최신 원격 상태를 가져와 Project_Git 기반 새 통합 브랜치를 만든다.
-
-```bash
-git fetch origin refs/heads/Project_Git:refs/remotes/origin/Project_Git refs/heads/tcad:refs/remotes/origin/tcad
-git switch -c integrate/tcad-project origin/Project_Git
-```
-
-3. Project_Git에 tcad_project/가 이미 있으면 먼저 비교한다. 아래 restore는 해당 경로를
-   대체하므로 다른 작업자의 변경이 있으면 그대로 실행하지 말고 수동 통합한다.
-   경로가 아직 없을 때는 다음과 같이 최종 스냅샷을 가져온다.
-
-```bash
-git restore --source=origin/tcad --staged --worktree -- tcad_project
-git diff --cached --name-status
-git diff --cached --check
-```
-
-4. 변경이 tcad_project/에만 한정되고 다른 프로젝트 삭제가 없는지 확인한다.
-   통합 상태에서 테스트와 문서를 검증한 후 커밋·푸시한다.
-
-```bash
-git commit -m "feat(tcad): integrate validated TCAD project"
-git push -u origin integrate/tcad-project
-```
-
-5. base=Project_Git, compare=integrate/tcad-project인 PR을 열고 승인 후 병합한다.
-
-이 방식은 최종 스냅샷을 통합한다. 상세 개발 이력은 tcad에 남으므로 통합 후에도
-tcad를 보존한다. 현재 구조 정리 단계에서는 통합이나 PR 생성을 하지 않는다.
+이번 구조 준비 단계에서는 Project_Git 또는 main으로 merge를 수행하지 않는다.

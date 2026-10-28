@@ -1,0 +1,41 @@
+{
+  "base_config": "pn_junction.json",
+  "geometry_overrides": {"p_length_nm": 5000.0, "n_length_nm": 5000.0, "mesh_intervals": [1000, 2000, 4000]},
+  "transport": {
+    "model": "drift_diffusion_avalanche",
+    "assessment": "interface_sided_v1",
+    "step_refinements": [1, 2],
+    "extended_precision": true,
+    "dd_absolute_error": 1000000.0,
+    "dd_relative_error": 1e-10,
+    "dd_maximum_iterations": 100,
+    "minimum_continuation_step_V": 0.0003125,
+    "maximum_bisection_depth": 12,
+    "current_atol_A_per_cm2": 1e-9,
+    "current_conservation_rtol": 0.0001,
+    "comparison_rtol": 0.02,
+    "potential_atol_V": 1e-8,
+    "width_depletion_rtol": 0.05,
+    "width_gate_max_forward_V": 0.10,
+    "srh": {"enabled": true, "tau_n_s": 1e-6, "tau_p_s": 1e-6, "trap_energy_minus_intrinsic_eV": 0.0},
+    "stages": {
+      "pilot": {"reverse_segments": [[0, -10, -0.5]], "vtk_biases_V": [0, -5, -10]},
+      "extension": {"reverse_segments": [[0, -10, -0.5], [-10, -80, -0.5]], "vtk_biases_V": [0, -10, -20, -40, -60, -80]}
+    }
+  },
+  "avalanche": {
+    "model": "okuto_crowell_local_field_300K",
+    "enabled": true,
+    "a_n_per_V": 0.426,
+    "a_p_per_V": 0.243,
+    "b_n_V_per_cm": 481000.0,
+    "b_p_V_per_cm": 653000.0,
+    "field_regularization_V_per_cm": 1e-30,
+    "driving_force": "absolute electrostatic field, local-field approximation",
+    "parameter_source": "https://project-allpix-squared.web.cern.ch/project-allpix-squared/usermanual/allpix-manual-3.0.1.pdf section 6.5, original Okuto parameters at 300 K",
+    "coupling_source": "https://devsim.com/avalanche-modeling/ (edge-volume coupling only; its quasi-Fermi driving force differs)"
+  },
+  "domain_check": {"scale": 2, "pilot_biases_V": [0, -5, -10], "extension_biases_V": [0, -10, -40, -80], "maximum_depletion_fraction": 0.7},
+  "limits": {"maximum_abs_current_A_per_cm2": 0.01, "maximum_peak_field_V_per_cm": 600000.0, "breakdown_criterion_A_per_cm2": 0.0001},
+  "note": "Preparation only. Expanded-domain baseline must be verified; 2% mesh/step/domain limits unchanged. Current threshold defines an operational crossing, not calibrated breakdown. Constant mobility, local field, 300 K; no BTBT, heating or reliability. Extension requires reviewed PASS pilot. Limits are experiment controls, not a certified model validity range."
+}

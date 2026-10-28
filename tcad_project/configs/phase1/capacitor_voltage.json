@@ -1,0 +1,21 @@
+{
+  "model": {
+    "thickness_nm": 10.0,
+    "relative_permittivity": 3.9,
+    "epsilon0_F_per_cm": 8.8541878128e-14,
+    "left_V": 0.0,
+    "right_V": 0.0,
+    "mesh_intervals": [40],
+    "capacitance_rtol": 0.01,
+    "field_rtol": 1e-8,
+    "potential_atol_V": 1e-9,
+    "charge_balance_atol_C_per_cm2": 1e-14
+  },
+  "delta_v_min_V": -1.0,
+  "delta_v_max_V": 1.0,
+  "point_counts": [21, 41],
+  "field_atol_V_per_cm": 1e-6,
+  "charge_atol_C_per_cm2": 1e-14,
+  "charge_rtol": 1e-8,
+  "step_capacitance_rtol": 0.001
+}

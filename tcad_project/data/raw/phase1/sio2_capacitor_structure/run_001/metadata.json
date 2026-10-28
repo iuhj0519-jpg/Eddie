@@ -1,0 +1,24 @@
+{
+  "utc": "2026-10-04T07:55:52.015232+00:00",
+  "python": "3.14.4",
+  "command": [
+    "/home/iuhj0/projects/Project_Git/tcad_project/validation/analytic/run_capacitor.py",
+    "--config",
+    "configs/phase1/capacitor.json",
+    "--output",
+    "data/raw/phase1/sio2_my_run_001"
+  ],
+  "cwd": "/home/iuhj0/projects/Project_Git/tcad_project",
+  "status": "PASS",
+  "config_sha256": "2d48866e9684532b5cb689333cb8742462ea0420609e94a7a0244a6e0c69291b",
+  "versions": {
+    "devsim": "2.11.0",
+    "matplotlib": "3.11.2"
+  },
+  "git_commit": "bf3c7ee836411beac0a7c96ce12deb49cf7ef9ea",
+  "git_status": "M tcad_project/README.md\n M \"tcad_project/README_TCAD_MOSFET_PROJECT_Github \\354\\243\\274\\354\\206\\214 \\353\\260\\230\\354\\230\\201\\353\\263\\270.md\"\n?? tcad_project/configs/phase1/\n?? tcad_project/docs/PHASE1_SIO2_CAPACITOR.md\n?? tcad_project/docs/opensource_analysis.md\n?? tcad_project/run.log\n?? tcad_project/src/device/sio2_capacitor.py\n?? tcad_project/tests/test_sio2_capacitor.py\n?? tcad_project/validation/analytic/run_capacitor.py",
+  "source_sha256": {
+    "/home/iuhj0/projects/Project_Git/tcad_project/validation/analytic/run_capacitor.py": "7b5d25ca45fd42f883749176bdb449af300c092100d3a7c8cec29b5a583e4f46",
+    "src/device/sio2_capacitor.py": "d9a52e9fe2e2320ff41ec9d2249c300d0bab2080004f0ce79b6473ffef086f4b"
+  }
+}

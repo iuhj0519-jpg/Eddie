@@ -73,7 +73,7 @@ DEVSIM 공식 안내의 대체 수학 라이브러리 구성을 확인한다.
 ## 3. 작업 위치와 기존 계획서 가져오기
 
 Eddie 저장소의 Project_Git에서 분기한 tcad를 [Git 운영 절차](GIT_WORKFLOW.md)에 따라
-WSL의 ~/projects/Project_Git에 clone하고 tcad_project/로 이동한다.
+WSL의 ~/projects/Project_Git에 clone하고 TCAD_Project/로 이동한다.
 그 경우 아래 독립 폴더 생성/문서 복사와 6절의 git init은 건너뛴다.
 프로젝트 하위에 중첩 .git을 만들지 않는다.
 아래 독립 폴더 방식은 Eddie의 tcad 작업 트리를 사용하지 않는 경우에만 적용한다.
@@ -256,7 +256,7 @@ Python interpreter는 .venv/bin/python을 선택한다.
 tcad 브랜치 작업 트리에서는 매 세션을 다음으로 시작한다.
 
 ```bash
-cd ~/projects/Project_Git/tcad_project
+cd ~/projects/Project_Git/TCAD_Project
 source .venv/bin/activate
 git branch --show-current
 git status

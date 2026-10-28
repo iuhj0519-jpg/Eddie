@@ -1,0 +1,68 @@
+{
+  "matched_points": 65,
+  "failed_rows": 65,
+  "passed_rows": 192,
+  "max_absolute_differences": {
+    "J_A_per_cm2": 4.114299278319683e-13,
+    "charge_equivalent_W_cm": 1.3552527156068805e-20,
+    "peak_abs_E_V_per_cm": 9.822542779147625e-11,
+    "terminal_balance_A_per_cm2": 2.633276096453267e-10,
+    "current_span_A_per_cm2": 1.7854426455280734e-09,
+    "width_relative_difference": 3.3306690738754696e-16
+  },
+  "provenance": "Postprocessed saved data; no solve. Partial failed run is not a complete sweep.",
+  "failed_checks": [
+    {
+      "line": 417,
+      "case": "reverse",
+      "intervals": "400",
+      "refinement": "1",
+      "applied_V": "0.0",
+      "check": "edge_total_current_uniformity",
+      "error": "1.785442645528076e-09",
+      "limit": "1.0000908745251118e-09",
+      "passed": "False"
+    }
+  ],
+  "failed_point_comparison": {
+    "run_001": {
+      "applied_V": 0.0,
+      "intervals": 400.0,
+      "J_A_per_cm2": -2.322660614598136e-13,
+      "terminal_left_raw": 1.2796249477379189e-11,
+      "terminal_right_raw": -2.761238591227082e-10,
+      "terminal_balance_A_per_cm2": 2.63327609645329e-10,
+      "current_span_A_per_cm2": 1.785442645528076e-09,
+      "charge_equivalent_W_cm": 4.139831969977983e-05,
+      "depletion_reference_W_cm": 4.298210035433547e-05,
+      "width_relative_difference": 0.03684744676270535,
+      "width_comparison_gated": true,
+      "peak_abs_E_V_per_cm": 31626.510173153965,
+      "current_resolved": false,
+      "converged": true,
+      "refinement": 1.0,
+      "branch": "reverse",
+      "state_file": "mesh_400_step_1_reverse_000.json"
+    },
+    "run_002": {
+      "applied_V": 0.0,
+      "intervals": 400.0,
+      "J_A_per_cm2": 4.694836428872329e-25,
+      "terminal_left_raw": 1.1263366898830454e-25,
+      "terminal_right_raw": -2.4384336018581788e-24,
+      "terminal_balance_A_per_cm2": 2.3257999328698743e-24,
+      "current_span_A_per_cm2": 2.5539752171916954e-24,
+      "charge_equivalent_W_cm": 4.139831969977984e-05,
+      "depletion_reference_W_cm": 4.298210035433547e-05,
+      "width_relative_difference": 0.03684744676270524,
+      "width_comparison_gated": true,
+      "peak_abs_E_V_per_cm": 31626.51017315388,
+      "current_resolved": false,
+      "converged": true,
+      "refinement": 1.0,
+      "branch": "reverse",
+      "state_file": "mesh_400_step_1_reverse_000.json"
+    }
+  },
+  "existing_files_unchanged": 279
+}
