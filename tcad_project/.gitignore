@@ -16,9 +16,7 @@ tmp/
 
 # Exclude large TCAD intermediate results
 # Raw simulation intermediates
-data/raw/**/mesh_*.json
-data/raw/**/off_mesh_*.json
-data/raw/**/on_mesh_*.json
+data/raw/**/*mesh_*.json
 data/raw/**/state_*.json
 data/raw/**/*.vtu
 data/raw/**/*.vtm
