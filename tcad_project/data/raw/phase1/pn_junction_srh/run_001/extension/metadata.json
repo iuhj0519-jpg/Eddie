@@ -1,0 +1,55 @@
+{
+  "status": "FAIL",
+  "stage": "extension",
+  "utc": "2026-10-25T07:22:34.726743+00:00",
+  "python": "3.14.4",
+  "source_sha256": {
+    "src/device/pn_junction.py": "6ecdadfd4342d181cc780b99121ed58e7c8cc1a2506480cfbcc1cb57e819a9a0",
+    "src/physics/srh.py": "363ab1912194a8d52891e47c0ad82d81705c6e70919628b19afed38a64db1542",
+    "validation/analytic/pn_junction/run_srh.py": "165af5748e290c3ac9a5c44b8a8c67f2a180649956f09848f195216b87d846f6",
+    "validation/analytic/pn_junction/run_voltage.py": "67301263e739e822e681feeaa9fc4c095bc8e3185fca43be556a4e56d14b759a",
+    "validation/analytic/pn_junction/run_pn_junction.py": "d4db6e66544319328b3327171e4cc279b80395d08bf1bec221cb31bd03823421",
+    "validation/analytic/pn_junction/export_vtm.py": "fb136905dd9e079857a689f7abcda9852fc87dff2492dfdc86a8a73ed51f25e9"
+  },
+  "config_sha256": {
+    "pn_junction_srh.json": "09f2f3bf93acc2b1f94144a1cba2a5665ec28b0eae2393673e95a5ef892ebdbb",
+    "pn_junction.json": "a7a9a525e7106ebd7bb2a92c49a4a8603b0748d7d29f14b727f37c22d91307fe"
+  },
+  "command": {
+    "config": "configs/phase1/pn_junction_srh.json",
+    "stage": "extension",
+    "baseline_run": "/home/iuhj0/projects/Project_Git/tcad_project/data/raw/phase1/pn_junction_voltage_sweep/run_001/extension",
+    "pilot_run": "/home/iuhj0/projects/Project_Git/tcad_project/data/raw/phase1/pn_junction_srh/run_001/pilot",
+    "output": "data/raw/phase1/pn_junction_srh/run_001/extension",
+    "reviewed_runner_change": "Reviewed SRH-only config separation, reference overlap and NaN plotting; solver, physics, assessment tolerances and pilot grids unchanged; 8 tests PASS"
+  },
+  "baseline_path": "/home/iuhj0/projects/Project_Git/tcad_project/data/raw/phase1/pn_junction_voltage_sweep/run_001/extension",
+  "baseline_iv_sha256": "fcd02d92237b94c0a82ec68da0f111b5c4354144cd8804d89d945b252b1a6559",
+  "pilot_compatibility_review": {
+    "reason": "Reviewed SRH-only config separation, reference overlap and NaN plotting; solver, physics, assessment tolerances and pilot grids unchanged; 8 tests PASS",
+    "changed_sources": [
+      "validation/analytic/pn_junction/run_srh.py"
+    ],
+    "old_source_sha256": {
+      "src/device/pn_junction.py": "6ecdadfd4342d181cc780b99121ed58e7c8cc1a2506480cfbcc1cb57e819a9a0",
+      "src/physics/srh.py": "363ab1912194a8d52891e47c0ad82d81705c6e70919628b19afed38a64db1542",
+      "validation/analytic/pn_junction/run_srh.py": "35d5bab55347ca6e264d9ac2d40d68e2c249fcb5922b468d8b0085544dfb53fc",
+      "validation/analytic/pn_junction/run_voltage.py": "67301263e739e822e681feeaa9fc4c095bc8e3185fca43be556a4e56d14b759a",
+      "validation/analytic/pn_junction/run_pn_junction.py": "d4db6e66544319328b3327171e4cc279b80395d08bf1bec221cb31bd03823421",
+      "validation/analytic/pn_junction/export_vtm.py": "fb136905dd9e079857a689f7abcda9852fc87dff2492dfdc86a8a73ed51f25e9"
+    },
+    "pilot_metadata_sha256": "b4e1eeaab1f58d4058508ba88b85794014056db64ee001ca238e321ab593a030",
+    "physics_solver_and_pilot_grid_match": true,
+    "allowed_configuration_changes": "Extension grid, display labels and SRH config packaging only"
+  },
+  "versions": {
+    "devsim": "2.11.0",
+    "matplotlib": "3.11.2"
+  },
+  "helper_sha256": {
+    "devsim.python_packages.simple_physics": "c1f66b11df7d1b96f41f123b9c5841681655438fc17e13e60906274f7d99490f",
+    "devsim.python_packages.simple_dd": "a3afeeb73a00199f481608587465ad42b453c715cdcb409240d6742574d0d91d"
+  },
+  "commit": "cc54f7048c395d673e79725c1fac4d5359a2189d",
+  "dirty_status": "M tcad_project/.gitignore\n D tcad_project/data/raw/phase1/sio2_my_run_001/capacitor.png\n D tcad_project/data/raw/phase1/sio2_my_run_001/config.json\n D tcad_project/data/raw/phase1/sio2_my_run_001/mesh_10.json\n D tcad_project/data/raw/phase1/sio2_my_run_001/mesh_20.json\n D tcad_project/data/raw/phase1/sio2_my_run_001/mesh_40.json\n D tcad_project/data/raw/phase1/sio2_my_run_001/metadata.json\n D tcad_project/data/raw/phase1/sio2_my_run_001/validation.csv\n M tcad_project/docs/PHASE1_SIO2_CAPACITOR.md\n M tcad_project/references/README.md\n D tcad_project/src/device/sio2_capacitor.py\n D tcad_project/tests/test_sio2_capacitor.py\n D tcad_project/validation/analytic/run_capacitor.py\n?? tcad_project/configs/phase1/capacitor_thickness.json\n?? tcad_project/configs/phase1/capacitor_voltage.json\n?? tcad_project/configs/phase1/multilayer_capacitor.json\n?? tcad_project/configs/phase1/multilayer_sio2_hfo2_capacitor.json\n?? tcad_project/configs/phase1/multilayer_sio2_hfo2_capacitor_thickness.json\n?? tcad_project/configs/phase1/multilayer_sio2_hfo2_capacitor_voltage.json\n?? tcad_project/configs/phase1/pn_junction.json\n?? tcad_project/configs/phase1/pn_junction_srh.json\n?? tcad_project/configs/phase1/pn_junction_voltage.json\n?? tcad_project/data/processed/pn_extension_depletion.csv\n?? tcad_project/data/processed/pn_extension_depletion_summary.json\n?? tcad_project/data/raw/phase1/sio2_capacitor_structure/\n?? tcad_project/docs/PHASE1_PN_JUNCTION.md\n?? tcad_project/figures/pn_extension_profiles.png\n?? tcad_project/figures/pn_extension_width_comparison.png\n?? tcad_project/figures/pn_pilot_comparison.json\n?? tcad_project/figures/pn_pilot_current_uniformity.png\n?? tcad_project/figures/pn_srh_run_001_pilot_profiles.png\n?? tcad_project/run.log\n?? tcad_project/src/device/capacitor.py\n?? tcad_project/src/device/pn_junction.py\n?? tcad_project/src/extraction/capacitance.py\n?? tcad_project/src/physics/srh.py\n?? tcad_project/tests/regression/\n?? tcad_project/tests/unit/\n?? tcad_project/validation/analytic/capacitor/\n?? tcad_project/validation/analytic/pn_junction/"
+}

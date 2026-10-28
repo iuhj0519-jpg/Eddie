@@ -1,0 +1,26 @@
+{
+  "solves": 4,
+  "checks": 35,
+  "failed": 1,
+  "reference": {
+    "thermal_voltage_V": 0.025851999786435535,
+    "epsilon_F_per_cm": 1.0359399740976e-12,
+    "Vbi_V": 0.7143171519879805,
+    "xp_cm": 2.1491050177167734e-05,
+    "xn_cm": 2.1491050177167734e-05,
+    "W_cm": 4.298210035433547e-05,
+    "E_peak_V_per_cm": -33237.88954468483,
+    "left_potential_V": -0.3571585759940161,
+    "right_potential_V": 0.3571585759940161
+  },
+  "vtk_files": [
+    "pn_junction.vtu",
+    "pn_junction.vtm"
+  ],
+  "caveats": [
+    "Vbi uses contact boundary potentials; not an independent test of spatial profile.",
+    "np and quasi-Fermi consistency follow from the equilibrium carrier model.",
+    "Charge-equivalent width is compared with depletion approximation, not an exact analytic solution.",
+    "VTK XML and ParaView visual correctness require a separate first-run check."
+  ]
+}

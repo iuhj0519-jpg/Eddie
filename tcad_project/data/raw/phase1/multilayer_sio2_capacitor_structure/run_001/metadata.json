@@ -1,0 +1,24 @@
+{
+  "utc": "2026-10-09T01:39:32.285506+00:00",
+  "python": "3.14.4",
+  "command": [
+    "/home/iuhj0/projects/Project_Git/tcad_project/validation/analytic/run_capacitor.py",
+    "--config",
+    "configs/phase1/capacitor_multilayer.json",
+    "--output",
+    "data/raw/phase1/multilayer_sio2_capacitor_structure/run_001"
+  ],
+  "cwd": "/home/iuhj0/projects/Project_Git/tcad_project",
+  "status": "PASS",
+  "config_sha256": "7075af4b838c54468aa622bcf8b4e345ac01ab7d13bc604c39947af1d6009371",
+  "versions": {
+    "devsim": "2.11.0",
+    "matplotlib": "3.11.2"
+  },
+  "git_commit": "cc54f7048c395d673e79725c1fac4d5359a2189d",
+  "git_status": "M tcad_project/.gitignore\n D tcad_project/data/raw/phase1/sio2_my_run_001/capacitor.png\n D tcad_project/data/raw/phase1/sio2_my_run_001/config.json\n D tcad_project/data/raw/phase1/sio2_my_run_001/mesh_10.json\n D tcad_project/data/raw/phase1/sio2_my_run_001/mesh_20.json\n D tcad_project/data/raw/phase1/sio2_my_run_001/mesh_40.json\n D tcad_project/data/raw/phase1/sio2_my_run_001/metadata.json\n D tcad_project/data/raw/phase1/sio2_my_run_001/validation.csv\n M tcad_project/docs/PHASE1_SIO2_CAPACITOR.md\n M tcad_project/src/device/sio2_capacitor.py\n D tcad_project/tests/test_sio2_capacitor.py\n M tcad_project/validation/analytic/run_capacitor.py\n?? tcad_project/configs/phase1/capacitor_multilayer.json\n?? tcad_project/configs/phase1/capacitor_thickness.json\n?? tcad_project/configs/phase1/capacitor_voltage.json\n?? tcad_project/data/raw/phase1/capacitor_structure/\n?? tcad_project/run.log\n?? tcad_project/src/extraction/capacitance.py\n?? tcad_project/tests/regression/\n?? tcad_project/tests/unit/\n?? tcad_project/validation/analytic/capacitor/",
+  "source_sha256": {
+    "/home/iuhj0/projects/Project_Git/tcad_project/validation/analytic/run_capacitor.py": "6f0722590f153276ec12e6ae80267ac9f62ed7a7ff4b4ef2e46a5908c98c64d1",
+    "src/device/sio2_capacitor.py": "999f44c95575b1c9486f85752001d11644d4e5cae4e48c9d2b59cbcc0c8bbf32"
+  }
+}

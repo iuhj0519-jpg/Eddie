@@ -1,0 +1,17 @@
+{
+  "status": "FAIL",
+  "stage": "extension",
+  "saved_states": 6168,
+  "checks": 90989,
+  "failed": 644,
+  "saved_reference_voltage_range_V": [
+    -0.2,
+    0.3
+  ],
+  "off_states_without_saved_reference": 630,
+  "limitations": [
+    "Educational lifetimes, not calibrated leakage.",
+    "Forward width above +0.10 V remains diagnostic, not a 5% PASS claim.",
+    "No avalanche, BTBT, tunneling or reliability model."
+  ]
+}

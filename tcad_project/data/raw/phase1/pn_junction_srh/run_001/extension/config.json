@@ -1,0 +1,214 @@
+{
+  "base_model": {
+    "model": "equilibrium_poisson_boltzmann",
+    "material": "Silicon",
+    "parameter_note": "Educational constant-parameter baseline, not calibrated process data. ni is explicitly fixed at this temperature; do not temperature-sweep without a validated ni(T).",
+    "temperature_K": 300.0,
+    "p_length_nm": 1000.0,
+    "n_length_nm": 1000.0,
+    "acceptors_cm3": 1e+16,
+    "donors_cm3": 1e+16,
+    "intrinsic_density_cm3": 10000000000.0,
+    "relative_permittivity": 11.7,
+    "epsilon0_F_per_cm": 8.8541878128e-14,
+    "electron_charge_C": 1.602176634e-19,
+    "boltzmann_J_per_K": 1.380649e-23,
+    "electron_mobility_cm2_per_Vs": 1350.0,
+    "hole_mobility_cm2_per_Vs": 480.0,
+    "left_bias_V": 0.0,
+    "right_bias_V": 0.0,
+    "mesh_intervals": [
+      200,
+      400,
+      800
+    ],
+    "domain_check_scale": 2.0,
+    "solver_absolute_error": 1e-12,
+    "solver_relative_error": 1e-10,
+    "solver_maximum_iterations": 100,
+    "vbi_rtol": 0.02,
+    "depletion_width_rtol": 0.05,
+    "mass_action_rtol": 1e-10,
+    "equilibrium_current_atol_A_per_cm2": 1e-06,
+    "gauss_atol_C_per_cm2": 1e-12,
+    "mesh_metric_rtol": 0.02,
+    "domain_metric_rtol": 0.02
+  },
+  "transport": {
+    "model": "drift_diffusion_no_recombination",
+    "bias_definition": "V_P_minus_V_N; left=P driven, right=N at 0 V",
+    "assessment": "interface_sided_v1",
+    "stages": {
+      "pilot": {
+        "reverse_segments": [
+          [
+            0.0,
+            -0.1,
+            -0.01
+          ]
+        ],
+        "forward_segments": [
+          [
+            0.0,
+            0.1,
+            0.01
+          ]
+        ],
+        "vtk_biases_V": [
+          -0.1,
+          0.0,
+          0.1
+        ]
+      },
+      "extension": {
+        "reverse_segments": [
+          [
+            0.0,
+            -0.2,
+            -0.005
+          ]
+        ],
+        "forward_segments": [
+          [
+            0.0,
+            0.65,
+            0.005
+          ]
+        ],
+        "vtk_biases_V": [
+          -0.2,
+          0.0,
+          0.1,
+          0.3,
+          0.5,
+          0.65
+        ]
+      }
+    },
+    "step_refinements": [
+      1,
+      2
+    ],
+    "extended_precision": true,
+    "dd_absolute_error": 1000000.0,
+    "dd_relative_error": 1e-10,
+    "dd_maximum_iterations": 100,
+    "minimum_continuation_step_V": 0.0003125,
+    "maximum_bisection_depth": 6,
+    "current_atol_A_per_cm2": 1e-09,
+    "current_conservation_rtol": 0.0001,
+    "comparison_rtol": 0.02,
+    "potential_atol_V": 1e-08,
+    "width_depletion_rtol": 0.05,
+    "width_gate_max_forward_V": 0.1
+  },
+  "experiment": {
+    "base_config": "pn_junction.json",
+    "transport": {
+      "model": "drift_diffusion_no_recombination",
+      "bias_definition": "V_P_minus_V_N; left=P driven, right=N at 0 V",
+      "assessment": "interface_sided_v1",
+      "stages": {
+        "pilot": {
+          "reverse_segments": [
+            [
+              0.0,
+              -0.1,
+              -0.01
+            ]
+          ],
+          "forward_segments": [
+            [
+              0.0,
+              0.1,
+              0.01
+            ]
+          ],
+          "vtk_biases_V": [
+            -0.1,
+            0.0,
+            0.1
+          ]
+        },
+        "extension": {
+          "reverse_segments": [
+            [
+              0.0,
+              -0.2,
+              -0.005
+            ]
+          ],
+          "forward_segments": [
+            [
+              0.0,
+              0.65,
+              0.005
+            ]
+          ],
+          "vtk_biases_V": [
+            -0.2,
+            0.0,
+            0.1,
+            0.3,
+            0.5,
+            0.65
+          ]
+        }
+      },
+      "step_refinements": [
+        1,
+        2
+      ],
+      "extended_precision": true,
+      "dd_absolute_error": 1000000.0,
+      "dd_relative_error": 1e-10,
+      "dd_maximum_iterations": 100,
+      "minimum_continuation_step_V": 0.0003125,
+      "maximum_bisection_depth": 6,
+      "current_atol_A_per_cm2": 1e-09,
+      "current_conservation_rtol": 0.0001,
+      "comparison_rtol": 0.02,
+      "potential_atol_V": 1e-08,
+      "width_depletion_rtol": 0.05,
+      "width_gate_max_forward_V": 0.1
+    },
+    "model": "drift_diffusion_srh",
+    "cases": [
+      {
+        "name": "off",
+        "display_name": "SRH OFF",
+        "enabled": false,
+        "tau_n_s": 1e-06,
+        "tau_p_s": 1e-06,
+        "trap_energy_minus_intrinsic_eV": 0.0
+      },
+      {
+        "name": "tau_1us",
+        "display_name": "tau = 1 us",
+        "enabled": true,
+        "tau_n_s": 1e-06,
+        "tau_p_s": 1e-06,
+        "trap_energy_minus_intrinsic_eV": 0.0
+      },
+      {
+        "name": "tau_0p1us",
+        "display_name": "tau = 0.1 us",
+        "enabled": true,
+        "tau_n_s": 1e-07,
+        "tau_p_s": 1e-07,
+        "trap_energy_minus_intrinsic_eV": 0.0
+      },
+      {
+        "name": "tau_10us",
+        "display_name": "tau = 10 us",
+        "enabled": true,
+        "tau_n_s": 1e-05,
+        "tau_p_s": 1e-05,
+        "trap_energy_minus_intrinsic_eV": 0.0
+      }
+    ],
+    "equilibrium_mass_action_rtol": 1e-08,
+    "parameter_provenance": "Educational sensitivity assumptions, not measured Si lifetimes or copied Sentaurus defaults. Single level Et=Ei, tau_n=tau_p; fixed 300 K; no trap charge.",
+    "note": "Inherit only the base structure. Transport settings and bias grids are SRH-specific; no voltage-sweep JSON dependency. No avalanche, BTBT, tunneling or reliability prediction."
+  }
+}

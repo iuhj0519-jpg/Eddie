@@ -1,0 +1,39 @@
+{
+  "model": {
+    "thickness_nm": 10.0,
+    "layer_thicknesses_nm": [
+      5.0,
+      5.0
+    ],
+    "layer_materials": [
+      "SiO2",
+      "HfO2"
+    ],
+    "layer_relative_permittivities": [
+      3.9,
+      20.0
+    ],
+    "relative_permittivity": 3.9,
+    "permittivity_note": "Layer values override relative_permittivity; HfO2 k=20 is an electrostatic model assumption, not calibrated.",
+    "epsilon0_F_per_cm": 8.8541878128e-14,
+    "left_V": 0.0,
+    "right_V": 0.0,
+    "mesh_intervals": [
+      40
+    ],
+    "capacitance_rtol": 0.01,
+    "field_rtol": 1e-08,
+    "potential_atol_V": 1e-09,
+    "charge_balance_atol_C_per_cm2": 1e-14
+  },
+  "delta_v_min_V": -1.0,
+  "delta_v_max_V": 1.0,
+  "point_counts": [
+    21,
+    41
+  ],
+  "field_atol_V_per_cm": 1e-06,
+  "charge_atol_C_per_cm2": 1e-14,
+  "charge_rtol": 1e-08,
+  "step_capacitance_rtol": 0.001
+}

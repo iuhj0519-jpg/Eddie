@@ -1,0 +1,29 @@
+{
+  "assessment": "interface_sided",
+  "status": "PASS",
+  "utc": "2026-10-12T06:09:05.149488+00:00",
+  "command": [
+    "/home/iuhj0/projects/Project_Git/tcad_project/validation/analytic/pn_junction/run_pn_junction.py",
+    "--config",
+    "configs/phase1/pn_junction.json",
+    "--assessment",
+    "interface_sided",
+    "--output",
+    "data/raw/phase1/pn_junction_structure/run_002"
+  ],
+  "cwd": "/home/iuhj0/projects/Project_Git/tcad_project",
+  "python": "3.14.4",
+  "versions": {
+    "devsim": "2.11.0",
+    "matplotlib": "3.11.2"
+  },
+  "config_sha256": "a7a9a525e7106ebd7bb2a92c49a4a8603b0748d7d29f14b727f37c22d91307fe",
+  "source_sha256": {
+    "/home/iuhj0/projects/Project_Git/tcad_project/validation/analytic/pn_junction/run_pn_junction.py": "d4db6e66544319328b3327171e4cc279b80395d08bf1bec221cb31bd03823421",
+    "src/device/pn_junction.py": "ba56211de69fd0a2f9643c8f6bf63ce11ccbdee3e9cc2056352e9dae57334140",
+    "validation/analytic/pn_junction/export_vtm.py": "fb136905dd9e079857a689f7abcda9852fc87dff2492dfdc86a8a73ed51f25e9"
+  },
+  "physics_helper_sha256": "c1f66b11df7d1b96f41f123b9c5841681655438fc17e13e60906274f7d99490f",
+  "commit": "cc54f7048c395d673e79725c1fac4d5359a2189d",
+  "dirty_status": "M tcad_project/.gitignore\n D tcad_project/data/raw/phase1/sio2_my_run_001/capacitor.png\n D tcad_project/data/raw/phase1/sio2_my_run_001/config.json\n D tcad_project/data/raw/phase1/sio2_my_run_001/mesh_10.json\n D tcad_project/data/raw/phase1/sio2_my_run_001/mesh_20.json\n D tcad_project/data/raw/phase1/sio2_my_run_001/mesh_40.json\n D tcad_project/data/raw/phase1/sio2_my_run_001/metadata.json\n D tcad_project/data/raw/phase1/sio2_my_run_001/validation.csv\n M tcad_project/docs/PHASE1_SIO2_CAPACITOR.md\n D tcad_project/src/device/sio2_capacitor.py\n D tcad_project/tests/test_sio2_capacitor.py\n D tcad_project/validation/analytic/run_capacitor.py\n?? tcad_project/configs/phase1/capacitor_thickness.json\n?? tcad_project/configs/phase1/capacitor_voltage.json\n?? tcad_project/configs/phase1/multilayer_capacitor.json\n?? tcad_project/configs/phase1/multilayer_sio2_hfo2_capacitor.json\n?? tcad_project/configs/phase1/multilayer_sio2_hfo2_capacitor_thickness.json\n?? tcad_project/configs/phase1/multilayer_sio2_hfo2_capacitor_voltage.json\n?? tcad_project/configs/phase1/pn_junction.json\n?? tcad_project/data/raw/phase1/sio2_capacitor_structure/\n?? tcad_project/docs/PHASE1_PN_JUNCTION.md\n?? tcad_project/run.log\n?? tcad_project/src/device/capacitor.py\n?? tcad_project/src/device/pn_junction.py\n?? tcad_project/src/extraction/capacitance.py\n?? tcad_project/tests/regression/\n?? tcad_project/tests/unit/\n?? tcad_project/validation/analytic/capacitor/\n?? tcad_project/validation/analytic/pn_junction/"
+}

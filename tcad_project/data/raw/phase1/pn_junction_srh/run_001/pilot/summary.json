@@ -1,0 +1,12 @@
+{
+  "status": "PASS",
+  "stage": "pilot",
+  "saved_states": 768,
+  "checks": 12155,
+  "failed": 0,
+  "limitations": [
+    "Educational lifetimes, not calibrated leakage.",
+    "Forward width above +0.10 V remains diagnostic, not a 5% PASS claim.",
+    "No avalanche, BTBT, tunneling or reliability model."
+  ]
+}

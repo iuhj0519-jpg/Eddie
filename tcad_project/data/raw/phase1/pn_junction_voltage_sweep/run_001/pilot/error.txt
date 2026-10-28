@@ -1,0 +1,6 @@
+Traceback (most recent call last):
+  File "/home/iuhj0/projects/Project_Git/tcad_project/validation/analytic/pn_junction/run_voltage.py", line 177, in main
+    summary=run(config,sweep,args.stage,out)
+  File "/home/iuhj0/projects/Project_Git/tcad_project/validation/analytic/pn_junction/run_voltage.py", line 101, in run
+    raise RuntimeError(f'Validation gate failed: {prefix}; inspect validation.csv')
+RuntimeError: Validation gate failed: mesh_400_step_1_reverse_000; inspect validation.csv

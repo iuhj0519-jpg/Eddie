@@ -4,26 +4,37 @@ __pycache__/
 .pytest_cache/
 .ipynb_checkpoints/
 tmp/
-data/raw/*
-!data/raw/.gitkeep
-# Reviewed small Phase 1 baseline only; other raw runs remain ignored.
-!data/raw/phase1/
-data/raw/phase1/*
-!data/raw/phase1/sio2_capacitor_structure/
-data/raw/phase1/sio2_capacitor_structure/*
-!data/raw/phase1/sio2_capacitor_structure/run_001/
-data/raw/phase1/sio2_capacitor_structure/run_001/*
-!data/raw/phase1/sio2_capacitor_structure/run_001/validation.csv
-!data/raw/phase1/sio2_capacitor_structure/run_001/capacitor.png
-!data/raw/phase1/sio2_capacitor_structure/run_001/config.json
-!data/raw/phase1/sio2_capacitor_structure/run_001/metadata.json
-!data/raw/phase1/sio2_capacitor_structure/run_001/mesh_10.json
-!data/raw/phase1/sio2_capacitor_structure/run_001/mesh_20.json
-!data/raw/phase1/sio2_capacitor_structure/run_001/mesh_40.json
+
+# Python environment
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ipynb_checkpoints/
+tmp/
 *.tmp
+
+# Exclude large TCAD intermediate results
+# Raw simulation intermediates
+data/raw/**/mesh_*.json
+data/raw/**/state_*.json
+data/raw/**/*.vtu
+data/raw/**/*.vtm
+
+# Exclude large convergence logs
+# Potentially large solver logs
+data/raw/**/convergence.jsonl
+
+# Temporary operating system files
 .DS_Store
+
+# Local credentials
 .env
 .env.*
 !.env.example
-# 제3자 논문은 초기 Git 배포에서 제외; references/에 URL/DOI 기록
+
+# Third-party papers
 *.pdf
+
+# Local backup
+*.gitignore.backup

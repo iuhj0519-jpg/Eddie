@@ -1,0 +1,23 @@
+{
+  "utc": "2026-10-05T01:59:02.585376+00:00",
+  "status": "PASS",
+  "python": "3.14.4",
+  "command": [
+    "/home/iuhj0/projects/Project_Git/tcad_project/validation/analytic/capacitor/run_qv.py",
+    "--output",
+    "data/raw/phase1/sio2_qv_verified_20261005"
+  ],
+  "versions": {
+    "devsim": "2.11.0",
+    "numpy": "2.5.3",
+    "matplotlib": "3.11.2"
+  },
+  "config_sha256": "b0d749bc897bb6d8bfdb847e506e5c0540b068c92b40f0398126222cd051d557",
+  "commit": "cc54f7048c395d673e79725c1fac4d5359a2189d",
+  "dirty_status": "M tcad_project/docs/PHASE1_SIO2_CAPACITOR.md\n M tcad_project/src/device/sio2_capacitor.py\n M tcad_project/tests/test_sio2_capacitor.py\n M tcad_project/validation/analytic/run_capacitor.py\n?? tcad_project/configs/phase1/capacitor_qv.json\n?? tcad_project/run.log\n?? tcad_project/src/extraction/capacitance.py\n?? tcad_project/tests/test_capacitor_qv.py\n?? tcad_project/validation/analytic/capacitor/",
+  "source_sha256": {
+    "/home/iuhj0/projects/Project_Git/tcad_project/validation/analytic/capacitor/run_qv.py": "4d1ac4dbe23ca65f2c4acaf91bcf422ae04bb7d7a44819f1b75dac8dbacadefa",
+    "src/device/sio2_capacitor.py": "28b515a21dcaf85dd6164e85a14615683f24e73c5e086e6ef0c0a4eee19d74b0",
+    "src/extraction/capacitance.py": "c79c1b39e1c2d9712a5836f3c5fb57f1b062c022375b6b730791840896752281"
+  }
+}

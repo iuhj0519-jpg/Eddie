@@ -1,0 +1,7 @@
+{
+  "status": "INCOMPLETE",
+  "stage": "pilot",
+  "requested_points_completed": 65,
+  "failed": 1,
+  "note": "Stopped at first exhausted solve or failed point gate; no success claim."
+}

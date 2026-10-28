@@ -1,0 +1,17 @@
+{
+  "expected_C_per_area_F_per_cm2": 3.453133246992e-07,
+  "sweeps": [
+    {
+      "points": 21,
+      "step_V": 0.1,
+      "fit_C_per_area_F_per_cm2": 3.453133246992004e-07
+    },
+    {
+      "points": 41,
+      "step_V": 0.05,
+      "fit_C_per_area_F_per_cm2": 3.4531332469920013e-07
+    }
+  ],
+  "checks": 318,
+  "failed": 0
+}

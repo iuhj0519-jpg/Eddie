@@ -1,0 +1,15 @@
+{
+  "status": "PASS",
+  "stage": "pilot",
+  "requested_points_completed": 192,
+  "checks": 1842,
+  "failed": 0,
+  "extraction": "interface_sided_v1",
+  "model": "drift_diffusion_no_recombination",
+  "limitations": [
+    "No domain enlargement test in this sweep; equilibrium domain check is not sufficient for biased transport.",
+    "Small reverse currents below configured noise floor are unresolved, not physical zero.",
+    "Width at forward bias above gate is reported, not forced to match depletion approximation.",
+    "No recombination: short-base/contact-driven injection; not a calibrated leakage or breakdown model."
+  ]
+}
